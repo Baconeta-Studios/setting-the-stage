@@ -2,7 +2,7 @@
 
 namespace Utils
 {
-    public class Singleton<T> : MonoBehaviour where T : Component
+    public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         /// <summary>
         /// Singleton pattern
@@ -41,7 +41,7 @@ namespace Utils
             }
             else
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }
