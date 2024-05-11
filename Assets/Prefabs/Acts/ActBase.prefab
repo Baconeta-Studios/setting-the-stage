@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &483966810412490276
+--- !u!1 &3992261474338462211
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9143277675882877276}
-  - component: {fileID: 6692664359650753856}
+  - component: {fileID: 1117158856490143999}
+  - component: {fileID: 1389744847993714235}
   m_Layer: 0
-  m_Name: SceneLoader
+  m_Name: ActBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9143277675882877276
+--- !u!4 &1117158856490143999
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483966810412490276}
+  m_GameObject: {fileID: 3992261474338462211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1249.2678, y: 516.8162, z: 50.093685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6692664359650753856
+--- !u!114 &1389744847993714235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483966810412490276}
+  m_GameObject: {fileID: 3992261474338462211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5409ffcdda9443249b116c51626b8061, type: 3}
+  m_Script: {fileID: 11500000, guid: fbe9bf36872be3b4a8d99345e88f8947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenes:
-  - sceneDisplayName: Main Menu
-    sceneAsset: {fileID: 102900000, guid: d2fa76ed6cd169f498cb25d32cee7753, type: 3}
+  chapters: []
+  currentChapter:
+    sceneDisplayName: 
+    sceneAsset: {fileID: 0}
     loadSceneMode: 0
-  - sceneDisplayName: Game Options
-    sceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    loadSceneMode: 1
-  - sceneDisplayName: Act 1
-    sceneAsset: {fileID: 102900000, guid: 2c7109a448e905f4ab97ce23ff7c2f9f, type: 3}
-    loadSceneMode: 0
-  openScenes: []

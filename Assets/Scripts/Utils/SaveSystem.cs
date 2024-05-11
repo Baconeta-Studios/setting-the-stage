@@ -1,16 +1,26 @@
 using System;
+using CustomEditor;
 using UnityEngine;
 
 namespace Utils
 {
-    public class SaveSystem : MonoBehaviour
+    public class SaveSystem : Singleton<SaveSystem>
     {
         [Serializable]
         public class UserData
         {
             // Add desired save data here.
+            [ReadOnly]
             public string userName;
 
+            // The current act the player is up to
+            [ReadOnly]
+            public int currentAct;
+            
+            // The current chapter the player is up to
+            [ReadOnly]
+            public int currentChapter;
+            
             public UserData(string userName)
             {
                 this.userName = userName;
@@ -29,7 +39,7 @@ namespace Utils
         {
             string jsonData = JsonUtility.ToJson(data);
             FileUtils.WriteToFile("SettingTheStageUserSave", jsonData);
-            StSDebug.Log("Game Saved");
+            StSDebug.Log("User Data Saved");
         }
 
         public void LoadUserData()
@@ -40,8 +50,37 @@ namespace Utils
 
             userData = loadedData;
             
-            StSDebug.Log("Game Loaded");
+            StSDebug.Log("User Data Loaded");
+        }
 
+        public void ResetUserData()
+        {
+            userData.userName = "";
+            userData.currentAct = -1;
+            userData.currentChapter = -1;
+            StSDebug.LogWarning("User Data Reset!");
+            SaveUserData(userData);
+        }
+
+        protected override void Awake() 
+        {
+            base.Awake();
+            LoadUserData();
+        }
+
+        public void ChapterCompleted(int actNumber, int chapterNumber)
+        {
+            if (userData.currentAct < actNumber)
+            {
+                userData.currentAct = actNumber;
+
+                if (userData.currentChapter < chapterNumber)
+                {
+                    userData.currentChapter = chapterNumber;
+                }
+                
+                SaveUserData(userData);
+            }
         }
     }
 }
