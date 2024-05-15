@@ -8,18 +8,8 @@ using UnityEngine.SceneManagement;
 using Utils;
 
 [Serializable]
-public enum StSSceneID
-{
-    MainMenu,
-    GameOptions,
-    Act,
-    Chapter,
-}
-
-[Serializable]
 public struct SceneStruct
 {
-    public StSSceneID sceneID;
     public string sceneDisplayName;
     public SceneAsset sceneAsset;
     public LoadSceneMode loadSceneMode;
@@ -27,15 +17,17 @@ public struct SceneStruct
 
 public class SceneLoader : Singleton<SceneLoader>
 {
+    public event Action onSceneOpened;
+    
     [Header("Scenes")] 
     [SerializeField] 
     private List<SceneStruct> scenes;
     [SerializeField]
     private List<SceneStruct> openScenes = new List<SceneStruct>();
 
+
     void OnEnable()
     {
-        
         // Make sure that the current scene is accounted for in open scenes
         SceneStruct currentScene = scenes.Find(x => x.sceneAsset.name == SceneManager.GetActiveScene().name);
         if (!openScenes.Contains(currentScene))
@@ -48,30 +40,31 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         LoadScene(GetSceneStructByString(sceneToLoad.Trim()));
     }
-    
-    private void LoadScene(StSSceneID sceneToLoad)
-    {
-        LoadScene(GetSceneStructByEnum(sceneToLoad));
-    }
-    
+
     /// <summary>
     /// Loads a scene! Nice! 
     /// </summary>
     /// <param name="sceneToLoad">The scene that you want to load</param>
-    private void LoadScene(SceneStruct sceneToLoad)
+    public bool LoadScene(SceneStruct sceneToLoad)
     {
-        if (sceneToLoad.sceneAsset is not null)
+        if (sceneToLoad.sceneAsset != null)
         {
-            Debug.Log($"Scene Opened: {sceneToLoad.sceneDisplayName}");
+            Debug.Log($"Open Scene: {sceneToLoad.sceneDisplayName}");
             
-            SceneManager.LoadScene(sceneToLoad.sceneAsset.name, sceneToLoad.loadSceneMode);
-            
+            AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneToLoad.sceneAsset.name, sceneToLoad.loadSceneMode);
             openScenes.Add(sceneToLoad);
+            loadSceneOperation.completed += SceneOpened;
+            return true;
         }
-        else
-        {
-            Debug.Log($"Attempted to load '{sceneToLoad.sceneDisplayName}' but no scene asset was found. Check the SceneLoader prefab.");
-        }
+ 
+        Debug.Log($"Attempted to load '{sceneToLoad.sceneDisplayName}' but no scene asset was found.");
+        return false;
+    }
+
+    void SceneOpened(AsyncOperation loadOperation)
+    {
+        Debug.Log($"Scene opened successfully");
+        onSceneOpened?.Invoke();
     }
 
     public void CloseScene(string sceneToClose)
@@ -83,14 +76,13 @@ public class SceneLoader : Singleton<SceneLoader>
     /// Closes a scene! This will produce an AsyncOperation that will report when completed.
     /// </summary>
     /// <param name="sceneToClose">The scene you want to close</param>
-    void CloseScene(SceneStruct sceneToClose)
+    public void CloseScene(SceneStruct sceneToClose)
     {
-        Debug.Log($"Scene Closed: {sceneToClose.sceneDisplayName}");
+        Debug.Log($"Close Scene: {sceneToClose.sceneDisplayName}");
         
-        SceneStruct scene = scenes.Find(x => x.sceneAsset.name == sceneToClose.sceneAsset.name);
-        if (openScenes.Contains(scene))
+        if (openScenes.Contains(sceneToClose))
         {
-            openScenes.Remove(scene);
+            openScenes.Remove(sceneToClose);
         }
         
         // Unloads the scene and bind to the async operation.
@@ -108,11 +100,6 @@ public class SceneLoader : Singleton<SceneLoader>
         unloadOperation.completed -= SceneClosed;
     }
 
-    SceneStruct GetSceneStructByEnum(StSSceneID sceneToGet)
-    {
-        return scenes.Find(x => x.sceneID == sceneToGet);
-    }
-    
     SceneStruct GetSceneStructByString(string sceneToGet)
     {
         return scenes.Find(x => x.sceneDisplayName == sceneToGet);
