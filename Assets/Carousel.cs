@@ -51,14 +51,14 @@ public class Carousel : MonoBehaviour
         }
         
         _contentItems[selectedItemIndex].GetComponent<Image>().color = selectionColour;
-        _contentItems[selectedItemIndex].localScale *= selectionSizeMultiplier;
+        _contentItems[selectedItemIndex].rectTransform.localScale *= selectionSizeMultiplier;
     }
 
     void Update()
     {
         if (!isDragging)
         {
-            SnapToItem(_contentItems[selectedItemIndex]);
+            SnapToItem(_contentItems[selectedItemIndex].rectTransform);
         }
         else
         {
@@ -93,7 +93,7 @@ public class Carousel : MonoBehaviour
         int closestItemIndex = selectedItemIndex;
         for (int index = 0; index < _contentItems.Count; index++)
         {
-            Vector2 itemPos = _contentItems[index].position;
+            Vector2 itemPos = _contentItems[index].rectTransform.position;
             
             float distance = Vector2.Distance(_scrollPanel.position, itemPos);
 
@@ -112,11 +112,11 @@ public class Carousel : MonoBehaviour
         
         if (newSelectedItemIndex != selectedItemIndex)
         {
-            RectTransform previousSelection = _contentItems[selectedItemIndex];
+            RectTransform previousSelection = _contentItems[selectedItemIndex].rectTransform;
             
             //Update the index
             selectedItemIndex = newSelectedItemIndex;
-            RectTransform newSelection = _contentItems[selectedItemIndex];
+            RectTransform newSelection = _contentItems[selectedItemIndex].rectTransform;
             
             //Remove the highlight & size from the previous selection
             previousSelection.localScale = Vector3.one;
@@ -126,15 +126,22 @@ public class Carousel : MonoBehaviour
             newSelection.localScale *= selectionSizeMultiplier;
             newSelection.GetComponent<Image>().color = selectionColour;
 
-            string selectionText = "test";
-            switch (carouselType)
+            if (currentStagePosition)
             {
-                case CarouselType.Instrument:
-                    currentStagePosition.InstrumentSelectionChanged(selectionText);
-                    break;
-                case CarouselType.Musician:
-                    currentStagePosition.MusicianSelectionChanged(selectionText);
-                    break;
+                string selectionText = _contentItems[selectedItemIndex].itemText;
+                switch (carouselType)
+                {
+                    case CarouselType.Instrument:
+                        currentStagePosition.InstrumentSelectionChanged(selectionText);
+                        break;
+                    case CarouselType.Musician:
+                        currentStagePosition.MusicianSelectionChanged(selectionText);
+                        break;
+                }
+            }
+            else
+            {
+                StSDebug.LogError($"{gameObject.name}: While selecting item, could not find current stage position");
             }
         }
     }
