@@ -9,6 +9,7 @@ public class StagePosition : MonoBehaviour
     public TextMeshPro musicianSelection;
     public TextMeshPro instrumentSelection;
     public static event Action<StagePosition> OnStagePositionClicked;
+    
     public void OnInteract()
     {
         StSDebug.Log($"{gameObject.name}: Interact");

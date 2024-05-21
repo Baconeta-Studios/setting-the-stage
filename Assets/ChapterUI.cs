@@ -37,8 +37,7 @@ public class ChapterUI : MonoBehaviour
         {
             case Chapter.ChapterStage.Intro:
                 break;
-            case Chapter.ChapterStage.ChooseInstruments:
-            case Chapter.ChapterStage.ChooseMusicians:
+            case Chapter.ChapterStage.StageSelection:
                 break;
             case Chapter.ChapterStage.Performing:
                 _SelectionCarousels.SetActive(false);
@@ -53,7 +52,10 @@ public class ChapterUI : MonoBehaviour
 
     private void OnStagePositionClicked(StagePosition clickedStagePosition)
     {
-        _SelectionCarousels.SetActive(true);
+        if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
+        {
+            _SelectionCarousels.SetActive(true);
+        }
     }
     
     

@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using Utils;
 
-public class Chapter : MonoBehaviour
+public class Chapter : Singleton<Chapter>
 {
     public int ChapterNumber;
     public event Action onChapterComplete;
@@ -11,8 +12,7 @@ public class Chapter : MonoBehaviour
     public enum ChapterStage
     {
         Intro,
-        ChooseInstruments,
-        ChooseMusicians,
+        StageSelection,
         Performing,
         Ratings,
     }
@@ -34,12 +34,9 @@ public class Chapter : MonoBehaviour
         switch (currentStage)
         {
             case ChapterStage.Intro:
-                currentStage = ChapterStage.ChooseInstruments;
+                currentStage = ChapterStage.StageSelection;
                 break;
-            case ChapterStage.ChooseInstruments:
-                currentStage = ChapterStage.ChooseMusicians;
-                break;
-            case ChapterStage.ChooseMusicians:
+            case ChapterStage.StageSelection:
                 currentStage = ChapterStage.Performing;
                 break;
             case ChapterStage.Performing:
@@ -53,9 +50,20 @@ public class Chapter : MonoBehaviour
         StSDebug.Log($"Starting Chapter {ChapterNumber}: {currentStage.ToString()}");
         onStageChanged?.Invoke(currentStage);
     }
+    
     public void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
         onChapterComplete?.Invoke();
+    }
+
+    public ChapterStage GetCurrentStage()
+    {
+        return currentStage;
+    }
+
+    public bool IsInCurrentStage(ChapterStage stageToCheck)
+    {
+        return currentStage == stageToCheck;
     }
 }
