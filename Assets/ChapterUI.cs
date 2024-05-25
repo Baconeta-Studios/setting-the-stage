@@ -8,6 +8,9 @@ public class ChapterUI : MonoBehaviour
     private Chapter _chapter;
 
     [SerializeField]
+    private GameObject _StageProgressButton;
+    
+    [SerializeField]
     private StageSelection _SelectionCarousels;
     
     void Awake()
@@ -23,12 +26,14 @@ public class ChapterUI : MonoBehaviour
     {
         _chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
+        StagePosition.OnStagePositionChanged += OnStagePositionChanged;
     }
     
     private void OnDisable()
     {
         _chapter.onStageChanged -= OnStageChanged;
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
+        StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -38,6 +43,7 @@ public class ChapterUI : MonoBehaviour
             case Chapter.ChapterStage.Intro:
                 break;
             case Chapter.ChapterStage.StageSelection:
+                _StageProgressButton.SetActive(false);
                 break;
             case Chapter.ChapterStage.Performing:
                 _SelectionCarousels.HideStageSelection();
@@ -56,6 +62,21 @@ public class ChapterUI : MonoBehaviour
         {
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
         }
+    }
+    private void OnStagePositionChanged(StagePosition changedStagePosition)
+    {
+        bool allPositionsOccupied = true;
+        
+        foreach (StagePosition stagePosition in _SelectionCarousels.GetStagePositions())
+        {
+            if (!stagePosition.IsInstrumentOccupied() || !stagePosition.IsMusicianOccupied())
+            {
+                allPositionsOccupied = false;
+            }
+        }
+
+        //Only show the progress button if all positions are occupied
+        _StageProgressButton.SetActive(allPositionsOccupied);
     }
     
     

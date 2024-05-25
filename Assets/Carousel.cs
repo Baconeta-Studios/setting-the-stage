@@ -58,6 +58,8 @@ public class Carousel : MonoBehaviour
         }
         isInitialized = true;
         
+        gameObject.SetActive(true);
+        
         Chapter chapter = Chapter.Instance;
         List<string> items = new List<string>();
         //Get items based on which type of carousel this is.
@@ -119,9 +121,6 @@ public class Carousel : MonoBehaviour
         StSDebug.Log($"Initialized {gameObject.name} with {contentPanel.childCount - 1} non-empty items");
         
         HighlightItem(_contentItems[selectedItemIndex]);
-        
-        // Instantly snap to the selected item.
-        contentPanel.anchoredPosition = GetItemPosition(_contentItems[selectedItemIndex]);
     }
 
     private CarouselItem AddItemToCarousel(string itemName)
@@ -145,13 +144,18 @@ public class Carousel : MonoBehaviour
         _contentItems.Clear();
         currentStagePosition = null;
         isInitialized = false;
+        
+        gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (!isDragging)
         {
-            SnapToItem(_contentItems[selectedItemIndex]);
+            if (selectedItemIndex < _contentItems.Count)
+            {
+                SnapToItem(_contentItems[selectedItemIndex]);
+            }
         }
         else
         {
