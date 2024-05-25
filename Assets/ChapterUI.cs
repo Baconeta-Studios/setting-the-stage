@@ -8,7 +8,7 @@ public class ChapterUI : MonoBehaviour
     private Chapter _chapter;
 
     [SerializeField]
-    private GameObject _SelectionCarousels;
+    private StageSelection _SelectionCarousels;
     
     void Awake()
     {
@@ -40,7 +40,7 @@ public class ChapterUI : MonoBehaviour
             case Chapter.ChapterStage.StageSelection:
                 break;
             case Chapter.ChapterStage.Performing:
-                _SelectionCarousels.SetActive(false);
+                _SelectionCarousels.HideStageSelection();
                 break;
             case Chapter.ChapterStage.Ratings:
                 break;
@@ -54,7 +54,7 @@ public class ChapterUI : MonoBehaviour
     {
         if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
         {
-            _SelectionCarousels.SetActive(true);
+            _SelectionCarousels.ShowStageSelection(clickedStagePosition);
         }
     }
     
