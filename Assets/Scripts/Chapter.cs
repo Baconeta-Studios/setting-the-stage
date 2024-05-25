@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils;
@@ -52,6 +53,7 @@ public class Chapter : Singleton<Chapter>
                 break;
             case ChapterStage.StageSelection:
                 currentStage = ChapterStage.Performing;
+                StartCoroutine(Perform());
                 break;
             case ChapterStage.Performing:
                 currentStage = ChapterStage.Ratings;
@@ -63,6 +65,12 @@ public class Chapter : Singleton<Chapter>
         
         StSDebug.Log($"Starting Chapter {ChapterNumber}: {currentStage.ToString()}");
         onStageChanged?.Invoke(currentStage);
+    }
+
+    IEnumerator Perform()
+    {
+        yield return new WaitForSeconds(3f);
+        NextStage();
     }
     
     public void CompleteChapter()

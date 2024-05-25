@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dcfd51eac47ed4a873b3d307d951a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _StageProgressButton: {fileID: 1999313059}
+  _StageProgressButton: {fileID: 1999313064}
   _SelectionCarousels: {fileID: 1409924743}
 --- !u!1 &741236655
 GameObject:

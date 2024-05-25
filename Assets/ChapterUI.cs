@@ -8,7 +8,7 @@ public class ChapterUI : MonoBehaviour
     private Chapter _chapter;
 
     [SerializeField]
-    private GameObject _StageProgressButton;
+    private TempChapterNavigation _StageProgressButton;
     
     [SerializeField]
     private StageSelection _SelectionCarousels;
@@ -43,12 +43,14 @@ public class ChapterUI : MonoBehaviour
             case Chapter.ChapterStage.Intro:
                 break;
             case Chapter.ChapterStage.StageSelection:
-                _StageProgressButton.SetActive(false);
+                _StageProgressButton.gameObject.SetActive(false);
                 break;
             case Chapter.ChapterStage.Performing:
                 _SelectionCarousels.HideStageSelection();
+                _StageProgressButton.ToggleInteractable(false);
                 break;
             case Chapter.ChapterStage.Ratings:
+                _StageProgressButton.ToggleInteractable(true);
                 break;
             default:
                 StSDebug.LogWarning("ChapterUI: Unhandled chapter stage when changing stage.");
@@ -76,7 +78,7 @@ public class ChapterUI : MonoBehaviour
         }
 
         //Only show the progress button if all positions are occupied
-        _StageProgressButton.SetActive(allPositionsOccupied);
+        _StageProgressButton.gameObject.SetActive(allPositionsOccupied);
     }
     
     
