@@ -1,33 +1,34 @@
 using System;
+using GameStructure;
 using TMPro;
 using UnityEngine;
 
 public class CarouselItem : MonoBehaviour
 {
-    private Carousel carousel = null;
     // This is used to denote "Clear Selection"
     private bool _isEmpty = false;
     
-    public string itemText;
+    public StSObject item;
     public TextMeshProUGUI displayText;
     public RectTransform rectTransform;
 
-    public void Initialize(Carousel parent)
-    {
-        Initialize(parent, string.Empty);
-    }
-    
-    public void Initialize(Carousel parent, string itemName)
+    public void Initialize(Carousel parent, StSObject newItem)
     {
         rectTransform = GetComponent<RectTransform>();
-        if (itemName == string.Empty)
+        item = newItem;
+        
+        string itemName = "Empty";
+        if (newItem is null)
         {
             _isEmpty = true;
         }
-        itemText = itemName;
-        gameObject.name = "CarouselItem_" + itemText;
+        else
+        {
+            itemName = newItem.GetName();
+        }
+        gameObject.name = "CarouselItem_" + itemName;
         
-        displayText.text = itemText;
+        displayText.text = itemName;
     }
 
     // Checks if this carousel item is an empty item.

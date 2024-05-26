@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
-public class StageSelection : MonoBehaviour
+public class StageSelection : Singleton<StageSelection>
 {
     [SerializeField] private Carousel.CarouselType currentShowingCarousel = Carousel.CarouselType.Musician;
     public Carousel instrumentCarousel;
@@ -19,8 +20,9 @@ public class StageSelection : MonoBehaviour
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _StagePositions = FindObjectsOfType<StagePosition>().ToList();
         if (_StagePositions.Count == 0)
         {

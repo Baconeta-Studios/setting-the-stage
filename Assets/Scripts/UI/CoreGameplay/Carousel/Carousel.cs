@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameStructure;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,12 +47,12 @@ public class Carousel : MonoBehaviour
         
         StSDebug.Log($"Opening Carousel: {gameObject.name}");
         
-        string currentMusician = activeStagePosition.musicianOccupied;
-        string currentInstrument = activeStagePosition.instrumentOccupied;
+        Musician currentMusician = activeStagePosition.musicianOccupied;
+        Instrument currentInstrument = activeStagePosition.instrumentOccupied;
         InitializeCarousel(currentMusician, currentInstrument);
     }
 
-    private void InitializeCarousel(string currentMusician, string currentInstrument)
+    private void InitializeCarousel(Musician currentMusician, Instrument currentInstrument)
     {
         if (isInitialized)
         {
@@ -61,15 +63,21 @@ public class Carousel : MonoBehaviour
         gameObject.SetActive(true);
         
         Chapter chapter = Chapter.Instance;
-        List<string> items = new List<string>();
+        List<StSObject> items = new List<StSObject>();
         //Get items based on which type of carousel this is.
         switch (carouselType)
         {
             case CarouselType.Musician:
-                items = chapter.GetAvailableMusicians();
+                foreach (Musician musician in chapter.GetAvailableMusicians())
+                {
+                    items.Add((StSObject)musician);
+                }
                 break;
             case CarouselType.Instrument:
-                items = chapter.GetAvailableInstruments();
+                foreach (Instrument instrument in chapter.GetAvailableInstruments())
+                {
+                    items.Add((StSObject)instrument);
+                }
                 break;
         }
 
@@ -79,27 +87,27 @@ public class Carousel : MonoBehaviour
         }
 
         // Add an empty item
-        AddItemToCarousel(string.Empty);
+        AddItemToCarousel(null);
         
         //Get the current selection
-        string currentSelection = string.Empty;
+        StSObject currentSelection = null;
         switch (carouselType)
         {
             case CarouselType.Musician:
-                if (currentMusician != string.Empty)
+                if (currentMusician is not null)
                 {
                     currentSelection = currentMusician;
                 }
                 break;
             case CarouselType.Instrument:
-                if (currentInstrument != string.Empty)
+                if (currentInstrument is not null)
                 {
                     currentSelection = currentInstrument;
                 }
                 break;
         }
 
-        bool hasSelection = currentSelection != string.Empty;
+        bool hasSelection = currentSelection is not null;
         
         //Start with the current selected item if we have one.
         selectedItemIndex = hasSelection ? 1 : 0;
@@ -112,9 +120,9 @@ public class Carousel : MonoBehaviour
 
         // Add the available items
         //TODO Replace string with a data type
-        foreach (string itemName in items)
+        foreach (StSObject item in items)
         {
-            AddItemToCarousel(itemName);
+            AddItemToCarousel(item);
         }
         
         // Log items - 1 because there is always 1 empty item.
@@ -123,10 +131,10 @@ public class Carousel : MonoBehaviour
         HighlightItem(_contentItems[selectedItemIndex]);
     }
 
-    private CarouselItem AddItemToCarousel(string itemName)
+    private CarouselItem AddItemToCarousel(StSObject item)
     {
         CarouselItem newItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
-        newItem.Initialize(this, itemName);
+        newItem.Initialize(this, item); // TODO add support for icons
         _contentItems.Add(newItem);
 
         return newItem;
@@ -216,10 +224,10 @@ public class Carousel : MonoBehaviour
             switch (carouselType)
             {
                 case CarouselType.Instrument:
-                    Chapter.Instance.ReturnInstrument(_contentItems[selectedItemIndex].itemText);
+                    Chapter.Instance.ReturnObject(_contentItems[selectedItemIndex].item);
                     break;
                 case CarouselType.Musician:
-                    Chapter.Instance.ReturnMusician(_contentItems[selectedItemIndex].itemText);
+                    Chapter.Instance.ReturnObject(_contentItems[selectedItemIndex].item);
                     break;
             }
             ClearHighlightOnItem(_contentItems[selectedItemIndex]);
@@ -231,17 +239,15 @@ public class Carousel : MonoBehaviour
             
             if (currentStagePosition)
             {
-                // TODO Replace Selection text with a struct of the musicians/instruments
-                string selectionText = _contentItems[selectedItemIndex].itemText;
+                StSObject selection = _contentItems[selectedItemIndex].item;
+                Chapter.Instance.ConsumeObject(selection);
                 switch (carouselType)
                 {
                     case CarouselType.Instrument:
-                        Chapter.Instance.ConsumeInstrument(selectionText);
-                        currentStagePosition.InstrumentSelectionChanged(selectionText);
+                        currentStagePosition.InstrumentSelectionChanged((Instrument)selection);
                         break;
                     case CarouselType.Musician:
-                        Chapter.Instance.ConsumeMusician(selectionText);
-                        currentStagePosition.MusicianSelectionChanged(selectionText);
+                        currentStagePosition.MusicianSelectionChanged((Musician)selection);
                         break;
                 }
             }
