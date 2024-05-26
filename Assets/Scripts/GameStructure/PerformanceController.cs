@@ -48,6 +48,8 @@ public class PerformanceController : MonoBehaviour
 
     private IEnumerator Performance(float duration)
     {
+        //TODO Start audio playback here.
+        
         yield return new WaitForSeconds(duration); 
         
         EndPerformance();
