@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using GameStructure;
 using UnityEngine;
 using Utils;
 
@@ -9,6 +9,9 @@ public class Chapter : Singleton<Chapter>
     public int ChapterNumber;
     public event Action onChapterComplete;
     public event Action<ChapterStage> onStageChanged;
+
+    // The amount of stars the player earned in the performance. -1 indicates the performance has not occured.
+    public float starsEarned = -1;
     
     [Serializable]
     public enum ChapterStage
@@ -21,19 +24,30 @@ public class Chapter : Singleton<Chapter>
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
     
-    [SerializeField] private List<string> musicians = new List<string>();
-    [SerializeField] private List<string> instruments = new List<string>();
-    private List<string> availableMusicians = new List<string>();
-    private List<string> availableInstruments = new List<string>();
+    [SerializeField] private List<Musician> musicians = new List<Musician>();
+    [SerializeField] private List<Instrument> instruments = new List<Instrument>();
+    private List<Musician> availableMusicians = new List<Musician>();
+    private List<Instrument> availableInstruments = new List<Instrument>();
 
     protected override void Awake()
     {
         base.Awake();
         musicians.Sort();
         instruments.Sort();
-        availableMusicians = musicians;
-        availableInstruments = instruments;
+        availableMusicians = new List<Musician>(musicians);
+        availableInstruments = new List<Instrument>(instruments);
     }
+
+    private void OnEnable()
+    {
+        PerformanceController.OnPerformanceEnded += OnPerformanceComplete;
+    }
+
+    private void OnDisable()
+    {
+        PerformanceController.OnPerformanceEnded -= OnPerformanceComplete;
+    }
+
     private void Start()
     {
         // Chapter has just been opened. Start the intro cutscene.
@@ -53,7 +67,6 @@ public class Chapter : Singleton<Chapter>
                 break;
             case ChapterStage.StageSelection:
                 currentStage = ChapterStage.Performing;
-                StartCoroutine(Perform());
                 break;
             case ChapterStage.Performing:
                 currentStage = ChapterStage.Ratings;
@@ -67,12 +80,6 @@ public class Chapter : Singleton<Chapter>
         onStageChanged?.Invoke(currentStage);
     }
 
-    IEnumerator Perform()
-    {
-        yield return new WaitForSeconds(3f);
-        NextStage();
-    }
-    
     public void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
@@ -89,17 +96,17 @@ public class Chapter : Singleton<Chapter>
         return currentStage == stageToCheck;
     }
 
-    public List<string> GetAvailableMusicians()
+    public List<Musician> GetAvailableMusicians()
     {
         return availableMusicians;
     }
 
-    public List<string> GetAvailableInstruments()
+    public List<Instrument> GetAvailableInstruments()
     {
         return availableInstruments;
     }
 
-    public bool ConsumeMusician(string musician)
+    public bool ConsumeMusician(Musician musician)
     {
         if (availableMusicians.Contains(musician))
         {
@@ -110,16 +117,16 @@ public class Chapter : Singleton<Chapter>
         return false;
     }
 
-    public void ReturnMusician(string musician)
+    public void ReturnMusician(Musician musician)
     {
-        if (musician != string.Empty && !availableMusicians.Contains(musician))
+        if (musician is not null && !availableMusicians.Contains(musician))
         {
             availableMusicians.Add(musician);
             availableMusicians.Sort();
         }
     }
 
-    public bool ConsumeInstrument(string instrument)
+    public bool ConsumeInstrument(Instrument instrument)
     {
         if (availableInstruments.Contains(instrument))
         {
@@ -130,12 +137,74 @@ public class Chapter : Singleton<Chapter>
         return false;
     }
 
-    public void ReturnInstrument(string instrument)
+    public void ReturnInstrument(Instrument instrument)
     {
-        if (instrument != string.Empty && !availableInstruments.Contains(instrument))
+        if (instrument is not null && !availableInstruments.Contains(instrument))
         {
             availableInstruments.Add(instrument);
             availableInstruments.Sort();
         }
+    }
+
+    public void ReturnObject(StSObject returningObject)
+    {
+        if (returningObject is null)
+        {
+            return;
+        }
+        
+        foreach (Musician musician in musicians)
+        {
+            if (musician.GetName() == returningObject.GetName())
+            {
+                ReturnMusician((Musician)returningObject);
+                return;
+            }
+        }
+
+        foreach (Instrument instrument in instruments)
+        {
+            if (instrument.GetName() == returningObject.GetName())
+            {
+                ReturnInstrument((Instrument)returningObject);
+                return;
+            }
+        }
+        
+        StSDebug.LogError($"{gameObject.name}{ChapterNumber}: Could not find musician or instrument when returning an object. Something has gone wrong :(");
+    }
+
+    public bool ConsumeObject(StSObject objectToConsume)
+    {
+        if (objectToConsume is null)
+        {
+            return false;
+        }
+        
+        foreach (Musician musician in musicians)
+        {
+            if (musician.GetName() == objectToConsume.GetName())
+            {
+                return ConsumeMusician((Musician)objectToConsume);
+            }
+        }
+
+        foreach (Instrument instrument in instruments)
+        {
+            if (instrument.GetName() == objectToConsume.GetName())
+            {
+                return ConsumeInstrument((Instrument)objectToConsume);
+            }
+        }
+        
+        StSDebug.LogError($"{gameObject.name}{ChapterNumber}: Could not find musician or instrument when returning an object. Something has gone wrong :(");
+        return false;
+    }
+
+    void OnPerformanceComplete(float newStarsEarned)
+    {
+        starsEarned = newStarsEarned;
+        
+        NextStage();
     }
 }

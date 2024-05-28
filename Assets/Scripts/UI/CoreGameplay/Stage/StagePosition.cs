@@ -10,11 +10,11 @@ public class StagePosition : MonoBehaviour
     public static event Action<StagePosition> OnStagePositionChanged;
 
     [Header("Musician")]
-    public string musicianOccupied = string.Empty;
+    public Musician musicianOccupied = null;
     public TextMeshPro musicianSelection;
     
     [Header("Instrument")]
-    public string instrumentOccupied = string.Empty;
+    public Instrument instrumentOccupied = null;
     public TextMeshPro instrumentSelection;
 
     public void OnInteract()
@@ -22,25 +22,35 @@ public class StagePosition : MonoBehaviour
         OnStagePositionClicked?.Invoke(this);
     }
 
-    public void MusicianSelectionChanged(string selection)
+    public void MusicianSelectionChanged(Musician selection)
     {
-        musicianSelection.text = musicianOccupied = selection;
+        musicianOccupied = selection;
+
+        musicianSelection.text = musicianOccupied ? musicianOccupied.GetName() : "";
         
         OnStagePositionChanged?.Invoke(this);
     }
     
-    public void InstrumentSelectionChanged(string selection)
+    public void InstrumentSelectionChanged(Instrument selection)
     {
-        instrumentSelection.text = instrumentOccupied = selection;
+        instrumentOccupied = selection;
+        
+        instrumentSelection.text = instrumentOccupied ? instrumentOccupied.GetName() : "";
         OnStagePositionChanged?.Invoke(this);
     }
 
     public bool IsMusicianOccupied()
     {
-        return musicianOccupied != string.Empty;
+        return musicianOccupied is not null;
     }
+    
     public bool IsInstrumentOccupied()
     {
-        return instrumentOccupied != string.Empty;
+        return instrumentOccupied is not null;
+    }
+
+    public int GetMusicianProficiency()
+    {
+        return (int)musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
     }
 }

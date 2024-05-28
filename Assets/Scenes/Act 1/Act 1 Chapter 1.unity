@@ -465,6 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 741236657}
   - component: {fileID: 741236656}
+  - component: {fileID: 741236658}
   m_Layer: 0
   m_Name: Chapter
   m_TagString: Untagged
@@ -487,18 +488,17 @@ MonoBehaviour:
   ChapterNumber: 1
   currentStage: 0
   musicians:
-  - Bob
-  - Sally
-  - Ryan
-  - Banjo
-  - Fynch
+  - {fileID: 1710823786342131613, guid: f2f108ec2113b6e4c8045bf002563f9b, type: 3}
+  - {fileID: 1710823786342131613, guid: 50f22bfc782aaf04a894bb6bab4e5c10, type: 3}
+  - {fileID: 1710823786342131613, guid: d4c3a1868fd56974b876b126b0feed8e, type: 3}
+  - {fileID: 1710823786342131613, guid: 33f00669c0c891e49969a655f14ef613, type: 3}
+  - {fileID: 1710823786342131613, guid: 82cbdf6971ee66640948cee5d86d7c7c, type: 3}
   instruments:
-  - Bass
-  - Guitar
-  - Drums
-  - Keyboard
-  - Triangle
-  - Bagpipe
+  - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+  - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+  - {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+  - {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+  - {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
 --- !u!4 &741236657
 Transform:
   m_ObjectHideFlags: 0
@@ -514,6 +514,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741236658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741236655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062e33ed0156db543af24de1ec963813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPerforming: 0
 --- !u!1 &1091164486
 GameObject:
   m_ObjectHideFlags: 0
