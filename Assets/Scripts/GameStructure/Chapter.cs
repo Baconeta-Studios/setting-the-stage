@@ -7,7 +7,7 @@ using Utils;
 public class Chapter : Singleton<Chapter>
 {
     public int ChapterNumber;
-    public event Action onChapterComplete;
+    public event Action<float> onChapterComplete;
     public event Action<ChapterStage> onStageChanged;
 
     // The amount of stars the player earned in the performance. -1 indicates the performance has not occured.
@@ -83,7 +83,7 @@ public class Chapter : Singleton<Chapter>
     public void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
-        onChapterComplete?.Invoke();
+        onChapterComplete?.Invoke(starsEarned);
     }
 
     public ChapterStage GetCurrentStage()
