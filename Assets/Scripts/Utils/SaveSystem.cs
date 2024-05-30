@@ -72,6 +72,19 @@ namespace Utils
 
             [ReadOnly]
             public float totalStarsEarned = 0.0f;
+
+            public float GetStarsForChapter(int actNumber, int chapterNumber)
+            {
+                foreach (ChapterSaveData chapter in chapterSaveData)
+                {
+                    if (chapter.actNumber == actNumber && chapter.chapterNumber == chapterNumber)
+                    {
+                        return chapter.starsEarned;
+                    }
+                }
+
+                return 0.0f;
+            }
         }
 
         //The currently loaded user data.
