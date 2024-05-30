@@ -10,8 +10,12 @@ public class ChapterUI : MonoBehaviour
     [SerializeField]
     private StageSelection _SelectionCarousels;
     
+    [SerializeField]
+    private StarContainer _StarDisplay;
+    
     void Awake()
     {
+        _StarDisplay.gameObject.SetActive(false);
         _chapter = FindObjectOfType<Chapter>();
         if (!_chapter)
         {
@@ -24,6 +28,7 @@ public class ChapterUI : MonoBehaviour
         _chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
+        _chapter.onRevealRating += RevealRating;
     }
     
     private void OnDisable()
@@ -31,6 +36,7 @@ public class ChapterUI : MonoBehaviour
         _chapter.onStageChanged -= OnStageChanged;
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
+        _chapter.onRevealRating -= RevealRating;
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -76,6 +82,12 @@ public class ChapterUI : MonoBehaviour
 
         //Only show the progress button if all positions are occupied
         _StageProgressButton.gameObject.SetActive(allPositionsOccupied);
+    }
+
+    private void RevealRating(float starsEarned)
+    {
+        _StarDisplay.gameObject.SetActive(true);
+        _StarDisplay.ShowStars(starsEarned);
     }
     
     

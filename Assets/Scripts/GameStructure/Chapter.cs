@@ -9,6 +9,7 @@ public class Chapter : Singleton<Chapter>
     public int ChapterNumber;
     public event Action<float> onChapterComplete;
     public event Action<ChapterStage> onStageChanged;
+    public event Action<float> onRevealRating;
 
     // The amount of stars the player earned in the performance. -1 indicates the performance has not occured.
     public float starsEarned = -1;
@@ -204,6 +205,9 @@ public class Chapter : Singleton<Chapter>
     void OnPerformanceComplete(float newStarsEarned)
     {
         starsEarned = newStarsEarned;
+        
+        // TODO Move reveal rating to when we actually want to reveal the star count. Currently just enables the star UI above the chapter navigation.
+        onRevealRating?.Invoke(starsEarned);
         
         NextStage();
     }

@@ -586,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: chapters.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: chapterObjects.Array.size
