@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 
 [Serializable]
 public class ChapterStruct
 {
-    public bool isComplete;
+    public float starsEarned;
+    public float starsRequiredToUnlock;
     public SceneStruct sceneInfo;
 }
 
@@ -24,6 +26,8 @@ public class Act : MonoBehaviour
     
     [SerializeField] private Chapter currentChapter;
     
+    [SerializeField] private float starsEarnedThisAct;
+    
     // Actions
     public event Action onChapterOpen; 
     public event Action onChapterClosed;
@@ -40,26 +44,20 @@ public class Act : MonoBehaviour
         SaveSystem saveSystem = SaveSystem.Instance;
         SaveSystem.UserData userData = saveSystem.GetUserData();
 
-        //We've surpassed this act, unlock all chapters.
-        if (userData.currentAct > actNumber)
+        starsEarnedThisAct = 0.0f;
+        
+        // Only compare against chapters in this act
+        foreach (SaveSystem.ChapterSaveData saveData in userData.chapterSaveData.Where(saveData => saveData.actNumber == actNumber))
         {
-            foreach (ChapterStruct chapter in chapters)
+            if (saveData.chapterNumber < chapters.Count)
             {
-                chapter.isComplete = true;
+                chapters[saveData.chapterNumber].starsEarned = saveData.starsEarned;
+                starsEarnedThisAct += saveData.starsEarned;
             }
-        }
-        // We're current at this act
-        else if (userData.currentAct == actNumber)
-        {
-            // Mark all the chapters that we've already done as completed
-            for (int index = 0; index <= userData.currentChapter; index++)
+            else
             {
-                chapters[index].isComplete = true;
+                StSDebug.LogError($"Act{actNumber}: Could not load save data for chapter {saveData.chapterNumber} due to invalid index of chapter game objects in the act.");
             }
-        }
-        else // We haven't reached this act yet.
-        {
-            // No Chapters are unlocked.
         }
     }
 
@@ -74,15 +72,10 @@ public class Act : MonoBehaviour
         //Cycle through chapters, and disable locked chapters
         for (int index = 0; index < chapterObjects.Count; index++)
         {
-            //First chapter is always available
-            if (index == 0)
-            {
-                continue;
-            }
-            
+            bool chapterUnlocked = starsEarnedThisAct >= chapters[index].starsRequiredToUnlock;
+
             //TODO Replace with actual chapter objects. Currently these are just button.
-            chapterObjects[index].SetActive(chapters[index - 1].isComplete);
-            
+            chapterObjects[index].SetActive(chapterUnlocked);
         }
     }
     
@@ -119,16 +112,17 @@ public class Act : MonoBehaviour
 
     }
 
-    void ChapterComplete()
+    void ChapterComplete(float starsEarned)
     {
         currentChapter.onChapterComplete -= ChapterComplete;
-        
+
+        float previousStarsOnChapter = chapters[currentChapterIndex].starsEarned;
         //Update the current chapter as completed
-        chapters[currentChapterIndex].isComplete = true;
-        
+        chapters[currentChapterIndex].starsEarned = starsEarned;
+        starsEarnedThisAct += starsEarned - previousStarsOnChapter;
         // Save the data!
         SaveSystem saveSystem = SaveSystem.Instance;
-        saveSystem.ChapterCompleted(actNumber, currentChapterIndex);
+        saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         CloseChapter();
     }
@@ -139,7 +133,7 @@ public class Act : MonoBehaviour
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
         currentChapterIndex = -1;
         currentChapter = null;
-        
+
         //Update the chapters with the current availability.
         UpdateChapters();
         

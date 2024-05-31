@@ -910,6 +910,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 102900000, guid: 6c6662f25b8eaf54e83dacd85e2e7909, type: 3}
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[1].starsRequiredToUnlock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[2].starsRequiredToUnlock
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: chapters.Array.data[0].sceneInfo.loadSceneMode
       value: 1
       objectReference: {fileID: 0}
