@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 
@@ -54,21 +55,18 @@ public class Act : MonoBehaviour
         SaveSystem.UserData userData = saveSystem.GetUserData();
 
         starsEarnedThisAct = 0.0f;
-        foreach (SaveSystem.ChapterSaveData saveData in userData.chapterSaveData)
+        
+        // Only compare against chapters in this act
+        foreach (SaveSystem.ChapterSaveData saveData in userData.chapterSaveData.Where(saveData => saveData.actNumber == actNumber))
         {
-            // Only compare against chapters in this act
-            if (saveData.actNumber == actNumber)
+            if (saveData.chapterNumber < chapters.Count)
             {
-                if (saveData.chapterNumber < chapters.Count)
-                {
-                    chapters[saveData.chapterNumber].starsEarned = saveData.starsEarned;
-                    
-                    starsEarnedThisAct += saveData.starsEarned;
-                }
-                else
-                {
-                    StSDebug.LogError($"Act{actNumber}: Could not load save data for chapter {saveData.chapterNumber} due to invalid index of chapter game objects in the act.");
-                }
+                chapters[saveData.chapterNumber].starsEarned = saveData.starsEarned;
+                starsEarnedThisAct += saveData.starsEarned;
+            }
+            else
+            {
+                StSDebug.LogError($"Act{actNumber}: Could not load save data for chapter {saveData.chapterNumber} due to invalid index of chapter game objects in the act.");
             }
         }
     }
