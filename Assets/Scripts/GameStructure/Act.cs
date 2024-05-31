@@ -20,22 +20,32 @@ public class Act : MonoBehaviour
     [Header("Chapters")]
     [SerializeField] private List<ChapterStruct> chapters;
     
-    [SerializeField] private List<GameObject> chapterObjects;
-    
     [SerializeField] private int currentChapterIndex = -1;
     
     [SerializeField] private Chapter currentChapter;
     
     [SerializeField] private float starsEarnedThisAct;
+
+    [SerializeField] private ActCanvas actCanvas;
     
     // Actions
     public event Action onChapterOpen; 
     public event Action onChapterClosed;
     
-    void Start()
+    void Awake()
     {
+        actCanvas.Initialize(this, chapters);
         LoadActData();
-        UpdateChapters();
+    }
+
+    private void OnEnable()
+    {
+        ChapterInfo.OnChapterStartRequested += LoadChapter;
+    }
+
+    private void OnDisable()
+    {
+        ChapterInfo.OnChapterStartRequested -= LoadChapter;
     }
 
     private void LoadActData()
@@ -60,28 +70,10 @@ public class Act : MonoBehaviour
             }
         }
     }
-
-    void UpdateChapters()
-    {
-        if (chapterObjects.Count != chapters.Count)
-        {
-            StSDebug.LogError($"{chapterObjects.Count} chapter objects found, but only {chapters.Count} are listed. Please check the act {actNumber} object");
-            return;
-        }
-        
-        //Cycle through chapters, and disable locked chapters
-        for (int index = 0; index < chapterObjects.Count; index++)
-        {
-            bool chapterUnlocked = starsEarnedThisAct >= chapters[index].starsRequiredToUnlock;
-
-            //TODO Replace with actual chapter objects. Currently these are just button.
-            chapterObjects[index].SetActive(chapterUnlocked);
-        }
-    }
     
-    public void LoadChapter(string chapterName)
+    private void LoadChapter(ChapterStruct chapterToLoad)
     {
-        currentChapterIndex = chapters.FindIndex(x => x.sceneInfo.sceneDisplayName == chapterName);
+        currentChapterIndex = chapters.IndexOf(chapterToLoad);
         if(currentChapterIndex >= 0 && currentChapterIndex < chapters.Count)
         {
             if (SceneLoader.Instance.LoadScene(chapters[currentChapterIndex].sceneInfo))
@@ -134,9 +126,16 @@ public class Act : MonoBehaviour
         currentChapterIndex = -1;
         currentChapter = null;
 
-        //Update the chapters with the current availability.
-        UpdateChapters();
-        
         onChapterClosed?.Invoke();
+    }
+
+    public float GetStarsEarnedInAct()
+    {
+        return starsEarnedThisAct;
+    }
+
+    public int GetActNumber()
+    {
+        return actNumber;
     }
 }
