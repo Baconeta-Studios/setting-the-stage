@@ -93,6 +93,7 @@ namespace Utils
         
         public UserData GetUserData()
         {
+            LoadUserData();
             return userData;
         }
 
