@@ -283,7 +283,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0.6}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -564,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2346935520010119250, guid: 63bfddd536e14ba478f5473b6653c59a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 54
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2346935520010119250, guid: 63bfddd536e14ba478f5473b6653c59a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -612,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6168963320644098940, guid: 63bfddd536e14ba478f5473b6653c59a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 90
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6168963320644098940, guid: 63bfddd536e14ba478f5473b6653c59a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -712,7 +712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9056968136422743394, guid: 63bfddd536e14ba478f5473b6653c59a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 18
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 9056968136422743394, guid: 63bfddd536e14ba478f5473b6653c59a, type: 3}
       propertyPath: m_AnchoredPosition.y
