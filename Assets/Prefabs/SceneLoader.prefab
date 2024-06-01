@@ -54,4 +54,7 @@ MonoBehaviour:
   - sceneDisplayName: Act 1
     sceneAsset: {fileID: 102900000, guid: 2c7109a448e905f4ab97ce23ff7c2f9f, type: 3}
     loadSceneMode: 0
+  - sceneDisplayName: Act 2
+    sceneAsset: {fileID: 102900000, guid: 93763bd8d9bde754ba49a83fc45c65ef, type: 3}
+    loadSceneMode: 0
   openScenes: []

@@ -72,6 +72,9 @@ namespace Utils
 
             [ReadOnly]
             public float totalStarsEarned = 0.0f;
+            
+            [ReadOnly]
+            public int highestCompletedAct = -1;
 
             public float GetStarsForChapter(int actNumber, int chapterNumber)
             {
@@ -135,6 +138,7 @@ namespace Utils
                 userData.userName = "";
                 userData.chapterSaveData.Clear();
                 userData.totalStarsEarned = 0.0f;
+                userData.highestCompletedAct = -1;
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
@@ -194,6 +198,15 @@ namespace Utils
             {
                 // Sort by Act > Chapter > Stars
                 userData.chapterSaveData.Sort();
+                SaveUserData(userData);
+            }
+        }
+
+        public void ActComplete(int actNumber)
+        {
+            if (actNumber > userData.highestCompletedAct)
+            {
+                userData.highestCompletedAct = actNumber;
                 SaveUserData(userData);
             }
         }

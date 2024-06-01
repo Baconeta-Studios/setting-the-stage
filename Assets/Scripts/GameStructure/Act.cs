@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,6 @@ public class ChapterStruct
 
 public class Act : MonoBehaviour
 {
-
     [SerializeField] private int actNumber;
     
     [Header("Chapters")]
@@ -27,10 +27,15 @@ public class Act : MonoBehaviour
     [SerializeField] private float starsEarnedThisAct;
 
     [SerializeField] private ActCanvas actCanvas;
+
+    //TODO Replace with cutscene objects when they are implemented.
+    [SerializeField] private GameObject introCutscene;
+    [SerializeField] private GameObject outroCutscene;
     
     // Actions
     public event Action onChapterOpen; 
     public event Action onChapterClosed;
+    public event Action onCutsceneComplete;
     
     void Awake()
     {
@@ -59,14 +64,15 @@ public class Act : MonoBehaviour
         SaveSystem.UserData userData = saveSystem.GetUserData();
 
         starsEarnedThisAct = 0.0f;
-        
+
         // Only compare against chapters in this act
         foreach (SaveSystem.ChapterSaveData saveData in userData.chapterSaveData.Where(saveData => saveData.actNumber == actNumber))
         {
             if (saveData.chapterNumber < chapters.Count)
             {
-                chapters[saveData.chapterNumber].starsEarned = saveData.starsEarned;
-                starsEarnedThisAct += saveData.starsEarned;
+                float starsEarned = saveData.starsEarned;
+                chapters[saveData.chapterNumber].starsEarned = starsEarned;
+                starsEarnedThisAct += starsEarned;
             }
             else
             {
@@ -116,11 +122,36 @@ public class Act : MonoBehaviour
         //Update the current chapter as completed
         chapters[currentChapterIndex].starsEarned = starsEarned;
         starsEarnedThisAct += starsEarned - previousStarsOnChapter;
+        
         // Save the data!
         SaveSystem saveSystem = SaveSystem.Instance;
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         CloseChapter();
+
+        if (AreAllChaptersComplete())
+        {
+            // Cut scene and next act.
+            StartCoroutine(PlayCutscene(outroCutscene));
+            onCutsceneComplete += ProgressToNextAct;
+        }
+    }
+    
+    //TODO Replace GameObject cutscene with a Cutscene object once it is complete.
+    IEnumerator PlayCutscene(GameObject cutscene)
+    {
+        float cutsceneDuration = 0.0f;
+        yield return new WaitForSeconds(cutsceneDuration);
+        onCutsceneComplete?.Invoke();
+        yield return null;
+    }
+
+    void ProgressToNextAct()
+    {
+        onCutsceneComplete -= ProgressToNextAct;
+        SceneLoader.Instance.LoadScene($"Act {actNumber + 1}");
+        
+        SaveSystem.Instance.ActComplete(actNumber);
     }
 
     void CloseChapter()
@@ -131,6 +162,19 @@ public class Act : MonoBehaviour
         currentChapter = null;
 
         onChapterClosed?.Invoke();
+    }
+
+    private bool AreAllChaptersComplete()
+    {
+        foreach (ChapterStruct chapter in chapters)
+        {
+            if (chapter.starsEarned <= 0.0f)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public float GetStarsEarnedInAct()
