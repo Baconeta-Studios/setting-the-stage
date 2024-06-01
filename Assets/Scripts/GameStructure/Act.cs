@@ -34,6 +34,10 @@ public class Act : MonoBehaviour
     
     void Awake()
     {
+        if (!actCanvas)
+        {
+            actCanvas = FindObjectOfType<ActCanvas>();
+        }
         actCanvas.Initialize(this, chapters);
         LoadActData();
     }

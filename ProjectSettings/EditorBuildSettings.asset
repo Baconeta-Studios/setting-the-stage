@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameInstance.unity
     guid: 42fe7ae0dd232df46b8cc58a4551bb97
   - enabled: 1
@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Act 1/Act 1 Chapter 1.unity
     guid: 6c6662f25b8eaf54e83dacd85e2e7909
+  - enabled: 1
+    path: Assets/Scenes/Act 1/Act 1 Chapter 2.unity
+    guid: f4bffa912503f7d4ca35ecaa21f2c404
+  - enabled: 1
+    path: Assets/Scenes/Act 1/Act 1 Chapter 3.unity
+    guid: f30127b70b4837a4eaf9678db2751fd9
   m_configObjects: {}
