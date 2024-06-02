@@ -36,7 +36,7 @@ public class ActCanvas : MonoBehaviour
         {
             _act.onChapterOpen -= ChapterOpened;
             _act.onChapterClosed -= ChapterClosed;
-            _act.onAllChaptersComplete -= ShowNextActButton;
+            _act.OnActComplete -= ShowNextActButton;
         }
     }
 
@@ -50,7 +50,7 @@ public class ActCanvas : MonoBehaviour
         {
             _act.onChapterOpen += ChapterOpened;
             _act.onChapterClosed += ChapterClosed;
-            _act.onAllChaptersComplete += ShowNextActButton;
+            _act.OnActComplete += ShowNextActButton;
             actTitle.text = $"Act {_act.GetActNumber()}";
         }
         

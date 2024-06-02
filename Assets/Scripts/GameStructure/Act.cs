@@ -25,6 +25,8 @@ public class Act : MonoBehaviour
     [SerializeField] private Chapter currentChapter;
     
     [SerializeField] private float starsEarnedThisAct;
+    
+    [SerializeField] private float starsRequiredToCompleteAct;
 
     [SerializeField] private ActCanvas actCanvas;
 
@@ -36,7 +38,7 @@ public class Act : MonoBehaviour
     public event Action onChapterOpen; 
     public event Action onChapterClosed;
     public event Action onCutsceneComplete;
-    public event Action onAllChaptersComplete;
+    public event Action OnActComplete;
     
     void Awake()
     {
@@ -51,7 +53,7 @@ public class Act : MonoBehaviour
 
     void Start()
     {
-        CheckIfAllChaptersAreComplete();
+        CheckIfActIsComplete();
     }
 
     private void OnEnable()
@@ -136,7 +138,7 @@ public class Act : MonoBehaviour
         
         CloseChapter();
 
-        if (CheckIfAllChaptersAreComplete())
+        if (CheckIfActIsComplete())
         {
             ProgressToNextAct();
         }
@@ -180,7 +182,7 @@ public class Act : MonoBehaviour
         onChapterClosed?.Invoke();
     }
 
-    private bool CheckIfAllChaptersAreComplete()
+    private bool CheckIfActIsComplete()
     {
         foreach (ChapterStruct chapter in chapters)
         {
@@ -189,8 +191,13 @@ public class Act : MonoBehaviour
                 return false;
             }
         }
+
+        if (starsEarnedThisAct < starsRequiredToCompleteAct)
+        {
+            return false;
+        }
         
-        onAllChaptersComplete?.Invoke();
+        OnActComplete?.Invoke();
         return true;
     }
 
