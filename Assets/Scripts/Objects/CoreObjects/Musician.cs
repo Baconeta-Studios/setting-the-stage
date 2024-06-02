@@ -16,6 +16,7 @@ public class Musician : StSObject
     [SerializeField] private string nationality;
     [SerializeField] private string occupation;
     
+    
     [Header("Instruments")]
     [Tooltip("Instruments the musician is best at.\nAny instruments not listed in any of these lists are considered poor.")] 
     [SerializeField] private List<Instrument> expertInstruments;

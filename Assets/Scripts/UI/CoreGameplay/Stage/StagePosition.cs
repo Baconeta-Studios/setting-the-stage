@@ -8,7 +8,9 @@ public class StagePosition : MonoBehaviour
 {
     public static event Action<StagePosition> OnStagePositionClicked;
     public static event Action<StagePosition> OnStagePositionChanged;
-
+    
+    [SerializeField] private Transform viewTarget;
+    
     [Header("Musician")]
     public Musician musicianOccupied = null;
 
@@ -64,5 +66,10 @@ public class StagePosition : MonoBehaviour
     public int GetMusicianProficiency()
     {
         return (int)musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
+    }
+    
+    public Transform GetViewTarget()
+    {
+        return viewTarget; 
     }
 }

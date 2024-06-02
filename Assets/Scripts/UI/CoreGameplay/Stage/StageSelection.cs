@@ -61,6 +61,8 @@ public class StageSelection : Singleton<StageSelection>
     
     public void HideStageSelection()
     {
+        Backdrop.OnBackgroundClicked -= HideStageSelection;
+        
         activeStagePosition = null;
         
         gameObject.SetActive(false);

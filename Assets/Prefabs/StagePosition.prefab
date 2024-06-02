@@ -36,6 +36,7 @@ Transform:
   - {fileID: 2283119746589849469}
   - {fileID: 1150413887740404673}
   - {fileID: 4011610679819680287}
+  - {fileID: 4143559613442204669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5767086853475238607
@@ -102,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fd527e12551a8439b506085ffcdb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewTarget: {fileID: 4143559613442204669}
   musicianOccupied: {fileID: 0}
   musicianSprite: {fileID: 7181238987848532211}
   musicianSelection: {fileID: 118423123027634021}
@@ -561,6 +563,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1932121505593185393}
   m_maskType: 0
+--- !u!1 &7681968552713770595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4143559613442204669}
+  m_Layer: 0
+  m_Name: CameraViewTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4143559613442204669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681968552713770595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.41, z: -7.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2571117010890321880}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8692785205788255628
 GameObject:
   m_ObjectHideFlags: 0

@@ -131,6 +131,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 605385048872364687, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: cameraStates.Array.data[0].blendDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605385048872364687, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: cameraStates.Array.data[1].blendDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114851010024091745, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13
+      objectReference: {fileID: 0}
     - target: {fileID: 3340369173935842953, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -141,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3340369173935842953, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3340369173935842953, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -171,9 +183,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3700066914673139263, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13
+      objectReference: {fileID: 0}
     - target: {fileID: 6741384681233342250, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_Name
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105146923176056256, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_XDamping
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105146923176056256, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_YDamping
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105146923176056256, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_ZDamping
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105146923176056256, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_FollowOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005563914267394941, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

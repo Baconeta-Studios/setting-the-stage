@@ -43,6 +43,10 @@ public class Carousel : MonoBehaviour
 
     public void OpenCarousel(StagePosition activeStagePosition)
     {
+        if (currentStagePosition && activeStagePosition != currentStagePosition)
+        {
+            CloseCarousel();
+        }
         currentStagePosition = activeStagePosition;
         
         StSDebug.Log($"Opening Carousel: {gameObject.name}");
