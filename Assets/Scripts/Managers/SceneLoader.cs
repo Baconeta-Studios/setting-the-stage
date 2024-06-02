@@ -47,7 +47,7 @@ public class SceneLoader : Singleton<SceneLoader>
     /// <param name="sceneToLoad">The scene that you want to load</param>
     public bool LoadScene(SceneStruct sceneToLoad)
     {
-        if (sceneToLoad.sceneAsset != null)
+        if (sceneToLoad.sceneAsset is not null)
         {
             Debug.Log($"Open Scene: {sceneToLoad.sceneDisplayName}");
             
@@ -103,5 +103,10 @@ public class SceneLoader : Singleton<SceneLoader>
     SceneStruct GetSceneStructByString(string sceneToGet)
     {
         return scenes.Find(x => x.sceneDisplayName == sceneToGet);
+    }
+
+    public bool CanLoadScene(string sceneString)
+    {
+        return GetSceneStructByString(sceneString).sceneAsset is not null;
     }
 }

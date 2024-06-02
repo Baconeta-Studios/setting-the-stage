@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class ChapterUI : MonoBehaviour
 {
     private Chapter _chapter;
 
+    [SerializeField] private TextMeshProUGUI chapterTitle;
+    
     [SerializeField]
     private TempChapterNavigation _StageProgressButton;
     
@@ -21,6 +24,8 @@ public class ChapterUI : MonoBehaviour
         {
             StSDebug.LogError($"ChapterUI could not find chapter object.");
         }
+
+        chapterTitle.text = $"Chapter {_chapter.ChapterNumber}";
     }
 
     private void OnEnable()

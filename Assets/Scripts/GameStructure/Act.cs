@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,6 @@ public class ChapterStruct
 
 public class Act : MonoBehaviour
 {
-
     [SerializeField] private int actNumber;
     
     [Header("Chapters")]
@@ -27,15 +27,31 @@ public class Act : MonoBehaviour
     [SerializeField] private float starsEarnedThisAct;
 
     [SerializeField] private ActCanvas actCanvas;
+
+    //TODO Replace with cutscene objects when they are implemented.
+    [SerializeField] private GameObject introCutscene;
+    [SerializeField] private GameObject outroCutscene;
     
     // Actions
     public event Action onChapterOpen; 
     public event Action onChapterClosed;
+    public event Action onCutsceneComplete;
+    public event Action onAllChaptersComplete;
     
     void Awake()
     {
+        if (!actCanvas)
+        {
+            actCanvas = FindObjectOfType<ActCanvas>();
+        }
         actCanvas.Initialize(this, chapters);
         LoadActData();
+
+    }
+
+    void Start()
+    {
+        CheckIfAllChaptersAreComplete();
     }
 
     private void OnEnable()
@@ -55,14 +71,15 @@ public class Act : MonoBehaviour
         SaveSystem.UserData userData = saveSystem.GetUserData();
 
         starsEarnedThisAct = 0.0f;
-        
+
         // Only compare against chapters in this act
         foreach (SaveSystem.ChapterSaveData saveData in userData.chapterSaveData.Where(saveData => saveData.actNumber == actNumber))
         {
             if (saveData.chapterNumber < chapters.Count)
             {
-                chapters[saveData.chapterNumber].starsEarned = saveData.starsEarned;
-                starsEarnedThisAct += saveData.starsEarned;
+                float starsEarned = saveData.starsEarned;
+                chapters[saveData.chapterNumber].starsEarned = starsEarned;
+                starsEarnedThisAct += starsEarned;
             }
             else
             {
@@ -112,11 +129,45 @@ public class Act : MonoBehaviour
         //Update the current chapter as completed
         chapters[currentChapterIndex].starsEarned = starsEarned;
         starsEarnedThisAct += starsEarned - previousStarsOnChapter;
+        
         // Save the data!
         SaveSystem saveSystem = SaveSystem.Instance;
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         CloseChapter();
+
+        if (CheckIfAllChaptersAreComplete())
+        {
+            ProgressToNextAct();
+        }
+    }
+    
+    public void ProgressToNextAct()
+    {
+        SaveSystem.Instance.ActComplete(actNumber);
+
+        if (HasNextAct())
+        {
+            // Cut scene and next act.
+            StartCoroutine(PlayCutscene(outroCutscene));
+            onCutsceneComplete += GoToNextAct;
+        }
+    }
+    
+    //TODO Replace GameObject cutscene with a Cutscene object once it is complete.
+    IEnumerator PlayCutscene(GameObject cutscene)
+    {
+        float cutsceneDuration = 0.0f;
+        yield return new WaitForSeconds(cutsceneDuration);
+        onCutsceneComplete?.Invoke();
+        yield return null;
+    }
+    
+
+    void GoToNextAct()
+    {
+        onCutsceneComplete -= GoToNextAct;
+        SceneLoader.Instance.LoadScene($"Act {actNumber + 1}");
     }
 
     void CloseChapter()
@@ -129,6 +180,20 @@ public class Act : MonoBehaviour
         onChapterClosed?.Invoke();
     }
 
+    private bool CheckIfAllChaptersAreComplete()
+    {
+        foreach (ChapterStruct chapter in chapters)
+        {
+            if (chapter.starsEarned <= 0.0f)
+            {
+                return false;
+            }
+        }
+        
+        onAllChaptersComplete?.Invoke();
+        return true;
+    }
+
     public float GetStarsEarnedInAct()
     {
         return starsEarnedThisAct;
@@ -137,5 +202,10 @@ public class Act : MonoBehaviour
     public int GetActNumber()
     {
         return actNumber;
+    }
+
+    public bool HasNextAct()
+    {
+        return SceneLoader.Instance.CanLoadScene($"Act {actNumber + 1}");
     }
 }
