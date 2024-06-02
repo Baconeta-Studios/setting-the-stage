@@ -36,6 +36,7 @@ public class Act : MonoBehaviour
     public event Action onChapterOpen; 
     public event Action onChapterClosed;
     public event Action onCutsceneComplete;
+    public event Action onAllChaptersComplete;
     
     void Awake()
     {
@@ -45,6 +46,12 @@ public class Act : MonoBehaviour
         }
         actCanvas.Initialize(this, chapters);
         LoadActData();
+
+    }
+
+    void Start()
+    {
+        CheckIfAllChaptersAreComplete();
     }
 
     private void OnEnable()
@@ -129,11 +136,21 @@ public class Act : MonoBehaviour
         
         CloseChapter();
 
-        if (AreAllChaptersComplete())
+        if (CheckIfAllChaptersAreComplete())
+        {
+            ProgressToNextAct();
+        }
+    }
+    
+    public void ProgressToNextAct()
+    {
+        SaveSystem.Instance.ActComplete(actNumber);
+
+        if (HasNextAct())
         {
             // Cut scene and next act.
             StartCoroutine(PlayCutscene(outroCutscene));
-            onCutsceneComplete += ProgressToNextAct;
+            onCutsceneComplete += GoToNextAct;
         }
     }
     
@@ -145,13 +162,12 @@ public class Act : MonoBehaviour
         onCutsceneComplete?.Invoke();
         yield return null;
     }
+    
 
-    void ProgressToNextAct()
+    void GoToNextAct()
     {
-        onCutsceneComplete -= ProgressToNextAct;
+        onCutsceneComplete -= GoToNextAct;
         SceneLoader.Instance.LoadScene($"Act {actNumber + 1}");
-        
-        SaveSystem.Instance.ActComplete(actNumber);
     }
 
     void CloseChapter()
@@ -164,7 +180,7 @@ public class Act : MonoBehaviour
         onChapterClosed?.Invoke();
     }
 
-    private bool AreAllChaptersComplete()
+    private bool CheckIfAllChaptersAreComplete()
     {
         foreach (ChapterStruct chapter in chapters)
         {
@@ -173,7 +189,8 @@ public class Act : MonoBehaviour
                 return false;
             }
         }
-
+        
+        onAllChaptersComplete?.Invoke();
         return true;
     }
 
@@ -185,5 +202,10 @@ public class Act : MonoBehaviour
     public int GetActNumber()
     {
         return actNumber;
+    }
+
+    public bool HasNextAct()
+    {
+        return SceneLoader.Instance.CanLoadScene($"Act {actNumber + 1}");
     }
 }

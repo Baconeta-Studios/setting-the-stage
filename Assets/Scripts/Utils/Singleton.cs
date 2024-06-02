@@ -21,6 +21,8 @@ namespace Utils
                     {
                         GameObject newInstance = new();
                         _instance = newInstance.AddComponent<T>();
+                        _instance.name = typeof(T).ToString();
+                        StSDebug.LogWarning($"Static Instance was not found for {_instance.name} - A new object has been created.");
                     }
                 }
 

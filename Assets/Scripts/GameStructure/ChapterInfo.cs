@@ -1,10 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChapterInfo : MonoBehaviour
 {
     public ChapterStruct chapter;
+    [SerializeField] private TextMeshProUGUI chapterTitle;
     [SerializeField] private StarContainer stars;
     [SerializeField] private Button startButton;
     public static event Action<ChapterStruct> OnChapterStartRequested;
@@ -13,7 +15,8 @@ public class ChapterInfo : MonoBehaviour
     {
         chapter = newChapter;
         startButton.interactable = false;
-        
+
+        chapterTitle.text = newChapter.sceneInfo.sceneDisplayName;
         // Add other initialization such as chapter name, any buttons, or other text wanted here.
     }
     

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 
 public class ActCanvas : MonoBehaviour
@@ -16,10 +18,12 @@ public class ActCanvas : MonoBehaviour
     private Act _act;
 
     [SerializeField] private GameObject chapterSelectUI;
+    [SerializeField] private TextMeshProUGUI actTitle;
     
     [SerializeField] private Transform chapterContainer;
     [SerializeField] private GameObject chapterInfoPrefab;
     [SerializeField] private List<ChapterInfo> chapterInfos = new List<ChapterInfo>();
+    [SerializeField] private Button nextActButton;
 
     void Start()
     {
@@ -32,6 +36,7 @@ public class ActCanvas : MonoBehaviour
         {
             _act.onChapterOpen -= ChapterOpened;
             _act.onChapterClosed -= ChapterClosed;
+            _act.onAllChaptersComplete -= ShowNextActButton;
         }
     }
 
@@ -39,10 +44,14 @@ public class ActCanvas : MonoBehaviour
     {
         _act = actParent;
         
+        nextActButton.gameObject.SetActive(false);
+        
         if (_act)
         {
             _act.onChapterOpen += ChapterOpened;
             _act.onChapterClosed += ChapterClosed;
+            _act.onAllChaptersComplete += ShowNextActButton;
+            actTitle.text = $"Act {_act.GetActNumber()}";
         }
         
         foreach (ChapterStruct chapter in chapters)
@@ -59,17 +68,17 @@ public class ActCanvas : MonoBehaviour
         //Cycle through chapters, and disable locked chapters
         for (int index = 0; index < chapterInfos.Count; index++)
         {
-            bool chapterUnlocked = _act.GetStarsEarnedInAct() >= chapterInfos[index].chapter.starsRequiredToUnlock;
+            ChapterInfo chapterInfo = chapterInfos[index];
+            bool chapterUnlocked = _act.GetStarsEarnedInAct() >= chapterInfo.chapter.starsRequiredToUnlock;
 
             if (chapterUnlocked)
             {
-                ChapterInfo chapter = chapterInfos[index];
-                chapter.UnlockChapter();
+                chapterInfo.UnlockChapter();
                 SaveSystem saveSystem = SaveSystem.Instance;
                 if (saveSystem)
                 {
                     float stars = saveSystem.GetUserData().GetStarsForChapter(_act.GetActNumber(), index);
-                    chapter.StarsChanged(stars);
+                    chapterInfo.StarsChanged(stars);
                 }
             }
         }
@@ -98,6 +107,15 @@ public class ActCanvas : MonoBehaviour
             case CurrentState.InGame:
                 chapterSelectUI.SetActive(false);
                 break;
+        }
+    }
+
+    void ShowNextActButton()
+    {
+        if (_act.HasNextAct())
+        {
+            nextActButton.gameObject.SetActive(true);
+            nextActButton.onClick.AddListener(_act.ProgressToNextAct);
         }
     }
 }

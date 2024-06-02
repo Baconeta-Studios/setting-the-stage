@@ -380,6 +380,7 @@ MonoBehaviour:
       sceneDisplayName: 
       sceneAsset: {fileID: 0}
       loadSceneMode: 0
+  chapterTitle: {fileID: 6521014877951686043}
   stars: {fileID: 7094176868033756187}
   startButton: {fileID: 2733766721727628367}
 --- !u!114 &8010756837823902609
