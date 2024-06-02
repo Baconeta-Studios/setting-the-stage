@@ -11,6 +11,9 @@ public class StagePosition : MonoBehaviour
 
     [Header("Musician")]
     public Musician musicianOccupied = null;
+
+    [SerializeField] private SpriteRenderer musicianSprite;
+    
     public TextMeshPro musicianSelection;
     
     [Header("Instrument")]
@@ -26,7 +29,16 @@ public class StagePosition : MonoBehaviour
     {
         musicianOccupied = selection;
 
-        musicianSelection.text = musicianOccupied ? musicianOccupied.GetName() : "";
+        if (musicianOccupied)
+        {
+            musicianSelection.text = musicianOccupied.GetName();
+            musicianSprite.sprite = selection.GetSprite();
+        }
+        else
+        {
+            musicianSelection.text = "";
+            musicianSprite.sprite = null;
+        }
         
         OnStagePositionChanged?.Invoke(this);
     }

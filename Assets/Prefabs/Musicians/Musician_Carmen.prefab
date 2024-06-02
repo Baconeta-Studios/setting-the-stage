@@ -21,6 +21,10 @@ PrefabInstance:
       value: Carmen
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 21300000, guid: e4629c5ecc683f14bbf4ef13786116ce, type: 3}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: icon
       value: 
       objectReference: {fileID: 21300000, guid: 08ed04d133f500d43bcf5f5e14557326, type: 3}
