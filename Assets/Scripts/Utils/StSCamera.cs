@@ -169,6 +169,7 @@ public class StsCamera : Singleton<StsCamera>
     private void ChangeFocus(Transform newFocus)
     {
         vCam.Follow = newFocus;
+        vCam.LookAt = newFocus;
         StartCoroutine(ResetFollow());
     }
 }
