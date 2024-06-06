@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -15,8 +16,14 @@ namespace Audio
 
         private void Awake()
         {
-            _builtClips = new List<AudioClip>();
+            _builtClips = new List<AudioClip>(new AudioClip[10]);
             _customAudioSource = audioManager.Setup(musicMixerGroup, false);
+        }
+        
+        public void UpdateClipAtIndex(AudioClip clip, int index)
+        {
+            clip?.LoadAudioData(); // Since clip can be null we use null prop
+            _builtClips[index] = clip;
         }
 
         public void AddClipToBuilder(AudioClip clip)
@@ -28,13 +35,12 @@ namespace Audio
         public float PlayBuiltClips()
         {
             float longestClip = 0;
-            foreach (AudioClip clip in _builtClips)
+            foreach (var clip in _builtClips.Where(clip => clip is not null))
             {
                 if (clip.length > longestClip) longestClip = clip.length;
                 _customAudioSource.PlayOnce(clip);
             }
-
-            _builtClips.Clear();
+            
             return longestClip;
         }
     }

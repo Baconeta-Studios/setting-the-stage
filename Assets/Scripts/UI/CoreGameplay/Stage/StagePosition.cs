@@ -9,6 +9,9 @@ public class StagePosition : MonoBehaviour
     public static event Action<StagePosition> OnStagePositionClicked;
     public static event Action<StagePosition> OnStagePositionChanged;
 
+    [Header("Stage Parameters")]
+    public int stagePositionNumber;
+    
     [Header("Musician")]
     public Musician musicianOccupied = null;
     public TextMeshPro musicianSelection;
