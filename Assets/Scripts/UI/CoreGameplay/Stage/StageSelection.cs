@@ -20,6 +20,9 @@ public class StageSelection : Singleton<StageSelection>
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
+    public static event Action OnStageSelectionStarted; 
+    public static event Action OnStageSelectionEnded; 
+
     protected override void Awake()
     {
         base.Awake();
@@ -57,12 +60,11 @@ public class StageSelection : Singleton<StageSelection>
                 break;
         }
         gameObject.SetActive(true);
+        OnStageSelectionStarted?.Invoke();
     }
     
     public void HideStageSelection()
     {
-        Backdrop.OnBackgroundClicked -= HideStageSelection;
-        
         activeStagePosition = null;
         
         gameObject.SetActive(false);
@@ -76,6 +78,8 @@ public class StageSelection : Singleton<StageSelection>
                 instrumentCarousel.CloseCarousel();
                 break;
         }
+        
+        OnStageSelectionEnded?.Invoke();
     }
 
     public void SwapCarousels()

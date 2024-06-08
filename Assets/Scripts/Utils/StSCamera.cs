@@ -26,6 +26,7 @@ public class StsCamera : Singleton<StsCamera>
         public Transform focusTarget; 
         public float fieldOfView;
         public float blendDuration;
+        public Vector3 focusOffset;
     }
     [Header("Camera States")][Space(20)]
     [SerializeField] private List<CameraState> cameraStates;
@@ -39,12 +40,11 @@ public class StsCamera : Singleton<StsCamera>
     private InputAction onPointerPress;
     private InputAction onPointerDelta;
      private Vector2 panDelta;
-    [SerializeField] private Vector2 panMin;
-    [SerializeField] private Vector2 panMax;
+    [SerializeField] private Vector3 panMin = new Vector3(-2f, -0.5f, 0f);
+    [SerializeField] private Vector3 panMax = new Vector3(-2f, 0.5f, 0f);
     [SerializeField] private float panSensitvity;
-    [Header("The amount of time it takes for panning to reset to the target when changing focus.")]
-    [SerializeField] private float panResetDuration = 1;
-    
+
+
     private void OnEnable()
     {
         input = FindObjectOfType<PlayerInput>();
@@ -61,7 +61,8 @@ public class StsCamera : Singleton<StsCamera>
 
         vCamTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
-        Backdrop.OnBackgroundClicked += OnBackgroundClicked;
+        StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
+
     }
 
     private void OnDisable()
@@ -79,7 +80,7 @@ public class StsCamera : Singleton<StsCamera>
         }
         
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
-        Backdrop.OnBackgroundClicked -= OnBackgroundClicked;
+        StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
     private void Update()
@@ -103,6 +104,8 @@ public class StsCamera : Singleton<StsCamera>
                 currentPan = Vector3.Min(currentPan, panMax);
                 currentPan = Vector3.Max(currentPan, panMin);
 
+                currentPan.z = vCamTransposer.m_TrackedObjectOffset.z;
+
                 // Set value.
                 vCamTransposer.m_TrackedObjectOffset = currentPan;
             }
@@ -114,7 +117,7 @@ public class StsCamera : Singleton<StsCamera>
         ChangeCameraState(CameraStateName.SelectedStagePosition, stagePosition.GetViewTarget());
     }
 
-    private void OnBackgroundClicked()
+    private void OnStageSelectionEnded()
     {
         if (currentCameraState.Name == CameraStateName.SelectedStagePosition)
         {
@@ -146,30 +149,7 @@ public class StsCamera : Singleton<StsCamera>
             currentCameraState.focusTarget = transientFocus;
         }
         
-        ChangeFocus(currentCameraState.focusTarget);
-    }
-
-    private IEnumerator ResetFollow()
-    {
-        Vector3 startFollow = vCamTransposer.m_TrackedObjectOffset;
-        Vector3 endFollow = Vector3.zero;
-        float t = 0;
-        while (t < panResetDuration)
-        {
-            vCamTransposer.m_TrackedObjectOffset = Vector3.Lerp(startFollow, endFollow, t / panResetDuration);
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        vCamTransposer.m_TrackedObjectOffset = endFollow;
-        
-        yield return null;
-    }
-
-    private void ChangeFocus(Transform newFocus)
-    {
-        vCam.Follow = newFocus;
-        vCam.LookAt = newFocus;
-        StartCoroutine(ResetFollow());
+        vCam.Follow = currentCameraState.focusTarget;
+        vCamTransposer.m_TrackedObjectOffset = currentCameraState.focusOffset;
     }
 }

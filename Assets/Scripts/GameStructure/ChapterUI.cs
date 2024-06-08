@@ -71,7 +71,6 @@ public class ChapterUI : MonoBehaviour
         if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
         {
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
-            Backdrop.OnBackgroundClicked += _SelectionCarousels.HideStageSelection;
         }
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
