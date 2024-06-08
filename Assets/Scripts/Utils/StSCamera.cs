@@ -25,7 +25,6 @@ public class StsCamera : Singleton<StsCamera>
         [Tooltip("This can be left null, stage positions will automatically fill this.")]
         public Transform focusTarget; 
         public float fieldOfView;
-        public float blendDuration;
         public Vector3 focusOffset;
     }
     [Header("Camera States")][Space(20)]
