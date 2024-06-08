@@ -8,6 +8,8 @@ namespace Audio
 {
     public class AudioBuilderSystem : MonoBehaviour
     {
+        public int maxStageSpotsAudioCache = 10;
+        
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private AudioMixerGroup musicMixerGroup;
 
@@ -16,7 +18,7 @@ namespace Audio
 
         private void Awake()
         {
-            _builtClips = new List<AudioClip>(new AudioClip[10]);
+            _builtClips = new List<AudioClip>(new AudioClip[maxStageSpotsAudioCache]);
             _customAudioSource = audioManager.Setup(musicMixerGroup, false);
         }
         
