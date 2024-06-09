@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 23
   m_MaxRayIntersections: 0
 --- !u!1 &4820373933180639161
 GameObject:
@@ -315,18 +315,15 @@ MonoBehaviour:
   - Name: 0
     focusTarget: {fileID: 9005563914267394941}
     fieldOfView: 0
-    blendDuration: 1
     focusOffset: {x: 0, y: 0, z: -15}
   - Name: 1
     focusTarget: {fileID: 0}
     fieldOfView: 0
-    blendDuration: 1
     focusOffset: {x: 0, y: 0, z: -9}
   currentCameraState:
     Name: 0
     focusTarget: {fileID: 0}
     fieldOfView: 0
-    blendDuration: 0
     focusOffset: {x: 0, y: 0, z: 0}
   vCam: {fileID: 514964442251036603}
   IsMovingCamera: 0
@@ -394,9 +391,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 2.5
-  m_YDamping: 2.5
-  m_ZDamping: 4
+  m_XDamping: 1.5
+  m_YDamping: 1.5
+  m_ZDamping: 2.5
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5

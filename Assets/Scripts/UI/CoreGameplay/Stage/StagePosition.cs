@@ -24,7 +24,10 @@ public class StagePosition : MonoBehaviour
 
     public void OnInteract()
     {
-        OnStagePositionClicked?.Invoke(this);
+        if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
+        {
+            OnStagePositionClicked?.Invoke(this);
+        }
     }
 
     public void MusicianSelectionChanged(Musician selection)

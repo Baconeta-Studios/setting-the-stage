@@ -538,6 +538,7 @@ MonoBehaviour:
   _StageProgressButton: {fileID: 6950749810653017687}
   _SelectionCarousels: {fileID: 6572332492366613453}
   _StarDisplay: {fileID: 3311836820882562246}
+  _graphicRaycaster: {fileID: 1465851634215116473}
 --- !u!1001 &5430094807810376915
 PrefabInstance:
   m_ObjectHideFlags: 0

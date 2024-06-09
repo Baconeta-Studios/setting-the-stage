@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Utils;
 
 /// <summary>
@@ -37,11 +39,14 @@ public class StsCamera : Singleton<StsCamera>
     [SerializeField] private bool IsMovingCamera = false;
     private PlayerInput input;
     private InputAction onPointerPress;
+    private InputAction onPointerPosition;
     private InputAction onPointerDelta;
      private Vector2 panDelta;
     [SerializeField] private Vector3 panMin = new Vector3(-2f, -0.5f, 0f);
     [SerializeField] private Vector3 panMax = new Vector3(-2f, 0.5f, 0f);
     [SerializeField] private float panSensitvity;
+
+    private ChapterUI chapterUi;
 
 
     private void OnEnable()
@@ -126,7 +131,24 @@ public class StsCamera : Singleton<StsCamera>
 
     private void OnPointerDown(InputAction.CallbackContext context)
     {
-        IsMovingCamera = true;
+        if (chapterUi is null)
+        {
+            chapterUi = FindObjectOfType<ChapterUI>();
+        }
+
+        if (chapterUi is null)
+        {
+            StSDebug.LogWarning("No chapter Ui found in camera system when checking for if the pointer is over the Ui.");
+            return;
+        }
+        StartCoroutine(EPointerDown());
+    }
+
+    private IEnumerator EPointerDown()
+    {
+        yield return new WaitForEndOfFrame();
+        IsMovingCamera = !chapterUi.IsPointerOverUi();
+        yield return null;
     }
 
     private void OnPointerUp(InputAction.CallbackContext context)

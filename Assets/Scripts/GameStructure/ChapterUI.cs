@@ -1,5 +1,9 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ChapterUI : MonoBehaviour
 {
@@ -16,16 +20,33 @@ public class ChapterUI : MonoBehaviour
     [SerializeField]
     private StarContainer _StarDisplay;
     
+    [SerializeField]
+    private GraphicRaycaster _graphicRaycaster;
+
+    private PlayerInput input;
+    private InputAction onPointerPosition;
+    private Vector2 pointerPosition;
+
+
     void Awake()
     {
         _StarDisplay.gameObject.SetActive(false);
         _chapter = FindObjectOfType<Chapter>();
+
         if (!_chapter)
         {
             StSDebug.LogError($"ChapterUI could not find chapter object.");
         }
 
         chapterTitle.text = $"Chapter {_chapter.ChapterNumber}";
+        
+        input = FindObjectOfType<PlayerInput>();
+        if (input)
+        {
+            // Bind to the pointer down event for when to pan
+            onPointerPosition = input.actions["PointerPosition"];
+            onPointerPosition.performed += OnPointerPosition;
+        }
     }
 
     private void OnEnable()
@@ -42,6 +63,8 @@ public class ChapterUI : MonoBehaviour
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
         _chapter.onRevealRating -= RevealRating;
+        
+        onPointerPosition.performed -= OnPointerPosition;
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -93,6 +116,29 @@ public class ChapterUI : MonoBehaviour
     {
         _StarDisplay.gameObject.SetActive(true);
         _StarDisplay.ShowStars(starsEarned);
+    }
+
+    private void OnPointerPosition(InputAction.CallbackContext context)
+    {
+        pointerPosition = context.ReadValue<Vector2>();
+        
+        Debug.Log(pointerPosition);
+    }
+    
+    public bool IsPointerOverUi()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = pointerPosition
+        };
+        
+        Debug.Log($"{pointerData.position}");
+        Debug.Log($"Dimensions: {Screen.width} x {Screen.height}");
+        List<RaycastResult> results = new List<RaycastResult>();
+        
+        _graphicRaycaster.Raycast(pointerData, results);
+
+        return results.Count > 0;
     }
     
     
