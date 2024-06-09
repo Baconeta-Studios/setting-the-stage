@@ -20,7 +20,7 @@ A musical puzzle game in development by Baconeta Collaborative and to be publish
 ##### Joshua Villgren
 - Game Lead
 - Lead Game Producer
-##### Bree Cooke
+##### Sabrina Cooke
 - Lead Game Programmer
 - Game Designer
 ##### Veera Villgren
