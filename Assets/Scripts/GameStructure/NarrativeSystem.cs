@@ -97,7 +97,7 @@ namespace GameStructure
             }
         }
 
-        private void EndNarrative()
+        public void EndNarrative()
         {
             _actionOnEnd?.Invoke(); // could consider event triggers also but this seems ok for now
         }
@@ -188,6 +188,11 @@ namespace GameStructure
         {
             actNumber = act;
             cutsceneType = type;
+        }
+
+        public string GetCutsceneIDForSaveSystem()
+        {
+            return actNumber + "_" + _thisNarrative.readableNarrativeName + "_" + cutsceneType;
         }
     }
 }
