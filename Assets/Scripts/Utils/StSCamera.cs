@@ -51,6 +51,10 @@ public class StsCamera : Singleton<StsCamera>
 
     private void OnEnable()
     {
+        vCamTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        
+        // Subscribe to pointer events immediately, even if the game is not in a chapter.
+        // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
         
         // Bind to the pointer down event for when to pan
@@ -63,11 +67,9 @@ public class StsCamera : Singleton<StsCamera>
         onPointerDelta.performed += OnPointerDelta;
         onPointerDelta.canceled += OnPointerDelta;
 
-        vCamTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
-        
+        // Bind to STATIC events, doesn't matter if there is an object or not.
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
-
     }
 
     private void OnDisable()
