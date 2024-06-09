@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameStructure;
 using UnityEngine;
 using Utils;
 
@@ -30,9 +31,10 @@ public class Act : MonoBehaviour
 
     [SerializeField] private ActCanvas actCanvas;
 
-    //TODO Replace with cutscene objects when they are implemented.
-    [SerializeField] private GameObject introCutscene;
-    [SerializeField] private GameObject outroCutscene;
+    [SerializeField] private NarrativeSystem overrideIntroCutscene;
+    [SerializeField] private NarrativeSystem overrideOutroCutscene;
+    
+    [SerializeField] private NarrativeSystem defaultCutsceneLayout;
     
     // Actions
     public event Action onChapterOpen; 
@@ -150,19 +152,35 @@ public class Act : MonoBehaviour
 
         if (HasNextAct())
         {
-            // Cut scene and next act.
-            StartCoroutine(PlayCutscene(outroCutscene));
+            // Cutscene and next act.
             onCutsceneComplete += GoToNextAct;
+            if (overrideOutroCutscene)
+            {
+                PlayCutscene(overrideOutroCutscene, NarrativeSO.NarrativeType.Override);
+            }
+            else
+            {
+                PlayCutscene(null, NarrativeSO.NarrativeType.ActOutro);
+            }
         }
     }
     
-    //TODO Replace GameObject cutscene with a Cutscene object once it is complete.
-    IEnumerator PlayCutscene(GameObject cutscene)
+    private void PlayCutscene(NarrativeSystem cutscene, NarrativeSO.NarrativeType type)
     {
-        float cutsceneDuration = 0.0f;
-        yield return new WaitForSeconds(cutsceneDuration);
+        if (cutscene is null)
+        {
+            cutscene = Instantiate(defaultCutsceneLayout);
+            cutscene.SetParameters(actNumber, type);
+        }
+        cutscene.gameObject.SetActive(true);
+        cutscene.Setup(EndCutscene(cutscene));
+    }
+
+    private Action EndCutscene(NarrativeSystem cutscene)
+    {
+        cutscene.gameObject.SetActive(true);
         onCutsceneComplete?.Invoke();
-        yield return null;
+        return null;
     }
     
 

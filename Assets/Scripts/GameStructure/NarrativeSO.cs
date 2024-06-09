@@ -7,7 +7,8 @@ public class NarrativeSO : ScriptableObject
     {
         Tutorial,
         ActIntro,
-        ActOutro
+        ActOutro,
+        Override
     }
 
     public string readableNarrativeName;
