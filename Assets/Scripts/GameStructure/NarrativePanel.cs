@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
 
+[CreateAssetMenu]
+[Serializable]
 public class NarrativePanel : ScriptableObject
 {
     // Contains the information about a specific panel for displaying story information on the screen
