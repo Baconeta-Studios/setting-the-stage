@@ -64,6 +64,7 @@ public class StsCamera : Singleton<StsCamera>
         onPointerDelta.canceled += OnPointerDelta;
 
         vCamTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
 
@@ -118,11 +119,13 @@ public class StsCamera : Singleton<StsCamera>
 
     private void OnStagePositionClicked(StagePosition stagePosition)
     {
+        // Zoom onto the stage selection
         ChangeCameraState(CameraStateName.SelectedStagePosition, stagePosition.GetViewTarget());
     }
 
     private void OnStageSelectionEnded()
     {
+        // If we're zoomed in, then zoom out.
         if (currentCameraState.Name == CameraStateName.SelectedStagePosition)
         {
             ChangeCameraState(CameraStateName.Default);
@@ -141,11 +144,14 @@ public class StsCamera : Singleton<StsCamera>
             StSDebug.LogWarning("No chapter Ui found in camera system when checking for if the pointer is over the Ui.");
             return;
         }
+        
         StartCoroutine(EPointerDown());
     }
 
     private IEnumerator EPointerDown()
     {
+        // Wait until the end of the frame to ensure that the Pointer Position has been able to update.
+        // Solves an issue where the pointer down would happen before the pointer position and there would be invalid coordinates.
         yield return new WaitForEndOfFrame();
         IsMovingCamera = !chapterUi.IsPointerOverUi();
         yield return null;

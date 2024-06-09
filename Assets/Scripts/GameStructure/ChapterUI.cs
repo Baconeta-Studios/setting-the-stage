@@ -121,8 +121,6 @@ public class ChapterUI : MonoBehaviour
     private void OnPointerPosition(InputAction.CallbackContext context)
     {
         pointerPosition = context.ReadValue<Vector2>();
-        
-        Debug.Log(pointerPosition);
     }
     
     public bool IsPointerOverUi()
@@ -132,10 +130,9 @@ public class ChapterUI : MonoBehaviour
             position = pointerPosition
         };
         
-        Debug.Log($"{pointerData.position}");
-        Debug.Log($"Dimensions: {Screen.width} x {Screen.height}");
         List<RaycastResult> results = new List<RaycastResult>();
         
+        //Ray cast UI elements only.
         _graphicRaycaster.Raycast(pointerData, results);
 
         return results.Count > 0;
