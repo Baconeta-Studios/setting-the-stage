@@ -142,6 +142,7 @@ namespace Utils
                 userData.chapterSaveData.Clear();
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
+                userData.narrativesViewed.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
