@@ -13,7 +13,7 @@ namespace GameStructure
         // otherwise values are set in the SetParameters() call
         [SerializeField] private int actNumber;
         [SerializeField] private NarrativeSO.NarrativeType cutsceneType;
-        
+
         [SerializeField] private Image[] panels;
         [SerializeField] private Image fullScreenPanel;
 
@@ -23,7 +23,7 @@ namespace GameStructure
         [SerializeField] private Button[] allButtonsToPauseAutoScroll;
 
         [SerializeField] private float timeToMoveToNextPanel = 10f; // Time in seconds
-        
+
         private float _timeUntilTrigger;
 
         private NarrativeSO _thisNarrative;
@@ -45,13 +45,14 @@ namespace GameStructure
 
         private void ShowFirstPanel()
         {
+            backButton.interactable = false;
             ShowPage(0);
         }
 
         private void ShowPage(int pageOfPanels)
         {
             var totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
-            
+
             if (_panelsPerPage[pageOfPanels] == 1)
             {
                 // Show single panel only
@@ -79,9 +80,9 @@ namespace GameStructure
         public void MoveToNextPage()
         {
             ResetTimer();
-            
+
             // move to next page of panels or end narrative
-            if (_pageOnScreen + 1>= _panelsPerPage.Count)
+            if (_pageOnScreen + 1 >= _panelsPerPage.Count)
             {
                 EndNarrative();
             }
@@ -89,12 +90,8 @@ namespace GameStructure
             {
                 ShowPage(_pageOnScreen + 1);
             }
-            backButton.interactable = true;
 
-            if (_pageOnScreen + 1 >= _panelsPerPage.Count)
-            {
-                nextButton.interactable = false;
-            }
+            backButton.interactable = true;
         }
 
         public void EndNarrative()
@@ -105,7 +102,7 @@ namespace GameStructure
         public void MoveToPreviousPage()
         {
             ResetTimer();
-            
+
             // move to prev page of panels if it exists
             if (_pageOnScreen > 0)
             {
@@ -113,10 +110,6 @@ namespace GameStructure
                 if (_pageOnScreen == 0)
                 {
                     backButton.interactable = false;
-                }
-                else
-                {
-                    nextButton.interactable = true;
                 }
             }
         }
@@ -130,7 +123,7 @@ namespace GameStructure
         {
             // Populate data for the system from the narrative manager
             _dataManagerRef = NarrativeDataManager.Instance;
-            
+
             foreach (var button in allButtonsToPauseAutoScroll)
             {
                 button.onClick.AddListener(OnUserInteraction);
@@ -151,7 +144,7 @@ namespace GameStructure
             _actionOnEnd = invokeOnEnd;
 
             _thisNarrative = _dataManagerRef.GetNarrativeData(actNumber, cutsceneType);
-            
+
             var numPanels = panels.Length;
             var currentCountTotal = 0;
             var currentCountThisScreen = 0;
@@ -159,7 +152,7 @@ namespace GameStructure
             {
                 currentCountThisScreen += 1;
                 currentCountTotal += 1;
-                
+
                 if (narrativePanel.forceFullScreen)
                 {
                     _panelsPerPage.Add(currentCountThisScreen);
@@ -179,7 +172,7 @@ namespace GameStructure
             {
                 _panelsPerPage.Add(currentCountThisScreen);
             }
-            
+
             _timeUntilTrigger = timeToMoveToNextPanel;
             ShowFirstPanel();
         }
