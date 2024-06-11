@@ -28,10 +28,10 @@ namespace GameStructure
 
         private NarrativeSO _thisNarrative;
         private NarrativeDataManager _dataManagerRef;
-        private List<int> _panelsPerPage;
+        private List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
 
-        private Action _actionOnEnd;
+        private Action<NarrativeSystem> _actionOnEnd;
 
         public void Update()
         {
@@ -81,7 +81,7 @@ namespace GameStructure
             ResetTimer();
             
             // move to next page of panels or end narrative
-            if (_pageOnScreen == _panelsPerPage.Count)
+            if (_pageOnScreen + 1>= _panelsPerPage.Count)
             {
                 EndNarrative();
             }
@@ -91,7 +91,7 @@ namespace GameStructure
             }
             backButton.interactable = true;
 
-            if (_pageOnScreen == _panelsPerPage.Count)
+            if (_pageOnScreen + 1 >= _panelsPerPage.Count)
             {
                 nextButton.interactable = false;
             }
@@ -99,7 +99,7 @@ namespace GameStructure
 
         public void EndNarrative()
         {
-            _actionOnEnd?.Invoke(); // could consider event triggers also but this seems ok for now
+            _actionOnEnd?.Invoke(this); // could consider event triggers also but this seems ok for now
         }
 
         public void MoveToPreviousPage()
@@ -146,7 +146,7 @@ namespace GameStructure
         }
 
         // This system should calculate the number of screens needed to show all panels 
-        public void Setup(Action invokeOnEnd)
+        public void Setup(Action<NarrativeSystem> invokeOnEnd)
         {
             _actionOnEnd = invokeOnEnd;
 

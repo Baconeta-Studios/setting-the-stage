@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
+[Serializable]
 public class NarrativeSO : ScriptableObject
 {
     public enum NarrativeType

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameStructure;
@@ -55,7 +54,35 @@ public class Act : MonoBehaviour
 
     void Start()
     {
+        HandleIntroCutScene();
         CheckIfActIsComplete();
+    }
+
+    private void HandleIntroCutScene()
+    {
+        // Play cutscene if it exists and has not played yet - if save system doesn't exist, assume we haven't seen it
+        PrepareCutscene(overrideIntroCutscene, NarrativeSO.NarrativeType.ActIntro);
+    }
+
+    private void PrepareCutscene(NarrativeSystem scene, NarrativeSO.NarrativeType type)
+    {
+        if (SaveSystem.Instance)
+        {
+            if (SaveSystem.Instance.HasSeenCutscene(scene ? scene.GetCutsceneIDForSaveSystem() : defaultCutsceneLayout.GetCutsceneIDForSaveSystem()))
+            {
+                onCutsceneComplete?.Invoke();
+                return;
+            }
+        }
+
+        if (scene)
+        {
+            PlayCutscene(scene, NarrativeSO.NarrativeType.Override);
+        }
+        else
+        {
+            PlayCutscene(null, type);
+        }
     }
 
     private void OnEnable()
@@ -109,7 +136,7 @@ public class Act : MonoBehaviour
         }
     }
 
-    void ChapterLoaded()
+    private void ChapterLoaded()
     {
         SceneLoader.Instance.onSceneOpened -= ChapterLoaded;
         
@@ -125,7 +152,7 @@ public class Act : MonoBehaviour
 
     }
 
-    void ChapterComplete(float starsEarned)
+    private void ChapterComplete(float starsEarned)
     {
         currentChapter.onChapterComplete -= ChapterComplete;
 
@@ -150,35 +177,25 @@ public class Act : MonoBehaviour
     {
         SaveSystem.Instance.ActComplete(actNumber);
 
-        if (HasNextAct())
-        {
-            // Cutscene and next act.
-            onCutsceneComplete += GoToNextAct;
+        if (!HasNextAct()) return;
+        
+        // Cutscene and next act.
+        onCutsceneComplete += GoToNextAct;
             
-            if (overrideOutroCutscene && SaveSystem.Instance)
-            {
-                if (SaveSystem.Instance.HasSeenCutscene(overrideOutroCutscene.GetCutsceneIDForSaveSystem()))
-                {
-                    onCutsceneComplete?.Invoke();
-                    return;
-                }
-                PlayCutscene(overrideOutroCutscene, NarrativeSO.NarrativeType.Override);
-            }
-            else
-            {
-                
-                PlayCutscene(null, NarrativeSO.NarrativeType.ActOutro);
-            }
-        }
+        PrepareCutscene(overrideOutroCutscene, NarrativeSO.NarrativeType.ActOutro);
     }
     
     private void PlayCutscene(NarrativeSystem cutscene, NarrativeSO.NarrativeType type)
     {
+        actCanvas.SetEnabled(false);
+        
         if (cutscene is null)
         {
             cutscene = Instantiate(defaultCutsceneLayout);
             cutscene.SetParameters(actNumber, type);
         }
+
+        cutscene.Setup(_ => EndCutscene(cutscene));
         
         // Check if we have already seen this cutscene
         if (SaveSystem.Instance.HasSeenCutscene(cutscene.GetCutsceneIDForSaveSystem()))
@@ -186,17 +203,16 @@ public class Act : MonoBehaviour
             onCutsceneComplete?.Invoke();
             return;
         }
-        
+
         cutscene.gameObject.SetActive(true);
-        cutscene.Setup(EndCutscene(cutscene));
     }
 
-    private Action EndCutscene(NarrativeSystem cutscene)
+    private void EndCutscene(NarrativeSystem cutscene)
     {
         SaveSystem.Instance.SetCutsceneWatched(cutscene.GetCutsceneIDForSaveSystem());
-        cutscene.gameObject.SetActive(true);
+        cutscene.gameObject.SetActive(false);
+        actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
-        return null;
     }
     
 
