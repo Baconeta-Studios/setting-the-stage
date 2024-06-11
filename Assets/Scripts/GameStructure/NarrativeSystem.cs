@@ -58,14 +58,16 @@ namespace GameStructure
                 // Show single panel only
                 fullScreenPanel.sprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage].panelImage;
                 fullScreenPanel.gameObject.SetActive(true);
+                foreach (var p in panels) { p.gameObject.SetActive(false); }
             }
             else // We will show as many panels are we show on screen
             {
                 fullScreenPanel.gameObject.SetActive(false);
-                for (int i = 0; i < panels.Length; i++)
+                for (var i = 0; i < panels.Length; i++)
                 {
                     var thisPanelSprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage + i].panelImage;
                     panels[i].sprite = thisPanelSprite;
+                    panels[i].gameObject.SetActive(true);
                 }
             }
 
