@@ -66,15 +66,6 @@ public class Act : MonoBehaviour
 
     private void PrepareCutscene(NarrativeSystem scene, NarrativeSO.NarrativeType type)
     {
-        if (SaveSystem.Instance)
-        {
-            if (SaveSystem.Instance.HasSeenCutscene(scene ? scene.GetCutsceneIDForSaveSystem() : defaultCutsceneLayout.GetCutsceneIDForSaveSystem()))
-            {
-                onCutsceneComplete?.Invoke();
-                return;
-            }
-        }
-
         if (scene)
         {
             PlayCutscene(scene, NarrativeSO.NarrativeType.Override);
@@ -194,13 +185,15 @@ public class Act : MonoBehaviour
             cutscene = Instantiate(defaultCutsceneLayout);
             cutscene.SetParameters(actNumber, type);
         }
-
+        cutscene.gameObject.SetActive(false);
         cutscene.Setup(_ => EndCutscene(cutscene));
         
         // Check if we have already seen this cutscene
         if (SaveSystem.Instance.HasSeenCutscene(cutscene.GetCutsceneIDForSaveSystem()))
         {
             onCutsceneComplete?.Invoke();
+            Destroy(cutscene.gameObject);
+            actCanvas.SetEnabled(true);
             return;
         }
 
@@ -210,7 +203,7 @@ public class Act : MonoBehaviour
     private void EndCutscene(NarrativeSystem cutscene)
     {
         SaveSystem.Instance.SetCutsceneWatched(cutscene.GetCutsceneIDForSaveSystem());
-        cutscene.gameObject.SetActive(false);
+        Destroy(cutscene.gameObject);
         actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
     }
