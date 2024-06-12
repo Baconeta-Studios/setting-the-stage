@@ -30,8 +30,8 @@ public class Act : MonoBehaviour
 
     [SerializeField] private ActCanvas actCanvas;
 
-    [SerializeField] private NarrativeSystem layoutIntroCutscene;
-    [SerializeField] private NarrativeSystem layoutOutroCutscene;
+    [SerializeField] private GameObject layoutIntroCutscene;
+    [SerializeField] private GameObject layoutOutroCutscene;
     
     // Actions
     public event Action onChapterOpen; 
@@ -62,9 +62,9 @@ public class Act : MonoBehaviour
         PrepareCutscene(layoutIntroCutscene, NarrativeSO.NarrativeType.ActIntro);
     }
 
-    private void PrepareCutscene(NarrativeSystem scene, NarrativeSO.NarrativeType type)
+    private void PrepareCutscene(GameObject narrativeLayout, NarrativeSO.NarrativeType type)
     {
-        PlayCutscene(scene, type);
+        PlayCutscene(narrativeLayout, type);
     }
 
     private void OnEnable()
@@ -167,13 +167,15 @@ public class Act : MonoBehaviour
         PrepareCutscene(layoutOutroCutscene, NarrativeSO.NarrativeType.ActOutro);
     }
     
-    private void PlayCutscene(NarrativeSystem cutscene, NarrativeSO.NarrativeType type)
+    private void PlayCutscene(GameObject narrativeLayout, NarrativeSO.NarrativeType type)
     {
         actCanvas.SetEnabled(false);
-
-        cutscene.gameObject.SetActive(false);
+        
+        var cutscene = Instantiate(narrativeLayout).GetComponent<NarrativeSystem>();
         
         cutscene.SetParameters(actNumber, type);
+        cutscene.gameObject.SetActive(false);
+        
         cutscene.Setup(_ => EndCutscene(cutscene));
         
         // Check if we have already seen this cutscene

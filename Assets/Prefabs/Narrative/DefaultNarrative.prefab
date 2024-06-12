@@ -308,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2185736138706473825
 RectTransform:
   m_ObjectHideFlags: 0
@@ -341,8 +341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a2814e39274ab1a7decd0ab21ec0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actNumber: 0
-  cutsceneType: 3
   panels:
   - {fileID: 4975622418749830621}
   - {fileID: 2728744803039616534}

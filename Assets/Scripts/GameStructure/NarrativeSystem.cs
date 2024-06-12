@@ -123,9 +123,6 @@ namespace GameStructure
 
         private void OnEnable()
         {
-            // Populate data for the system from the narrative manager
-            _dataManagerRef = NarrativeDataManager.Instance;
-
             foreach (var button in allButtonsToPauseAutoScroll)
             {
                 button.onClick.AddListener(OnUserInteraction);
@@ -145,6 +142,8 @@ namespace GameStructure
         {
             _actionOnEnd = invokeOnEnd;
 
+            // Populate data for the system from the narrative manager
+            _dataManagerRef = NarrativeDataManager.Instance;
             _thisNarrative = _dataManagerRef.GetNarrativeData(_actNumber, _cutsceneType);
 
             if (_thisNarrative is null)
@@ -192,7 +191,7 @@ namespace GameStructure
 
         public string GetCutsceneIDForSaveSystem()
         {
-            return _actNumber + "_" + _thisNarrative.readableNarrativeName + "_" + _cutsceneType;
+            return _actNumber + "_" + _thisNarrative?.readableNarrativeName + "_" + _cutsceneType;
         }
     }
 }
