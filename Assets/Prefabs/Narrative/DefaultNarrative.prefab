@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 2139982281525964585}
   - component: {fileID: 7637164784610419533}
   m_Layer: 0
-  m_Name: BaseNarrative
+  m_Name: DefaultNarrative
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

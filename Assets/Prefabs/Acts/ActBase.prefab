@@ -51,6 +51,5 @@ MonoBehaviour:
   starsEarnedThisAct: 0
   starsRequiredToCompleteAct: 0
   actCanvas: {fileID: 0}
-  overrideIntroCutscene: {fileID: 0}
-  overrideOutroCutscene: {fileID: 0}
-  defaultCutsceneLayout: {fileID: 3825249801215726552, guid: f05c49916da0d384d9f0259d06ce7892, type: 3}
+  layoutIntroCutscene: {fileID: 3825249801215726552, guid: f05c49916da0d384d9f0259d06ce7892, type: 3}
+  layoutOutroCutscene: {fileID: 3825249801215726552, guid: f05c49916da0d384d9f0259d06ce7892, type: 3}

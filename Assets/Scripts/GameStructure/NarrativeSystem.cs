@@ -9,11 +9,6 @@ namespace GameStructure
 {
     public class NarrativeSystem : MonoBehaviour
     {
-        // These defined values are used when we have an explicit GO or prefab set for an act,
-        // otherwise values are set in the SetParameters() call
-        [SerializeField] private int actNumber;
-        [SerializeField] private NarrativeSO.NarrativeType cutsceneType;
-
         [SerializeField] private Image[] panels;
         [SerializeField] private Image fullScreenPanel;
 
@@ -26,9 +21,11 @@ namespace GameStructure
 
         private float _timeUntilTrigger;
 
+        private int _actNumber;
+        private NarrativeSO.NarrativeType _cutsceneType;
         private NarrativeSO _thisNarrative;
         private NarrativeDataManager _dataManagerRef;
-        private List<int> _panelsPerPage = new();
+        private readonly List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
 
         private Action<NarrativeSystem> _actionOnEnd;
@@ -58,7 +55,10 @@ namespace GameStructure
                 // Show single panel only
                 fullScreenPanel.sprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage].panelImage;
                 fullScreenPanel.gameObject.SetActive(true);
-                foreach (var p in panels) { p.gameObject.SetActive(false); }
+                foreach (var p in panels)
+                {
+                    p.gameObject.SetActive(false);
+                }
             }
             else // We will populate each panel on the page
             {
@@ -145,7 +145,14 @@ namespace GameStructure
         {
             _actionOnEnd = invokeOnEnd;
 
-            _thisNarrative = _dataManagerRef.GetNarrativeData(actNumber, cutsceneType);
+            _thisNarrative = _dataManagerRef.GetNarrativeData(_actNumber, _cutsceneType);
+
+            if (_thisNarrative is null)
+            {
+                StSDebug.LogWarning($"Parameters for act/type were not set before calling setup or data doesn't exist in the narrative manager for act {_actNumber} of type {_cutsceneType}");
+                EndNarrative();
+                return;
+            }
 
             var numPanels = panels.Length;
             var currentCountThisScreen = 0;
@@ -179,13 +186,13 @@ namespace GameStructure
 
         public void SetParameters(int act, NarrativeSO.NarrativeType type)
         {
-            actNumber = act;
-            cutsceneType = type;
+            _actNumber = act;
+            _cutsceneType = type;
         }
 
         public string GetCutsceneIDForSaveSystem()
         {
-            return actNumber + "_" + _thisNarrative.readableNarrativeName + "_" + cutsceneType;
+            return _actNumber + "_" + _thisNarrative.readableNarrativeName + "_" + _cutsceneType;
         }
     }
 }

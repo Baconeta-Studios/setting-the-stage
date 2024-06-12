@@ -30,10 +30,8 @@ public class Act : MonoBehaviour
 
     [SerializeField] private ActCanvas actCanvas;
 
-    [SerializeField] private NarrativeSystem overrideIntroCutscene;
-    [SerializeField] private NarrativeSystem overrideOutroCutscene;
-    
-    [SerializeField] private NarrativeSystem defaultCutsceneLayout;
+    [SerializeField] private NarrativeSystem layoutIntroCutscene;
+    [SerializeField] private NarrativeSystem layoutOutroCutscene;
     
     // Actions
     public event Action onChapterOpen; 
@@ -61,19 +59,12 @@ public class Act : MonoBehaviour
     private void HandleIntroCutScene()
     {
         // Play cutscene if it exists and has not played yet - if save system doesn't exist, assume we haven't seen it
-        PrepareCutscene(overrideIntroCutscene, NarrativeSO.NarrativeType.ActIntro);
+        PrepareCutscene(layoutIntroCutscene, NarrativeSO.NarrativeType.ActIntro);
     }
 
     private void PrepareCutscene(NarrativeSystem scene, NarrativeSO.NarrativeType type)
     {
-        if (scene)
-        {
-            PlayCutscene(scene, NarrativeSO.NarrativeType.Override);
-        }
-        else
-        {
-            PlayCutscene(null, type);
-        }
+        PlayCutscene(scene, type);
     }
 
     private void OnEnable()
@@ -173,19 +164,16 @@ public class Act : MonoBehaviour
         // Cutscene and next act.
         onCutsceneComplete += GoToNextAct;
             
-        PrepareCutscene(overrideOutroCutscene, NarrativeSO.NarrativeType.ActOutro);
+        PrepareCutscene(layoutOutroCutscene, NarrativeSO.NarrativeType.ActOutro);
     }
     
     private void PlayCutscene(NarrativeSystem cutscene, NarrativeSO.NarrativeType type)
     {
         actCanvas.SetEnabled(false);
-        
-        if (cutscene is null)
-        {
-            cutscene = Instantiate(defaultCutsceneLayout);
-            cutscene.SetParameters(actNumber, type);
-        }
+
         cutscene.gameObject.SetActive(false);
+        
+        cutscene.SetParameters(actNumber, type);
         cutscene.Setup(_ => EndCutscene(cutscene));
         
         // Check if we have already seen this cutscene
