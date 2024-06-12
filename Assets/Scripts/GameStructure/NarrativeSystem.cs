@@ -60,7 +60,7 @@ namespace GameStructure
                 fullScreenPanel.gameObject.SetActive(true);
                 foreach (var p in panels) { p.gameObject.SetActive(false); }
             }
-            else // We will populate each panel on the screen
+            else // We will populate each panel on the page
             {
                 fullScreenPanel.gameObject.SetActive(false);
                 for (var i = 0; i < panels.Length; i++)
@@ -148,12 +148,10 @@ namespace GameStructure
             _thisNarrative = _dataManagerRef.GetNarrativeData(actNumber, cutsceneType);
 
             var numPanels = panels.Length;
-            var currentCountTotal = 0;
             var currentCountThisScreen = 0;
             foreach (var narrativePanel in _thisNarrative.allPanels)
             {
                 currentCountThisScreen += 1;
-                currentCountTotal += 1;
 
                 if (narrativePanel.forceFullScreen)
                 {
