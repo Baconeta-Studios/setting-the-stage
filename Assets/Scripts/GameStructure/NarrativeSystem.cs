@@ -60,7 +60,7 @@ namespace GameStructure
                 fullScreenPanel.gameObject.SetActive(true);
                 foreach (var p in panels) { p.gameObject.SetActive(false); }
             }
-            else // We will show as many panels are we show on screen
+            else // We will populate each panel on the screen
             {
                 fullScreenPanel.gameObject.SetActive(false);
                 for (var i = 0; i < panels.Length; i++)
