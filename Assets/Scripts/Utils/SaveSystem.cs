@@ -76,6 +76,9 @@ namespace Utils
             [ReadOnly]
             public int highestCompletedAct = -1;
 
+            [ReadOnly]
+            public List<string> narrativesViewed = new List<string>();
+
             public float GetStarsForChapter(int actNumber, int chapterNumber)
             {
                 foreach (ChapterSaveData chapter in chapterSaveData)
@@ -139,6 +142,7 @@ namespace Utils
                 userData.chapterSaveData.Clear();
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
+                userData.narrativesViewed.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
@@ -209,6 +213,17 @@ namespace Utils
                 userData.highestCompletedAct = actNumber;
                 SaveUserData(userData);
             }
+        }
+
+        public void SetCutsceneWatched(string cutsceneID)
+        {
+            userData.narrativesViewed.Add(cutsceneID);
+            SaveUserData(userData);
+        }
+
+        public bool HasSeenCutscene(string cutsceneID)
+        {
+            return userData.narrativesViewed.Contains(cutsceneID);
         }
     }
 }
