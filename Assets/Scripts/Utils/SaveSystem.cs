@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CustomEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Utils
 {
@@ -94,13 +95,13 @@ namespace Utils
         }
 
         //The currently loaded user data.
-        [SerializeField] private UserData _userData;
+        [SerializeField] private UserData userData;
         private const string SaveFileName = "SettingTheStageUserSave";
         
         public UserData GetUserData()
         {
             LoadUserData();
-            return _userData;
+            return userData;
         }
 
         public void SaveUserData(UserData data)
@@ -118,35 +119,35 @@ namespace Utils
             {
                 case PathStatus.ContainsData:
                     UserData loadedData = JsonUtility.FromJson<UserData>(jsonData);
-                    _userData = loadedData;
+                    userData = loadedData;
                     StSDebug.Log("User Data loaded successfully.");
                     break;
                 case PathStatus.Empty:
                     break;
                 case PathStatus.DoesNotExist:
                     StSDebug.LogWarning("User Data did not exist. Creating new save data.");
-                    _userData = new UserData();
-                    SaveUserData();
+                    userData = new UserData();
+                    SaveUserData(userData);
                     break;
             }
         }// TODO UUID
 
         public void ResetUserData()
         {
-            if (_userData == null)
+            if (userData == null)
             {
-                _userData = new UserData();
+                userData = new UserData();
             }
             else
             {
-                _userData.userName = "";
-                _userData.chapterSaveData.Clear();
-                _userData.totalStarsEarned = 0.0f;
-                _userData.highestCompletedAct = -1;
-                _userData.narrativesViewed.Clear();
+                userData.userName = "";
+                userData.chapterSaveData.Clear();
+                userData.totalStarsEarned = 0.0f;
+                userData.highestCompletedAct = -1;
+                userData.narrativesViewed.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
-            SaveUserData(_userData);
+            SaveUserData(userData);
         }
         #endregion
         
@@ -158,14 +159,14 @@ namespace Utils
 
         public void ChapterCompleted(int actNumber, int chapterNumber, float starsEarned)
         {
-            if (_userData == null)
+            if (userData == null)
             {
                 LoadUserData();
                 
                 //if user data is still null, create a new user data.
-                if (_userData == null)
+                if (userData == null)
                 {
-                    _userData = new UserData();
+                    userData = new UserData();
                     StSDebug.LogWarning($"Upon chapter completion, no save data was found. Creating a new save.");
                 }
             }
@@ -173,58 +174,58 @@ namespace Utils
             bool hasDataChanged = false;
             
             ChapterSaveData newChapterSaveData = new ChapterSaveData(actNumber, chapterNumber, starsEarned);
-            if (_userData.chapterSaveData.Contains(newChapterSaveData))
+            if (userData.chapterSaveData.Contains(newChapterSaveData))
             {
-                int index = _userData.chapterSaveData.IndexOf(newChapterSaveData);
-                ChapterSaveData storedChapterSaveData = _userData.chapterSaveData[index];
+                int index = userData.chapterSaveData.IndexOf(newChapterSaveData);
+                ChapterSaveData storedChapterSaveData = userData.chapterSaveData[index];
                 
                 // If the player has earned more stars, overwrite the save data.
                 if (newChapterSaveData.starsEarned > storedChapterSaveData.starsEarned)
                 {
                     // Minus the previous stars earned as we add on the new stars earned further down.
                     // E.g if we already have 1.5 stars, and earn a further 1.5 stars (total of 3) then we'll minus 1.5 and add 3 further down.
-                    _userData.totalStarsEarned -= storedChapterSaveData.starsEarned;
+                    userData.totalStarsEarned -= storedChapterSaveData.starsEarned;
                     
-                    _userData.chapterSaveData[index] = newChapterSaveData;
+                    userData.chapterSaveData[index] = newChapterSaveData;
                     hasDataChanged = true;
                 }
                 // else ignore the new data.
             }
             else // This is a new chapter - Add the save data
             {
-                _userData.chapterSaveData.Add(newChapterSaveData);
+                userData.chapterSaveData.Add(newChapterSaveData);
                 hasDataChanged = true;
             }
             
             // Accumulate our new stars in our total.
-            _userData.totalStarsEarned += newChapterSaveData.starsEarned;
+            userData.totalStarsEarned += newChapterSaveData.starsEarned;
 
             if (hasDataChanged)
             {
                 // Sort by Act > Chapter > Stars
-                _userData.chapterSaveData.Sort();
-                SaveUserData(_userData);
+                userData.chapterSaveData.Sort();
+                SaveUserData(userData);
             }
         }
 
         public void ActComplete(int actNumber)
         {
-            if (actNumber > _userData.highestCompletedAct)
+            if (actNumber > userData.highestCompletedAct)
             {
-                _userData.highestCompletedAct = actNumber;
-                SaveUserData(_userData);
+                userData.highestCompletedAct = actNumber;
+                SaveUserData(userData);
             }
         }
 
         public void SetCutsceneWatched(string cutsceneID)
         {
-            _userData.narrativesViewed.Add(cutsceneID);
-            SaveUserData(_userData);
+            userData.narrativesViewed.Add(cutsceneID);
+            SaveUserData(userData);
         }
 
         public bool HasSeenCutscene(string cutsceneID)
         {
-            return _userData.narrativesViewed.Contains(cutsceneID);
+            return userData.narrativesViewed.Contains(cutsceneID);
         }
     }
 }

@@ -51,8 +51,7 @@ namespace Achievements
                     _internalRequiredValue = float.Parse(achievementSettings.triggerValue);
                     break;
                 default:
-                    Debug.Log(
-                        $"Achievement {achievementName} trigger value set incorrectly for type {achievementSettings.achievementType}");
+                    Debug.Log($"Achievement {achievementName} trigger value set incorrectly for type {achievementSettings.achievementType}");
                     break;
             }
         }
@@ -88,7 +87,7 @@ namespace Achievements
         public void Start()
         {
             // Marks off any tasks that should be already be marked off as being completed prior to this session.
-            CheckCompletedAchievements();
+            CheckAlreadyCompletedAchievements();
 
             if (UnityHelper.IsNotInUnityEditor)
             {
@@ -101,7 +100,7 @@ namespace Achievements
             return Achievements.Where(achievement => achievement.completed).ToList();
         }
 
-        public List<Achievement> CheckCompletedAchievements()
+        public List<Achievement> CheckAlreadyCompletedAchievements()
         {
             var newlyCompleted = new List<Achievement>();
 
@@ -109,13 +108,10 @@ namespace Achievements
             {
                 if (ach.completed) continue;
 
-                // DO NOT APPROVE ME
-                // Why is this check made? Doesn't needing this explicit check make '.completed' a useless field?
                 if (ach.CheckCompletion())
                 {
                     newlyCompleted.Add(ach);
                     ach.completed = true;
-                    Achievements[i] = ach;
                 }
             }
 
@@ -128,7 +124,7 @@ namespace Achievements
             _achievements.ForEach(a => a.PurgeFromCache());
 
             // Update completed achievement data.
-            CheckCompletedAchievements();
+            CheckAlreadyCompletedAchievements();
         }
 
         private void SetupAndVerifyAchievements()
