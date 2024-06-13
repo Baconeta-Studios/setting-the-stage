@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
@@ -33,65 +34,38 @@ namespace Analytics
             analytics_enabled = true;
         }
 
-
-        private void InitializeDefaults()
+        private void OnDisable()
         {
-            total_levels_played = 0;
-            level_play_count = new Dictionary<string, int>();
-            interactions_made_this_attempt = 0;
+            DisableAnalytics();
         }
 
-        public void OnLevelStartedEvent()
+        private void DisableAnalytics()
         {
-            // //TODO
-            // if (level_play_count.ContainsKey(level_id)) {
-            //     level_play_count[level_id]++;
-            // } else
-            // {
-            //    level_play_count.Add(level_id,);
-            // }
-
-            if (analytics_enabled)
-            {
-                InvokeAnalyticsUpdate();
-            }
+            analytics_enabled = false;
         }
 
-        public void OnStagePlacementEvent()
+        // Here we get the analytics data we want to send with every analytics event
+        private Dictionary<string, string> GetDefaultAnalytics()
         {
-            if (analytics_enabled)
-            {
-                InvokeAnalyticsUpdate();
-            }
+            var defaults = new Dictionary<string, string>();
+            
+            defaults.Add("total_levels_played", total_levels_played.ToString());
+            
+            return defaults;
         }
 
-        public void OnLevelCompletedEvent()
+        private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, string> analytics)
         {
-            if (analytics_enabled)
-            {
-                InvokeAnalyticsUpdate();
-            }
+            // Send send send?
         }
 
-        public void OnLevelAbandonedEvent(
-            string level_id,
-            string act_id //todo complete
-        )
+        // We use a dict and convert everything to strings for the analytics system to be more generic
+        public void SendAnalytics(string eventName, Dictionary<string, string> values)
         {
-            int total_levels_played;
-            int times_played_before;
-            int interactions_made_this_attempt;
-            int score;
-
-
-            if (analytics_enabled)
-            {
-                InvokeAnalyticsUpdate();
-            }
-        }
-
-        private void InvokeAnalyticsUpdate()
-        {
+            Dictionary<string, string> analytics = GetDefaultAnalytics().MergeDictionary(values);
+            
+            // Send some analytics to server or whatever we do
+            InvokeAnalyticsUpdate(eventName, analytics);
         }
     }
 }

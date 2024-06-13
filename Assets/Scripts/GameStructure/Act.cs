@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Analytics;
 using GameStructure;
 using UnityEngine;
 using Utils;
@@ -147,6 +148,9 @@ public class Act : MonoBehaviour
         SaveSystem saveSystem = SaveSystem.Instance;
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
+        // Send analytics
+        SendChapterCompleteAnalytics();
+        
         CloseChapter();
 
         if (CheckIfActIsComplete())
@@ -154,7 +158,14 @@ public class Act : MonoBehaviour
             ProgressToNextAct();
         }
     }
-    
+
+    private void SendChapterCompleteAnalytics()
+    {
+        var analytics = new Dictionary<string, string>();
+        analytics.Add("chapter_complete", currentChapterIndex.ToString());
+        UnityAnalytics.Instance.SendAnalytics("ChapterComplete", analytics);
+    }
+
     public void ProgressToNextAct()
     {
         SaveSystem.Instance.ActComplete(actNumber);
