@@ -222,6 +222,7 @@ MonoBehaviour:
   panelObjects:
   - {fileID: 7237498886757738137}
   fullScreenPanelObject: {fileID: 8885768809545659703}
+  textPanelPrefab: {fileID: 1281815934558128911, guid: d839d39ecad03854da2b213643fcab90, type: 3}
   backButton: {fileID: 4136893387861159200}
   nextButton: {fileID: 9040807568553462329}
   skipAllButton: {fileID: 5742029808254177976}

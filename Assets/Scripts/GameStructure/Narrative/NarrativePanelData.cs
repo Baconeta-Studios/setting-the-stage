@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameStructure.Narrative
 {
+    [Serializable]
     public struct NarrativeText
     {
-        public string Text;
-        public Vector2 TextPanelSize;
-        public Vector2 TextPanelPosition;
-        public int TextSize;
-        public Font Font;
-        public int DisplayDisplayInMs;
+        public string text;
+        public Vector2 textPanelSize;
+        public Vector2 textPanelPosition;
+        public int textSize;
+        public TMP_FontAsset font;
+        public int displayDisplayInMs;
     }
     
     [CreateAssetMenu]
@@ -22,6 +25,6 @@ namespace GameStructure.Narrative
         public string simplePanelName;
         public bool forceFullScreen; // Use this to force it to be the only element on screen regardless of NarrativeSO settings
         public Sprite panelImage; // if this is null we use the default layout for panels
-        public List<NarrativeText> TextPanels;
+        public List<NarrativeText> textPanels;
     }
 }

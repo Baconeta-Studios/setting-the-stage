@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,7 @@ namespace GameStructure.Narrative
     {
         [SerializeField] private NarrativePanelObject[] panelObjects;
         [SerializeField] private NarrativePanelObject fullScreenPanelObject;
+        [SerializeField] private GameObject textPanelPrefab;
 
         [SerializeField] private Button backButton;
         [SerializeField] private Button nextButton;
@@ -23,6 +26,7 @@ namespace GameStructure.Narrative
         private readonly List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
         private List<NarrativePanelData> _allPanels;
+        private List<GameObject> _currentTextPanels = new();
 
         private void OnEnable()
         {
@@ -98,6 +102,9 @@ namespace GameStructure.Narrative
 
         private void ShowPage(int pageOfPanels)
         {
+            // First we purge all text panels
+            PurgeAllTextPanelsOffScreen();
+            
             // Count the total number of panels that come before this page
             int totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
 
@@ -119,6 +126,16 @@ namespace GameStructure.Narrative
             }
 
             _pageOnScreen = pageOfPanels;
+        }
+
+        private void PurgeAllTextPanelsOffScreen()
+        {
+            foreach (GameObject textPanel in _currentTextPanels)
+            {
+                Destroy(textPanel?.gameObject);
+            }
+
+            _currentTextPanels = new List<GameObject>();   // clear any null refs
         }
 
         public void MoveToNextPage()
@@ -153,10 +170,23 @@ namespace GameStructure.Narrative
             }
         }
 
-        private void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelDataData)
+        private void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelData)
         {
-            panelImage.sprite = panelDataData.panelImage;
-            
+            panelImage.sprite = panelData.panelImage;
+
+            for (var i = 0; i < panelData.textPanels?.Count; i++)
+            {
+                NarrativeText textData = panelData.textPanels[i];
+                GameObject textPanelObject = Instantiate(textPanelPrefab, panelObject.transform);
+                TMP_Text textObject = textPanelObject.GetComponent<TMP_Text>();
+                textObject.text = textData.text;
+                textObject.fontSize = textData.textSize;
+                textObject.font = textData.font;
+                textPanelObject.GetComponent<RectTransform>().sizeDelta = textData.textPanelSize;
+                textPanelObject.transform.localPosition.Set(textData.textPanelPosition.x, textData.textPanelPosition.y, 0);
+                _currentTextPanels.Add(textPanelObject);
+            }
+
             panelObject.SetActive(true);
         }
 
