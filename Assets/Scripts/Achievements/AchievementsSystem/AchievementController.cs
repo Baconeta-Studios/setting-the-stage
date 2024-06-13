@@ -90,9 +90,10 @@ namespace Achievements
             // Marks off any tasks that should be already be marked off as being completed prior to this session.
             CheckCompletedAchievements();
 
-#if !UNITY_EDITOR
-         SetupAndVerifyAchievements();
-#endif
+            if (UnityHelper.IsNotInUnityEditor)
+            {
+                SetupAndVerifyAchievements();
+            }
         }
 
         public List<Achievement> GetCompletedAchievements()
@@ -144,12 +145,13 @@ namespace Achievements
             }
         }
 
-#if UNITY_EDITOR
         private void OnValidate()
         {
-            SetupAndVerifyAchievements();
+            if (UnityHelper.IsInUnityEditor)
+            {
+                SetupAndVerifyAchievements();
+            }
         }
-#endif
 
         public void SetInt(string keyName, int value)
         {
