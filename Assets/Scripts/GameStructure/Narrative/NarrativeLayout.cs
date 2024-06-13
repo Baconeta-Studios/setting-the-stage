@@ -19,16 +19,12 @@ namespace GameStructure.Narrative
 
         [SerializeField] private float timeToMoveToNextPanel = 10f; // Time in seconds
 
-        private float _timeUntilTrigger;
+        private NarrativeController _narrativeController;
 
-        private int _actNumber;
-        private NarrativeSo.NarrativeType _cutsceneType;
-        private NarrativeSo _thisNarrative;
-        private NarrativeDataManager _dataManagerRef;
+        private float _timeUntilTrigger;
         private readonly List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
-
-        private Action<NarrativeLayout> _actionOnEnd;
+        private List<NarrativePanel> _allPanels;
 
         public void Update()
         {
@@ -53,7 +49,7 @@ namespace GameStructure.Narrative
             if (_panelsPerPage[pageOfPanels] == 1)
             {
                 // Show single panel only
-                fullScreenPanel.sprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage].panelImage;
+                fullScreenPanel.sprite = _allPanels[totalPanelsBeforeThisPage].panelImage;
                 fullScreenPanel.gameObject.SetActive(true);
                 foreach (Image p in panels)
                 {
@@ -65,7 +61,7 @@ namespace GameStructure.Narrative
                 fullScreenPanel.gameObject.SetActive(false);
                 for (var i = 0; i < panels.Length; i++)
                 {
-                    Sprite thisPanelSprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage + i].panelImage;
+                    Sprite thisPanelSprite = _allPanels[totalPanelsBeforeThisPage + i].panelImage;
                     panels[i].sprite = thisPanelSprite;
                     panels[i].gameObject.SetActive(true);
                 }
@@ -86,7 +82,7 @@ namespace GameStructure.Narrative
             // move to next page of panels or end narrative
             if (_pageOnScreen + 1 >= _panelsPerPage.Count)
             {
-                EndNarrative();
+                _narrativeController.EndNarrative();
             }
             else
             {
@@ -94,11 +90,6 @@ namespace GameStructure.Narrative
             }
 
             backButton.interactable = true;
-        }
-
-        public void EndNarrative()
-        {
-            _actionOnEnd?.Invoke(this); // could consider event triggers also but this seems ok for now
         }
 
         public void MoveToPreviousPage()
@@ -138,24 +129,14 @@ namespace GameStructure.Narrative
         }
 
         // This system should calculate the number of screens needed to show all panels 
-        public void Setup(Action<NarrativeLayout> invokeOnEnd)
+        public void Setup(List<NarrativePanel> narrativePanels, NarrativeController controller)
         {
-            _actionOnEnd = invokeOnEnd;
-
-            // Populate data for the system from the narrative manager
-            _dataManagerRef = NarrativeDataManager.Instance;
-            _thisNarrative = _dataManagerRef.GetNarrativeData(_actNumber, _cutsceneType);
-
-            if (_thisNarrative is null)
-            {
-                StSDebug.LogWarning($"Parameters for act/type were not set before calling setup or data doesn't exist in the narrative manager for act {_actNumber} of type {_cutsceneType}");
-                EndNarrative();
-                return;
-            }
+            _narrativeController = controller;
+            _allPanels = narrativePanels;
 
             int numPanels = panels.Length;
             var currentCountThisScreen = 0;
-            foreach (NarrativePanel narrativePanel in _thisNarrative.allPanels)
+            foreach (NarrativePanel narrativePanel in narrativePanels)
             {
                 currentCountThisScreen += 1;
 
@@ -183,15 +164,9 @@ namespace GameStructure.Narrative
             ShowFirstPanel();
         }
 
-        public void SetParameters(int act, NarrativeSo.NarrativeType type)
+        public void DestroySelf()
         {
-            _actNumber = act;
-            _cutsceneType = type;
-        }
-
-        public string GetCutsceneIDForSaveSystem()
-        {
-            return _actNumber + "_" + _thisNarrative?.readableNarrativeName + "_" + _cutsceneType;
+            Destroy(gameObject);
         }
     }
 }
