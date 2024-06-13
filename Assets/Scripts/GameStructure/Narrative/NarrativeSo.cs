@@ -18,7 +18,7 @@ namespace GameStructure.Narrative
 
         public string readableNarrativeName;
         public int actNumber;
-        public List<NarrativePanel> allPanels;
+        public List<NarrativePanelData> allPanels;
         public NarrativeType narrativeType = NarrativeType.ActIntro;
     }
 }

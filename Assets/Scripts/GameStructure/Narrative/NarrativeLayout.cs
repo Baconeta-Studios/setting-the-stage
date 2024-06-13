@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +7,8 @@ namespace GameStructure.Narrative
 {
     public class NarrativeLayout : MonoBehaviour
     {
-        [SerializeField] private Image[] panels;
-        [SerializeField] private Image fullScreenPanel;
+        [SerializeField] private NarrativePanelObject[] panelObjects;
+        [SerializeField] private NarrativePanelObject fullScreenPanelObject;
 
         [SerializeField] private Button backButton;
         [SerializeField] private Button nextButton;
@@ -24,7 +22,7 @@ namespace GameStructure.Narrative
         private float _timeUntilTrigger;
         private readonly List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
-        private List<NarrativePanel> _allPanels;
+        private List<NarrativePanelData> _allPanels;
 
         public void Update()
         {
@@ -44,30 +42,34 @@ namespace GameStructure.Narrative
 
         private void ShowPage(int pageOfPanels)
         {
+            // Count the total number of panels that come before this page
             int totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
 
             if (_panelsPerPage[pageOfPanels] == 1)
             {
-                // Show single panel only
-                fullScreenPanel.sprite = _allPanels[totalPanelsBeforeThisPage].panelImage;
-                fullScreenPanel.gameObject.SetActive(true);
-                foreach (Image p in panels)
+                SetupPanel(fullScreenPanelObject, fullScreenPanelObject.NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage]);
+                foreach (NarrativePanelObject panelObject in panelObjects)
                 {
-                    p.gameObject.SetActive(false);
+                    panelObject.SetActive(true);
                 }
             }
             else // We will populate each panel on the page
             {
-                fullScreenPanel.gameObject.SetActive(false);
-                for (var i = 0; i < panels.Length; i++)
+                fullScreenPanelObject.SetActive(false);
+                for (var i = 0; i < panelObjects.Length; i++)
                 {
-                    Sprite thisPanelSprite = _allPanels[totalPanelsBeforeThisPage + i].panelImage;
-                    panels[i].sprite = thisPanelSprite;
-                    panels[i].gameObject.SetActive(true);
+                    SetupPanel(panelObjects[i], panelObjects[i].NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage + i]);
                 }
             }
 
             _pageOnScreen = pageOfPanels;
+        }
+
+        private void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelDataData)
+        {
+            panelImage.sprite = panelDataData.panelImage;
+            
+            panelObject.SetActive(true);
         }
 
         private void ResetTimer()
@@ -129,14 +131,14 @@ namespace GameStructure.Narrative
         }
 
         // This system should calculate the number of screens needed to show all panels 
-        public void Setup(List<NarrativePanel> narrativePanels, NarrativeController controller)
+        public void Setup(List<NarrativePanelData> narrativePanels, NarrativeController controller)
         {
             _narrativeController = controller;
             _allPanels = narrativePanels;
 
-            int numPanels = panels.Length;
+            int numPanels = panelObjects.Length;
             var currentCountThisScreen = 0;
-            foreach (NarrativePanel narrativePanel in narrativePanels)
+            foreach (NarrativePanelData narrativePanel in narrativePanels)
             {
                 currentCountThisScreen += 1;
 
