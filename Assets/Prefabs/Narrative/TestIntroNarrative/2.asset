@@ -24,7 +24,7 @@ MonoBehaviour:
     displayDisplayInMs: 0
   - text: hello
     textPanelSize: {x: 200, y: 80}
-    textPanelPosition: {x: 100, y: -200}
+    textPanelPosition: {x: 500, y: -200}
     textSize: 12
     font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
     displayDisplayInMs: 0
