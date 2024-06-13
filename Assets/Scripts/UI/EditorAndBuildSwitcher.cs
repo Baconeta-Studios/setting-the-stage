@@ -14,11 +14,12 @@ namespace UI
         {
             if (!compositeStateSwitcher) Debug.LogError("No State Switcher setup on " + name);
 
-#if UNITY_EDITOR
-            compositeStateSwitcher.ChangeState("Editor");
-#else
-            compositeStateSwitcher.ChangeState("Build");
-#endif
+            if (UnityHelper.IsInUnityEditor)
+            {
+                compositeStateSwitcher.ChangeState("Editor");
+            } else {
+                compositeStateSwitcher.ChangeState("Build");
+            }
         }
     }
 }
