@@ -69,6 +69,12 @@ namespace Achievements
                 _ => false
             };
         }
+
+        public void PurgeFromCache()
+        {
+            this.completed = false;
+            PlayerPrefs.DeleteKey(achievementUserPrefsCodeName);
+        }
     }
 
     public class AchievementController : EverlastingSingleton<AchievementController>
@@ -116,13 +122,8 @@ namespace Achievements
 
         public void ResetAllAchievements()
         {
-            PlayerPrefs.DeleteAll();
-            for (var i = 0; i < Achievements.Count; i++)
-            {
-                Achievement ach = Achievements[i];
-                ach.completed = false;
-                Achievements[i] = ach;
-            }
+            // Instruct each achievement object to wipe itself from PlayerPrefs.
+            _achievements.ForEach(a => a.PurgeFromCache());
 
             CheckCompletedAchievements();
         }
