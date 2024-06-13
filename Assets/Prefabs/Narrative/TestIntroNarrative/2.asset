@@ -15,3 +15,16 @@ MonoBehaviour:
   simplePanelName: 
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 54eba24200ffb90469061eced2665a67, type: 3}
+  textPanels:
+  - text: test
+    textPanelSize: {x: 200, y: 80}
+    textPanelPosition: {x: -50, y: 100}
+    textSize: 32
+    font: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    displayDisplayInMs: 0
+  - text: hello
+    textPanelSize: {x: 200, y: 80}
+    textPanelPosition: {x: 100, y: -200}
+    textSize: 12
+    font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    displayDisplayInMs: 0

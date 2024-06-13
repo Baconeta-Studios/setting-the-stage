@@ -177,7 +177,7 @@ namespace GameStructure.Narrative
             // Setup any text elements
             for (var i = 0; i < panelData.textPanels?.Count; i++)
             {
-                NarrativeText textData = panelData.textPanels[i];
+                NarrativeTextData textData = panelData.textPanels[i];
                 GameObject textPanelObject = Instantiate(textPanelPrefab, panelObject.transform);
                 SetTextData(textPanelObject, textData);
                 SetPanelData(textPanelObject, textData);
@@ -187,18 +187,18 @@ namespace GameStructure.Narrative
             panelObject.SetActive(true);
         }
 
-        private static void SetPanelData(GameObject textPanelObject, NarrativeText textData)
+        private static void SetPanelData(GameObject textPanelObject, NarrativeTextData textData)
         {
             textPanelObject.GetComponent<RectTransform>().sizeDelta = textData.textPanelSize;
-            textPanelObject.transform.localPosition.Set(textData.textPanelPosition.x, textData.textPanelPosition.y, 0);
+            textPanelObject.transform.localPosition = textData.textPanelPosition;
         }
 
-        private static void SetTextData(GameObject textPanelObject, NarrativeText textData)
+        private static void SetTextData(GameObject textPanelObject, NarrativeTextData textDataData)
         {
             TMP_Text textObject = textPanelObject.GetComponent<TMP_Text>();
-            textObject.text = textData.text;
-            textObject.fontSize = textData.textSize;
-            textObject.font = textData.font;
+            textObject.text = textDataData.text;
+            textObject.fontSize = textDataData.textSize;
+            textObject.font = textDataData.font;
         }
 
         private void OnUserInteraction()
