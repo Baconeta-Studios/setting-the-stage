@@ -89,41 +89,6 @@ namespace Achievements
 #endif
         }
 
-        public void SetInt(string keyName, int value)
-        {
-            PlayerPrefs.SetInt(keyName, value);
-        }
-
-        public int GetInt(string keyName)
-        {
-            return PlayerPrefs.GetInt(keyName, 0);
-        }
-
-        public void AddInt(string keyName, int value)
-        {
-            PlayerPrefs.SetInt(keyName, GetInt(keyName) + value);
-        }
-
-        public float GetFloat(string keyName)
-        {
-            return PlayerPrefs.GetFloat(keyName, 0.0f);
-        }
-
-        public void AddFloat(string keyName, int value)
-        {
-            PlayerPrefs.SetFloat(keyName, GetFloat(keyName) + value);
-        }
-
-        public void SetBool(string boolName, bool value)
-        {
-            PlayerPrefs.SetInt(boolName, value ? 1 : 0);
-        }
-
-        public bool GetBool(string boolName)
-        {
-            return PlayerPrefs.GetInt(boolName) == 1;
-        }
-
         public List<Achievement> GetCompletedAchievements()
         {
             return Achievements.Where(achievement => achievement.completed).ToList();
@@ -184,5 +149,40 @@ namespace Achievements
             SetupAndVerifyAchievements();
         }
 #endif
+
+        public void SetInt(string keyName, int value)
+        {
+            PlayerPrefs.SetInt(keyName, value);
+        }
+
+        public int GetInt(string keyName)
+        {
+            return PlayerPrefs.GetInt(keyName, 0);
+        }
+
+        public void AddInt(string keyName, int value)
+        {
+            PlayerPrefs.SetInt(keyName, GetInt(keyName) + value);
+        }
+
+        public float GetFloat(string keyName)
+        {
+            return PlayerPrefs.GetFloat(keyName, 0.0f);
+        }
+
+        public void AddFloat(string keyName, int value)
+        {
+            PlayerPrefs.SetFloat(keyName, GetFloat(keyName) + value);
+        }
+
+        public void SetBool(string boolName, bool value)
+        {
+            PlayerPrefs.SetInt(boolName, value ? 1 : 0);
+        }
+
+        public bool GetBool(string boolName)
+        {
+            return PlayerPrefs.GetInt(boolName) == 1;
+        }
     }
 }
