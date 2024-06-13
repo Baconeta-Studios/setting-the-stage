@@ -180,6 +180,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+--- !u!1 &860034182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 860034184}
+  - component: {fileID: 860034183}
+  m_Layer: 0
+  m_Name: NarrativeDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &860034183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860034182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0358e9c3e54d27b142e35aefaf1a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allNarrativeData:
+  - {fileID: 11400000, guid: 79e557d59e1bbb5439f1859534cd5fd8, type: 2}
+--- !u!4 &860034184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860034182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1185.9329, y: 301.94122, z: 490.121}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &876787884 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3486525034207121101, guid: c7bcf842f17b7334798199a16b109e5a, type: 3}
@@ -639,6 +685,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Act Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6387273261664470680, guid: c7bcf842f17b7334798199a16b109e5a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7796408560961386895, guid: c7bcf842f17b7334798199a16b109e5a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -658,3 +708,4 @@ SceneRoots:
   - {fileID: 633445632}
   - {fileID: 956456158}
   - {fileID: 1130472429}
+  - {fileID: 860034184}

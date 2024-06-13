@@ -11,6 +11,10 @@ public class StagePosition : MonoBehaviour
     
     [SerializeField] private Transform viewTarget;
     
+
+    [Header("Stage Parameters")]
+    public int stagePositionNumber;
+    
     [Header("Musician")]
     public Musician musicianOccupied = null;
 

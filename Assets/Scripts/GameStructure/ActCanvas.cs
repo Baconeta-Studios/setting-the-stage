@@ -25,7 +25,7 @@ public class ActCanvas : MonoBehaviour
     [SerializeField] private List<ChapterInfo> chapterInfos = new List<ChapterInfo>();
     [SerializeField] private Button nextActButton;
 
-    void Start()
+    private void Start()
     {
         StateChanged();
     }
@@ -62,8 +62,8 @@ public class ActCanvas : MonoBehaviour
             chapterInfos.Add(chapterInfo);
         }
     }
-    
-    void UpdateChapters()
+
+    private void UpdateChapters()
     {
         //Cycle through chapters, and disable locked chapters
         for (int index = 0; index < chapterInfos.Count; index++)
@@ -96,7 +96,7 @@ public class ActCanvas : MonoBehaviour
         StateChanged();
     }
 
-    void StateChanged()
+    private void StateChanged()
     {
         switch (currentState)
         {
@@ -110,12 +110,17 @@ public class ActCanvas : MonoBehaviour
         }
     }
 
-    void ShowNextActButton()
+    private void ShowNextActButton()
     {
         if (_act.HasNextAct())
         {
             nextActButton.gameObject.SetActive(true);
             nextActButton.onClick.AddListener(_act.ProgressToNextAct);
         }
+    }
+
+    public void SetEnabled(bool enable)
+    {
+        gameObject.SetActive(enable);
     }
 }
