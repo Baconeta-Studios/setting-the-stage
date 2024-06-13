@@ -105,9 +105,8 @@ namespace Achievements
         {
             var newlyCompleted = new List<Achievement>();
 
-            for (var i = 0; i < Achievements.Count; i++)
+            foreach (AchievementData ach in allAchievements)
             {
-                Achievement ach = Achievements[i];
                 if (ach.completed) continue;
 
                 if (ach.CheckCompletion())
@@ -126,22 +125,25 @@ namespace Achievements
             // Instruct each achievement object to wipe itself from PlayerPrefs.
             _achievements.ForEach(a => a.PurgeFromCache());
 
+            // Update completed achievement data.
             CheckCompletedAchievements();
         }
 
         private void SetupAndVerifyAchievements()
         {
-            foreach (AchievementData ach in allAchievements)
+            foreach (AchievementData oldAch in allAchievements)
             {
-                if (ach == null) continue;
+                if (oldAch == null) continue;
 
-                Achievement a = new()
+                Achievement newAch = new()
                 {
-                    achievementSettings = ach.achievementSettings, achievementName = ach.achievementName,
-                    achievementUserPrefsCodeName = ach.achievementUserPrefsCodeName, subMessage = ach.subMessage
+                    achievementSettings = oldAch.achievementSettings,
+                    achievementName = oldAch.achievementName,
+                    achievementUserPrefsCodeName = oldAch.achievementUserPrefsCodeName,
+                    subMessage = oldAch.subMessage
                 };
-                a.SetInternalTriggerValue();
-                _achievements.Add(a);
+                newAch.SetInternalTriggerValue();
+                _achievements.Add(newAch);
             }
         }
 
