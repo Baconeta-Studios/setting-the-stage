@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Analytics
 {
-    public class UnityAnalytics : MonoBehaviour
+    public class UnityAnalytics : EverlastingSingleton<UnityAnalytics>
     {
         private async void Start()
         {
