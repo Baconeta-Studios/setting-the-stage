@@ -9,7 +9,7 @@ namespace Managers
         
         public NarrativeSO GetNarrativeData(int actNumber, NarrativeSO.NarrativeType narrativeType)
         {
-            foreach (var narrativeSo in allNarrativeData)
+            foreach (NarrativeSO narrativeSo in allNarrativeData)
             {
                 if (narrativeSo.actNumber == actNumber && narrativeSo.narrativeType == narrativeType)
                 {

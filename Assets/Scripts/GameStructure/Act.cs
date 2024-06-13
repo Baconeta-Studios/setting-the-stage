@@ -171,7 +171,7 @@ public class Act : MonoBehaviour
     {
         actCanvas.SetEnabled(false);
         
-        var cutscene = Instantiate(narrativeLayout).GetComponent<NarrativeSystem>();
+        NarrativeSystem cutscene = Instantiate(narrativeLayout).GetComponent<NarrativeSystem>();
         
         cutscene.SetParameters(actNumber, type);
         cutscene.gameObject.SetActive(false);
