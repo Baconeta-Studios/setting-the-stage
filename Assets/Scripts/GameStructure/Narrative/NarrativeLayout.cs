@@ -5,9 +5,9 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameStructure
+namespace GameStructure.Narrative
 {
-    public class NarrativeSystem : MonoBehaviour
+    public class NarrativeLayout : MonoBehaviour
     {
         [SerializeField] private Image[] panels;
         [SerializeField] private Image fullScreenPanel;
@@ -22,13 +22,13 @@ namespace GameStructure
         private float _timeUntilTrigger;
 
         private int _actNumber;
-        private NarrativeSO.NarrativeType _cutsceneType;
-        private NarrativeSO _thisNarrative;
+        private NarrativeSo.NarrativeType _cutsceneType;
+        private NarrativeSo _thisNarrative;
         private NarrativeDataManager _dataManagerRef;
         private readonly List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
 
-        private Action<NarrativeSystem> _actionOnEnd;
+        private Action<NarrativeLayout> _actionOnEnd;
 
         public void Update()
         {
@@ -138,7 +138,7 @@ namespace GameStructure
         }
 
         // This system should calculate the number of screens needed to show all panels 
-        public void Setup(Action<NarrativeSystem> invokeOnEnd)
+        public void Setup(Action<NarrativeLayout> invokeOnEnd)
         {
             _actionOnEnd = invokeOnEnd;
 
@@ -183,7 +183,7 @@ namespace GameStructure
             ShowFirstPanel();
         }
 
-        public void SetParameters(int act, NarrativeSO.NarrativeType type)
+        public void SetParameters(int act, NarrativeSo.NarrativeType type)
         {
             _actNumber = act;
             _cutsceneType = type;
