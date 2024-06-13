@@ -162,8 +162,11 @@ public class Act : MonoBehaviour
     private void SendChapterCompleteAnalytics()
     {
         var analytics = new Dictionary<string, string>();
-        analytics.Add("chapter_complete", currentChapterIndex.ToString());
-        UnityAnalytics.Instance.SendAnalytics("ChapterComplete", analytics);
+        
+        analytics.Add("act_identifier", actNumber.ToString());
+        analytics.Add("level_identifier", currentChapterIndex.ToString());
+        
+        UnityAnalytics.Instance.SendAnalytics("LevelCompletedEvent", analytics);
     }
 
     public void ProgressToNextAct()
