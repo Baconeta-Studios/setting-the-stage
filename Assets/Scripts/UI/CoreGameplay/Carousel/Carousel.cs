@@ -43,9 +43,12 @@ public class Carousel : MonoBehaviour
 
     public void OpenCarousel(StagePosition activeStagePosition)
     {
+        // If opened a new stage position while one was currently open
         if (currentStagePosition && activeStagePosition != currentStagePosition)
         {
+            // Close the current carousel
             CloseCarousel();
+            // Don't return because we still need to open the new one.
         }
         currentStagePosition = activeStagePosition;
         
