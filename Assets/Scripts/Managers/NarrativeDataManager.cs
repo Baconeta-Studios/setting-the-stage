@@ -9,7 +9,7 @@ namespace Managers
         
         public NarrativeSO GetNarrativeData(int actNumber, NarrativeSO.NarrativeType narrativeType)
         {
-            foreach (var narrativeSo in allNarrativeData)
+            foreach (NarrativeSO narrativeSo in allNarrativeData)
             {
                 if (narrativeSo.actNumber == actNumber && narrativeSo.narrativeType == narrativeType)
                 {
@@ -18,7 +18,7 @@ namespace Managers
                 }
             }
             // We don't error here because we don't want to define the behaviour when data is missing
-            StSDebug.LogWarning($"Narrative data doesn't exist for act {actNumber} and narrative type {actNumber}");
+            StSDebug.LogWarning($"Narrative data doesn't exist for act {actNumber} and narrative type {narrativeType}");
             return null;
         }
     }

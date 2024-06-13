@@ -48,14 +48,14 @@ namespace GameStructure
 
         private void ShowPage(int pageOfPanels)
         {
-            var totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
+            int totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
 
             if (_panelsPerPage[pageOfPanels] == 1)
             {
                 // Show single panel only
                 fullScreenPanel.sprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage].panelImage;
                 fullScreenPanel.gameObject.SetActive(true);
-                foreach (var p in panels)
+                foreach (Image p in panels)
                 {
                     p.gameObject.SetActive(false);
                 }
@@ -65,7 +65,7 @@ namespace GameStructure
                 fullScreenPanel.gameObject.SetActive(false);
                 for (var i = 0; i < panels.Length; i++)
                 {
-                    var thisPanelSprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage + i].panelImage;
+                    Sprite thisPanelSprite = _thisNarrative.allPanels[totalPanelsBeforeThisPage + i].panelImage;
                     panels[i].sprite = thisPanelSprite;
                     panels[i].gameObject.SetActive(true);
                 }
@@ -123,7 +123,7 @@ namespace GameStructure
 
         private void OnEnable()
         {
-            foreach (var button in allButtonsToPauseAutoScroll)
+            foreach (Button button in allButtonsToPauseAutoScroll)
             {
                 button.onClick.AddListener(OnUserInteraction);
             }
@@ -131,7 +131,7 @@ namespace GameStructure
 
         private void OnDisable()
         {
-            foreach (var button in allButtonsToPauseAutoScroll)
+            foreach (Button button in allButtonsToPauseAutoScroll)
             {
                 button.onClick.RemoveListener(OnUserInteraction);
             }
@@ -153,9 +153,9 @@ namespace GameStructure
                 return;
             }
 
-            var numPanels = panels.Length;
+            int numPanels = panels.Length;
             var currentCountThisScreen = 0;
-            foreach (var narrativePanel in _thisNarrative.allPanels)
+            foreach (NarrativePanel narrativePanel in _thisNarrative.allPanels)
             {
                 currentCountThisScreen += 1;
 
