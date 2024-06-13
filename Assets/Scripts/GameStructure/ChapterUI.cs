@@ -59,12 +59,19 @@ public class ChapterUI : MonoBehaviour
     
     private void OnDisable()
     {
-        _chapter.onStageChanged -= OnStageChanged;
+        if (_chapter is not null)
+        {
+            _chapter.onRevealRating -= RevealRating;
+            _chapter.onStageChanged -= OnStageChanged;
+        }
+        
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
-        _chapter.onRevealRating -= RevealRating;
-        
-        onPointerPosition.performed -= OnPointerPosition;
+
+        if (onPointerPosition is not null)
+        {
+            onPointerPosition.performed -= OnPointerPosition;
+        }
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
