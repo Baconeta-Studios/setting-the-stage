@@ -105,7 +105,7 @@ namespace Achievements
         {
             var newlyCompleted = new List<Achievement>();
 
-            foreach (AchievementData ach in allAchievements)
+            foreach (Achievement ach in Achievements)
             {
                 if (ach.completed) continue;
 
