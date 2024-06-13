@@ -10,6 +10,7 @@ namespace GameStructure
     {
         [SerializeField] private string Name;
         [SerializeField] private Sprite icon;
+        [SerializeField] private Sprite body;
 
         public int CompareTo(StSObject comparison)
         {
@@ -34,6 +35,10 @@ namespace GameStructure
         public Sprite GetIcon()
         {
             return icon;
+        }
+        public Sprite GetSprite()
+        {
+            return body;
         }
     }
 }

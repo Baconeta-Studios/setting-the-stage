@@ -40,19 +40,18 @@ public class ActCanvas : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        BindActEvents();
+    }
+
     public void Initialize(Act actParent, List<ChapterStruct> chapters)
     {
         _act = actParent;
         
         nextActButton.gameObject.SetActive(false);
         
-        if (_act)
-        {
-            _act.onChapterOpen += ChapterOpened;
-            _act.onChapterClosed += ChapterClosed;
-            _act.OnActComplete += ShowNextActButton;
-            actTitle.text = $"Act {_act.GetActNumber()}";
-        }
+        BindActEvents();
         
         foreach (ChapterStruct chapter in chapters)
         {
@@ -62,6 +61,18 @@ public class ActCanvas : MonoBehaviour
             chapterInfos.Add(chapterInfo);
         }
     }
+
+    private void BindActEvents()
+    {
+        if (_act)
+        {
+            _act.onChapterOpen += ChapterOpened;
+            _act.onChapterClosed += ChapterClosed;
+            _act.OnActComplete += ShowNextActButton;
+            actTitle.text = $"Act {_act.GetActNumber()}";
+        }
+    }
+
 
     private void UpdateChapters()
     {
