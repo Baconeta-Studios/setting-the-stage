@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameStructure;
+using GameStructure.Narrative;
 using UnityEngine;
 using Utils;
 
@@ -59,10 +60,10 @@ public class Act : MonoBehaviour
     private void HandleIntroCutScene()
     {
         // Play cutscene if it exists and has not played yet - if save system doesn't exist, assume we haven't seen it
-        PrepareCutscene(layoutIntroCutscene, NarrativeSO.NarrativeType.ActIntro);
+        PrepareCutscene(layoutIntroCutscene, NarrativeSo.NarrativeType.ActIntro);
     }
 
-    private void PrepareCutscene(GameObject narrativeLayout, NarrativeSO.NarrativeType type)
+    private void PrepareCutscene(GameObject narrativeLayout, NarrativeSo.NarrativeType type)
     {
         PlayCutscene(narrativeLayout, type);
     }
@@ -164,36 +165,29 @@ public class Act : MonoBehaviour
         // Cutscene and next act.
         onCutsceneComplete += GoToNextAct;
             
-        PrepareCutscene(layoutOutroCutscene, NarrativeSO.NarrativeType.ActOutro);
+        PrepareCutscene(layoutOutroCutscene, NarrativeSo.NarrativeType.ActOutro);
     }
     
-    private void PlayCutscene(GameObject narrativeLayout, NarrativeSO.NarrativeType type)
+    private void PlayCutscene(GameObject narrativeLayout, NarrativeSo.NarrativeType type)
     {
         actCanvas.SetEnabled(false);
         
-        NarrativeSystem cutscene = Instantiate(narrativeLayout).GetComponent<NarrativeSystem>();
-        
-        cutscene.SetParameters(actNumber, type);
-        cutscene.gameObject.SetActive(false);
-        
-        cutscene.Setup(_ => EndCutscene(cutscene));
-        
-        // Check if we have already seen this cutscene
-        if (SaveSystem.Instance.HasSeenCutscene(cutscene.GetCutsceneIDForSaveSystem()))
-        {
-            onCutsceneComplete?.Invoke();
-            Destroy(cutscene.gameObject);
-            actCanvas.SetEnabled(true);
-            return;
-        }
+        NarrativeLayout cutsceneLayout = Instantiate(narrativeLayout).GetComponent<NarrativeLayout>();
+        NarrativeController cutsceneController = new();
+        cutsceneController.SetParameters(actNumber, type);
+        cutsceneController.Setup(cutsceneLayout, _ => EndCutscene(cutsceneController));
 
-        cutscene.gameObject.SetActive(true);
+        // Check if we have already seen this cutscene
+        if (SaveSystem.Instance.HasSeenCutscene(cutsceneController.GetCutsceneIDForSaveSystem()))
+        {
+            // We end the cutscene before it begins
+            cutsceneController.EndNarrative();
+        }
     }
 
-    private void EndCutscene(NarrativeSystem cutscene)
+    private void EndCutscene(NarrativeController cutsceneController)
     {
-        SaveSystem.Instance.SetCutsceneWatched(cutscene.GetCutsceneIDForSaveSystem());
-        Destroy(cutscene.gameObject);
+        SaveSystem.Instance.SetCutsceneWatched(cutsceneController.GetCutsceneIDForSaveSystem());
         actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
     }
