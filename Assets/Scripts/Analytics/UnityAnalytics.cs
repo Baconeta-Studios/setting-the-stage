@@ -90,5 +90,10 @@ namespace Analytics
                 InvokeAnalyticsUpdate()
             }
         }
+
+        private void InvokeAnalyticsUpdate()
+        {
+            
+        }
     }
 }
