@@ -56,16 +56,19 @@ public class StsCamera : Singleton<StsCamera>
         // Subscribe to pointer events immediately, even if the game is not in a chapter.
         // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
-        
-        // Bind to the pointer down event for when to pan
-        onPointerPress = input.actions["PointerPress"];
-        onPointerPress.performed += OnPointerDown;
-        onPointerPress.canceled += OnPointerUp;
-        
-        // Bind to the delta event for how for panning control
-        onPointerDelta = input.actions["PointerDelta"];
-        onPointerDelta.performed += OnPointerDelta;
-        onPointerDelta.canceled += OnPointerDelta;
+
+        if (input)
+        {
+            // Bind to the pointer down event for when to pan
+            onPointerPress = input.actions["PointerPress"];
+            onPointerPress.performed += OnPointerDown;
+            onPointerPress.canceled += OnPointerUp;
+            
+            // Bind to the delta event for how for panning control
+            onPointerDelta = input.actions["PointerDelta"];
+            onPointerDelta.performed += OnPointerDelta;
+            onPointerDelta.canceled += OnPointerDelta;
+        }
 
         // Bind to STATIC events, doesn't matter if there is an object or not.
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
