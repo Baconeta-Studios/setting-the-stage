@@ -107,4 +107,51 @@ public class StageSelection : Singleton<StageSelection>
     {
         return _StagePositions;
     }
+
+    public void MoveCurrentSelectionRight()
+    {
+        MoveCurrentSelection(1);
+    }
+
+    public void MoveCurrentSelectionLeft()
+    {
+        MoveCurrentSelection(-1);
+    }
+
+    private void MoveCurrentSelection(int indexDirection)
+    {
+        if (_StagePositions.Count <= 0)
+        {
+            StSDebug.LogError("StageSelection: Stage Positions were not found. How did we even get here.");
+            return;
+        }
+        
+        int currentIndex = activeStagePosition.stagePositionNumber;
+
+        // Left subtracts 1, Right adds one.
+        currentIndex += indexDirection;
+        
+        if (currentIndex < 0)
+        {
+            // Wrap to the right
+            currentIndex = _StagePositions.Count - 1;
+        }
+        else if (currentIndex >= _StagePositions.Count)
+        {
+            // Wrap to the Left
+            currentIndex = 0;
+        }
+        
+        // Simulate a "Click" on the new stage position, this will move the camera, update the carousels, and the active stage position.
+        StagePosition newPos = _StagePositions.Find(position => position.stagePositionNumber == currentIndex);
+        if (newPos)
+        {
+            newPos.OnInteract();
+        }
+        else
+        {
+            StSDebug.LogError($"StageSelection: Could not find stage position with the index '{currentIndex}'");
+        }
+        
+    }
 }
