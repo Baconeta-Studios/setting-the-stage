@@ -24,96 +24,6 @@ namespace GameStructure.Narrative
         private int _pageOnScreen = -1;
         private List<NarrativePanelData> _allPanels;
 
-        public void Update()
-        {
-            _timeUntilTrigger -= Time.deltaTime;
-
-            if (_timeUntilTrigger <= 0f)
-            {
-                MoveToNextPage(); // A page consists of panels.Length # of panels
-            }
-        }
-
-        private void ShowFirstPanel()
-        {
-            backButton.interactable = false;
-            ShowPage(0);
-        }
-
-        private void ShowPage(int pageOfPanels)
-        {
-            // Count the total number of panels that come before this page
-            int totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
-
-            if (_panelsPerPage[pageOfPanels] == 1)
-            {
-                SetupPanel(fullScreenPanelObject, fullScreenPanelObject.NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage]);
-                foreach (NarrativePanelObject panelObject in panelObjects)
-                {
-                    panelObject.SetActive(true);
-                }
-            }
-            else // We will populate each panel on the page
-            {
-                fullScreenPanelObject.SetActive(false);
-                for (var i = 0; i < panelObjects.Length; i++)
-                {
-                    SetupPanel(panelObjects[i], panelObjects[i].NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage + i]);
-                }
-            }
-
-            _pageOnScreen = pageOfPanels;
-        }
-
-        private void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelDataData)
-        {
-            panelImage.sprite = panelDataData.panelImage;
-            
-            panelObject.SetActive(true);
-        }
-
-        private void ResetTimer()
-        {
-            _timeUntilTrigger = timeToMoveToNextPanel;
-        }
-
-        public void MoveToNextPage()
-        {
-            ResetTimer();
-
-            // move to next page of panels or end narrative
-            if (_pageOnScreen + 1 >= _panelsPerPage.Count)
-            {
-                _narrativeController.EndNarrative();
-            }
-            else
-            {
-                ShowPage(_pageOnScreen + 1);
-            }
-
-            backButton.interactable = true;
-        }
-
-        public void MoveToPreviousPage()
-        {
-            ResetTimer();
-
-            // move to prev page of panels if it exists
-            if (_pageOnScreen > 0)
-            {
-                ShowPage(_pageOnScreen - 1);
-                if (_pageOnScreen == 0)
-                {
-                    backButton.interactable = false;
-                }
-            }
-        }
-
-        private void OnUserInteraction()
-        {
-            ResetTimer();
-        }
-
         private void OnEnable()
         {
             foreach (Button button in allButtonsToPauseAutoScroll)
@@ -130,7 +40,21 @@ namespace GameStructure.Narrative
             }
         }
 
-        // This system should calculate the number of screens needed to show all panels 
+        public void Update()
+        {
+            _timeUntilTrigger -= Time.deltaTime;
+
+            if (_timeUntilTrigger <= 0f)
+            {
+                MoveToNextPage(); // A page consists of panels.Length # of panels
+            }
+        }
+
+        private void ResetTimer()
+        {
+            _timeUntilTrigger = timeToMoveToNextPanel;
+        }
+
         public void Setup(List<NarrativePanelData> narrativePanels, NarrativeController controller)
         {
             _narrativeController = controller;
@@ -166,6 +90,81 @@ namespace GameStructure.Narrative
             ShowFirstPanel();
         }
 
+        private void ShowFirstPanel()
+        {
+            backButton.interactable = false;
+            ShowPage(0);
+        }
+
+        private void ShowPage(int pageOfPanels)
+        {
+            // Count the total number of panels that come before this page
+            int totalPanelsBeforeThisPage = _panelsPerPage.Take(pageOfPanels).Sum();
+
+            if (_panelsPerPage[pageOfPanels] == 1)
+            {
+                SetupPanel(fullScreenPanelObject, fullScreenPanelObject.NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage]);
+                foreach (NarrativePanelObject panelObject in panelObjects)
+                {
+                    panelObject.SetActive(true);
+                }
+            }
+            else // We will populate each panel on the page
+            {
+                fullScreenPanelObject.SetActive(false);
+                for (var i = 0; i < panelObjects.Length; i++)
+                {
+                    SetupPanel(panelObjects[i], panelObjects[i].NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage + i]);
+                }
+            }
+
+            _pageOnScreen = pageOfPanels;
+        }
+
+        public void MoveToNextPage()
+        {
+            ResetTimer();
+
+            // move to next page of panels or end narrative
+            if (_pageOnScreen + 1 >= _panelsPerPage.Count)
+            {
+                _narrativeController.EndNarrative();
+            }
+            else
+            {
+                ShowPage(_pageOnScreen + 1);
+            }
+
+            backButton.interactable = true;
+        }
+
+        public void MoveToPreviousPage()
+        {
+            ResetTimer();
+
+            // move to prev page of panels if it exists
+            if (_pageOnScreen > 0)
+            {
+                ShowPage(_pageOnScreen - 1);
+                if (_pageOnScreen == 0)
+                {
+                    backButton.interactable = false;
+                }
+            }
+        }
+
+        private void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelDataData)
+        {
+            panelImage.sprite = panelDataData.panelImage;
+            
+            panelObject.SetActive(true);
+        }
+
+        private void OnUserInteraction()
+        {
+            ResetTimer();
+        }
+        
         public void DestroySelf()
         {
             Destroy(gameObject);
