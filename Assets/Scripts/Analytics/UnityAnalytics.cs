@@ -17,5 +17,34 @@ namespace Analytics
                 Debug.Log(e.ToString());
             }
         }
+
+        private void EnableAnalytics()
+        {
+        }
+
+
+        private void InitializeDefaults()
+        {
+        }
+
+        public void OnLevelStartedEvent()
+        {
+        }
+
+        public void OnStagePlacementEvent()
+        {
+        }
+
+        public void OnLevelCompletedEvent()
+        {
+        }
+
+        public void OnLevelAbandonedEvent(
+            string level_id,
+            string act_id,
+        )
+        {
+            }
+        }
     }
 }
