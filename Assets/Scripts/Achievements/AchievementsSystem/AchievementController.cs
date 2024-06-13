@@ -109,6 +109,8 @@ namespace Achievements
             {
                 if (ach.completed) continue;
 
+                // DO NOT APPROVE ME
+                // Why is this check made? Doesn't needing this explicit check make '.completed' a useless field?
                 if (ach.CheckCompletion())
                 {
                     newlyCompleted.Add(ach);
