@@ -54,17 +54,26 @@ public class ChapterUI : MonoBehaviour
         _chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
+        StageSelection.OnStageSelectionFocusChanged += StagePositionFocusChanged;
         _chapter.onRevealRating += RevealRating;
     }
     
     private void OnDisable()
     {
-        _chapter.onStageChanged -= OnStageChanged;
+        if (_chapter is not null)
+        {
+            _chapter.onRevealRating -= RevealRating;
+            _chapter.onStageChanged -= OnStageChanged;
+        }
+        
+        if (onPointerPosition is not null)
+        {
+            onPointerPosition.performed -= OnPointerPosition;
+        }
+        
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
-        _chapter.onRevealRating -= RevealRating;
-        
-        onPointerPosition.performed -= OnPointerPosition;
+        StageSelection.OnStageSelectionFocusChanged -= StagePositionFocusChanged;
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -91,9 +100,22 @@ public class ChapterUI : MonoBehaviour
 
     private void OnStagePositionClicked(StagePosition clickedStagePosition)
     {
-        if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
+        bool inStageSelection = Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection);
+        bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
+        if (inStageSelection && canClickPosition)
         {
-            _SelectionCarousels.ShowStageSelection(clickedStagePosition);
+            StagePositionFocusChanged(clickedStagePosition);
+        }
+    }
+
+    private void StagePositionFocusChanged(StagePosition newFocusStagePosition)
+    {
+        _SelectionCarousels.ShowStageSelection(newFocusStagePosition);
+            
+        StsCamera stsCamera = StsCamera.Instance;
+        if (stsCamera)
+        {
+            stsCamera.OnStagePositionClicked(newFocusStagePosition);
         }
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
