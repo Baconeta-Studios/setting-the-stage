@@ -48,12 +48,22 @@ public class StsCamera : Singleton<StsCamera>
     [SerializeField] private float panSensitvity;
 
     private ChapterUI chapterUi;
+    private Act _act;
 
 
     private void OnEnable()
     {
         vCamTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
-        
+        _act = FindObjectOfType<Act>();
+        if (_act)
+        {
+            _act.onChapterOpen += ChapterInitialize;
+            _act.onChapterClosed += ChapterClearInitialize;
+        }
+    }
+
+    private void ChapterInitialize()
+    {
         // Subscribe to pointer events immediately, even if the game is not in a chapter.
         // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
@@ -75,7 +85,7 @@ public class StsCamera : Singleton<StsCamera>
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
-    private void OnDisable()
+    private void ChapterClearInitialize()
     {
         if (onPointerPress != null)
         {
@@ -90,6 +100,17 @@ public class StsCamera : Singleton<StsCamera>
         }
         
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
+    }
+
+    private void OnDisable()
+    {
+        ChapterClearInitialize();
+        
+        if (_act)
+        {
+            _act.onChapterOpen -= ChapterInitialize;
+            _act.onChapterClosed -= ChapterClearInitialize;
+        }
     }
 
     private void Update()
