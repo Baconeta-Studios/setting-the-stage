@@ -7,6 +7,6 @@ namespace Audio
     [Serializable]
     public class PerformanceAudioData : MonoBehaviour
     {
-        [SerializeField] private List<ActAudioSo> actAudioData;
+        public List<ActAudioSo> actAudioData;
     }
 }
