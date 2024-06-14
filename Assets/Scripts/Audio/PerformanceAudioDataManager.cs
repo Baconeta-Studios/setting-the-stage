@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using Utils;
@@ -11,10 +12,20 @@ namespace Audio
         // This class instantiates a loader and gets the data from there
         private PerformanceAudioDataLoader _dataLoader;
 
-        protected override void Awake()
+        private void OnEnable()
         {
-            base.Awake();
+            Act act = FindObjectOfType<Act>();
+            onChapterOpen += LoadAudioData;
+        }
+
+        private void LoadAudioData(ChapterStruct obj)
+        {
             _dataLoader = new PerformanceAudioDataLoader();
+        }
+
+        private void OnDisable()
+        {
+            ChapterInfo.OnChapterStartRequested -= LoadAudioData;
         }
 
         public AudioClip GetAudioTrack(int actNumber, int chapterNumber, Instrument instrument, InstrumentProficiency proficiency)

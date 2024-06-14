@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea058ebd7af14675adf69e800f4b1fe0, type: 3}
   m_Name: ChapterAudio_ChapterOne
   m_EditorClassIdentifier: 
+  chapterNumber: 0
   trackName: I am a track
+  instrumentTrackProficiencyData: []
