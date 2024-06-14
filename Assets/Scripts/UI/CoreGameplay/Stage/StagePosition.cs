@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -70,7 +68,12 @@ public class StagePosition : MonoBehaviour
         return instrumentOccupied is not null;
     }
 
-    public int GetMusicianProficiency()
+    public InstrumentProficiency GetMusicianProficiency()
+    {
+        return musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
+    }
+    
+    public int GetMusicianProficiencyRaw()
     {
         return (int)musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
     }

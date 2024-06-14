@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e91ca5f17b4da6b34ef8b89dd6d39c, type: 3}
   m_Name: ActAudio_ActOne
   m_EditorClassIdentifier: 
+  actNumber: 1
   chapterAudioSo:
   - {fileID: 11400000, guid: 9366178bbce202a47a68dcbde706afea, type: 2}
