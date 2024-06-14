@@ -29,6 +29,7 @@ public class StsCamera : Singleton<StsCamera>
         public float fieldOfView;
         public Vector3 focusOffset;
     }
+    
     [Header("Camera States")][Space(20)]
     [SerializeField] private List<CameraState> cameraStates;
     [SerializeField] private CameraState currentCameraState;
@@ -71,7 +72,6 @@ public class StsCamera : Singleton<StsCamera>
         }
 
         // Bind to STATIC events, doesn't matter if there is an object or not.
-        StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
@@ -89,7 +89,6 @@ public class StsCamera : Singleton<StsCamera>
             onPointerDelta.canceled -= OnPointerDelta;
         }
         
-        StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
@@ -122,7 +121,7 @@ public class StsCamera : Singleton<StsCamera>
         }
     }
 
-    private void OnStagePositionClicked(StagePosition stagePosition)
+    public void OnStagePositionClicked(StagePosition stagePosition)
     {
         // Zoom onto the stage selection
         ChangeCameraState(CameraStateName.SelectedStagePosition, stagePosition.GetViewTarget());

@@ -21,7 +21,8 @@ public class StageSelection : Singleton<StageSelection>
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
     public static event Action OnStageSelectionStarted; 
-    public static event Action OnStageSelectionEnded; 
+    public static event Action OnStageSelectionEnded;
+    public static event Action<StagePosition> OnStageSelectionFocusChanged; 
 
     protected override void Awake()
     {
@@ -31,6 +32,7 @@ public class StageSelection : Singleton<StageSelection>
         {
             StSDebug.LogWarning($"{gameObject.name}: No Stage Positions found.");
         }
+        gameObject.SetActive(false);
     }
 
     private void Start()
@@ -146,12 +148,16 @@ public class StageSelection : Singleton<StageSelection>
         StagePosition newPos = _StagePositions.Find(position => position.stagePositionNumber == currentIndex);
         if (newPos)
         {
-            newPos.OnInteract();
+            OnStageSelectionFocusChanged?.Invoke(newPos);
         }
         else
         {
             StSDebug.LogError($"StageSelection: Could not find stage position with the index '{currentIndex}'");
         }
-        
+    }
+
+    public bool HasActiveSelection()
+    {
+        return activeStagePosition is not null;
     }
 }
