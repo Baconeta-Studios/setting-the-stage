@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 67778d395028adc499c6b4eea2591070
   m_SerializeEntries:
   - m_GUID: cc95fd2082a76a9438121dbf02212fed
-    m_Address: Assets/Data/AllPerformanceData.prefab
+    m_Address: AllPerformanceData
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
