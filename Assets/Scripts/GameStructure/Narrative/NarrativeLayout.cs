@@ -204,7 +204,12 @@ namespace GameStructure.Narrative
         {
             ResetTimer();
         }
-        
+
+        public void EndCutsceneButton()
+        {
+            NarrativeController.EndNarrative();
+        }
+
         public void DestroySelf()
         {
             Destroy(gameObject);
