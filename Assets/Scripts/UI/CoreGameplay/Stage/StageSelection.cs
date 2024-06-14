@@ -8,15 +8,9 @@ using Utils;
 
 public class StageSelection : Singleton<StageSelection>
 {
-    [SerializeField] private Carousel.CarouselType currentShowingCarousel = Carousel.CarouselType.Musician;
     public Carousel instrumentCarousel;
     public Carousel musicianCarousel;
     private StagePosition activeStagePosition = null;
-
-    [Header("Carousel Swapper")] 
-    [SerializeField] private Image swapperImage;
-    [SerializeField] private Sprite musicianImage;
-    [SerializeField] private Sprite instrumentImage;
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
@@ -35,32 +29,12 @@ public class StageSelection : Singleton<StageSelection>
         gameObject.SetActive(false);
     }
 
-    private void Start()
-    {
-        switch (currentShowingCarousel)
-        {
-            case Carousel.CarouselType.Musician:
-                swapperImage.sprite = musicianImage;
-                break;
-            case Carousel.CarouselType.Instrument:
-                swapperImage.sprite = instrumentImage;
-                break;
-        }
-    }
-
     public void ShowStageSelection(StagePosition newActiveStagePosition)
     {
         activeStagePosition = newActiveStagePosition;
-        
-        switch (currentShowingCarousel)
-        {
-            case Carousel.CarouselType.Musician:
-                musicianCarousel.OpenCarousel(activeStagePosition);
-                break;
-            case Carousel.CarouselType.Instrument:
-                instrumentCarousel.OpenCarousel(activeStagePosition);
-                break;
-        }
+        musicianCarousel.OpenCarousel(activeStagePosition);
+        instrumentCarousel.OpenCarousel(activeStagePosition);
+
         gameObject.SetActive(true);
         OnStageSelectionStarted?.Invoke();
     }
@@ -69,40 +43,11 @@ public class StageSelection : Singleton<StageSelection>
     {
         activeStagePosition = null;
         
+        instrumentCarousel.CloseCarousel();
+        musicianCarousel.CloseCarousel();
         gameObject.SetActive(false);
-        
-        switch (currentShowingCarousel)
-        {
-            case Carousel.CarouselType.Musician:
-                musicianCarousel.CloseCarousel();
-                break;
-            case Carousel.CarouselType.Instrument:
-                instrumentCarousel.CloseCarousel();
-                break;
-        }
-        
-        OnStageSelectionEnded?.Invoke();
-    }
 
-    public void SwapCarousels()
-    {
-        switch (currentShowingCarousel)
-        {
-            case Carousel.CarouselType.Musician:
-                currentShowingCarousel = Carousel.CarouselType.Instrument;
-                swapperImage.sprite = instrumentImage;
-                
-                musicianCarousel.CloseCarousel();
-                instrumentCarousel.OpenCarousel(activeStagePosition);
-                break;
-            case Carousel.CarouselType.Instrument:
-                currentShowingCarousel = Carousel.CarouselType.Musician;
-                swapperImage.sprite = musicianImage;
-                
-                instrumentCarousel.CloseCarousel();
-                musicianCarousel.OpenCarousel(activeStagePosition);
-                break;
-        }
+        OnStageSelectionEnded?.Invoke();
     }
 
     public List<StagePosition> GetStagePositions()
