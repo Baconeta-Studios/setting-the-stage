@@ -14,18 +14,22 @@ namespace Audio
 
         private void OnEnable()
         {
-            Act act = FindObjectOfType<Act>();
-            onChapterOpen += LoadAudioData;
-        }
-
-        private void LoadAudioData(ChapterStruct obj)
-        {
-            _dataLoader = new PerformanceAudioDataLoader();
+            LoadAudioData();
         }
 
         private void OnDisable()
         {
-            ChapterInfo.OnChapterStartRequested -= LoadAudioData;
+            UnloadAudioData();
+        }
+
+        private void LoadAudioData()
+        {
+            _dataLoader = new PerformanceAudioDataLoader();
+        }
+
+        private void UnloadAudioData()
+        {
+            _dataLoader?.UnloadFromMemory();
         }
 
         public AudioClip GetAudioTrack(int actNumber, int chapterNumber, Instrument instrument, InstrumentProficiency proficiency)
