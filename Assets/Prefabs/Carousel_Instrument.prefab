@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carouselType: 1
   contentPanel: {fileID: 4930058957077684119}
-  carouselItemPrefab: {fileID: 5958993833455657973, guid: 78861ee69a8265347b5e5a025c3862b9, type: 3}
+  carouselItemPrefab: {fileID: 8115001319713805579, guid: 67d3b9b965bf30b43b57a1acd4779f70, type: 3}
   selectedItemIndex: 0
   selectionColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   selectionSizeMultiplier: 1.3
