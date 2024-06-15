@@ -10,13 +10,25 @@ namespace Analytics
 {
     public class UnityAnalytics : EverlastingSingleton<UnityAnalytics>
     {
-        private bool analytics_enabled = false;
+        /*
+         * Has the player granted explicit consent for data collection?
+         */
+        private bool player_consents;
 
+        /*
+         * Starts false - when a player launches the game, we check if this is false.
+         * If it is, we will ask them if they would like to opt-out of analytics collection.
+         * Regardless, we will save to PlayerPrefs that they have been asked and never show
+         *     the prompt to them again.
+         */
+        private bool consent_has_been_requested;
+
+        // Persistent Data Variables //
         private int total_levels_played;
         private IDictionary<string, int> level_play_count;
         private int interactions_made_this_attempt;
 
-        private async void Start()
+        private async void Awake()
         {
             try
             {
@@ -26,23 +38,44 @@ namespace Analytics
             {
                 Debug.Log(e.ToString());
             }
+
+            LoadConsent();
         }
 
-        private void EnableAnalytics()
+        private async void OnEnable()
         {
-            if (analytics_enabled) return;
-
-            analytics_enabled = true;
+            if (player_consents)
+            {
+                OptIn();
+            }
         }
 
         private void OnDisable()
         {
-            DisableAnalytics();
+            OptOut();
         }
 
-        private void DisableAnalytics()
+        // Called when the player opts-in via the settings menu.
+        public void OptIn()
         {
-            analytics_enabled = false;
+            if (player_consents) return;
+
+            player_consents = true;
+            AnalyticsService.instance.StartDataCollection();
+        }
+
+        public void OptOut()
+        {
+            if (!player_consents) return;
+
+            player_consents = false;
+            AnalyticsService.instance.StopDataCollection();
+        }
+
+        public void RequestDeletion()
+        {
+            OptOut();
+            AnalyticsService.instance.RequestDataDeletion();
         }
 
         // Here we get the analytics data we want to send with every analytics event
