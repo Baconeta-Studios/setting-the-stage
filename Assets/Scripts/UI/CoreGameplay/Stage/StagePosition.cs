@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -28,10 +26,7 @@ public class StagePosition : MonoBehaviour
 
     public void OnInteract()
     {
-        if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
-        {
-            OnStagePositionClicked?.Invoke(this);
-        }
+        OnStagePositionClicked?.Invoke(this);
     }
 
     public void MusicianSelectionChanged(Musician selection)
@@ -70,7 +65,12 @@ public class StagePosition : MonoBehaviour
         return instrumentOccupied is not null;
     }
 
-    public int GetMusicianProficiency()
+    public InstrumentProficiency GetMusicianProficiency()
+    {
+        return musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
+    }
+    
+    public int GetMusicianProficiencyRaw()
     {
         return (int)musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
     }

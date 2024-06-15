@@ -15,3 +15,10 @@ MonoBehaviour:
   simplePanelName: 
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 08ed04d133f500d43bcf5f5e14557326, type: 3}
+  textPanels:
+  - text: Yes pls daddy
+    textPanelSize: {x: 500, y: 200}
+    textPanelPosition: {x: 0, y: 0}
+    textSize: 16
+    font: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    displayDisplayInMs: 0

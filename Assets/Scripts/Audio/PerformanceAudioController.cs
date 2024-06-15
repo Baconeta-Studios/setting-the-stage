@@ -6,12 +6,18 @@ namespace Audio
     {
         private AudioBuilderSystem _audioBuilder;
         private Chapter _chapter;
+        private PerformanceAudioDataManager _audioDataManager;
 
         [SerializeField] private AudioClip testClip1;
 
         private void OnEnable()
         {
             StagePosition.OnStagePositionChanged += StagePositionChanged;
+            _audioDataManager = FindObjectOfType<PerformanceAudioDataManager>();
+            if (_audioDataManager is null)
+            {
+                StSDebug.LogError("Something went wrong - there is no PerformanceAudioDataManager in the scene.");
+            }
         }
 
         private void OnDisable()
@@ -34,14 +40,14 @@ namespace Audio
             }
         }
 
-        private void StagePositionChanged(StagePosition obj)
+        private void StagePositionChanged(StagePosition stagePosition)
         {
-            // Here we will need to get the chapter data which includes everything we need to know about which audio tracks to add or not
-            // based on the selection in StagePosition
-            
-            // get chapter data from _chapter and musician proficiency from the stagePosition. 
-            // TODO replace testClip with actual clip to play
-            _audioBuilder.UpdateClipAtIndex(testClip1, obj.stagePositionNumber);
+            if (stagePosition.instrumentOccupied is null || stagePosition.musicianOccupied is null)
+            {
+                return;
+            }
+            AudioClip clipToLoad = _audioDataManager.GetAudioTrack(_chapter.ChapterNumber, _chapter.ChapterNumber, stagePosition.instrumentOccupied, stagePosition.GetMusicianProficiency());
+            _audioBuilder.UpdateClipAtIndex(clipToLoad, stagePosition.stagePositionNumber);
         }
     }
 }
