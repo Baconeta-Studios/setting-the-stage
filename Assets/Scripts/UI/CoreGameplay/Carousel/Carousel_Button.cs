@@ -1,18 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameStructure;
 using UnityEngine;
 
 public class Carousel_Button : Carousel
 {
-    // Start is called before the first frame update
-    void Start()
+    public void MoveSelectionRight()
     {
-        
+        MoveSelection(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveSelectionLeft()
     {
+        MoveSelection(-1);
+    }
+
+    private void MoveSelection(int direction)
+    {
+        int newIndex = selectedItemIndex + direction;
+
+        int maxIndex = _contentItems.Count - 1;
+        if (newIndex > maxIndex)
+        {
+            newIndex = 0;
+        }
+        else if (newIndex < 0)
+        {
+            newIndex = maxIndex;
+        }
         
+        SelectItem(newIndex);
+    }
+
+    protected override void SelectItem(int newSelectedItemIndex)
+    {
+        if (newSelectedItemIndex != selectedItemIndex)
+        {
+            // Disable the old selection so that only the current selection shows.
+            // Do this before base.SelectItem because the selected item index is changed.
+            _contentItems[selectedItemIndex].gameObject.SetActive(false);
+            _contentItems[newSelectedItemIndex].gameObject.SetActive(true);
+            
+            base.SelectItem(newSelectedItemIndex);
+        }
+    }
+    
+    protected override CarouselItem AddItemToCarousel(StSObject item)
+    {
+        CarouselItem newItem = base.AddItemToCarousel(item);
+        // The Selected Index may be initialized as higher than is currently on the carousel.
+        // If this is the case, then this item is NOT active.
+        bool shouldBeActive = _contentItems.Count - 1 >= selectedItemIndex && _contentItems[selectedItemIndex] == newItem;
+        newItem.gameObject.SetActive(shouldBeActive);
+        
+        return newItem;
     }
 }

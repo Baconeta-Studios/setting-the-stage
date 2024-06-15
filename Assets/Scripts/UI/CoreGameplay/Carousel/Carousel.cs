@@ -82,8 +82,6 @@ public class Carousel : MonoBehaviour
             StSDebug.LogError($"{gameObject.name}: No items to add to carousel when initializing.");
         }
 
-        // Add an empty item
-        AddItemToCarousel(null);
         
         //Get the current selection
         StSObject currentSelection = null;
@@ -108,6 +106,9 @@ public class Carousel : MonoBehaviour
         //Start with the current selected item if we have one.
         selectedItemIndex = hasSelection ? 1 : 0;
         
+        // Add an empty item
+        AddItemToCarousel(null);
+        
         if (hasSelection)
         {
             //Add the current selection
@@ -127,7 +128,7 @@ public class Carousel : MonoBehaviour
         HighlightItem(_contentItems[selectedItemIndex]);
     }
 
-    private CarouselItem AddItemToCarousel(StSObject item)
+    protected virtual CarouselItem AddItemToCarousel(StSObject item)
     {
         CarouselItem newItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
         newItem.Initialize(this, item); // TODO add support for icons
@@ -154,7 +155,7 @@ public class Carousel : MonoBehaviour
 
     
 
-    protected void SelectItem(int newSelectedItemIndex)
+    protected virtual void SelectItem(int newSelectedItemIndex)
     {
         if (newSelectedItemIndex != selectedItemIndex)
         {
