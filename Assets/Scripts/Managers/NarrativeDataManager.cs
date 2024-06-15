@@ -4,7 +4,7 @@ using Utils;
 
 namespace Managers
 {
-    public class NarrativeDataManager : Singleton<NarrativeDataManager>
+    public class NarrativeDataManager : EverlastingSingleton<NarrativeDataManager>
     {
         [SerializeField] private NarrativeSo[] allNarrativeData;
         
