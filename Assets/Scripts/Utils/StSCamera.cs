@@ -28,6 +28,8 @@ public class StsCamera : Singleton<StsCamera>
         public Transform focusTarget; 
         public float fieldOfView;
         public Vector3 focusOffset;
+        
+        public float screenX;
     }
     
     [Header("Camera States")][Space(20)]
@@ -202,6 +204,8 @@ public class StsCamera : Singleton<StsCamera>
         }
         
         vCam.Follow = currentCameraState.focusTarget;
-        vCamTransposer.m_TrackedObjectOffset = currentCameraState.focusOffset;
+        vCamTransposer.m_TrackedObjectOffset = new Vector3(currentCameraState.focusOffset.x, currentCameraState.focusOffset.y, 0);
+        vCamTransposer.m_CameraDistance = currentCameraState.focusOffset.z;
+        vCamTransposer.m_ScreenX = currentCameraState.screenX;
     }
 }
