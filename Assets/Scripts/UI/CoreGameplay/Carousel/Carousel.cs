@@ -41,7 +41,7 @@ public class Carousel : MonoBehaviour
         }
         currentStagePosition = activeStagePosition;
         
-        StSDebug.Log($"Opening Carousel: {gameObject.name}");
+        //StSDebug.Log($"Opening Carousel: {gameObject.name}");
         
         Musician currentMusician = activeStagePosition.musicianOccupied;
         Instrument currentInstrument = activeStagePosition.instrumentOccupied;
@@ -128,13 +128,14 @@ public class Carousel : MonoBehaviour
         HighlightItem(_contentItems[selectedItemIndex]);
     }
 
-    protected virtual CarouselItem AddItemToCarousel(StSObject item)
+    protected virtual CarouselItem AddItemToCarousel(StSObject stsObject)
     {
-        CarouselItem newItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
-        newItem.Initialize(this, item); // TODO add support for icons
-        _contentItems.Add(newItem);
+        CarouselItem newCarouselItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
+        
+        newCarouselItem.Initialize(this, stsObject); // TODO add support for icons
+        _contentItems.Add(newCarouselItem);
 
-        return newItem;
+        return newCarouselItem;
     }
 
     public void CloseCarousel()

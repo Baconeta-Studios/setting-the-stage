@@ -12,10 +12,13 @@ namespace Managers
         {
             foreach (NarrativeSo narrativeSo in allNarrativeData)
             {
-                if (narrativeSo.actNumber == actNumber && narrativeSo.narrativeType == narrativeType)
+                if (narrativeSo)
                 {
-                    StSDebug.Log($"Loaded {narrativeSo.readableNarrativeName} for act {actNumber}");
-                    return narrativeSo;
+                    if (narrativeSo.actNumber == actNumber && narrativeSo.narrativeType == narrativeType)
+                    {
+                        StSDebug.Log($"Loaded {narrativeSo.readableNarrativeName} for act {actNumber}");
+                        return narrativeSo;
+                    }
                 }
             }
             // We don't error here because we don't want to define the behaviour when data is missing

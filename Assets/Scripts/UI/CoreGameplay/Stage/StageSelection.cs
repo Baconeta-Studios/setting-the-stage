@@ -31,23 +31,31 @@ public class StageSelection : Singleton<StageSelection>
 
     public void ShowStageSelection(StagePosition newActiveStagePosition)
     {
+        newActiveStagePosition.OnFocusStart();
+        
         activeStagePosition = newActiveStagePosition;
+        
         musicianCarousel.OpenCarousel(activeStagePosition);
         instrumentCarousel.OpenCarousel(activeStagePosition);
 
         gameObject.SetActive(true);
+        
         OnStageSelectionStarted?.Invoke();
     }
     
     public void HideStageSelection()
     {
+        activeStagePosition.OnFocusEnd();
+        
         activeStagePosition = null;
         
         instrumentCarousel.CloseCarousel();
         musicianCarousel.CloseCarousel();
+        
         gameObject.SetActive(false);
 
         OnStageSelectionEnded?.Invoke();
+        
     }
 
     public List<StagePosition> GetStagePositions()
@@ -93,6 +101,11 @@ public class StageSelection : Singleton<StageSelection>
         StagePosition newPos = _StagePositions.Find(position => position.stagePositionNumber == currentIndex);
         if (newPos)
         {
+            activeStagePosition.OnFocusEnd();
+            
+            activeStagePosition = newPos;
+            activeStagePosition.OnFocusStart();
+            
             OnStageSelectionFocusChanged?.Invoke(newPos);
         }
         else

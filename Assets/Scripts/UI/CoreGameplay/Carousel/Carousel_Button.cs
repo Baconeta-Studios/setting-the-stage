@@ -45,14 +45,19 @@ public class Carousel_Button : Carousel
         }
     }
     
-    protected override CarouselItem AddItemToCarousel(StSObject item)
+    protected override CarouselItem AddItemToCarousel(StSObject stsObject)
     {
-        CarouselItem newItem = base.AddItemToCarousel(item);
+        CarouselItem newCarouselItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
+        
+        newCarouselItem.Initialize(this, stsObject); // TODO add support for icons
+        _contentItems.Add(newCarouselItem);
+        CarouselItem carouselItem = newCarouselItem;
+        
         // The Selected Index may be initialized as higher than is currently on the carousel.
         // If this is the case, then this item is NOT active.
-        bool shouldBeActive = _contentItems.Count - 1 >= selectedItemIndex && _contentItems[selectedItemIndex] == newItem;
-        newItem.gameObject.SetActive(shouldBeActive);
+        bool shouldBeActive = _contentItems.Count - 1 >= selectedItemIndex && _contentItems[selectedItemIndex] == carouselItem;
+        carouselItem.gameObject.SetActive(shouldBeActive);
         
-        return newItem;
+        return carouselItem;
     }
 }

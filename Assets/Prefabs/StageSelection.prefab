@@ -545,11 +545,15 @@ PrefabInstance:
       objectReference: {fileID: 5623250464342893875}
     - target: {fileID: 4930058957077684119, guid: 44edaaa7416b3784397905df0663bf4c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 6842115488484899190, guid: 44edaaa7416b3784397905df0663bf4c, type: 3}
       propertyPath: m_Name
       value: Carousel_Instrument
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842115488484899190, guid: 44edaaa7416b3784397905df0663bf4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -737,11 +741,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5226049159398513674, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -195.66357
       objectReference: {fileID: 0}
     - target: {fileID: 5915950129967495915, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
       propertyPath: m_Name
       value: Carousel_Musician
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915950129967495915, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

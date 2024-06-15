@@ -17,12 +17,12 @@ public class StagePosition : MonoBehaviour
     public Musician musicianOccupied = null;
 
     [SerializeField] private SpriteRenderer musicianSprite;
-    
-    public TextMeshPro musicianSelection;
-    
+
     [Header("Instrument")]
     public Instrument instrumentOccupied = null;
-    public TextMeshPro instrumentSelection;
+
+    [Header("Lighting")] 
+    [SerializeField] private Light spotlight;
 
     public void OnInteract()
     {
@@ -35,12 +35,10 @@ public class StagePosition : MonoBehaviour
 
         if (musicianOccupied)
         {
-            musicianSelection.text = musicianOccupied.GetName();
             musicianSprite.sprite = selection.GetSprite();
         }
         else
         {
-            musicianSelection.text = "";
             musicianSprite.sprite = null;
         }
         
@@ -51,7 +49,6 @@ public class StagePosition : MonoBehaviour
     {
         instrumentOccupied = selection;
         
-        instrumentSelection.text = instrumentOccupied ? instrumentOccupied.GetName() : "";
         OnStagePositionChanged?.Invoke(this);
     }
 
@@ -78,5 +75,15 @@ public class StagePosition : MonoBehaviour
     public Transform GetViewTarget()
     {
         return viewTarget; 
+    }
+
+    public void OnFocusStart()
+    {
+        spotlight.enabled = true;
+    }
+
+    public void OnFocusEnd()
+    {
+        spotlight.enabled = false;
     }
 }
