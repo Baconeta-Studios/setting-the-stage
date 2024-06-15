@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
+using UnityEngine.Analytics;
 using Utils;
 
 namespace Analytics
@@ -54,11 +55,6 @@ namespace Analytics
             return defaults;
         }
 
-        private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, string> analytics)
-        {
-            // Send send send?
-        }
-
         // We use a dict and convert everything to strings for the analytics system to be more generic
         public void SendAnalytics(string eventName, Dictionary<string, string> values)
         {
@@ -66,6 +62,13 @@ namespace Analytics
             
             // Send some analytics to server or whatever we do
             InvokeAnalyticsUpdate(eventName, analytics);
+        }
+
+        private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, string> analytics)
+        {
+#if ENABLE_CLOUD_SERVICES_ANALYTICS
+            Analytics.CustomEvent(eventName, analytics);
+#endif
         }
     }
 }
