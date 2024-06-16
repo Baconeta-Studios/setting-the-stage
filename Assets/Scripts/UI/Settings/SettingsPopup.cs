@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,18 @@ namespace Settings
     public class SettingsPopup : MonoBehaviour
     {
         [SerializeField] private Button exitLevelButton;
+        [SerializeField] private Button optionsButton;
         [SerializeField] private ChapterUI chapterUI;
+
+        public void OnEnable()
+        {
+            optionsButton?.gameObject.SetActive(false);
+        }
+
+        public void OnDisable()
+        {
+            optionsButton?.gameObject.SetActive(true);
+        }
 
         public void PressEndPerformanceEarly()
         {
