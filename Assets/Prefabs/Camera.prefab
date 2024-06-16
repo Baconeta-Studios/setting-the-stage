@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 340481521514750041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.64, z: -18.42}
+  m_LocalPosition: {x: 0, y: 5, z: -12.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -102,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 3318598367105216635}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.64, z: -18.42}
+  m_LocalPosition: {x: 0, y: 5, z: -12.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -258,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 4820373933180639161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.64, z: -3.42}
+  m_LocalPosition: {x: 0, y: 5, z: -3.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -315,12 +315,12 @@ MonoBehaviour:
   - Name: 0
     focusTarget: {fileID: 9005563914267394941}
     fieldOfView: 0
-    focusOffset: {x: 0, y: 0, z: 15}
+    focusOffset: {x: 0, y: 0, z: 9}
     screenX: 0.5
   - Name: 1
     focusTarget: {fileID: 0}
     fieldOfView: 0
-    focusOffset: {x: 0, y: 0, z: 9}
+    focusOffset: {x: 0, y: 0, z: 6}
     screenX: 0.28
   currentCameraState:
     Name: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 15
+  m_CameraDistance: 9
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0

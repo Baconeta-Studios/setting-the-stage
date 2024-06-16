@@ -10,6 +10,7 @@ public class StageSelection : Singleton<StageSelection>
 {
     public Carousel instrumentCarousel;
     public Carousel musicianCarousel;
+    public MusicianInfoPanel musicianInfoPanel;
     private StagePosition activeStagePosition = null;
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
@@ -39,7 +40,7 @@ public class StageSelection : Singleton<StageSelection>
         instrumentCarousel.OpenCarousel(activeStagePosition);
 
         gameObject.SetActive(true);
-        
+        musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
         OnStageSelectionStarted?.Invoke();
     }
     
@@ -51,6 +52,7 @@ public class StageSelection : Singleton<StageSelection>
         
         instrumentCarousel.CloseCarousel();
         musicianCarousel.CloseCarousel();
+        musicianInfoPanel.HidePanel();
         
         gameObject.SetActive(false);
 
@@ -106,6 +108,7 @@ public class StageSelection : Singleton<StageSelection>
             activeStagePosition = newPos;
             activeStagePosition.OnFocusStart();
             
+            musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
             OnStageSelectionFocusChanged?.Invoke(newPos);
         }
         else
