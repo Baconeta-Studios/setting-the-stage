@@ -16,13 +16,14 @@ public class StagePosition : MonoBehaviour
     [Header("Musician")]
     public Musician musicianOccupied = null;
 
-    [SerializeField] private SpriteRenderer musicianSprite;
+    [SerializeField] private MeshRenderer musicianRenderer;
 
     [Header("Instrument")]
     public Instrument instrumentOccupied = null;
 
     [Header("Lighting")] 
     [SerializeField] private Light spotlight;
+    [SerializeField] private GameObject spotlightMesh;
 
     public void OnInteract()
     {
@@ -35,11 +36,13 @@ public class StagePosition : MonoBehaviour
 
         if (musicianOccupied)
         {
-            musicianSprite.sprite = selection.GetSprite();
+            musicianRenderer.enabled = true;
+            musicianRenderer.material.mainTexture = selection.GetSprite().texture;
         }
         else
         {
-            musicianSprite.sprite = null;
+            musicianRenderer.enabled = false;
+            musicianRenderer.material.mainTexture = null;
         }
         
         OnStagePositionChanged?.Invoke(this);
@@ -80,10 +83,13 @@ public class StagePosition : MonoBehaviour
     public void OnFocusStart()
     {
         spotlight.enabled = true;
+        spotlightMesh.SetActive(true);
     }
 
     public void OnFocusEnd()
     {
         spotlight.enabled = false;
+        spotlightMesh.SetActive(false);
+
     }
 }
