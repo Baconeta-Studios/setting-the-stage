@@ -680,6 +680,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6837015468409084909, guid: aca4872e40dba5449a56677ebc81e876, type: 3}
+      propertyPath: chapterUI
+      value: 
+      objectReference: {fileID: 1408676138128712239}
     - target: {fileID: 7009144432500374141, guid: aca4872e40dba5449a56677ebc81e876, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.499995

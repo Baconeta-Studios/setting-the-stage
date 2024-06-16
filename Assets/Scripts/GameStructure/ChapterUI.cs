@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ChapterUI : MonoBehaviour
 {
-    private Chapter _chapter;
+    public Chapter Chapter { get; private set; }
 
     [SerializeField] private TextMeshProUGUI chapterTitle;
     
@@ -28,17 +28,17 @@ public class ChapterUI : MonoBehaviour
     private Vector2 pointerPosition;
 
 
-    void Awake()
+    private void Awake()
     {
         _StarDisplay.gameObject.SetActive(false);
-        _chapter = FindObjectOfType<Chapter>();
+        Chapter = FindObjectOfType<Chapter>();
 
-        if (!_chapter)
+        if (!Chapter)
         {
             StSDebug.LogError($"ChapterUI could not find chapter object.");
         }
 
-        chapterTitle.text = $"Chapter {_chapter.ChapterNumber}";
+        chapterTitle.text = $"Chapter {Chapter.ChapterNumber}";
         
         input = FindObjectOfType<PlayerInput>();
         if (input)
@@ -51,19 +51,19 @@ public class ChapterUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _chapter.onStageChanged += OnStageChanged;
+        Chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
         StageSelection.OnStageSelectionFocusChanged += StagePositionFocusChanged;
-        _chapter.onRevealRating += RevealRating;
+        Chapter.onRevealRating += RevealRating;
     }
     
     private void OnDisable()
     {
-        if (_chapter is not null)
+        if (Chapter is not null)
         {
-            _chapter.onRevealRating -= RevealRating;
-            _chapter.onStageChanged -= OnStageChanged;
+            Chapter.onRevealRating -= RevealRating;
+            Chapter.onStageChanged -= OnStageChanged;
         }
         
         if (onPointerPosition is not null)
