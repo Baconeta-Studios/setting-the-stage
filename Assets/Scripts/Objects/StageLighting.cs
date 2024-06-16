@@ -27,7 +27,7 @@ public class StageLighting : MonoBehaviour
             SetLightStatus(stageLight, true);
         }
     }
-    private void ClearStageLights()
+    private void ClearStageLights(StagePosition unusedStagePosition)
     {
         foreach (Light stageLight in stageLights)
         {

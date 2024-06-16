@@ -84,6 +84,7 @@ public class StsCamera : Singleton<StsCamera>
         }
 
         // Bind to STATIC events, doesn't matter if there is an object or not.
+        StageSelection.OnStageSelectionFocusChanged += OnStagePositionFocused;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
@@ -101,7 +102,8 @@ public class StsCamera : Singleton<StsCamera>
             onPointerDelta.canceled -= OnPointerDelta;
         }
         
-        StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
+        StageSelection.OnStageSelectionFocusChanged -= OnStagePositionFocused;
+        StageSelection.OnStageSelectionEnded -= OnStageSelectionEnded;
     }
 
     private void OnDisable()
@@ -144,7 +146,7 @@ public class StsCamera : Singleton<StsCamera>
         }
     }
 
-    public void OnStagePositionClicked(StagePosition stagePosition)
+    public void OnStagePositionFocused(StagePosition stagePosition)
     {
         // Zoom onto the stage selection
         ChangeCameraState(CameraStateName.SelectedStagePosition, stagePosition.GetViewTarget());

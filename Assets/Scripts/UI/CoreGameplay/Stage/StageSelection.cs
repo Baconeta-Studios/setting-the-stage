@@ -15,7 +15,7 @@ public class StageSelection : Singleton<StageSelection>
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
-    public static event Action OnStageSelectionStarted; 
+    public static event Action<StagePosition> OnStageSelectionStarted; 
     public static event Action OnStageSelectionEnded;
     public static event Action<StagePosition> OnStageSelectionFocusChanged; 
 
@@ -32,31 +32,54 @@ public class StageSelection : Singleton<StageSelection>
 
     public void ShowStageSelection(StagePosition newActiveStagePosition)
     {
+        if (!gameObject.activeSelf)
+        {
+            ChangeFocus(newActiveStagePosition);
+
+            gameObject.SetActive(true);
+            
+            OnStageSelectionStarted?.Invoke(activeStagePosition);
+        }
+    }
+
+    private void ChangeFocus(StagePosition newActiveStagePosition)
+    {
+        if (activeStagePosition)
+        {
+            activeStagePosition.OnFocusEnd();
+        }
+        
         newActiveStagePosition.OnFocusStart();
-        
         activeStagePosition = newActiveStagePosition;
-        
+
         musicianCarousel.OpenCarousel(activeStagePosition);
         instrumentCarousel.OpenCarousel(activeStagePosition);
 
-        gameObject.SetActive(true);
         musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
-        OnStageSelectionStarted?.Invoke();
+        
+        OnStageSelectionFocusChanged?.Invoke(activeStagePosition);
     }
-    
+
     public void HideStageSelection()
     {
-        activeStagePosition.OnFocusEnd();
-        
-        activeStagePosition = null;
-        
-        instrumentCarousel.CloseCarousel();
-        musicianCarousel.CloseCarousel();
-        musicianInfoPanel.HidePanel();
-        
-        gameObject.SetActive(false);
+        if (gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+            
+            activeStagePosition.OnFocusEnd();
+            activeStagePosition = null;
+            
+            instrumentCarousel.CloseCarousel();
+            musicianCarousel.CloseCarousel();
+            
+            musicianInfoPanel.HidePanel();
+            
+            OnStageSelectionEnded?.Invoke();
+        }
+    }
 
-        OnStageSelectionEnded?.Invoke();
+    private void FocusChanged()
+    {
         
     }
 
@@ -103,13 +126,7 @@ public class StageSelection : Singleton<StageSelection>
         StagePosition newPos = _StagePositions.Find(position => position.stagePositionNumber == currentIndex);
         if (newPos)
         {
-            activeStagePosition.OnFocusEnd();
-            
-            activeStagePosition = newPos;
-            activeStagePosition.OnFocusStart();
-            
-            musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
-            OnStageSelectionFocusChanged?.Invoke(newPos);
+            ChangeFocus(newPos);
         }
         else
         {
