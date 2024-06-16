@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -9,7 +8,7 @@ namespace GameStructure.Narrative
 {
     public class NarrativeLayout : MonoBehaviour
     {
-        [SerializeField] private NarrativePanelObject[] panelObjects;
+        [SerializeField] protected NarrativePanelObject[] panelObjects;
         [SerializeField] private NarrativePanelObject fullScreenPanelObject;
         [SerializeField] private GameObject textPanelPrefab;
 
@@ -18,14 +17,14 @@ namespace GameStructure.Narrative
         [SerializeField] private Button skipAllButton;
         [SerializeField] private Button[] allButtonsToPauseAutoScroll;
 
-        [SerializeField] private float timeToMoveToNextPanel = 10f; // Time in seconds
+        [SerializeField] protected float timeToMoveToNextPanel = 10f; // Time in seconds
 
-        private NarrativeController _narrativeController;
+        protected NarrativeController NarrativeController;
 
-        private float _timeUntilTrigger;
+        protected float TimeUntilTrigger;
         private readonly List<int> _panelsPerPage = new();
         private int _pageOnScreen = -1;
-        private List<NarrativePanelData> _allPanels;
+        protected List<NarrativePanelData> AllPanels;
         private List<GameObject> _currentTextPanels = new();
 
         private void OnEnable()
@@ -44,25 +43,25 @@ namespace GameStructure.Narrative
             }
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            _timeUntilTrigger -= Time.deltaTime;
+            TimeUntilTrigger -= Time.deltaTime;
 
-            if (_timeUntilTrigger <= 0f)
+            if (TimeUntilTrigger <= 0f)
             {
                 MoveToNextPage(); // A page consists of panels.Length # of panels
             }
         }
 
-        private void ResetTimer()
+        protected void ResetTimer()
         {
-            _timeUntilTrigger = timeToMoveToNextPanel;
+            TimeUntilTrigger = timeToMoveToNextPanel;
         }
 
-        public void Setup(List<NarrativePanelData> narrativePanels, NarrativeController controller)
+        public virtual void Setup(List<NarrativePanelData> narrativePanels, NarrativeController controller)
         {
-            _narrativeController = controller;
-            _allPanels = narrativePanels;
+            NarrativeController = controller;
+            AllPanels = narrativePanels;
 
             int numPanels = panelObjects.Length;
             var currentCountThisScreen = 0;
@@ -90,7 +89,7 @@ namespace GameStructure.Narrative
                 _panelsPerPage.Add(currentCountThisScreen);
             }
 
-            _timeUntilTrigger = timeToMoveToNextPanel;
+            TimeUntilTrigger = timeToMoveToNextPanel;
             ShowFirstPanel();
         }
 
@@ -110,10 +109,10 @@ namespace GameStructure.Narrative
 
             if (_panelsPerPage[pageOfPanels] == 1)
             {
-                SetupPanel(fullScreenPanelObject, fullScreenPanelObject.NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage]);
+                SetupPanel(fullScreenPanelObject, fullScreenPanelObject.NarrativePanelImage, AllPanels[totalPanelsBeforeThisPage]);
                 foreach (NarrativePanelObject panelObject in panelObjects)
                 {
-                    panelObject.SetActive(true);
+                    panelObject.SetActive(false);
                 }
             }
             else // We will populate each panel on the page
@@ -121,7 +120,7 @@ namespace GameStructure.Narrative
                 fullScreenPanelObject.SetActive(false);
                 for (var i = 0; i < panelObjects.Length; i++)
                 {
-                    SetupPanel(panelObjects[i], panelObjects[i].NarrativePanelImage, _allPanels[totalPanelsBeforeThisPage + i]);
+                    SetupPanel(panelObjects[i], panelObjects[i].NarrativePanelImage, AllPanels[totalPanelsBeforeThisPage + i]);
                 }
             }
 
@@ -145,7 +144,7 @@ namespace GameStructure.Narrative
             // move to next page of panels or end narrative
             if (_pageOnScreen + 1 >= _panelsPerPage.Count)
             {
-                _narrativeController.EndNarrative();
+                NarrativeController.EndNarrative();
             }
             else
             {
@@ -170,7 +169,7 @@ namespace GameStructure.Narrative
             }
         }
 
-        private void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelData)
+        protected void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelData)
         {
             panelImage.sprite = panelData.panelImage;
 
@@ -205,7 +204,12 @@ namespace GameStructure.Narrative
         {
             ResetTimer();
         }
-        
+
+        public void EndCutsceneButton()
+        {
+            NarrativeController.EndNarrative();
+        }
+
         public void DestroySelf()
         {
             Destroy(gameObject);
