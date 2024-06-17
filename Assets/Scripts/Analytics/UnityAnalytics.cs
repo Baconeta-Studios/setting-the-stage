@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
-using UnityEngine.Analytics;
 using Utils;
 
 namespace Analytics
@@ -28,6 +26,7 @@ namespace Analytics
         private IDictionary<string, int> level_play_count;
         private int interactions_made_this_attempt;
 
+        /*** Begin Unity state functions ***/
         private async void Awake()
         {
             try
@@ -54,6 +53,7 @@ namespace Analytics
         {
             OptOut();
         }
+        /*** End Unity state function ***/
 
         // Called when the player opts-in via the settings menu.
         public override void OptIn()
@@ -72,7 +72,7 @@ namespace Analytics
             AnalyticsService.Instance.StopDataCollection();
         }
 
-        public void RequestDeletion()
+        public override void RequestDataDeletion()
         {
             OptOut();
             AnalyticsService.Instance.RequestDataDeletion();
@@ -88,7 +88,7 @@ namespace Analytics
         }
 
         // Here we get the analytics data we want to send with every analytics event
-        private Dictionary<string, string> GetDefaultAnalytics()
+        private Dictionary<string, string> GetBaselineAnalytics()
         {
             var defaults = new Dictionary<string, string>();
             
