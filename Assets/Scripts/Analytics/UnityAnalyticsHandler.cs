@@ -6,7 +6,7 @@ using Utils;
 
 namespace Analytics
 {
-    public class UnityAnalytics : AnalyticsHandler
+    public class UnityAnalyticsHandler : AnalyticsHandler
     {
         /*
          * Has the player granted explicit consent for data collection?
