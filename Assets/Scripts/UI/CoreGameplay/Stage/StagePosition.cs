@@ -16,13 +16,14 @@ public class StagePosition : MonoBehaviour
     [Header("Musician")]
     public Musician musicianOccupied = null;
 
-    [SerializeField] private SpriteRenderer musicianSprite;
-    
-    public TextMeshPro musicianSelection;
-    
+    [SerializeField] private MeshRenderer musicianRenderer;
+
     [Header("Instrument")]
     public Instrument instrumentOccupied = null;
-    public TextMeshPro instrumentSelection;
+
+    [Header("Lighting")] 
+    [SerializeField] private Light spotlight;
+    [SerializeField] private GameObject spotlightMesh;
 
     public void OnInteract()
     {
@@ -35,13 +36,13 @@ public class StagePosition : MonoBehaviour
 
         if (musicianOccupied)
         {
-            musicianSelection.text = musicianOccupied.GetName();
-            musicianSprite.sprite = selection.GetSprite();
+            musicianRenderer.enabled = true;
+            musicianRenderer.material.mainTexture = selection.GetSprite().texture;
         }
         else
         {
-            musicianSelection.text = "";
-            musicianSprite.sprite = null;
+            musicianRenderer.enabled = false;
+            musicianRenderer.material.mainTexture = null;
         }
         
         OnStagePositionChanged?.Invoke(this);
@@ -51,7 +52,6 @@ public class StagePosition : MonoBehaviour
     {
         instrumentOccupied = selection;
         
-        instrumentSelection.text = instrumentOccupied ? instrumentOccupied.GetName() : "";
         OnStagePositionChanged?.Invoke(this);
     }
 
@@ -78,5 +78,18 @@ public class StagePosition : MonoBehaviour
     public Transform GetViewTarget()
     {
         return viewTarget; 
+    }
+
+    public void OnFocusStart()
+    {
+        spotlight.enabled = true;
+        spotlightMesh.SetActive(true);
+    }
+
+    public void OnFocusEnd()
+    {
+        spotlight.enabled = false;
+        spotlightMesh.SetActive(false);
+
     }
 }

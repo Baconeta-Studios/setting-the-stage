@@ -28,7 +28,10 @@ public class CarouselItem : MonoBehaviour
         }
         gameObject.name = "CarouselItem_" + itemName;
         
-        displayText.text = itemName;
+        if (displayText)
+        {
+            displayText.text = itemName;
+        }
     }
 
     // Checks if this carousel item is an empty item.
