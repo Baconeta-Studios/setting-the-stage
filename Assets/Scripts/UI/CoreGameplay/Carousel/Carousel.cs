@@ -15,31 +15,20 @@ public class Carousel : MonoBehaviour
         Instrument,
     }
 
-    [SerializeField] private CarouselType carouselType;
-    private StagePosition currentStagePosition;
-    private bool isInitialized = false;
+    [SerializeField] protected CarouselType carouselType;
+    protected StagePosition currentStagePosition;
+    protected bool isInitialized = false;
     
     [Header("Components")]
-    [SerializeField] private ScrollRect scrollRect;
-    [SerializeField] private RectTransform contentPanel;
-    private RectTransform _scrollPanel;
-    [SerializeField] private GameObject carouselItemPrefab;
+    [SerializeField] protected RectTransform contentPanel;
+    [SerializeField] protected GameObject carouselItemPrefab;
 
-    [Header("Control")]
-    [SerializeField] private float snapSpeed = 10f;
-
-    private List<CarouselItem> _contentItems = new List<CarouselItem>();
+    protected List<CarouselItem> _contentItems = new List<CarouselItem>();
 
     [Header("Selection")]
-    [SerializeField] private bool isDragging = false;
-    [SerializeField] private int selectedItemIndex = 0;
-    [SerializeField] private Color selectionColour = Color.yellow;
-    [SerializeField] private float selectionSizeMultiplier = 1.3f;
-
-    void Start()
-    {
-        _scrollPanel = scrollRect.GetComponent<RectTransform>();
-    }
+    [SerializeField] protected int selectedItemIndex = 0;
+    [SerializeField] protected Color selectionColour = Color.yellow;
+    [SerializeField] protected float selectionSizeMultiplier = 1.3f;
 
     public void OpenCarousel(StagePosition activeStagePosition)
     {
@@ -52,7 +41,7 @@ public class Carousel : MonoBehaviour
         }
         currentStagePosition = activeStagePosition;
         
-        StSDebug.Log($"Opening Carousel: {gameObject.name}");
+        //StSDebug.Log($"Opening Carousel: {gameObject.name}");
         
         Musician currentMusician = activeStagePosition.musicianOccupied;
         Instrument currentInstrument = activeStagePosition.instrumentOccupied;
@@ -93,8 +82,6 @@ public class Carousel : MonoBehaviour
             StSDebug.LogError($"{gameObject.name}: No items to add to carousel when initializing.");
         }
 
-        // Add an empty item
-        AddItemToCarousel(null);
         
         //Get the current selection
         StSObject currentSelection = null;
@@ -119,6 +106,9 @@ public class Carousel : MonoBehaviour
         //Start with the current selected item if we have one.
         selectedItemIndex = hasSelection ? 1 : 0;
         
+        // Add an empty item
+        AddItemToCarousel(null);
+        
         if (hasSelection)
         {
             //Add the current selection
@@ -138,13 +128,14 @@ public class Carousel : MonoBehaviour
         HighlightItem(_contentItems[selectedItemIndex]);
     }
 
-    private CarouselItem AddItemToCarousel(StSObject item)
+    protected virtual CarouselItem AddItemToCarousel(StSObject stsObject)
     {
-        CarouselItem newItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
-        newItem.Initialize(this, item); // TODO add support for icons
-        _contentItems.Add(newItem);
+        CarouselItem newCarouselItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
+        
+        newCarouselItem.Initialize(this, stsObject); // TODO add support for icons
+        _contentItems.Add(newCarouselItem);
 
-        return newItem;
+        return newCarouselItem;
     }
 
     public void CloseCarousel()
@@ -163,68 +154,9 @@ public class Carousel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void Update()
-    {
-        if (!isDragging)
-        {
-            if (selectedItemIndex < _contentItems.Count)
-            {
-                SnapToItem(_contentItems[selectedItemIndex]);
-            }
-        }
-        else
-        {
-            FindClosestItem();
-        }
-    }
+    
 
-    public void OnDragStart()
-    {
-        isDragging = true;
-    }
-
-    public void OnDragEnd()
-    {
-        isDragging = false;
-        FindClosestItem();
-    }
-
-    void SnapToItem(CarouselItem target)
-    {
-        // Lerp from current to target position.
-        contentPanel.anchoredPosition = Vector2.Lerp(contentPanel.anchoredPosition, GetItemPosition(target), Time.deltaTime * snapSpeed);
-    }
-
-    Vector2 GetItemPosition(CarouselItem target)
-    {
-        //Get target position in local space of the content panel
-        Vector2 targetPosition = (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
-                                 - (Vector2)scrollRect.transform.InverseTransformPoint(target.rectTransform.position);
-        
-        return targetPosition;
-    }
-
-    void FindClosestItem()
-    {
-        float closestDistance = float.MaxValue;
-        int closestItemIndex = selectedItemIndex;
-        for (int index = 0; index < _contentItems.Count; index++)
-        {
-            Vector2 itemPos = _contentItems[index].rectTransform.position;
-            
-            float distance = Vector2.Distance(_scrollPanel.position, itemPos);
-
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestItemIndex = index;
-            }
-        }
-
-        SelectItem(closestItemIndex);
-    }
-
-    void SelectItem(int newSelectedItemIndex)
+    protected virtual void SelectItem(int newSelectedItemIndex)
     {
         if (newSelectedItemIndex != selectedItemIndex)
         {
@@ -265,25 +197,23 @@ public class Carousel : MonoBehaviour
         }
     }
 
-    void HighlightItem(CarouselItem itemToHighlight)
+    private void HighlightItem(CarouselItem itemToHighlight)
     {
         //Highlight the current selection and increase the size
         itemToHighlight.transform.localScale = Vector3.one * selectionSizeMultiplier;
         itemToHighlight.GetComponent<Image>().color = selectionColour;
     }
 
-    void ClearHighlightOnItem(CarouselItem itemToClear)
+    private void ClearHighlightOnItem(CarouselItem itemToClear)
     {
         //Remove the highlight & size from the previous selection
         itemToClear.transform.localScale = Vector3.one;
         itemToClear.GetComponent<Image>().color = Color.white;
     }
 
-    void OnStagePositionClicked(StagePosition clickedStagePosition)
+    private void OnStagePositionClicked(StagePosition clickedStagePosition)
     {
-
         currentStagePosition = clickedStagePosition;
-        
     }
     
 }
