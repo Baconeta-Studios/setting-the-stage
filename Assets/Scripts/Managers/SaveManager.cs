@@ -9,8 +9,8 @@ namespace Analytics
     {
         public void CreateNewSave()
         {
-            string player_uuid = Guid.NewGuid();
-            PlayerPrefs.SetString('Player_UUID', player_uuid);
+            string player_uuid = Guid.NewGuid().ToString();
+            PlayerPrefs.SetString("Player_UUID", player_uuid);
             
         }
 
