@@ -300,12 +300,48 @@ PrefabInstance:
       value: Chapter 1
       objectReference: {fileID: 0}
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[0].sceneInfo.sceneToLoad.guid
+      value: 6c6662f25b8eaf54e83dacd85e2e7909
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: chapters.Array.data[1].sceneInfo.sceneDisplayName
       value: Chapter 2
       objectReference: {fileID: 0}
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[1].sceneInfo.sceneToLoad.guid
+      value: f4bffa912503f7d4ca35ecaa21f2c404
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: chapters.Array.data[2].sceneInfo.sceneDisplayName
       value: Chapter 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[2].sceneInfo.sceneToLoad.guid
+      value: f30127b70b4837a4eaf9678db2751fd9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[0].sceneInfo.sceneToLoad.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6c6662f25b8eaf54e83dacd85e2e7909, type: 3}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[1].sceneInfo.sceneToLoad.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: f4bffa912503f7d4ca35ecaa21f2c404, type: 3}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[2].sceneInfo.sceneToLoad.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: f30127b70b4837a4eaf9678db2751fd9, type: 3}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[0].sceneInfo.sceneToLoad.sceneGuid
+      value: 6c6662f25b8eaf54e83dacd85e2e7909
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[1].sceneInfo.sceneToLoad.sceneGuid
+      value: f4bffa912503f7d4ca35ecaa21f2c404
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: chapters.Array.data[2].sceneInfo.sceneToLoad.sceneGuid
+      value: f30127b70b4837a4eaf9678db2751fd9
       objectReference: {fileID: 0}
     - target: {fileID: 1393569455893513127, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -704,6 +740,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1538699695}
+    - target: {fileID: 7796408560961386895, guid: c7bcf842f17b7334798199a16b109e5a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Main Menu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
