@@ -100,7 +100,7 @@ namespace Analytics
         private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, string> analytics)
         {
 #if ENABLE_CLOUD_SERVICES_ANALYTICS
-            Analytics.CustomEvent(eventName, analytics);
+            UnityEngine.Analytics.Analytics.CustomEvent(eventName, analytics);
 #endif
         }
     }
