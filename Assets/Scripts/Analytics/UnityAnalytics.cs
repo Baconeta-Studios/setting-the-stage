@@ -61,7 +61,7 @@ namespace Analytics
             if (player_consents) return;
 
             player_consents = true;
-            AnalyticsService.instance.StartDataCollection();
+            AnalyticsService.Instance.StartDataCollection();
         }
 
         public override void OptOut()
@@ -69,13 +69,13 @@ namespace Analytics
             if (!player_consents) return;
 
             player_consents = false;
-            AnalyticsService.instance.StopDataCollection();
+            AnalyticsService.Instance.StopDataCollection();
         }
 
         public void RequestDeletion()
         {
             OptOut();
-            AnalyticsService.instance.RequestDataDeletion();
+            AnalyticsService.Instance.RequestDataDeletion();
         }
 
         // We use a dict and convert everything to strings for the analytics system to be more generic
