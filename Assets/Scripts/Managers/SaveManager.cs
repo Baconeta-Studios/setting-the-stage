@@ -1,11 +1,12 @@
+using System;
+using UnityEngine;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
-using UnityEngine;
-using System;
+using Utils;
 
 namespace Analytics
 {
-    public class SaveManager : EverlastingSingleton<UnityAnalytics>
+    public class SaveManager : EverlastingSingleton<SaveManager>
     {
         public void CreateNewSave()
         {
