@@ -83,7 +83,7 @@ public class PerformanceController : MonoBehaviour
         
         foreach (StagePosition stagePosition in stagePositions)
         {
-            talliedProficiency += stagePosition.GetMusicianProficiency();
+            talliedProficiency += stagePosition.GetMusicianProficiencyRaw();
         }
 
         // Get the average proficiency

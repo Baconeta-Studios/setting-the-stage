@@ -1,15 +1,16 @@
+using GameStructure.Narrative;
 using UnityEngine;
 using Utils;
 
 namespace Managers
 {
-    public class NarrativeDataManager : Singleton<NarrativeDataManager>
+    public class NarrativeDataManager : EverlastingSingleton<NarrativeDataManager>
     {
-        [SerializeField] private NarrativeSO[] allNarrativeData;
+        [SerializeField] private NarrativeSo[] allNarrativeData;
         
-        public NarrativeSO GetNarrativeData(int actNumber, NarrativeSO.NarrativeType narrativeType)
+        public NarrativeSo GetNarrativeData(int actNumber, NarrativeSo.NarrativeType narrativeType)
         {
-            foreach (NarrativeSO narrativeSo in allNarrativeData)
+            foreach (NarrativeSo narrativeSo in allNarrativeData)
             {
                 if (narrativeSo.actNumber == actNumber && narrativeSo.narrativeType == narrativeType)
                 {

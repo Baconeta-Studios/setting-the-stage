@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8393601661404098959}
   - component: {fileID: 7523819147380517315}
   - component: {fileID: 4975622418749830621}
+  - component: {fileID: 7237498886757738137}
   m_Layer: 0
   m_Name: Panel1
   m_TagString: Untagged
@@ -154,6 +155,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7237498886757738137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644664162832562384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401f3a96361b449488e7018c7f9727ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  narrativePanelImage: {fileID: 4975622418749830621}
 --- !u!1 &1824127398670704913
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,9 +219,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a2814e39274ab1a7decd0ab21ec0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 4975622418749830621}
-  fullScreenPanel: {fileID: 5688681633671156175}
+  panelObjects:
+  - {fileID: 7237498886757738137}
+  fullScreenPanelObject: {fileID: 8885768809545659703}
+  textPanelPrefab: {fileID: 1281815934558128911, guid: d839d39ecad03854da2b213643fcab90, type: 3}
   backButton: {fileID: 4136893387861159200}
   nextButton: {fileID: 9040807568553462329}
   skipAllButton: {fileID: 5742029808254177976}
@@ -861,6 +876,7 @@ GameObject:
   - component: {fileID: 4902531756985438263}
   - component: {fileID: 3660067649932496744}
   - component: {fileID: 5688681633671156175}
+  - component: {fileID: 8885768809545659703}
   m_Layer: 0
   m_Name: FullScreenPanel
   m_TagString: Untagged
@@ -925,3 +941,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8885768809545659703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8446657597665723439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 401f3a96361b449488e7018c7f9727ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  narrativePanelImage: {fileID: 5688681633671156175}

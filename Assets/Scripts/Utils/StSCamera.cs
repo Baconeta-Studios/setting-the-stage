@@ -29,6 +29,7 @@ public class StsCamera : Singleton<StsCamera>
         public float fieldOfView;
         public Vector3 focusOffset;
     }
+    
     [Header("Camera States")][Space(20)]
     [SerializeField] private List<CameraState> cameraStates;
     [SerializeField] private CameraState currentCameraState;
@@ -47,12 +48,22 @@ public class StsCamera : Singleton<StsCamera>
     [SerializeField] private float panSensitvity;
 
     private ChapterUI chapterUi;
+    private Act _act;
 
 
     private void OnEnable()
     {
         vCamTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
-        
+        _act = FindObjectOfType<Act>();
+        if (_act)
+        {
+            _act.onChapterOpen += ChapterInitialize;
+            _act.onChapterClosed += ChapterClearInitialize;
+        }
+    }
+
+    private void ChapterInitialize()
+    {
         // Subscribe to pointer events immediately, even if the game is not in a chapter.
         // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
@@ -71,11 +82,10 @@ public class StsCamera : Singleton<StsCamera>
         }
 
         // Bind to STATIC events, doesn't matter if there is an object or not.
-        StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
-    private void OnDisable()
+    private void ChapterClearInitialize()
     {
         if (onPointerPress != null)
         {
@@ -89,8 +99,18 @@ public class StsCamera : Singleton<StsCamera>
             onPointerDelta.canceled -= OnPointerDelta;
         }
         
-        StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
+    }
+
+    private void OnDisable()
+    {
+        ChapterClearInitialize();
+        
+        if (_act)
+        {
+            _act.onChapterOpen -= ChapterInitialize;
+            _act.onChapterClosed -= ChapterClearInitialize;
+        }
     }
 
     private void Update()
@@ -122,7 +142,7 @@ public class StsCamera : Singleton<StsCamera>
         }
     }
 
-    private void OnStagePositionClicked(StagePosition stagePosition)
+    public void OnStagePositionClicked(StagePosition stagePosition)
     {
         // Zoom onto the stage selection
         ChangeCameraState(CameraStateName.SelectedStagePosition, stagePosition.GetViewTarget());

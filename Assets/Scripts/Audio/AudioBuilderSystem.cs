@@ -9,17 +9,18 @@ namespace Audio
     public class AudioBuilderSystem : MonoBehaviour
     {
         public int maxStageSpotsAudioCache = 10;
-        
-        [SerializeField] private AudioManager audioManager;
+
         [SerializeField] private AudioMixerGroup musicMixerGroup;
 
-        private List<AudioClip> _builtClips;
+        private AudioManager _audioManager;
         private CustomAudioSource _customAudioSource;
+        private List<AudioClip> _builtClips;
 
         private void Awake()
         {
+            _audioManager = FindObjectOfType<AudioManager>();
             _builtClips = new List<AudioClip>(new AudioClip[maxStageSpotsAudioCache]);
-            _customAudioSource = audioManager.Setup(musicMixerGroup, false);
+            _customAudioSource = _audioManager.Setup(musicMixerGroup, false);
         }
         
         public void UpdateClipAtIndex(AudioClip clip, int index)
