@@ -8,7 +8,7 @@ using Utils;
 
 namespace Analytics
 {
-    public class UnityAnalytics : EverlastingSingleton<UnityAnalytics>
+    public class UnityAnalytics : AnalyticsHandler
     {
         /*
          * Has the player granted explicit consent for data collection?
@@ -56,7 +56,7 @@ namespace Analytics
         }
 
         // Called when the player opts-in via the settings menu.
-        public void OptIn()
+        public override void OptIn()
         {
             if (player_consents) return;
 
@@ -64,7 +64,7 @@ namespace Analytics
             AnalyticsService.instance.StartDataCollection();
         }
 
-        public void OptOut()
+        public override void OptOut()
         {
             if (!player_consents) return;
 
@@ -78,6 +78,15 @@ namespace Analytics
             AnalyticsService.instance.RequestDataDeletion();
         }
 
+        // We use a dict and convert everything to strings for the analytics system to be more generic
+        public override void LogEvent(string eventName, Dictionary<string, string> values)
+        {
+            Dictionary<string, string> analytics = GetBaselineAnalytics().MergeDictionary(values);
+            
+            // Send some analytics to server or whatever we do
+            InvokeAnalyticsUpdate(eventName, analytics);
+        }
+
         // Here we get the analytics data we want to send with every analytics event
         private Dictionary<string, string> GetDefaultAnalytics()
         {
@@ -86,15 +95,6 @@ namespace Analytics
             defaults.Add("total_levels_played", total_levels_played.ToString());
             
             return defaults;
-        }
-
-        // We use a dict and convert everything to strings for the analytics system to be more generic
-        public void SendAnalytics(string eventName, Dictionary<string, string> values)
-        {
-            Dictionary<string, string> analytics = GetDefaultAnalytics().MergeDictionary(values);
-            
-            // Send some analytics to server or whatever we do
-            InvokeAnalyticsUpdate(eventName, analytics);
         }
 
         private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, string> analytics)
