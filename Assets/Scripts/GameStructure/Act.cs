@@ -166,7 +166,7 @@ public class Act : MonoBehaviour
         analytics.Add("act_identifier", actNumber.ToString());
         analytics.Add("level_identifier", currentChapterIndex.ToString());
         
-        UnityAnalytics.Instance.SendAnalytics("LevelCompletedEvent", analytics);
+        AnalyticsHandler.Instance.LogEvent("LevelCompletedEvent", analytics);
     }
 
     public void ProgressToNextAct()
