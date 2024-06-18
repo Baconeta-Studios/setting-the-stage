@@ -32,12 +32,7 @@ public class ActCanvas : MonoBehaviour
     
     private void OnDisable()
     {
-        if (_act)
-        {
-            _act.onChapterOpen -= ChapterOpened;
-            _act.onChapterClosed -= ChapterClosed;
-            _act.OnActComplete -= ShowNextActButton;
-        }
+        UnhookAllEventBindings();
     }
 
     private void OnEnable()
@@ -66,11 +61,24 @@ public class ActCanvas : MonoBehaviour
     {
         if (_act)
         {
+            UnhookAllEventBindings();
+
             _act.onChapterOpen += ChapterOpened;
             _act.onChapterClosed += ChapterClosed;
             _act.OnActComplete += ShowNextActButton;
             actTitle.text = $"Act {_act.GetActNumber()}";
         }
+    }
+
+    private void UnhookAllEventBindings()
+    {
+        if (_act == null)
+        {
+            return;
+        }
+        _act.onChapterOpen -= ChapterOpened;
+        _act.onChapterClosed -= ChapterClosed;
+        _act.OnActComplete -= ShowNextActButton;
     }
 
 
