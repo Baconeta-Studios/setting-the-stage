@@ -29,12 +29,14 @@ namespace Analytics
         public void LogEvent(string eventName, Dictionary<string, object> analytics)
         {
             analytics.TryGetValue("level_identifier", out object levelID);
-            if (levelID is not null)
+            analytics.TryGetValue("act_identifier", out object actID);
+            if (levelID is not null && actID is not null)
             {
-                analytics = GetLevelAnalytics((int) levelID).MergeDictionary(analytics);
+                Dictionary<string, object> data = GetLevelAnalytics((int) actID, (int) levelID);
+                analytics = analytics.MergeDictionary(data);
             }
             
-            analytics = GetDefaultAnalytics().MergeDictionary(analytics);
+            analytics = analytics.MergeDictionary(GetDefaultAnalytics());
             SendAnalytics(eventName, analytics);
         }
 
@@ -43,20 +45,20 @@ namespace Analytics
         {
             Dictionary<string, object> analytics = new Dictionary<string, object>
             {
-                { "total_levels_played", SaveManager.Instance.GetTotalLevelsPlayed() }
+                { "total_levels_played", SaveSystem.Instance.GetTotalLevelsPlayed() }
             };
-            
+
             return analytics;
         }
         
-        private Dictionary<string, object> GetLevelAnalytics(int levelID)
+        private Dictionary<string, object> GetLevelAnalytics(int actID, int levelID)
         {
             Dictionary<string, object> analytics = new Dictionary<string, object>
             {
-                { "times_level_was_played_before", SaveManager.Instance.GetTimesLevelWasPlayedBefore(levelID) },
-                { "highscore_for_level", SaveManager.Instance.GetHighscoreForLevel(levelID) }
+                { "times_completed_this_level", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) },
+                { "highscore_for_level", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) }
             };
-            
+
             return analytics;
         }
     }

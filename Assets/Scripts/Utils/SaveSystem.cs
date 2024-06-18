@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CustomEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Utils
 {
@@ -324,6 +323,16 @@ namespace Utils
         public bool HasSeenCutscene(string cutsceneID)
         {
             return userData.narrativesViewed.Contains(cutsceneID);
+        }
+
+        public int GetTotalLevelsPlayed()
+        {
+            return userData.GetTotalChaptersCompleted();
+        }
+        
+        public int GetCountOfChapterCompletion(int act, int chapter)
+        {
+            return userData.GetCompletedPlaysForChapter(act, chapter);
         }
     }
 }

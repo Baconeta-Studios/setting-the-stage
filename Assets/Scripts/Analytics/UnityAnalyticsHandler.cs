@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
-using Utils;
 
 namespace Analytics
 {
@@ -10,6 +9,7 @@ namespace Analytics
     {
 
         /// Has the player granted explicit consent for data collection?
+        [SerializeField] private bool _playerConsentsDebug;
         private bool _playerConsents;
 
         /// Starts false - when a player launches the game, we check if this is false.
@@ -23,7 +23,7 @@ namespace Analytics
         private int _interactionsMadeThisAttempt;
 
         /*** Begin Unity state functions ***/
-        protected override async void Awake()
+        private async void Init()
         {
             try
             {
@@ -34,15 +34,24 @@ namespace Analytics
                 Debug.Log(e.ToString());
             }
 
-            //LoadConsent(); TODO
+            LoadConsent();
+        }
+
+        private void LoadConsent()
+        {
+            #if !UNITY_EDITOR
+            _playerConsentsDebug = false;
+            #endif
+            
+            if (_playerConsentsDebug || _playerConsents)
+            {
+                AnalyticsService.Instance.StartDataCollection();
+            }
         }
 
         protected void OnEnable()
         {
-            if (_playerConsents)
-            {
-                OptIn();
-            }
+            Init();
         }
 
         protected void OnDisable()
@@ -76,6 +85,7 @@ namespace Analytics
 
         protected override void SendAnalytics(string eventName, Dictionary<string, object> analytics)
         {
+            StSDebug.Log($"Recording analytics event {eventName} with {analytics.Count} parameters");
 #if ENABLE_CLOUD_SERVICES_ANALYTICS
             CustomEvent gameEvent = new(eventName);
             foreach (KeyValuePair<string, object> kvp in analytics)
