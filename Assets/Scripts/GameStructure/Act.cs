@@ -131,9 +131,26 @@ public class Act : MonoBehaviour
         }
         else
         {
+            // Save the data
+            SaveSystem saveSystem = SaveSystem.Instance;
+            saveSystem.ChapterStarted(actNumber, currentChapterIndex);
+            
+            // Send analytics
+            SendChapterStartedAnalytics();
+            
             currentChapter.onChapterComplete += ChapterComplete;
         }
-
+    }
+    
+    private void SendChapterStartedAnalytics()
+    {
+        var analytics = new Dictionary<string, object>
+        {
+            { "act_identifier", actNumber },
+            { "level_identifier", currentChapterIndex }
+        };
+        
+        AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", analytics);
     }
 
     private void ChapterComplete(float starsEarned)
@@ -206,15 +223,15 @@ public class Act : MonoBehaviour
         actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
     }
-    
 
-    void GoToNextAct()
+
+    private void GoToNextAct()
     {
         onCutsceneComplete -= GoToNextAct;
         SceneLoader.Instance.LoadScene($"Act {actNumber + 1}");
     }
 
-    void CloseChapter()
+    private void CloseChapter()
     {
         //Close the chapter and clear the current chapter
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
