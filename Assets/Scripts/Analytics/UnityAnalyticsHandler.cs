@@ -81,7 +81,8 @@ namespace Analytics
         // We use a dict and convert everything to strings for the analytics system to be more generic
         public override void LogEvent(string eventName, Dictionary<string, object> values)
         {
-            Dictionary<string, object> analytics = GetBaselineAnalytics().MergeDictionary(values);
+            values.TryGetValue("level_id", out object level_id);
+            Dictionary<string, object> analytics = GetAnalyticsFromSave((int) level_id).MergeDictionary(values);
             
             // Send some analytics to server or whatever we do
             InvokeAnalyticsUpdate(eventName, analytics);
