@@ -88,13 +88,16 @@ namespace Analytics
         }
 
         // Here we get the analytics data we want to send with every analytics event
-        private Dictionary<string, string> GetBaselineAnalytics()
+        private Dictionary<string, object> GetAnalyticsFromSave(int level_id)
         {
             Dictionary<string, object> analytics = new Dictionary<string, object>
             {
+                { "total_levels_played", SaveManager.Instance.GetTotalLevelsPlayed() },
+                { "times_level_was_played_before", SaveManager.Instance.GetTimesLevelWasPlayedBefore(level_id) },
+                { "highscore_for_level", SaveManager.Instance.GetHighscoreForLevel(level_id) }
             };
             
-            return defaults;
+            return analytics;
         }
 
         private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, object> analytics)
