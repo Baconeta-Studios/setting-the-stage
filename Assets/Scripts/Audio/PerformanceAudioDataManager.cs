@@ -115,7 +115,7 @@ namespace Audio
                      from chapter in act.chapterAudioSo
                      where chapter.chapterNumber == chapterNumber
                      from instrumentData in chapter.instrumentTrackProficiencyData
-                     where instrumentData.instrument == instrument && instrumentData.proficiency == proficiency
+                     where instrumentData.instrument.Equals(instrument) && instrumentData.proficiency == proficiency
                      select instrumentData)
             {
                 StSDebug.Log($"Found track {instrumentData.clip} matching parameters.");

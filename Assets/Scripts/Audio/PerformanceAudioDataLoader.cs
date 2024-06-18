@@ -8,14 +8,17 @@ namespace Audio
     {
         public PerformanceAudioData AllPerformanceData { get; private set; }
         private GameObject _dataObject;
+        private readonly AsyncOperationHandle<GameObject> _handle;
 
         public PerformanceAudioDataLoader()
         {
-            Addressables.LoadAssetAsync<GameObject>(PerformanceAudioDataManager.AddressablePathForAudio).Completed += OnLoadData;
+            _handle = Addressables.InstantiateAsync(PerformanceAudioDataManager.AddressablePathForAudio);
+            _handle.Completed += OnLoadData;
         }
 
         public void UnloadFromMemory()
         {
+            Addressables.Release(_handle);
             Addressables.ReleaseInstance(_dataObject);
         }
 
@@ -25,6 +28,7 @@ namespace Audio
             {
                 _dataObject = data.Result;
                 AllPerformanceData = _dataObject.GetComponent<PerformanceAudioData>();
+                StSDebug.Log("Addressable object loaded - PerformanceAudioData");
             }
             else
             {

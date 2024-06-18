@@ -86,6 +86,12 @@ public class Chapter : Singleton<Chapter>
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
         onChapterComplete?.Invoke(starsEarned);
     }
+    
+    public void EndChapterEarly()
+    {
+        StSDebug.Log($"End Chapter {ChapterNumber} early");
+        onChapterComplete?.Invoke(0);
+    }
 
     public ChapterStage GetCurrentStage()
     {
