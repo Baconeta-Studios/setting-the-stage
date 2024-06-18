@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStructure;
 using GameStructure.Narrative;
 using UnityEngine;
 using Utils;
@@ -109,8 +108,8 @@ public class Act : MonoBehaviour
         {
             if (SceneLoader.Instance.LoadScene(chapters[currentChapterIndex].sceneInfo))
             {
-                onChapterOpen?.Invoke();
                 SceneLoader.Instance.onSceneOpened += ChapterLoaded;
+                onChapterOpen?.Invoke();
             }
         }
         else
