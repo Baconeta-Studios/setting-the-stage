@@ -41,7 +41,12 @@ namespace Analytics
 
         public int GetUniqueLevelsPlayed()
         {
-
+            HashSet<int> uniqueLevels = new HashSet<int>();
+            foreach (int level in _level_play_history)
+            {
+                uniqueLevels.Add(level);
+            }
+            return uniqueLevels.Count;
         }
 
         public int GetTimesLevelWasPlayedBefore(int level_id)
