@@ -67,16 +67,16 @@ public class ChapterUI : MonoBehaviour
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
         StageSelection.OnStageSelectionFocusChanged -= StagePositionFocusChanged;
         Chapter.onRevealRating -= RevealRating;
-        
-        if (onPointerPosition != null)
-        {
-            onPointerPosition.performed -= OnPointerPosition;
-        }
     }
 
     private void OnDisable()
     {
         UnhookAllEventBindings();
+        
+        if (onPointerPosition != null)
+        {
+            onPointerPosition.performed -= OnPointerPosition;
+        }
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -162,6 +162,4 @@ public class ChapterUI : MonoBehaviour
 
         return results.Count > 0;
     }
-    
-    
 }
