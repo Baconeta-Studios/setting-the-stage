@@ -208,7 +208,7 @@ public class Chapter : Singleton<Chapter>
         return false;
     }
 
-    void OnPerformanceComplete(float newStarsEarned)
+    private void OnPerformanceComplete(float newStarsEarned)
     {
         starsEarned = newStarsEarned;
         

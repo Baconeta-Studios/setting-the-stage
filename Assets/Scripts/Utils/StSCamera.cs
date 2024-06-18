@@ -66,6 +66,9 @@ public class StsCamera : Singleton<StsCamera>
 
     private void ChapterInitialize()
     {
+        currentCameraState.focusTarget = null;
+        ChangeCameraState(CameraStateName.Default);
+        
         // Subscribe to pointer events immediately, even if the game is not in a chapter.
         // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
