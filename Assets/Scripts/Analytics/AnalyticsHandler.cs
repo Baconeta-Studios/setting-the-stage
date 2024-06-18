@@ -8,6 +8,6 @@ namespace Analytics
         public abstract void OptIn();
         public abstract void OptOut();
         public abstract void RequestDataDeletion();
-        public abstract void LogEvent(string eventName, Dictionary<string, string> values);
+        public abstract void LogEvent(string eventName, Dictionary<string, object> values);
     }
 }
