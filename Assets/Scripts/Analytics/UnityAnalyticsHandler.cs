@@ -8,17 +8,13 @@ namespace Analytics
 {
     public class UnityAnalyticsHandler : AnalyticsHandler
     {
-        /*
-         * Has the player granted explicit consent for data collection?
-         */
+
+        /// Has the player granted explicit consent for data collection?
         private bool player_consents;
 
-        /*
-         * Starts false - when a player launches the game, we check if this is false.
-         * If it is, we will ask them if they would like to opt-out of analytics collection.
-         * Regardless, we will save to PlayerPrefs that they have been asked and never show
-         *     the prompt to them again.
-         */
+        /// Starts false - when a player launches the game, we check if this is false.
+        /// If it is, we will ask them if they would like to opt-out of analytics collection.
+        /// Regardless, we will save to PlayerPrefs that they have been asked and never show the prompt to them again.
         private bool consent_has_been_requested;
 
         // Persistent Data Variables //
@@ -27,7 +23,7 @@ namespace Analytics
         private int interactions_made_this_attempt;
 
         /*** Begin Unity state functions ***/
-        private async void Awake()
+        protected async override void Awake()
         {
             try
             {
@@ -41,7 +37,7 @@ namespace Analytics
             LoadConsent();
         }
 
-        private async void OnEnable()
+        protected void OnEnable()
         {
             if (player_consents)
             {
@@ -49,13 +45,13 @@ namespace Analytics
             }
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             OptOut();
         }
         /*** End Unity state function ***/
 
-        // Called when the player opts-in via the settings menu.
+        /// Called when the player opts-in via the settings menu.
         public override void OptIn()
         {
             if (player_consents) return;
@@ -78,8 +74,14 @@ namespace Analytics
             AnalyticsService.Instance.RequestDataDeletion();
         }
 
-        // We use a dict and convert everything to strings for the analytics system to be more generic
         public override void LogEvent(string eventName, Dictionary<string, object> values)
+        /// <summary>
+        /// Log an AnalyticsEvent with UnityAnalytics. This function will add to the values dictionary.
+        ///
+        /// We use a dict and convert everything to strings for the analytics system to be more generic
+        /// </summary>
+        /// <param name="type">What event is being logged.</param>
+        /// <param name="values">Key-value pairs of an analytic being recorded and its value. Should contain "level_id" when applicable.</param>
         {
             values.TryGetValue("level_id", out object level_id);
             Dictionary<string, object> analytics = GetAnalyticsFromSave((int) level_id).MergeDictionary(values);
