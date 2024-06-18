@@ -93,7 +93,6 @@ public class StsCamera : Singleton<StsCamera>
     {
         currentCameraState.focusTarget = null;
         ChangeCameraState(CameraStateName.Default);
-        chapterUi = null;
     }
 
     private void ChapterClearInitialize()
@@ -171,12 +170,12 @@ public class StsCamera : Singleton<StsCamera>
 
     private void OnPointerDown(InputAction.CallbackContext context)
     {
-        if (chapterUi is null)
+        if (chapterUi == null)
         {
             chapterUi = FindObjectOfType<ChapterUI>();
         }
 
-        if (chapterUi is null)
+        if (chapterUi == null)
         {
             StSDebug.LogWarning("No chapter Ui found in camera system when checking for if the pointer is over the Ui.");
             return;
