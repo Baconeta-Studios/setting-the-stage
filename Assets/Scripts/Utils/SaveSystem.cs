@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CustomEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -60,13 +61,25 @@ namespace Utils
             }
             
         }
-        
+
+        [Serializable]
+        public struct ChapterPlaysData
+        {
+            public int act;
+            public int chapter;
+            public int playsStarted;
+            public int playsCompleted;
+        }
+
         [Serializable]
         public class UserData
         {
             // Add desired save data here.
             [ReadOnly]
             public string userName;
+
+            [ReadOnly]
+            public string playerID = GeneratePlayerId();
 
             [ReadOnly]
             public List<ChapterSaveData> chapterSaveData = new List<ChapterSaveData>();
@@ -79,7 +92,13 @@ namespace Utils
 
             [ReadOnly]
             public List<string> narrativesViewed = new List<string>();
+            
+            [ReadOnly]
+            public List<ChapterPlaysData> chapterPlaysData = new List<ChapterPlaysData>();
 
+            
+            // Get user data functions
+            
             public float GetStarsForChapter(int actNumber, int chapterNumber)
             {
                 foreach (ChapterSaveData chapter in chapterSaveData)
@@ -91,6 +110,57 @@ namespace Utils
                 }
 
                 return 0.0f;
+            }
+            
+            public int GetStartedPlaysForChapter(int act, int chapter)
+            {
+                foreach (ChapterPlaysData cpData in chapterPlaysData)
+                {
+                    if (cpData.act == act && cpData.chapter == chapter)
+                    {
+                        return cpData.playsStarted;
+                    }
+                }
+
+                return 0;
+            }
+            
+            public int GetCompletedPlaysForChapter(int act, int chapter)
+            {
+                foreach (ChapterPlaysData cpData in chapterPlaysData)
+                {
+                    if (cpData.act == act && cpData.chapter == chapter)
+                    {
+                        return cpData.playsCompleted;
+                    }
+                }
+
+                return 0;
+            }
+            
+            public int GetIncompletePlaysForChapter(int act, int chapter)
+            {
+                return GetStartedPlaysForChapter(act, chapter) - GetCompletedPlaysForChapter(act, chapter);
+            }
+
+            public int GetTotalChaptersStarted()
+            {
+                return chapterPlaysData.Sum(cpData => cpData.playsStarted);
+            }
+            
+            public int GetTotalChaptersCompleted()
+            {
+                return chapterPlaysData.Sum(cpData => cpData.playsCompleted);
+            }
+            
+            public int GetTotalChaptersIncomplete()
+            {
+                return GetTotalChaptersStarted() - GetTotalChaptersCompleted();
+            }
+
+            public static string GeneratePlayerId()
+            {
+                return Guid.NewGuid().ToString();
             }
         }
 
@@ -130,7 +200,7 @@ namespace Utils
                     SaveUserData(userData);
                     break;
             }
-        }// TODO UUID
+        }
 
         public void ResetUserData()
         {
@@ -141,10 +211,12 @@ namespace Utils
             else
             {
                 userData.userName = "";
+                userData.playerID = UserData.GeneratePlayerId();
                 userData.chapterSaveData.Clear();
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
                 userData.narrativesViewed.Clear();
+                userData.chapterPlaysData.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
