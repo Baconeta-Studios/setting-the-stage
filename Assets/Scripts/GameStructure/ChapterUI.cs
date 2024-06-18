@@ -155,7 +155,7 @@ public class ChapterUI : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         
         //Ray cast UI elements only.
-        _graphicRaycaster.Raycast(pointerData, results);
+        _graphicRaycaster?.Raycast(pointerData, results);
 
         return results.Count > 0;
     }
