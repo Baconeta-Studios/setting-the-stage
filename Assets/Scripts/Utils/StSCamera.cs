@@ -66,9 +66,8 @@ public class StsCamera : Singleton<StsCamera>
 
     private void ChapterInitialize()
     {
-        currentCameraState.focusTarget = null;
-        ChangeCameraState(CameraStateName.Default);
-        
+        ResetCanvasAndCameraState();
+
         // Subscribe to pointer events immediately, even if the game is not in a chapter.
         // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
@@ -90,6 +89,13 @@ public class StsCamera : Singleton<StsCamera>
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
+    private void ResetCanvasAndCameraState()
+    {
+        currentCameraState.focusTarget = null;
+        ChangeCameraState(CameraStateName.Default);
+        chapterUi = null;
+    }
+
     private void ChapterClearInitialize()
     {
         if (onPointerPress != null)
@@ -104,6 +110,7 @@ public class StsCamera : Singleton<StsCamera>
             onPointerDelta.canceled -= OnPointerDelta;
         }
         
+        StageSelection.OnStageSelectionEnded -= OnStageSelectionEnded;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
     }
 
@@ -183,7 +190,12 @@ public class StsCamera : Singleton<StsCamera>
         // Wait until the end of the frame to ensure that the Pointer Position has been able to update.
         // Solves an issue where the pointer down would happen before the pointer position and there would be invalid coordinates.
         yield return new WaitForEndOfFrame();
-        IsMovingCamera = !chapterUi.IsPointerOverUi();
+
+        if (chapterUi != null)
+        {
+            IsMovingCamera = !chapterUi.IsPointerOverUi();
+        }
+
         yield return null;
     }
 
