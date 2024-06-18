@@ -6,24 +6,24 @@ using Utils;
 
 namespace Analytics
 {
-    public class UnityAnalyticsHandler : AnalyticsHandler
+    public class UnityAnalyticsHandler : AnalyticsHandlerBase
     {
 
         /// Has the player granted explicit consent for data collection?
-        private bool player_consents;
+        private bool _playerConsents;
 
         /// Starts false - when a player launches the game, we check if this is false.
         /// If it is, we will ask them if they would like to opt-out of analytics collection.
         /// Regardless, we will save to PlayerPrefs that they have been asked and never show the prompt to them again.
-        private bool consent_has_been_requested;
+        private bool _consentHasBeenRequested;
 
         // Persistent Data Variables //
-        private int total_levels_played;
-        private IDictionary<string, int> level_play_count;
-        private int interactions_made_this_attempt;
+        private int _totalLevelsPlayed;
+        private IDictionary<string, int> _levelPlayCount;
+        private int _interactionsMadeThisAttempt;
 
         /*** Begin Unity state functions ***/
-        protected async override void Awake()
+        protected override async void Awake()
         {
             try
             {
@@ -34,12 +34,12 @@ namespace Analytics
                 Debug.Log(e.ToString());
             }
 
-            LoadConsent();
+            //LoadConsent(); TODO
         }
 
         protected void OnEnable()
         {
-            if (player_consents)
+            if (_playerConsents)
             {
                 OptIn();
             }
@@ -54,17 +54,17 @@ namespace Analytics
         /// Called when the player opts-in via the settings menu.
         public override void OptIn()
         {
-            if (player_consents) return;
+            if (_playerConsents) return;
 
-            player_consents = true;
+            _playerConsents = true;
             AnalyticsService.Instance.StartDataCollection();
         }
 
         public override void OptOut()
         {
-            if (!player_consents) return;
+            if (!_playerConsents) return;
 
-            player_consents = false;
+            _playerConsents = false;
             AnalyticsService.Instance.StopDataCollection();
         }
 
@@ -74,50 +74,15 @@ namespace Analytics
             AnalyticsService.Instance.RequestDataDeletion();
         }
 
-        /// <summary>
-        /// Log an AnalyticsEvent with UnityAnalytics. This function will add to the values dictionary.
-        ///
-        /// We use a dict and convert everything to strings for the analytics system to be more generic
-        /// </summary>
-        /// <param name="type">What event is being logged.</param>
-        /// <param name="values">Key-value pairs of an analytic being recorded and its value. Should contain "level_id" when applicable.</param>
-        public override void LogEvent(EventType type, Dictionary<string, object> values)
-        {
-            switch (type) {
-                case EventType.LevelStartedEvent:
-                    break;
-                case EventType.LevelCompletedEvent:
-                    break;
-                case EventType.LevelAbandonedEvent:
-                    break;
-                case EventType.StagePlacementEvent:
-                    break;
-            }
-
-            values.TryGetValue("level_id", out object level_id);
-            Dictionary<string, object> analytics = GetAnalyticsFromSave((int) level_id).MergeDictionary(values);
-            
-            // Send some analytics to server or whatever we do
-            InvokeAnalyticsUpdate(eventName, analytics);
-        }
-
-        // Here we get the analytics data we want to send with every analytics event
-        private Dictionary<string, object> GetAnalyticsFromSave(int level_id)
-        {
-            Dictionary<string, object> analytics = new Dictionary<string, object>
-            {
-                { "total_levels_played", SaveManager.Instance.GetTotalLevelsPlayed() },
-                { "times_level_was_played_before", SaveManager.Instance.GetTimesLevelWasPlayedBefore(level_id) },
-                { "highscore_for_level", SaveManager.Instance.GetHighscoreForLevel(level_id) }
-            };
-            
-            return analytics;
-        }
-
-        private void InvokeAnalyticsUpdate(string eventName, Dictionary<string, object> analytics)
+        protected override void SendAnalytics(string eventName, Dictionary<string, object> analytics)
         {
 #if ENABLE_CLOUD_SERVICES_ANALYTICS
-            UnityEngine.Analytics.Analytics.CustomEvent(eventName, analytics);
+            CustomEvent gameEvent = new(eventName);
+            foreach (KeyValuePair<string, object> kvp in analytics)
+            {
+                gameEvent.Add(kvp.Key, kvp.Value);
+            }
+            AnalyticsService.Instance.RecordEvent(gameEvent);
 #endif
         }
     }

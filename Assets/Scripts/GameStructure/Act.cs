@@ -162,13 +162,13 @@ public class Act : MonoBehaviour
 
     private void SendChapterCompleteAnalytics()
     {
-        var analytics = new Dictionary<string, string>
+        var analytics = new Dictionary<string, object>
         {
-            { "act_identifier", actNumber.ToString() },
-            { "level_identifier", currentChapterIndex.ToString() }
+            { "act_identifier", actNumber },
+            { "level_identifier", currentChapterIndex }
         };
         
-        AnalyticsHandler.Instance.LogEvent("LevelCompletedEvent", analytics);
+        AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
     }
 
     public void ProgressToNextAct()

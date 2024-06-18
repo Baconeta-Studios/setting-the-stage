@@ -49,15 +49,15 @@ namespace Analytics
             return uniqueLevels.Count;
         }
 
-        public int GetTimesLevelWasPlayedBefore(int level_id)
+        public int GetTimesLevelWasPlayedBefore(int levelID)
         {
-            bool exists = _times_played_before.TryGetValue(level_id, out int result);
+            bool exists = _times_played_before.TryGetValue(levelID, out int result);
             return exists ? result : 0;
         }
 
-        public int GetHighscoreForLevel(int level_id)
+        public int GetHighscoreForLevel(int levelID)
         {   
-            bool exists = _level_highscores.TryGetValue(level_id, out int result);
+            bool exists = _level_highscores.TryGetValue(levelID, out int result);
             return exists ? result : 0;
         }
     }
