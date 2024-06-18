@@ -74,7 +74,6 @@ namespace Analytics
             AnalyticsService.Instance.RequestDataDeletion();
         }
 
-        public override void LogEvent(string eventName, Dictionary<string, object> values)
         /// <summary>
         /// Log an AnalyticsEvent with UnityAnalytics. This function will add to the values dictionary.
         ///
@@ -82,7 +81,19 @@ namespace Analytics
         /// </summary>
         /// <param name="type">What event is being logged.</param>
         /// <param name="values">Key-value pairs of an analytic being recorded and its value. Should contain "level_id" when applicable.</param>
+        public override void LogEvent(EventType type, Dictionary<string, object> values)
         {
+            switch (type) {
+                case EventType.LevelStartedEvent:
+                    break;
+                case EventType.LevelCompletedEvent:
+                    break;
+                case EventType.LevelAbandonedEvent:
+                    break;
+                case EventType.StagePlacementEvent:
+                    break;
+            }
+
             values.TryGetValue("level_id", out object level_id);
             Dictionary<string, object> analytics = GetAnalyticsFromSave((int) level_id).MergeDictionary(values);
             
