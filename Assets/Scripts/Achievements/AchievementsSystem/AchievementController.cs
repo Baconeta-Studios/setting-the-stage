@@ -51,8 +51,7 @@ namespace Achievements
                     _internalRequiredValue = float.Parse(achievementSettings.triggerValue);
                     break;
                 default:
-                    Debug.Log(
-                        $"Achievement {achievementName} trigger value set incorrectly for type {achievementSettings.achievementType}");
+                    Debug.Log($"Achievement {achievementName} trigger value set incorrectly for type {achievementSettings.achievementType}");
                     break;
             }
         }
@@ -69,6 +68,12 @@ namespace Achievements
                 _ => false
             };
         }
+
+        public void PurgeFromCache()
+        {
+            this.completed = false;
+            PlayerPrefs.DeleteKey(achievementUserPrefsCodeName);
+        }
     }
 
     public class AchievementController : EverlastingSingleton<AchievementController>
@@ -82,11 +87,70 @@ namespace Achievements
         public void Start()
         {
             // Marks off any tasks that should be already be marked off as being completed prior to this session.
-            CheckCompletedAchievements();
+            CheckAlreadyCompletedAchievements();
 
-#if !UNITY_EDITOR
-         SetupAndVerifyAchievements();
-#endif
+            if (UnityHelper.IsNotInUnityEditor)
+            {
+                SetupAndVerifyAchievements();
+            }
+        }
+
+        public List<Achievement> GetCompletedAchievements()
+        {
+            return Achievements.Where(achievement => achievement.completed).ToList();
+        }
+
+        public List<Achievement> CheckAlreadyCompletedAchievements()
+        {
+            var newlyCompleted = new List<Achievement>();
+
+            foreach (Achievement ach in Achievements)
+            {
+                if (ach.completed) continue;
+
+                if (ach.CheckCompletion())
+                {
+                    newlyCompleted.Add(ach);
+                    ach.completed = true;
+                }
+            }
+
+            return newlyCompleted;
+        }
+
+        public void ResetAllAchievements()
+        {
+            // Instruct each achievement object to wipe itself from PlayerPrefs.
+            _achievements.ForEach(a => a.PurgeFromCache());
+
+            // Update completed achievement data.
+            CheckAlreadyCompletedAchievements();
+        }
+
+        private void SetupAndVerifyAchievements()
+        {
+            foreach (AchievementData oldAch in allAchievements)
+            {
+                if (oldAch == null) continue;
+
+                Achievement newAch = new()
+                {
+                    achievementSettings = oldAch.achievementSettings,
+                    achievementName = oldAch.achievementName,
+                    achievementUserPrefsCodeName = oldAch.achievementUserPrefsCodeName,
+                    subMessage = oldAch.subMessage
+                };
+                newAch.SetInternalTriggerValue();
+                _achievements.Add(newAch);
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (UnityHelper.IsInUnityEditor)
+            {
+                SetupAndVerifyAchievements();
+            }
         }
 
         public void SetInt(string keyName, int value)
@@ -123,66 +187,5 @@ namespace Achievements
         {
             return PlayerPrefs.GetInt(boolName) == 1;
         }
-
-        public List<Achievement> GetCompletedAchievements()
-        {
-            return Achievements.Where(achievement => achievement.completed).ToList();
-        }
-
-        public List<Achievement> CheckCompletedAchievements()
-        {
-            var newlyCompleted = new List<Achievement>();
-
-            for (var i = 0; i < Achievements.Count; i++)
-            {
-                Achievement ach = Achievements[i];
-                if (ach.completed) continue;
-
-                if (ach.CheckCompletion())
-                {
-                    newlyCompleted.Add(ach);
-                    ach.completed = true;
-                    Achievements[i] = ach;
-                }
-            }
-
-            return newlyCompleted;
-        }
-
-        public void ResetAllAchievements()
-        {
-            PlayerPrefs.DeleteAll();
-            for (var i = 0; i < Achievements.Count; i++)
-            {
-                Achievement ach = Achievements[i];
-                ach.completed = false;
-                Achievements[i] = ach;
-            }
-
-            CheckCompletedAchievements();
-        }
-
-        private void SetupAndVerifyAchievements()
-        {
-            foreach (AchievementData ach in allAchievements)
-            {
-                if (ach == null) continue;
-
-                Achievement a = new()
-                {
-                    achievementSettings = ach.achievementSettings, achievementName = ach.achievementName,
-                    achievementUserPrefsCodeName = ach.achievementUserPrefsCodeName, subMessage = ach.subMessage
-                };
-                a.SetInternalTriggerValue();
-                _achievements.Add(a);
-            }
-        }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            SetupAndVerifyAchievements();
-        }
-#endif
     }
 }
