@@ -87,6 +87,7 @@ public class StsCamera : Singleton<StsCamera>
 
         // Bind to STATIC events, doesn't matter if there is an object or not.
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
+        StageSelection.OnStageSelectionFocusChanged += OnStagePositionFocused;
     }
 
     private void ResetCanvasAndCameraState()
