@@ -46,7 +46,7 @@ public class StageSelection : Singleton<StageSelection>
     
     public void HideStageSelection()
     {
-        activeStagePosition.OnFocusEnd();
+        activeStagePosition?.OnFocusEnd();
         
         activeStagePosition = null;
         
@@ -119,6 +119,6 @@ public class StageSelection : Singleton<StageSelection>
 
     public bool HasActiveSelection()
     {
-        return activeStagePosition is not null;
+        return activeStagePosition != null;
     }
 }

@@ -126,7 +126,7 @@ public class Chapter : Singleton<Chapter>
 
     public void ReturnMusician(Musician musician)
     {
-        if (musician is not null && !availableMusicians.Contains(musician))
+        if (musician != null && !availableMusicians.Contains(musician))
         {
             availableMusicians.Add(musician);
             availableMusicians.Sort();
@@ -146,7 +146,7 @@ public class Chapter : Singleton<Chapter>
 
     public void ReturnInstrument(Instrument instrument)
     {
-        if (instrument is not null && !availableInstruments.Contains(instrument))
+        if (instrument != null && !availableInstruments.Contains(instrument))
         {
             availableInstruments.Add(instrument);
             availableInstruments.Sort();
@@ -155,7 +155,7 @@ public class Chapter : Singleton<Chapter>
 
     public void ReturnObject(StSObject returningObject)
     {
-        if (returningObject is null)
+        if (returningObject == null)
         {
             return;
         }
@@ -183,7 +183,7 @@ public class Chapter : Singleton<Chapter>
 
     public bool ConsumeObject(StSObject objectToConsume)
     {
-        if (objectToConsume is null)
+        if (objectToConsume == null)
         {
             return false;
         }
@@ -208,7 +208,7 @@ public class Chapter : Singleton<Chapter>
         return false;
     }
 
-    void OnPerformanceComplete(float newStarsEarned)
+    private void OnPerformanceComplete(float newStarsEarned)
     {
         starsEarned = newStarsEarned;
         

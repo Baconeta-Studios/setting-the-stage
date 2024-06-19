@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Analytics;
-using GameStructure;
 using GameStructure.Narrative;
 using UnityEngine;
 using Utils;
@@ -40,8 +39,8 @@ public class Act : MonoBehaviour
     public event Action onChapterClosed;
     public event Action onCutsceneComplete;
     public event Action OnActComplete;
-    
-    void Awake()
+
+    private void Awake()
     {
         if (!actCanvas)
         {
@@ -52,7 +51,7 @@ public class Act : MonoBehaviour
 
     }
 
-    void Start()
+    private void Start()
     {
         HandleIntroCutScene();
         CheckIfActIsComplete();
@@ -110,8 +109,8 @@ public class Act : MonoBehaviour
         {
             if (SceneLoader.Instance.LoadScene(chapters[currentChapterIndex].sceneInfo))
             {
-                onChapterOpen?.Invoke();
                 SceneLoader.Instance.onSceneOpened += ChapterLoaded;
+                onChapterOpen?.Invoke();
             }
         }
         else
@@ -134,14 +133,14 @@ public class Act : MonoBehaviour
             // Save the data
             SaveSystem saveSystem = SaveSystem.Instance;
             saveSystem.ChapterStarted(actNumber, currentChapterIndex);
-            
+
             // Send analytics
             SendChapterStartedAnalytics();
-            
+
             currentChapter.onChapterComplete += ChapterComplete;
         }
     }
-    
+
     private void SendChapterStartedAnalytics()
     {
         var analytics = new Dictionary<string, object>
@@ -149,7 +148,7 @@ public class Act : MonoBehaviour
             { "act_identifier", actNumber },
             { "level_identifier", currentChapterIndex }
         };
-        
+
         AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", analytics);
     }
 
@@ -168,7 +167,7 @@ public class Act : MonoBehaviour
         
         // Send analytics
         SendChapterCompleteAnalytics();
-        
+
         CloseChapter();
 
         if (CheckIfActIsComplete())
@@ -184,7 +183,7 @@ public class Act : MonoBehaviour
             { "act_identifier", actNumber },
             { "level_identifier", currentChapterIndex }
         };
-        
+
         AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
     }
 
@@ -223,7 +222,7 @@ public class Act : MonoBehaviour
         actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
     }
-
+    
 
     private void GoToNextAct()
     {
