@@ -66,6 +66,8 @@ public class StsCamera : Singleton<StsCamera>
 
     private void ChapterInitialize()
     {
+        ResetCanvasAndCameraState();
+
         // Subscribe to pointer events immediately, even if the game is not in a chapter.
         // They may get used later on, no harm in having the values whenever.
         input = FindObjectOfType<PlayerInput>();
@@ -84,8 +86,13 @@ public class StsCamera : Singleton<StsCamera>
         }
 
         // Bind to STATIC events, doesn't matter if there is an object or not.
-        StageSelection.OnStageSelectionFocusChanged += OnStagePositionFocused;
         StageSelection.OnStageSelectionEnded += OnStageSelectionEnded;
+    }
+
+    private void ResetCanvasAndCameraState()
+    {
+        currentCameraState.focusTarget = null;
+        ChangeCameraState(CameraStateName.Default);
     }
 
     private void ChapterClearInitialize()
@@ -163,12 +170,12 @@ public class StsCamera : Singleton<StsCamera>
 
     private void OnPointerDown(InputAction.CallbackContext context)
     {
-        if (chapterUi is null)
+        if (chapterUi == null)
         {
             chapterUi = FindObjectOfType<ChapterUI>();
         }
 
-        if (chapterUi is null)
+        if (chapterUi == null)
         {
             StSDebug.LogWarning("No chapter Ui found in camera system when checking for if the pointer is over the Ui.");
             return;
@@ -182,7 +189,12 @@ public class StsCamera : Singleton<StsCamera>
         // Wait until the end of the frame to ensure that the Pointer Position has been able to update.
         // Solves an issue where the pointer down would happen before the pointer position and there would be invalid coordinates.
         yield return new WaitForEndOfFrame();
-        IsMovingCamera = !chapterUi.IsPointerOverUi();
+
+        if (chapterUi != null)
+        {
+            IsMovingCamera = !chapterUi.IsPointerOverUi();
+        }
+
         yield return null;
     }
 

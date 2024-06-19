@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ChapterUI : MonoBehaviour
 {
-    private Chapter _chapter;
+    public Chapter Chapter { get; private set; }
 
     [SerializeField] private TextMeshProUGUI chapterTitle;
     
@@ -28,17 +28,17 @@ public class ChapterUI : MonoBehaviour
     private Vector2 pointerPosition;
 
 
-    void Awake()
+    private void Awake()
     {
         _StarDisplay.gameObject.SetActive(false);
-        _chapter = FindObjectOfType<Chapter>();
+        Chapter = FindObjectOfType<Chapter>();
 
-        if (!_chapter)
+        if (!Chapter)
         {
             StSDebug.LogError($"ChapterUI could not find chapter object.");
         }
 
-        chapterTitle.text = $"Chapter {_chapter.ChapterNumber}";
+        chapterTitle.text = $"Chapter {Chapter.ChapterNumber}";
         
         input = FindObjectOfType<PlayerInput>();
         if (input)
@@ -51,27 +51,31 @@ public class ChapterUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _chapter.onStageChanged += OnStageChanged;
+        UnhookAllEventBindings();
+
+        Chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
-        _chapter.onRevealRating += RevealRating;
+        Chapter.onRevealRating += RevealRating;
+        Chapter.onRevealRating += RevealRating;
     }
-    
+
+    private void UnhookAllEventBindings()
+    {
+        Chapter.onStageChanged -= OnStageChanged;
+        StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
+        StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
+        Chapter.onRevealRating -= RevealRating;
+    }
+
     private void OnDisable()
     {
-        if (_chapter is not null)
-        {
-            _chapter.onRevealRating -= RevealRating;
-            _chapter.onStageChanged -= OnStageChanged;
-        }
+        UnhookAllEventBindings();
         
-        if (onPointerPosition is not null)
+        if (onPointerPosition != null)
         {
             onPointerPosition.performed -= OnPointerPosition;
         }
-        
-        StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
-        StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -142,7 +146,7 @@ public class ChapterUI : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         
         //Ray cast UI elements only.
-        _graphicRaycaster.Raycast(pointerData, results);
+        _graphicRaycaster?.Raycast(pointerData, results);
 
         return results.Count > 0;
     }
