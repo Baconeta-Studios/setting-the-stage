@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/GameInstance.unity
     guid: 42fe7ae0dd232df46b8cc58a4551bb97
   - enabled: 1
-    path: Assets/Scenes/GameOptions.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: d2fa76ed6cd169f498cb25d32cee7753
+  - enabled: 1
+    path: Assets/Scenes/GameOptions.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Act 1.unity
     guid: 2c7109a448e905f4ab97ce23ff7c2f9f
@@ -29,4 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Act 2.unity
     guid: 93763bd8d9bde754ba49a83fc45c65ef
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: e631bbf2f1a334649947b66f72cf94c7, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: ec973daeddce0cb4a8d589be591d7c3e, type: 2}

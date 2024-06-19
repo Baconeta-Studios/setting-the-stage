@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ChapterUI : MonoBehaviour
 {
-    private Chapter _chapter;
+    public Chapter Chapter { get; private set; }
 
     [SerializeField] private TextMeshProUGUI chapterTitle;
     
@@ -16,32 +20,61 @@ public class ChapterUI : MonoBehaviour
     [SerializeField]
     private StarContainer _StarDisplay;
     
-    void Awake()
+    [SerializeField]
+    private GraphicRaycaster _graphicRaycaster;
+
+    private PlayerInput input;
+    private InputAction onPointerPosition;
+    private Vector2 pointerPosition;
+
+
+    private void Awake()
     {
         _StarDisplay.gameObject.SetActive(false);
-        _chapter = FindObjectOfType<Chapter>();
-        if (!_chapter)
+        Chapter = FindObjectOfType<Chapter>();
+
+        if (!Chapter)
         {
             StSDebug.LogError($"ChapterUI could not find chapter object.");
         }
 
-        chapterTitle.text = $"Chapter {_chapter.ChapterNumber}";
+        chapterTitle.text = $"Chapter {Chapter.ChapterNumber}";
+        
+        input = FindObjectOfType<PlayerInput>();
+        if (input)
+        {
+            // Bind to the pointer down event for when to pan
+            onPointerPosition = input.actions["PointerPosition"];
+            onPointerPosition.performed += OnPointerPosition;
+        }
     }
 
     private void OnEnable()
     {
-        _chapter.onStageChanged += OnStageChanged;
+        UnhookAllEventBindings();
+
+        Chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
-        _chapter.onRevealRating += RevealRating;
+        Chapter.onRevealRating += RevealRating;
     }
-    
-    private void OnDisable()
+
+    private void UnhookAllEventBindings()
     {
-        _chapter.onStageChanged -= OnStageChanged;
+        Chapter.onStageChanged -= OnStageChanged;
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
-        _chapter.onRevealRating -= RevealRating;
+        Chapter.onRevealRating -= RevealRating;
+    }
+
+    private void OnDisable()
+    {
+        UnhookAllEventBindings();
+        
+        if (onPointerPosition != null)
+        {
+            onPointerPosition.performed -= OnPointerPosition;
+        }
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -68,7 +101,9 @@ public class ChapterUI : MonoBehaviour
 
     private void OnStagePositionClicked(StagePosition clickedStagePosition)
     {
-        if (Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
+        bool inStageSelection = Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection);
+        bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
+        if (inStageSelection && canClickPosition)
         {
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
         }
@@ -93,6 +128,26 @@ public class ChapterUI : MonoBehaviour
     {
         _StarDisplay.gameObject.SetActive(true);
         _StarDisplay.ShowStars(starsEarned);
+    }
+
+    private void OnPointerPosition(InputAction.CallbackContext context)
+    {
+        pointerPosition = context.ReadValue<Vector2>();
+    }
+    
+    public bool IsPointerOverUi()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = pointerPosition
+        };
+        
+        List<RaycastResult> results = new List<RaycastResult>();
+        
+        //Ray cast UI elements only.
+        _graphicRaycaster?.Raycast(pointerData, results);
+
+        return results.Count > 0;
     }
     
     

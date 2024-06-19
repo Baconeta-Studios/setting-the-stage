@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -8,14 +6,24 @@ public class StagePosition : MonoBehaviour
 {
     public static event Action<StagePosition> OnStagePositionClicked;
     public static event Action<StagePosition> OnStagePositionChanged;
+    
+    [SerializeField] private Transform viewTarget;
+    
 
+    [Header("Stage Parameters")]
+    public int stagePositionNumber;
+    
     [Header("Musician")]
     public Musician musicianOccupied = null;
-    public TextMeshPro musicianSelection;
-    
+
+    [SerializeField] private MeshRenderer musicianRenderer;
+
     [Header("Instrument")]
     public Instrument instrumentOccupied = null;
-    public TextMeshPro instrumentSelection;
+
+    [Header("Lighting")] 
+    [SerializeField] private Light spotlight;
+    [SerializeField] private GameObject spotlightMesh;
 
     public void OnInteract()
     {
@@ -26,7 +34,16 @@ public class StagePosition : MonoBehaviour
     {
         musicianOccupied = selection;
 
-        musicianSelection.text = musicianOccupied ? musicianOccupied.GetName() : "";
+        if (musicianOccupied)
+        {
+            musicianRenderer.enabled = true;
+            musicianRenderer.material.mainTexture = selection.GetSprite().texture;
+        }
+        else
+        {
+            musicianRenderer.enabled = false;
+            musicianRenderer.material.mainTexture = null;
+        }
         
         OnStagePositionChanged?.Invoke(this);
     }
@@ -35,22 +52,44 @@ public class StagePosition : MonoBehaviour
     {
         instrumentOccupied = selection;
         
-        instrumentSelection.text = instrumentOccupied ? instrumentOccupied.GetName() : "";
         OnStagePositionChanged?.Invoke(this);
     }
 
     public bool IsMusicianOccupied()
     {
-        return musicianOccupied is not null;
+        return musicianOccupied != null;
     }
     
     public bool IsInstrumentOccupied()
     {
-        return instrumentOccupied is not null;
+        return instrumentOccupied != null;
     }
 
-    public int GetMusicianProficiency()
+    public InstrumentProficiency GetMusicianProficiency()
+    {
+        return musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
+    }
+    
+    public int GetMusicianProficiencyRaw()
     {
         return (int)musicianOccupied.GetInstrumentProficiency(instrumentOccupied);
+    }
+    
+    public Transform GetViewTarget()
+    {
+        return viewTarget; 
+    }
+
+    public void OnFocusStart()
+    {
+        spotlight.enabled = true;
+        spotlightMesh.SetActive(true);
+    }
+
+    public void OnFocusEnd()
+    {
+        spotlight.enabled = false;
+        spotlightMesh.SetActive(false);
+
     }
 }

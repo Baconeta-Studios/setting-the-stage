@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CustomEditor;
 using UnityEngine;
 
@@ -15,12 +16,16 @@ namespace Utils
             public int actNumber;
             public int chapterNumber;
             public float starsEarned;
+            public int timesStarted;
+            public int timesCompleted;
 
-            public ChapterSaveData(int act, int chapter, float stars) 
+            public ChapterSaveData(int act, int chapter, float stars, int numStarts, int numCompletes) 
             {
                 actNumber = act;
                 chapterNumber = chapter;
                 starsEarned = stars;
+                timesStarted = numStarts;
+                timesCompleted = numCompletes;
             }
 
             // This is used in List.Sort and will sort list items by Act, then Chapter, then Stars (Realistically it should never get to stars)
@@ -59,13 +64,25 @@ namespace Utils
             }
             
         }
-        
+
+        [Serializable]
+        public struct ChapterPlaysData
+        {
+            public int act;
+            public int chapter;
+            public int playsStarted;
+            public int playsCompleted;
+        }
+
         [Serializable]
         public class UserData
         {
             // Add desired save data here.
             [ReadOnly]
             public string userName;
+
+            [ReadOnly]
+            public string playerID = GeneratePlayerId();
 
             [ReadOnly]
             public List<ChapterSaveData> chapterSaveData = new List<ChapterSaveData>();
@@ -76,6 +93,10 @@ namespace Utils
             [ReadOnly]
             public int highestCompletedAct = -1;
 
+            [ReadOnly]
+            public List<string> narrativesViewed = new List<string>();
+            
+            // Get user data functions
             public float GetStarsForChapter(int actNumber, int chapterNumber)
             {
                 foreach (ChapterSaveData chapter in chapterSaveData)
@@ -87,6 +108,81 @@ namespace Utils
                 }
 
                 return 0.0f;
+            }
+
+            /// <summary>
+            /// Gets the chapter save data if it exists, or creates it freshly and adds it, if it does not. 
+            /// </summary>
+            /// <param name="act"> act number</param>
+            /// <param name="chapter"> chapter number</param>
+            /// <param name="index"> the index of the csd</param>
+            /// <returns> The chapter save data object from the user data</returns>
+            public ChapterSaveData GetChapterSaveData(int act, int chapter, out int index)
+            {
+                for (var i = 0; i < chapterSaveData.Count; i++)
+                {
+                    ChapterSaveData csd = chapterSaveData[i];
+                    if (csd.actNumber == act && csd.chapterNumber == chapter)
+                    {
+                        index = i;
+                        return csd;
+                    }
+                }
+                ChapterSaveData newCsd = new(act, chapter, 0, 0, 0);
+                index = chapterSaveData.Count;
+                chapterSaveData.Add(newCsd);
+                return newCsd;
+            }
+            
+            public int GetStartedPlaysForChapter(int act, int chapter)
+            {
+                foreach (ChapterSaveData cpData in chapterSaveData)
+                {
+                    if (cpData.actNumber == act && cpData.chapterNumber == chapter)
+                    {
+                        return cpData.timesStarted;
+                    }
+                }
+
+                return 0;
+            }
+            
+            public int GetCompletedPlaysForChapter(int act, int chapter)
+            {
+                foreach (ChapterSaveData cpData in chapterSaveData)
+                {
+                    if (cpData.actNumber == act && cpData.chapterNumber == chapter)
+                    {
+                        return cpData.timesCompleted;
+                    }
+                }
+
+                return 0;
+            }
+            
+            public int GetIncompletePlaysForChapter(int act, int chapter)
+            {
+                return GetStartedPlaysForChapter(act, chapter) - GetCompletedPlaysForChapter(act, chapter);
+            }
+
+            public int GetTotalChaptersStarted()
+            {
+                return chapterSaveData.Sum(cpData => cpData.timesStarted);
+            }
+            
+            public int GetTotalChaptersCompleted()
+            {
+                return chapterSaveData.Sum(cpData => cpData.timesCompleted);
+            }
+            
+            public int GetTotalChaptersIncomplete()
+            {
+                return GetTotalChaptersStarted() - GetTotalChaptersCompleted();
+            }
+
+            public static string GeneratePlayerId()
+            {
+                return Guid.NewGuid().ToString();
             }
         }
 
@@ -123,6 +219,7 @@ namespace Utils
                 case PathStatus.DoesNotExist:
                     StSDebug.LogWarning("User Data did not exist. Creating new save data.");
                     userData = new UserData();
+                    SaveUserData(userData);
                     break;
             }
         }
@@ -136,9 +233,11 @@ namespace Utils
             else
             {
                 userData.userName = "";
+                userData.playerID = UserData.GeneratePlayerId();
                 userData.chapterSaveData.Clear();
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
+                userData.narrativesViewed.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
@@ -149,6 +248,29 @@ namespace Utils
         {
             base.Awake();
             LoadUserData();
+        }
+
+        public void ChapterStarted(int actNumber, int chapterNumber)
+        {
+            if (userData == null)
+            {
+                LoadUserData();
+                
+                //if user data is still null, create a new user data.
+                if (userData == null)
+                {
+                    userData = new UserData();
+                    StSDebug.LogWarning($"Upon chapter beginning, no save data was found. Creating a new save.");
+                }
+            }
+
+            ChapterSaveData csd = userData.GetChapterSaveData(actNumber, chapterNumber, out int index);
+            csd.timesStarted += 1;
+            
+            // Update the current CSD in position
+            userData.chapterSaveData[index] = csd;
+            
+            SaveUserData(userData);
         }
 
         public void ChapterCompleted(int actNumber, int chapterNumber, float starsEarned)
@@ -165,41 +287,22 @@ namespace Utils
                 }
             }
 
-            bool hasDataChanged = false;
-            
-            ChapterSaveData newChapterSaveData = new ChapterSaveData(actNumber, chapterNumber, starsEarned);
-            if (userData.chapterSaveData.Contains(newChapterSaveData))
-            {
-                int index = userData.chapterSaveData.IndexOf(newChapterSaveData);
-                ChapterSaveData storedChapterSaveData = userData.chapterSaveData[index];
-                
-                // If the player has earned more stars, overwrite the save data.
-                if (newChapterSaveData.starsEarned > storedChapterSaveData.starsEarned)
-                {
-                    // Minus the previous stars earned as we add on the new stars earned further down.
-                    // E.g if we already have 1.5 stars, and earn a further 1.5 stars (total of 3) then we'll minus 1.5 and add 3 further down.
-                    userData.totalStarsEarned -= storedChapterSaveData.starsEarned;
-                    
-                    userData.chapterSaveData[index] = newChapterSaveData;
-                    hasDataChanged = true;
-                }
-                // else ignore the new data.
-            }
-            else // This is a new chapter - Add the save data
-            {
-                userData.chapterSaveData.Add(newChapterSaveData);
-                hasDataChanged = true;
-            }
-            
-            // Accumulate our new stars in our total.
-            userData.totalStarsEarned += newChapterSaveData.starsEarned;
+            ChapterSaveData csd = userData.GetChapterSaveData(actNumber, chapterNumber, out int index);
+            csd.timesCompleted += 1;
 
-            if (hasDataChanged)
+            // If the player has earned more stars, overwrite the save data. This includes never playing the chapter prev.
+            if (starsEarned > csd.starsEarned)
             {
-                // Sort by Act > Chapter > Stars
-                userData.chapterSaveData.Sort();
-                SaveUserData(userData);
+                csd.starsEarned = starsEarned;
+                userData.totalStarsEarned += starsEarned - csd.starsEarned;
             }
+
+            // Update the current CSD in position
+            userData.chapterSaveData[index] = csd;
+
+            // Sort by Act > Chapter > Stars
+            userData.chapterSaveData.Sort();
+            SaveUserData(userData);
         }
 
         public void ActComplete(int actNumber)
@@ -209,6 +312,27 @@ namespace Utils
                 userData.highestCompletedAct = actNumber;
                 SaveUserData(userData);
             }
+        }
+
+        public void SetCutsceneWatched(string cutsceneID)
+        {
+            userData.narrativesViewed.Add(cutsceneID);
+            SaveUserData(userData);
+        }
+
+        public bool HasSeenCutscene(string cutsceneID)
+        {
+            return userData.narrativesViewed.Contains(cutsceneID);
+        }
+
+        public int GetTotalLevelsPlayed()
+        {
+            return userData.GetTotalChaptersCompleted();
+        }
+        
+        public int GetCountOfChapterCompletion(int act, int chapter)
+        {
+            return userData.GetCompletedPlaysForChapter(act, chapter);
         }
     }
 }

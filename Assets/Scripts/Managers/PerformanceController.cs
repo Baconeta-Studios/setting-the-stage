@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class PerformanceController : MonoBehaviour
 {
     [SerializeField] private bool isPerforming;
+    private AudioBuilderSystem _audioBuilderSystem;
 
     public static event Action OnPerformanceStarted; 
     /// <summary>
@@ -21,6 +23,15 @@ public class PerformanceController : MonoBehaviour
     private void OnDisable()
     {
         Chapter.Instance.onStageChanged -= OnStageChanged;
+    }
+
+    private void Awake()
+    {
+        _audioBuilderSystem = FindObjectOfType<AudioBuilderSystem>();
+        if (_audioBuilderSystem is null)
+        {
+            StSDebug.LogError("Performance Controller can't find an audioBuilderSystem in the scene!");
+        }
     }
 
     void OnStageChanged(Chapter.ChapterStage stage)
@@ -41,15 +52,13 @@ public class PerformanceController : MonoBehaviour
         
         OnPerformanceStarted?.Invoke();
 
-        float audioDuration = 3.0f; // TODO Replace with CALCULATED audio duration
+        float audioDuration = _audioBuilderSystem.PlayBuiltClips();
         
         StartCoroutine(Performance(audioDuration));
     }
 
     private IEnumerator Performance(float duration)
     {
-        //TODO Start audio playback here.
-        
         yield return new WaitForSeconds(duration); 
         
         EndPerformance();
@@ -74,7 +83,7 @@ public class PerformanceController : MonoBehaviour
         
         foreach (StagePosition stagePosition in stagePositions)
         {
-            talliedProficiency += stagePosition.GetMusicianProficiency();
+            talliedProficiency += stagePosition.GetMusicianProficiencyRaw();
         }
 
         // Get the average proficiency
