@@ -5,7 +5,7 @@ using UnityEngine;
 public class StSBillboard : MonoBehaviour
 {
     private Transform cameraTransform;
-    
+
     // Start is called before the first frame update
     void Start()
     {

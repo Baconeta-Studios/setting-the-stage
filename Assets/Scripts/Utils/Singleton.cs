@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Utils
 {
@@ -44,6 +45,14 @@ namespace Utils
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        protected void OnDestroy()
+        {
+            if (_instance == this)
+            {
+                _instance = null;
             }
         }
     }

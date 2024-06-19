@@ -56,7 +56,6 @@ public class ChapterUI : MonoBehaviour
         Chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
-        StageSelection.OnStageSelectionFocusChanged += StagePositionFocusChanged;
         Chapter.onRevealRating += RevealRating;
     }
 
@@ -65,7 +64,6 @@ public class ChapterUI : MonoBehaviour
         Chapter.onStageChanged -= OnStageChanged;
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
-        StageSelection.OnStageSelectionFocusChanged -= StagePositionFocusChanged;
         Chapter.onRevealRating -= RevealRating;
     }
 
@@ -107,18 +105,7 @@ public class ChapterUI : MonoBehaviour
         bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
         if (inStageSelection && canClickPosition)
         {
-            StagePositionFocusChanged(clickedStagePosition);
-        }
-    }
-
-    private void StagePositionFocusChanged(StagePosition newFocusStagePosition)
-    {
-        _SelectionCarousels.ShowStageSelection(newFocusStagePosition);
-            
-        StsCamera stsCamera = StsCamera.Instance;
-        if (stsCamera)
-        {
-            stsCamera.OnStagePositionClicked(newFocusStagePosition);
+            _SelectionCarousels.ShowStageSelection(clickedStagePosition);
         }
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
@@ -162,4 +149,6 @@ public class ChapterUI : MonoBehaviour
 
         return results.Count > 0;
     }
+    
+    
 }
