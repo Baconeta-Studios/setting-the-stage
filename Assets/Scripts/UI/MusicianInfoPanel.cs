@@ -13,6 +13,11 @@ public class MusicianInfoPanel : MonoBehaviour
     {
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
     }
+    
+    private void OnDisable()
+    {
+        StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
+    }
 
     private void OnStagePositionChanged(StagePosition stagePosition)
     {

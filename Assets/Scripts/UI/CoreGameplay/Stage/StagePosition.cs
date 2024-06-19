@@ -57,12 +57,12 @@ public class StagePosition : MonoBehaviour
 
     public bool IsMusicianOccupied()
     {
-        return musicianOccupied is not null;
+        return musicianOccupied != null;
     }
     
     public bool IsInstrumentOccupied()
     {
-        return instrumentOccupied is not null;
+        return instrumentOccupied != null;
     }
 
     public InstrumentProficiency GetMusicianProficiency()

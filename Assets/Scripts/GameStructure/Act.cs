@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameStructure;
 using GameStructure.Narrative;
 using UnityEngine;
 using Utils;
@@ -39,8 +38,8 @@ public class Act : MonoBehaviour
     public event Action onChapterClosed;
     public event Action onCutsceneComplete;
     public event Action OnActComplete;
-    
-    void Awake()
+
+    private void Awake()
     {
         if (!actCanvas)
         {
@@ -51,7 +50,7 @@ public class Act : MonoBehaviour
 
     }
 
-    void Start()
+    private void Start()
     {
         HandleIntroCutScene();
         CheckIfActIsComplete();
@@ -109,8 +108,8 @@ public class Act : MonoBehaviour
         {
             if (SceneLoader.Instance.LoadScene(chapters[currentChapterIndex].sceneInfo))
             {
-                onChapterOpen?.Invoke();
                 SceneLoader.Instance.onSceneOpened += ChapterLoaded;
+                onChapterOpen?.Invoke();
             }
         }
         else
@@ -191,15 +190,15 @@ public class Act : MonoBehaviour
         actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
     }
-    
 
-    void GoToNextAct()
+
+    private void GoToNextAct()
     {
         onCutsceneComplete -= GoToNextAct;
         SceneLoader.Instance.LoadScene($"Act {actNumber + 1}");
     }
 
-    void CloseChapter()
+    private void CloseChapter()
     {
         //Close the chapter and clear the current chapter
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);

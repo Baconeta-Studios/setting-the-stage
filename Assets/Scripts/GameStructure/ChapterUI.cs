@@ -51,29 +51,32 @@ public class ChapterUI : MonoBehaviour
 
     private void OnEnable()
     {
+        UnhookAllEventBindings();
+
         Chapter.onStageChanged += OnStageChanged;
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
         StageSelection.OnStageSelectionFocusChanged += StagePositionFocusChanged;
         Chapter.onRevealRating += RevealRating;
     }
-    
-    private void OnDisable()
+
+    private void UnhookAllEventBindings()
     {
-        if (Chapter is not null)
-        {
-            Chapter.onRevealRating -= RevealRating;
-            Chapter.onStageChanged -= OnStageChanged;
-        }
-        
-        if (onPointerPosition is not null)
-        {
-            onPointerPosition.performed -= OnPointerPosition;
-        }
-        
+        Chapter.onStageChanged -= OnStageChanged;
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
         StageSelection.OnStageSelectionFocusChanged -= StagePositionFocusChanged;
+        Chapter.onRevealRating -= RevealRating;
+    }
+
+    private void OnDisable()
+    {
+        UnhookAllEventBindings();
+        
+        if (onPointerPosition != null)
+        {
+            onPointerPosition.performed -= OnPointerPosition;
+        }
     }
 
     private void OnStageChanged(Chapter.ChapterStage chapterStage)
@@ -155,10 +158,8 @@ public class ChapterUI : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         
         //Ray cast UI elements only.
-        _graphicRaycaster.Raycast(pointerData, results);
+        _graphicRaycaster?.Raycast(pointerData, results);
 
         return results.Count > 0;
     }
-    
-    
 }
