@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Analytics;
 using GameStructure.Narrative;
 using UnityEngine;
 using Utils;
@@ -129,9 +130,26 @@ public class Act : MonoBehaviour
         }
         else
         {
+            // Save the data
+            SaveSystem saveSystem = SaveSystem.Instance;
+            saveSystem.ChapterStarted(actNumber, currentChapterIndex);
+
+            // Send analytics
+            SendChapterStartedAnalytics();
+
             currentChapter.onChapterComplete += ChapterComplete;
         }
+    }
 
+    private void SendChapterStartedAnalytics()
+    {
+        var analytics = new Dictionary<string, object>
+        {
+            { "act_identifier", actNumber },
+            { "level_identifier", currentChapterIndex }
+        };
+
+        AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", analytics);
     }
 
     private void ChapterComplete(float starsEarned)
@@ -147,6 +165,9 @@ public class Act : MonoBehaviour
         SaveSystem saveSystem = SaveSystem.Instance;
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
+        // Send analytics
+        SendChapterCompleteAnalytics();
+
         CloseChapter();
 
         if (CheckIfActIsComplete())
@@ -154,7 +175,18 @@ public class Act : MonoBehaviour
             ProgressToNextAct();
         }
     }
-    
+
+    private void SendChapterCompleteAnalytics()
+    {
+        var analytics = new Dictionary<string, object>
+        {
+            { "act_identifier", actNumber },
+            { "level_identifier", currentChapterIndex }
+        };
+
+        AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
+    }
+
     public void ProgressToNextAct()
     {
         SaveSystem.Instance.ActComplete(actNumber);
@@ -190,7 +222,7 @@ public class Act : MonoBehaviour
         actCanvas.SetEnabled(true);
         onCutsceneComplete?.Invoke();
     }
-
+    
 
     private void GoToNextAct()
     {
