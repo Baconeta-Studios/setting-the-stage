@@ -57,7 +57,6 @@ public class ChapterUI : MonoBehaviour
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
         Chapter.onRevealRating += RevealRating;
-        Chapter.onRevealRating += RevealRating;
     }
 
     private void UnhookAllEventBindings()
