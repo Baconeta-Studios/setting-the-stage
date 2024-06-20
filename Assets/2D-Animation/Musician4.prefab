@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8945047418853349620, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
-      value: WristR
+      value: WristL
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
@@ -66,11 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4164435001322943467, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
-      value: ArmL
+      value: ArmR
       objectReference: {fileID: 0}
     - target: {fileID: -3288751917985458718, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
-      value: ForearmL
+      value: ForearmR
       objectReference: {fileID: 0}
     - target: {fileID: -2792741764276040761, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -744045732753172975, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
-      value: ForearmR
+      value: ForearmL
       objectReference: {fileID: 0}
     - target: {fileID: -616466575251373095, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 862970082822076206, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
-      value: ArmR
+      value: ArmL
       objectReference: {fileID: 0}
     - target: {fileID: 1360909380597077532, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1819372713717186539, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
-      value: WristL
+      value: WristR
       objectReference: {fileID: 0}
     - target: {fileID: 3297364353584691495, guid: ea986e50149fb49c5ac3b681a68121e6, type: 3}
       propertyPath: m_Name
