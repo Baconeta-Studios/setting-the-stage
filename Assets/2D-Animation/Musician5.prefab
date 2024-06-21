@@ -8,9 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8945047418853349620, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: WristL
+      objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
       propertyPath: m_Name
       value: Musician5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7817286911781073316, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: AnkleL
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,8 +60,101 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6419214705759113975, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: FootR
+      objectReference: {fileID: 0}
+    - target: {fileID: -4164435001322943467, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: ArmR
+      objectReference: {fileID: 0}
+    - target: {fileID: -3288751917985458718, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: ForearmR
+      objectReference: {fileID: 0}
+    - target: {fileID: -2792741764276040761, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: AnkleR
+      objectReference: {fileID: 0}
+    - target: {fileID: -1024815538560704356, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: Head
+      objectReference: {fileID: 0}
+    - target: {fileID: -744045732753172975, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: ForearmL
+      objectReference: {fileID: 0}
+    - target: {fileID: -616466575251373095, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: LegR
+      objectReference: {fileID: 0}
+    - target: {fileID: 386791141387813222, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: Pelvis
+      objectReference: {fileID: 0}
+    - target: {fileID: 613742145289411635, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: LegL
+      objectReference: {fileID: 0}
+    - target: {fileID: 862970082822076206, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: ArmL
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360909380597077532, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: LowerLegR
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661692945578006441, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: FootL
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819372713717186539, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: WristR
+      objectReference: {fileID: 0}
+    - target: {fileID: 3297364353584691495, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157741701538757237, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: Neck
+      objectReference: {fileID: 0}
+    - target: {fileID: 4427455769572090415, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      propertyPath: m_Name
+      value: LowerLegL
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4389842664037417192}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+--- !u!1 &6330414994857300626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: bcff7367ad7c3424c98a671f502ec9b4, type: 3}
+  m_PrefabInstance: {fileID: 5782033932263895855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &-4389842664037417192
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330414994857300626}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4751cf484546cb47824f0a33f91347f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
