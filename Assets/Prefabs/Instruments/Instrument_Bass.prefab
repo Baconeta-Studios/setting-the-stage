@@ -69,6 +69,10 @@ PrefabInstance:
       value: hold_bass
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingScale
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
       value: -3.86
       objectReference: {fileID: 0}

@@ -33,6 +33,10 @@ PrefabInstance:
       value: placeholder5
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 8499090260405961585}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -201,6 +205,11 @@ Transform:
 --- !u!4 &8211416599811782296 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5121225206191213297, guid: 26d2b62dfca16674a9b84d0bea935cc9, type: 3}
+  m_PrefabInstance: {fileID: 3956114121170828393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8499090260405961585 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -4389842664037417192, guid: 26d2b62dfca16674a9b84d0bea935cc9, type: 3}
   m_PrefabInstance: {fileID: 3956114121170828393}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4274061227258950208

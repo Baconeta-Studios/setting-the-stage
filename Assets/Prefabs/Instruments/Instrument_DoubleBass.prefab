@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 132995282540880607, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: m_Name
-      value: Instrument_Triangle
+      value: Instrument_DoubleBass
       objectReference: {fileID: 0}
     - target: {fileID: 4075707795778187121, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,12 +54,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: Name
-      value: Triangle
+      value: Double Bass
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: icon
       value: 
       objectReference: {fileID: 21300000, guid: 54eba24200ffb90469061eced2665a67, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: socketPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c601435de6c204428aa566d5096c1c5, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: animationHoldName
+      value: hold_doublebass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingScale
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingPosition.x
+      value: -2.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingPosition.y
+      value: -5.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingRotation.z
+      value: -15.62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

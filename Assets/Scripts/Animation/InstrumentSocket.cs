@@ -27,17 +27,21 @@ namespace Animation
                 return;
             }
 
+            float scale = instrument.GetInstrumentHoldingScale();
+
             switch (instrument.GetSocketPosition())
             {
                 case SocketPosition.LeftHand:
                     leftHandSprite.sprite = instrument.InstrumentSprite;
                     leftHandSocket.transform.localEulerAngles = instrument.GetInstrumentHoldingRotation();
                     leftHandSocket.transform.localPosition = instrument.GetInstrumentHoldingPosition();
+                    leftHandSocket.transform.localScale = new Vector3(scale,scale,scale);
                     break;
                 case SocketPosition.RightHand:
                     rightHandSprite.sprite = instrument.InstrumentSprite;
                     rightHandSocket.transform.localEulerAngles = instrument.GetInstrumentHoldingRotation();
                     rightHandSocket.transform.localPosition = instrument.GetInstrumentHoldingPosition();
+                    rightHandSocket.transform.localScale = new Vector3(scale,scale,scale);
                     break;
                 default:
                     StSDebug.LogError("Invalid socket position given.");
