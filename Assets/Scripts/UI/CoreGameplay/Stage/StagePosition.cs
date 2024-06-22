@@ -55,6 +55,11 @@ public class StagePosition : MonoBehaviour
         {
             instrumentOccupied.transform.SetParent(musicianOrigin);
             instrumentOccupied.gameObject.SetActive(true);
+            if (IsMusicianOccupied())
+            {
+                musicianOccupied.EquipInstrument(instrumentOccupied);
+                // TODO Now set animation controller to equipping this instrument
+            }
         }
         
         OnStagePositionChanged?.Invoke(this);

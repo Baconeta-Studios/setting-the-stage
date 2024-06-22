@@ -19,7 +19,7 @@ namespace Animation
         // Here we pass in values that the instrument prefabs will hold telling a player how their socket
         // must be rotated to support the specific instrument. We elsewhere call the AnimController to tell
         // the musician which animation they must use in order to hold said instrument in the first place
-        public void HoldInstrument(Sprite instrument, Transform instrumentTransform, SocketPosition socket)
+        public void HoldInstrument(Instrument instrument)
         {
             if (instrument == null)
             {
@@ -27,19 +27,17 @@ namespace Animation
                 return;
             }
 
-            switch (socket)
+            switch (instrument.GetSocketPosition())
             {
                 case SocketPosition.LeftHand:
-                    leftHandSprite.sprite = instrument;
-                    leftHandSocket.transform.rotation = instrumentTransform.rotation;
-                    leftHandSocket.transform.localPosition = instrumentTransform.localPosition;
-                    leftHandSocket.transform.localScale = instrumentTransform.localScale;
+                    leftHandSprite.sprite = instrument.InstrumentSprite;
+                    leftHandSocket.transform.localEulerAngles = instrument.GetInstrumentHoldingRotation();
+                    leftHandSocket.transform.localPosition = instrument.GetInstrumentHoldingPosition();
                     break;
                 case SocketPosition.RightHand:
-                    rightHandSprite.sprite = instrument;
-                    rightHandSocket.transform.rotation = instrumentTransform.rotation;
-                    rightHandSocket.transform.localPosition = instrumentTransform.localPosition;
-                    rightHandSocket.transform.localScale = instrumentTransform.localScale;
+                    rightHandSprite.sprite = instrument.InstrumentSprite;
+                    rightHandSocket.transform.localEulerAngles = instrument.GetInstrumentHoldingRotation();
+                    rightHandSocket.transform.localPosition = instrument.GetInstrumentHoldingPosition();
                     break;
                 default:
                     StSDebug.LogError("Invalid socket position given.");

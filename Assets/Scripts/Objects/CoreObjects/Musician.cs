@@ -73,4 +73,9 @@ public class Musician : StSObject
     {
         return occupation;
     }
+
+    public void EquipInstrument(Instrument instrumentData)
+    {
+        instrumentSockets.HoldInstrument(instrumentData);
+    }
 }
