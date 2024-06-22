@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameStructure;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -26,14 +27,22 @@ public class Chapter : Singleton<Chapter>
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
 
     [SerializeField] private Transform StsObjectStash;
-    [SerializeField] private List<GameObject> musicians = new List<GameObject>();
-    [SerializeField] private List<GameObject> instruments = new List<GameObject>();
+    private List<GameObject> musicians = new List<GameObject>();
+    private List<GameObject> instruments = new List<GameObject>();
     private List<Musician> availableMusicians = new List<Musician>();
     private List<Instrument> availableInstruments = new List<Instrument>();
 
     protected override void Awake()
     {
         base.Awake();
+        
+        ChapterCarouselOptions carouselOptions = FindObjectOfType<ChapterCarouselOptions>();
+        if (carouselOptions == null)
+        {
+            StSDebug.LogError("There's no carousel options in this chapter scene!");
+        }
+        musicians = carouselOptions.musicians;
+        instruments = carouselOptions.instruments;
         
         musicians.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
         instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
