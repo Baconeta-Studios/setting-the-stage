@@ -12,7 +12,7 @@ public class ChapterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI chapterTitle;
     
     [SerializeField]
-    private TempChapterNavigation _StageProgressButton;
+    private ChapterProgress _StageProgressButton;
     
     [SerializeField]
     private StageSelection _SelectionCarousels;
