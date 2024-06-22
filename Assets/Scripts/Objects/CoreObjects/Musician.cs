@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Animation;
 using GameStructure;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class Musician : StSObject
     [SerializeField] private string gender;
     [SerializeField] private string nationality;
     [SerializeField] private string occupation;
-    
+    [SerializeField] private InstrumentSocket instrumentSockets;
     
     [Header("Instruments")]
     [Tooltip("Instruments the musician is best at.\nAny instruments not listed in any of these lists are considered poor.")] 
