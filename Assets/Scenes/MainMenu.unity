@@ -294,7 +294,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3114851010024091745, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.0327754
+      value: 2.4852815
       objectReference: {fileID: 0}
     - target: {fileID: 3340369173935842953, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -338,11 +338,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3700066914673139263, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.0327754
+      value: 2.4852815
       objectReference: {fileID: 0}
     - target: {fileID: 5921562084180345793, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: field of view
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921562084180345793, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921562084180345793, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921562084180345793, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.050980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921562084180345793, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.0627451
       objectReference: {fileID: 0}
     - target: {fileID: 6741384681233342250, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_Name
@@ -570,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &758606007
 RectTransform:
   m_ObjectHideFlags: 0
@@ -957,7 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateChangers:
   - {fileID: 1199650789}
-  index: 1
+  index: 0
 --- !u!114 &1199650789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,7 +1347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1533805968
 RectTransform:
   m_ObjectHideFlags: 0
