@@ -8,8 +8,12 @@ public class Instrument : StSObject
     [SerializeField] private Vector3 instrumentHoldingPosition;
     [SerializeField] private SocketPosition socketPosition;
     [SerializeField] private Sprite instrumentSprite;
+    [SerializeField] private string animationHoldName;
+    [SerializeField] private string[] animationPlayNames;
 
     public Sprite InstrumentSprite => instrumentSprite;
+
+    public string AnimationHoldName => animationHoldName;
 
     public Vector3 GetInstrumentHoldingRotation()
     {

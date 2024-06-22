@@ -9,7 +9,7 @@ namespace GameStructure
     public class StSObject : MonoBehaviour, IComparable<StSObject>, IEquatable<StSObject>
     {
         [SerializeField] private string Name;
-        [SerializeField] private Animator _animator; 
+        [SerializeField] protected Animator _animator; 
 
         public int CompareTo(StSObject comparison)
         {

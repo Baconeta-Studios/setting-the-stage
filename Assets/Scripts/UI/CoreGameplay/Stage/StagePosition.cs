@@ -42,6 +42,11 @@ public class StagePosition : MonoBehaviour
             musicianTransform.localPosition = Vector3.zero;
             
             musicianOccupied.gameObject.SetActive(true);
+            if (instrumentOccupied)
+            {
+                musicianOccupied.EquipInstrument(instrumentOccupied);
+                musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
+            }
         }
 
         OnStagePositionChanged?.Invoke(this);
@@ -49,6 +54,7 @@ public class StagePosition : MonoBehaviour
     
     public void InstrumentSelectionChanged(Instrument selection)
     {
+        Instrument lastInstrument = instrumentOccupied;
         instrumentOccupied = selection;
         
         if (instrumentOccupied)
@@ -58,7 +64,15 @@ public class StagePosition : MonoBehaviour
             if (IsMusicianOccupied())
             {
                 musicianOccupied.EquipInstrument(instrumentOccupied);
-                // TODO Now set animation controller to equipping this instrument
+                musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
+            }
+        }
+        else
+        {
+            musicianOccupied.UnequipInstrument();
+            if (lastInstrument)
+            {
+                musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
             }
         }
         

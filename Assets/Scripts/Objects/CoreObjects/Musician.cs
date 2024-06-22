@@ -17,6 +17,7 @@ public class Musician : StSObject
     [SerializeField] private string nationality;
     [SerializeField] private string occupation;
     [SerializeField] private InstrumentSocket instrumentSockets;
+    [SerializeField] private string unequipAnimTriggerName = "unequip_all";
     
     [Header("Instruments")]
     [Tooltip("Instruments the musician is best at.\nAny instruments not listed in any of these lists are considered poor.")] 
@@ -27,7 +28,6 @@ public class Musician : StSObject
 
     [Tooltip("Instruments the musician is a beginner in.\nAny instruments not listed in any of these lists are considered poor.")] 
     [SerializeField] private List<Instrument> beginnerInstruments;
-    
     
     /// <summary>
     /// Get the proficiency with the given instrument
@@ -77,5 +77,22 @@ public class Musician : StSObject
     public void EquipInstrument(Instrument instrumentData)
     {
         instrumentSockets.HoldInstrument(instrumentData);
+        _animator.ResetTrigger(unequipAnimTriggerName);
+    }
+    
+    public void UnequipInstrument()
+    {
+        instrumentSockets.RemoveInstrumentFromSocket();
+        TriggerAnimation(unequipAnimTriggerName);
+    }
+
+    public void TriggerAnimation(string animTriggerName)
+    {
+        _animator.SetTrigger(animTriggerName);
+    }
+    
+    public void SetAnimationBool(string animBoolName, bool enable)
+    {
+        _animator.SetBool(animBoolName,enable);
     }
 }

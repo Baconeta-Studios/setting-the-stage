@@ -44,5 +44,11 @@ namespace Animation
                     break;
             }
         }
+
+        public void RemoveInstrumentFromSocket()
+        {
+            leftHandSprite.sprite = null;
+            rightHandSprite.sprite = null;
+        }
     }
 }
