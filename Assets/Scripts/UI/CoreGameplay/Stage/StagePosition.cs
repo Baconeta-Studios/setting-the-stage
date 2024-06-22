@@ -16,7 +16,8 @@ public class StagePosition : MonoBehaviour
     [Header("Musician")]
     public Musician musicianOccupied = null;
 
-    [SerializeField] private MeshRenderer musicianRenderer;
+    [SerializeField] private Transform musicianOrigin;
+    [SerializeField] private GameObject musicianGameObject;
 
     [Header("Instrument")]
     public Instrument instrumentOccupied = null;
@@ -36,21 +37,47 @@ public class StagePosition : MonoBehaviour
 
         if (musicianOccupied)
         {
-            musicianRenderer.enabled = true;
-            musicianRenderer.material.mainTexture = selection.GetSprite().texture;
+            Transform musicianTransform = musicianOccupied.transform;
+            musicianTransform.SetParent(musicianOrigin);
+            musicianTransform.localPosition = Vector3.zero;
+            
+            musicianOccupied.gameObject.SetActive(true);
+            if (instrumentOccupied)
+            {
+                musicianOccupied.EquipInstrument(instrumentOccupied);
+                musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
+            }
         }
-        else
-        {
-            musicianRenderer.enabled = false;
-            musicianRenderer.material.mainTexture = null;
-        }
-        
+
         OnStagePositionChanged?.Invoke(this);
     }
     
     public void InstrumentSelectionChanged(Instrument selection)
     {
+        Instrument lastInstrument = instrumentOccupied;
         instrumentOccupied = selection;
+        
+        if (instrumentOccupied)
+        {
+            instrumentOccupied.transform.SetParent(musicianOrigin);
+            instrumentOccupied.gameObject.SetActive(true);
+            if (IsMusicianOccupied())
+            {
+                musicianOccupied.EquipInstrument(instrumentOccupied);
+                musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
+            }
+        }
+        else
+        {
+            if (musicianOccupied)
+            {
+                musicianOccupied.UnequipInstrument();
+                if (lastInstrument)
+                {
+                    musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
+                }
+            }
+        }
         
         OnStagePositionChanged?.Invoke(this);
     }

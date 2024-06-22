@@ -44,14 +44,14 @@ public class StsCamera : Singleton<StsCamera>
     private InputAction onPointerPress;
     private InputAction onPointerPosition;
     private InputAction onPointerDelta;
-     private Vector2 panDelta;
+    private Vector2 panDelta;
     [SerializeField] private Vector3 panMin = new Vector3(-2f, -0.5f, 0f);
     [SerializeField] private Vector3 panMax = new Vector3(-2f, 0.5f, 0f);
     [SerializeField] private float panSensitvity;
 
     private ChapterUI chapterUi;
     private Act _act;
-
+    private StagePosition _currentStagePositionRef;
 
     private void OnEnable()
     {
@@ -158,6 +158,7 @@ public class StsCamera : Singleton<StsCamera>
     {
         // Zoom onto the stage selection
         ChangeCameraState(CameraStateName.SelectedStagePosition, stagePosition.GetViewTarget());
+        _currentStagePositionRef = stagePosition;
     }
 
     private void OnStageSelectionEnded()
@@ -202,6 +203,12 @@ public class StsCamera : Singleton<StsCamera>
     private void OnPointerUp(InputAction.CallbackContext context)
     {
         IsMovingCamera = false;
+
+        if (currentCameraState.Name == CameraStateName.SelectedStagePosition)
+        {
+            // Snap back to the original focus target
+            ChangeCameraState(CameraStateName.SelectedStagePosition, _currentStagePositionRef.GetViewTarget());
+        }
     }
 
     private void OnPointerDelta(InputAction.CallbackContext context)
