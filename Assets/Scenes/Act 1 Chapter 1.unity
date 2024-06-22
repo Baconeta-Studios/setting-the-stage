@@ -310,15 +310,16 @@ MonoBehaviour:
   ChapterNumber: 1
   starsEarned: -1
   currentStage: 0
+  StsObjectStash: {fileID: 0}
   musicians:
-  - {fileID: 1710823786342131613, guid: f2f108ec2113b6e4c8045bf002563f9b, type: 3}
-  - {fileID: 1710823786342131613, guid: 50f22bfc782aaf04a894bb6bab4e5c10, type: 3}
-  - {fileID: 1710823786342131613, guid: d4c3a1868fd56974b876b126b0feed8e, type: 3}
+  - {fileID: 7742997859520980283, guid: edde01390c491104f9868578f7b7c46d, type: 3}
+  - {fileID: 4308577510990970017, guid: ce9576c7783d775438cf2f2f5da9572b, type: 3}
+  - {fileID: 4308577510990970017, guid: 99ea9977de542a34cb6010bd4cf33fae, type: 3}
   instruments:
-  - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
-  - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
-  - {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
-  - {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+  - {fileID: 6909787869312897912, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+  - {fileID: 6909787869312897912, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+  - {fileID: 6909787869312897912, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+  - {fileID: 6909787869312897912, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
 --- !u!4 &741236657
 Transform:
   m_ObjectHideFlags: 0
