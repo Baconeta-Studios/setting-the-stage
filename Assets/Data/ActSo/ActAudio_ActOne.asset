@@ -15,3 +15,5 @@ MonoBehaviour:
   actNumber: 1
   chapterAudioSo:
   - {fileID: 11400000, guid: 9366178bbce202a47a68dcbde706afea, type: 2}
+  - {fileID: 11400000, guid: 77dd0995219dc194a8ca7d39158f8c06, type: 2}
+  - {fileID: 11400000, guid: fd7854cc3cfa742498e5d51e53d1410a, type: 2}

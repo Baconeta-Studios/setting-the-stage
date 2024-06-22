@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea058ebd7af14675adf69e800f4b1fe0, type: 3}
-  m_Name: ChapterAudio_ChapterOne
+  m_Name: ChapterAudio_Chapter1
   m_EditorClassIdentifier: 
   chapterNumber: 1
   trackName: I am a track
