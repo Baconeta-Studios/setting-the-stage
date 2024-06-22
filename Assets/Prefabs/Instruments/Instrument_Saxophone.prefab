@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 132995282540880607, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: m_Name
-      value: Instrument_Violin
+      value: Instrument_Saxophone
       objectReference: {fileID: 0}
     - target: {fileID: 4075707795778187121, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: Name
-      value: Violin
+      value: Saxophone
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: icon
