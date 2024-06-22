@@ -69,10 +69,13 @@ public class StagePosition : MonoBehaviour
         }
         else
         {
-            musicianOccupied.UnequipInstrument();
-            if (lastInstrument)
+            if (musicianOccupied)
             {
-                musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
+                musicianOccupied.UnequipInstrument();
+                if (lastInstrument)
+                {
+                    musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
+                }
             }
         }
         
