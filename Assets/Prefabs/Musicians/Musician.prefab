@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8466268619714108625}
   - component: {fileID: 7906205900004187072}
+  - component: {fileID: 583808605999725201}
   m_Layer: 0
   m_Name: Musician
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   gender: placeholder
   nationality: placeholder
   occupation: placeholder
+  instrumentSockets: {fileID: 583808605999725201}
   expertInstruments:
   - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
   - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
@@ -68,3 +70,19 @@ MonoBehaviour:
   - {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
   - {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
   - {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+--- !u!114 &583808605999725201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2848168879404490538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc229eaebeca4a008dfead721a8a4221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandSocket: {fileID: 0}
+  rightHandSocket: {fileID: 0}
+  leftHandSprite: {fileID: 0}
+  rightHandSprite: {fileID: 0}
