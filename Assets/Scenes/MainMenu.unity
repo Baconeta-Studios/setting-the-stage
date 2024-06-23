@@ -294,7 +294,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3114851010024091745, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.1007147
+      value: 0.371
       objectReference: {fileID: 0}
     - target: {fileID: 3340369173935842953, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -338,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3700066914673139263, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.1007147
+      value: 0.371
       objectReference: {fileID: 0}
     - target: {fileID: 5921562084180345793, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: field of view
@@ -586,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &758606007
 RectTransform:
   m_ObjectHideFlags: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateChangers:
   - {fileID: 1199650789}
-  index: 0
+  index: 1
 --- !u!114 &1199650789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1347,7 +1347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1533805968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1534,10 +1534,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 758606007}
     m_Modifications:
-    - target: {fileID: 277118496188472084, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_Name
-      value: CreditsPanel
-      objectReference: {fileID: 0}
     - target: {fileID: 323221000794106062, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1619,37 +1615,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1199650788}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeState
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.StateSwitcher.CompositeStateSwitcher, UI.StateSwitcher
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: SplashScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 5638777487468020917, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5732549929082204444, guid: 3606cad046155e848b0a16afb4955d91, type: 3}
       propertyPath: m_Name
       value: CreditsPopup
