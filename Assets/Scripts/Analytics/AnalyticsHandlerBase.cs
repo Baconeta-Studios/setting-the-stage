@@ -75,7 +75,7 @@ namespace Analytics
             PlayerPrefs.SetInt(CONSENT_PREFS_KEY, 0);
         }
 
-        public bool AnalyticsEnabled()
+        public static bool AnalyticsEnabled()
         {
             return PlayerPrefs.GetInt(CONSENT_PREFS_KEY, 0) == 1;
         }

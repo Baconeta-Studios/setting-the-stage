@@ -20,7 +20,7 @@ namespace Settings
                 return;
             }
 
-            bool optedIn = analyticsHandler.AnalyticsEnabled();
+            bool optedIn = AnalyticsHandlerBase.AnalyticsEnabled();
             OnValueChanged(optedIn);
         }
 
