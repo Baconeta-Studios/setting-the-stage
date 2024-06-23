@@ -26,23 +26,6 @@ namespace Analytics
             LevelCompletedEvent,
             LevelAbandonedEvent,
         }
-
-        public virtual void OptIn()
-        {
-            _playerConsents = true;
-            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, 1);
-        }
-
-        public virtual void OptOut()
-        {
-            _playerConsents = false;
-            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, -1);
-        }
-
-        public virtual void RequestDataDeletion()
-        {
-            OptOut();
-        }
         
         protected virtual void OnEnable() {
             if (PlayerPrefs.HasKey(CONSENT_PREFS_KEY))
@@ -74,6 +57,23 @@ namespace Analytics
         protected virtual void OnDisable()
         {
             OptOut();
+        }
+
+        public virtual void RequestDataDeletion()
+        {
+            OptOut();
+        }
+
+        public virtual void OptIn()
+        {
+            _playerConsents = true;
+            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, 1);
+        }
+
+        public virtual void OptOut()
+        {
+            _playerConsents = false;
+            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, -1);
         }
 
         protected abstract void SendAnalytics(string eventName, Dictionary<string, object> analytics);

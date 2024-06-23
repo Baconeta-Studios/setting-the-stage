@@ -16,7 +16,8 @@ namespace Analytics
             base.OnEnable();
         }
         
-        protected override void OnDisable() {
+        protected override void OnDisable()
+        {
             base.OnDisable();
         }
         /*** End Unity state function ***/
