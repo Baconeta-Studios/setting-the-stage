@@ -347,16 +347,7 @@ MonoBehaviour:
   ChapterNumber: 2
   starsEarned: -1
   currentStage: 0
-  musicians:
-  - {fileID: 1710823786342131613, guid: d4c3a1868fd56974b876b126b0feed8e, type: 3}
-  - {fileID: 1710823786342131613, guid: 33f00669c0c891e49969a655f14ef613, type: 3}
-  - {fileID: 1710823786342131613, guid: 82cbdf6971ee66640948cee5d86d7c7c, type: 3}
-  - {fileID: 1710823786342131613, guid: f2f108ec2113b6e4c8045bf002563f9b, type: 3}
-  instruments:
-  - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
-  - {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
-  - {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
-  - {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+  StsObjectStash: {fileID: 0}
 --- !u!4 &741236657
 Transform:
   m_ObjectHideFlags: 0
@@ -385,6 +376,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPerforming: 0
+--- !u!1001 &844436197
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1249.2678
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 516.8162
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 50.093685
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 690170579840725329, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5166452564738182117, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
+      propertyPath: m_Name
+      value: Act1_Chapter2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b4688e1ba00f1e24eab7d35c5066e2e5, type: 3}
 --- !u!1001 &922620727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -946,6 +994,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 8679768832493817191}
   - {fileID: 6413648065603117558}
+  - {fileID: 844436197}
   - {fileID: 741236657}
   - {fileID: 1296726617}
   - {fileID: 922620727}

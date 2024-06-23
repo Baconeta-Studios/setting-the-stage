@@ -19,7 +19,10 @@ namespace Audio
         public void UnloadFromMemory()
         {
             Addressables.Release(_handle);
-            Addressables.ReleaseInstance(_dataObject);
+            if (_dataObject != null)
+            {
+                Addressables.ReleaseInstance(_dataObject);
+            }
         }
 
         private void OnLoadData(AsyncOperationHandle<GameObject> data)

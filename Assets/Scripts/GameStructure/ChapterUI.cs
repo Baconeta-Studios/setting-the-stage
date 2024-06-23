@@ -12,7 +12,7 @@ public class ChapterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI chapterTitle;
     
     [SerializeField]
-    private TempChapterNavigation _StageProgressButton;
+    private ChapterProgress _StageProgressButton;
     
     [SerializeField]
     private StageSelection _SelectionCarousels;
@@ -26,7 +26,6 @@ public class ChapterUI : MonoBehaviour
     private PlayerInput input;
     private InputAction onPointerPosition;
     private Vector2 pointerPosition;
-
 
     private void Awake()
     {
@@ -57,6 +56,7 @@ public class ChapterUI : MonoBehaviour
         StagePosition.OnStagePositionClicked += OnStagePositionClicked;
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
         Chapter.onRevealRating += RevealRating;
+        StageSelection.OnStageSelectionEnded += ShowChapterTitle;
     }
 
     private void UnhookAllEventBindings()
@@ -65,6 +65,7 @@ public class ChapterUI : MonoBehaviour
         StagePosition.OnStagePositionClicked -= OnStagePositionClicked;
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
         Chapter.onRevealRating -= RevealRating;
+        StageSelection.OnStageSelectionEnded -= ShowChapterTitle;
     }
 
     private void OnDisable()
@@ -107,6 +108,8 @@ public class ChapterUI : MonoBehaviour
         {
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
         }
+        
+        chapterTitle.transform.parent.gameObject.SetActive(false);
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
     {
@@ -150,5 +153,8 @@ public class ChapterUI : MonoBehaviour
         return results.Count > 0;
     }
     
-    
+    private void ShowChapterTitle()
+    {
+        chapterTitle.transform.parent.gameObject.SetActive(true);
+    }
 }

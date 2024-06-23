@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameStructure;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -24,19 +25,69 @@ public class Chapter : Singleton<Chapter>
     }
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
-    
-    [SerializeField] private List<Musician> musicians = new List<Musician>();
-    [SerializeField] private List<Instrument> instruments = new List<Instrument>();
+
+    [SerializeField] private Transform StsObjectStash;
+    private List<GameObject> musicians = new List<GameObject>();
+    private List<GameObject> instruments = new List<GameObject>();
     private List<Musician> availableMusicians = new List<Musician>();
     private List<Instrument> availableInstruments = new List<Instrument>();
 
     protected override void Awake()
     {
         base.Awake();
-        musicians.Sort();
-        instruments.Sort();
-        availableMusicians = new List<Musician>(musicians);
-        availableInstruments = new List<Instrument>(instruments);
+        
+        ChapterCarouselOptions carouselOptions = FindObjectOfType<ChapterCarouselOptions>();
+        if (carouselOptions == null)
+        {
+            StSDebug.LogError("There's no carousel options in this chapter scene!");
+        }
+        musicians = carouselOptions.musicians;
+        instruments = carouselOptions.instruments;
+        
+        musicians.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+        instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+        availableMusicians = new List<Musician>();
+        availableInstruments = new List<Instrument>();
+        
+        // Spawn all musicians into the stash.
+        for (int i = 0; i < musicians.Count; i++)
+        {
+            GameObject musicianGameObject = Instantiate(musicians[i], StsObjectStash);
+            
+            musicianGameObject.SetActive(false);
+            
+            Musician musician = musicianGameObject.GetComponent<Musician>();
+            if (!musician)
+            {
+                StSDebug.LogError($"No Class<Musician> found on {musicianGameObject.name}");
+            }
+            else
+            {
+                availableMusicians.Add(musician);
+            }
+
+            // Replace the prefab with the spawned object.
+            musicians[i] = musicianGameObject;
+        }
+        
+        // Spawn all Instruments into the stash.
+        for (int i = 0; i < instruments.Count; i++)
+        {
+            GameObject instrumentGameObject = Instantiate(instruments[i], StsObjectStash);
+            
+            Instrument instrument = instrumentGameObject.GetComponent<Instrument>();
+            if (!instrument)
+            {
+                StSDebug.LogError($"No Class<Instrument> found on {instrumentGameObject.name}");
+            }
+            else
+            {
+                availableInstruments.Add(instrument);
+            }
+
+            // Replace the prefab with the spawned object.
+            instruments[i] = instrumentGameObject;
+        }
     }
 
     private void OnEnable()
@@ -113,15 +164,15 @@ public class Chapter : Singleton<Chapter>
         return availableInstruments;
     }
 
-    public bool ConsumeMusician(Musician musician)
+    public GameObject ConsumeMusician(Musician musician)
     {
         if (availableMusicians.Contains(musician))
         {
             availableMusicians.Remove(musician);
-            return true;
+            return musician.gameObject;
         }
 
-        return false;
+        return null;
     }
 
     public void ReturnMusician(Musician musician)
@@ -133,15 +184,15 @@ public class Chapter : Singleton<Chapter>
         }
     }
 
-    public bool ConsumeInstrument(Instrument instrument)
+    public GameObject ConsumeInstrument(Instrument instrument)
     {
         if (availableInstruments.Contains(instrument))
         {
             availableInstruments.Remove(instrument);
-            return true;
+            return instrument.gameObject;
         }
 
-        return false;
+        return null;
     }
 
     public void ReturnInstrument(Instrument instrument)
@@ -160,25 +211,36 @@ public class Chapter : Singleton<Chapter>
             return;
         }
         
-        foreach (Musician musician in musicians)
+        foreach (GameObject musician in musicians)
         {
-            if (musician.GetName() == returningObject.GetName())
+            if (musician.GetComponent<Musician>().GetName() == returningObject.GetName())
             {
                 ReturnMusician((Musician)returningObject);
+                StashObject(returningObject);
                 return;
             }
         }
 
-        foreach (Instrument instrument in instruments)
+        foreach (GameObject instrument in instruments)
         {
-            if (instrument.GetName() == returningObject.GetName())
+            if (instrument.GetComponent<Instrument>().GetName() == returningObject.GetName())
             {
                 ReturnInstrument((Instrument)returningObject);
+                StashObject(returningObject);
                 return;
             }
         }
         
         StSDebug.LogError($"{gameObject.name}{ChapterNumber}: Could not find musician or instrument when returning an object. Something has gone wrong :(");
+    }
+
+    private void StashObject(StSObject objectToStash)
+    {
+        Transform objectTransform = objectToStash.transform;
+        objectTransform.SetParent(StsObjectStash);
+        objectTransform.localPosition = Vector3.zero;
+        
+        objectToStash.gameObject.SetActive(false);
     }
 
     public bool ConsumeObject(StSObject objectToConsume)
@@ -188,17 +250,17 @@ public class Chapter : Singleton<Chapter>
             return false;
         }
         
-        foreach (Musician musician in musicians)
+        foreach (GameObject musician in musicians)
         {
-            if (musician.GetName() == objectToConsume.GetName())
+            if (musician.GetComponent<Musician>().GetName() == objectToConsume.GetName())
             {
                 return ConsumeMusician((Musician)objectToConsume);
             }
         }
 
-        foreach (Instrument instrument in instruments)
+        foreach (GameObject instrument in instruments)
         {
-            if (instrument.GetName() == objectToConsume.GetName())
+            if (instrument.GetComponent<Instrument>().GetName() == objectToConsume.GetName())
             {
                 return ConsumeInstrument((Instrument)objectToConsume);
             }
