@@ -60,8 +60,14 @@ public class StagePosition : MonoBehaviour
                 musicianOccupied.EquipInstrument(instrumentOccupied);
                 musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
             }
-        }
 
+            HideFloorMarker();
+        }
+        else
+        {
+            ShowFloorMarker();
+        }
+        
         OnStagePositionChanged?.Invoke(this);
     }
     
@@ -123,24 +129,24 @@ public class StagePosition : MonoBehaviour
     public void OnFocusStart()
     {
         BrightenLights();
-        floorMarkerRenderer.enabled = true;
+        ShowFloorMarker();
     }
 
     public void OnFocusEnd()
     {
         DimLights();
-        floorMarkerRenderer.enabled = false;
+        HideFloorMarker();
     }
 
     private void OnStageSelectionStart(StagePosition unusedPosition)
     {
-        floorMarkerRenderer.enabled = false;
+        HideFloorMarker();
     }
 
     private void OnStageSelectionEnd()
     {
         DimLights();
-        floorMarkerRenderer.enabled = true;
+        ShowFloorMarker();
     }
     
     private void BrightenLights()
@@ -153,5 +159,19 @@ public class StagePosition : MonoBehaviour
     {
         spotlight.enabled = false;
         spotlightMesh.SetActive(false);
+    }
+
+    private void ShowFloorMarker()
+    {
+        if (!musicianOccupied)
+        {
+            floorMarkerRenderer.enabled = true;
+        }
+
+    }
+
+    private void HideFloorMarker()
+    {
+        floorMarkerRenderer.enabled = false;
     }
 }
