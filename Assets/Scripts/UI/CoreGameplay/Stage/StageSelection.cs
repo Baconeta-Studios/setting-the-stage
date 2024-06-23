@@ -34,11 +34,11 @@ public class StageSelection : Singleton<StageSelection>
     {
         if (!gameObject.activeSelf)
         {
-            ChangeFocus(newActiveStagePosition);
+            OnStageSelectionStarted?.Invoke(newActiveStagePosition);
 
-            gameObject.SetActive(true);
+            ChangeFocus(newActiveStagePosition);
             
-            OnStageSelectionStarted?.Invoke(activeStagePosition);
+            gameObject.SetActive(true);
         }
     }
 

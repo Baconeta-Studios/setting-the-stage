@@ -25,6 +25,19 @@ public class StagePosition : MonoBehaviour
     [Header("Lighting")] 
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
+    [SerializeField] private MeshRenderer floorMarkerRenderer;
+
+    private void OnEnable()
+    {
+        StageSelection.OnStageSelectionStarted += OnStageSelectionStart;
+        StageSelection.OnStageSelectionEnded += OnStageSelectionEnd;
+    }
+    
+    private void OnDisable()
+    {
+        StageSelection.OnStageSelectionStarted -= OnStageSelectionStart;
+        StageSelection.OnStageSelectionEnded -= OnStageSelectionEnd;
+    }
 
     public void OnInteract()
     {
@@ -47,8 +60,14 @@ public class StagePosition : MonoBehaviour
                 musicianOccupied.EquipInstrument(instrumentOccupied);
                 musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
             }
-        }
 
+            HideFloorMarker();
+        }
+        else
+        {
+            ShowFloorMarker();
+        }
+        
         OnStagePositionChanged?.Invoke(this);
     }
     
@@ -109,14 +128,50 @@ public class StagePosition : MonoBehaviour
 
     public void OnFocusStart()
     {
-        spotlight.enabled = true;
-        spotlightMesh.SetActive(true);
+        BrightenLights();
+        ShowFloorMarker();
     }
 
     public void OnFocusEnd()
     {
+        DimLights();
+        HideFloorMarker();
+    }
+
+    private void OnStageSelectionStart(StagePosition unusedPosition)
+    {
+        HideFloorMarker();
+    }
+
+    private void OnStageSelectionEnd()
+    {
+        DimLights();
+        ShowFloorMarker();
+    }
+    
+    private void BrightenLights()
+    {
+        spotlight.enabled = true;
+        spotlightMesh.SetActive(true);
+    }
+
+    private void DimLights()
+    {
         spotlight.enabled = false;
         spotlightMesh.SetActive(false);
+    }
 
+    private void ShowFloorMarker()
+    {
+        if (!musicianOccupied)
+        {
+            floorMarkerRenderer.enabled = true;
+        }
+
+    }
+
+    private void HideFloorMarker()
+    {
+        floorMarkerRenderer.enabled = false;
     }
 }
