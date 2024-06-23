@@ -348,11 +348,11 @@ MonoBehaviour:
   starsEarned: -1
   currentStage: 0
   musicians:
-  - {fileID: 1710823786342131613, guid: f2f108ec2113b6e4c8045bf002563f9b, type: 3}
-  - {fileID: 1710823786342131613, guid: 50f22bfc782aaf04a894bb6bab4e5c10, type: 3}
-  - {fileID: 1710823786342131613, guid: d4c3a1868fd56974b876b126b0feed8e, type: 3}
-  - {fileID: 1710823786342131613, guid: 33f00669c0c891e49969a655f14ef613, type: 3}
-  - {fileID: 1710823786342131613, guid: 82cbdf6971ee66640948cee5d86d7c7c, type: 3}
+  - {fileID: 2398836844704391633, guid: edde01390c491104f9868578f7b7c46d, type: 3}
+  - {fileID: 8211718582178461771, guid: ce9576c7783d775438cf2f2f5da9572b, type: 3}
+  - {fileID: 8211718582178461771, guid: 99ea9977de542a34cb6010bd4cf33fae, type: 3}
+  - {fileID: 8211718582178461771, guid: 754b7e68c333bc6468b9231408480ba7, type: 3}
+  - {fileID: 8211718582178461771, guid: fe33822d178fe044d890000cc6aa0e6c, type: 3}
   instruments:
   - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
   - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}

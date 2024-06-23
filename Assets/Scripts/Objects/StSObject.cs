@@ -9,8 +9,7 @@ namespace GameStructure
     public class StSObject : MonoBehaviour, IComparable<StSObject>, IEquatable<StSObject>
     {
         [SerializeField] private string Name;
-        [SerializeField] private Sprite icon;
-        [SerializeField] private Sprite body;
+        [SerializeField] protected Animator _animator; 
 
         public int CompareTo(StSObject comparison)
         {
@@ -30,15 +29,6 @@ namespace GameStructure
         public string GetName()
         {
             return Name;
-        }
-
-        public Sprite GetIcon()
-        {
-            return icon;
-        }
-        public Sprite GetSprite()
-        {
-            return body;
         }
     }
 }

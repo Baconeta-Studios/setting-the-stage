@@ -8,6 +8,7 @@ using UnityEngine.PlayerLoop;
 public class MusicianInfoPanel : MonoBehaviour
 {
     public TextMeshProUGUI musicianNameText;
+    public GameObject panel;
 
     private void OnEnable()
     {
@@ -30,9 +31,9 @@ public class MusicianInfoPanel : MonoBehaviour
         if (musician)
         {
             UpdateDetailsFromMusician(musician);
-            gameObject.SetActive(true);
+            panel.SetActive(true);
         }
-        else if (gameObject.activeSelf)
+        else if (panel.activeSelf)
         {
             HidePanel();
         }
@@ -45,7 +46,7 @@ public class MusicianInfoPanel : MonoBehaviour
 
     public void HidePanel()
     {
-        gameObject.SetActive(false);
+        panel.SetActive(false);
         
         // Clear details
         musicianNameText.text = String.Empty;
