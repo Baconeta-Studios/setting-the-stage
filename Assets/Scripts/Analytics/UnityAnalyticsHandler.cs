@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
+using static Utils.UnityHelper;
 
 namespace Analytics
 {
@@ -34,18 +35,9 @@ namespace Analytics
                 Debug.Log(e.ToString());
             }
 
-            LoadConsent();
-        }
-
-        private void LoadConsent()
-        {
-            #if !UNITY_EDITOR
-            _playerConsentsDebug = false;
-            #endif
-            
-            if (_playerConsentsDebug || _playerConsents)
+            if (IsNotInUnityEditor)
             {
-                AnalyticsService.Instance.StartDataCollection();
+                _playerConsentsDebug = false;
             }
         }
 
@@ -86,14 +78,15 @@ namespace Analytics
         protected override void SendAnalytics(string eventName, Dictionary<string, object> analytics)
         {
             StSDebug.Log($"Recording analytics event {eventName} with {analytics.Count} parameters");
-#if ENABLE_CLOUD_SERVICES_ANALYTICS
-            CustomEvent gameEvent = new(eventName);
-            foreach (KeyValuePair<string, object> kvp in analytics)
-            {
-                gameEvent.Add(kvp.Key, kvp.Value);
+
+            if (DoEnableCloudServicesAnalytics) {
+                CustomEvent gameEvent = new(eventName);
+                foreach (KeyValuePair<string, object> kvp in analytics)
+                {
+                    gameEvent.Add(kvp.Key, kvp.Value);
+                }
+                AnalyticsService.Instance.RecordEvent(gameEvent);
             }
-            AnalyticsService.Instance.RecordEvent(gameEvent);
-#endif
         }
     }
 }
