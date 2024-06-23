@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enable Analytics
+  m_text: Allow Game Analytics
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63331647c678bf24a9b8479c8e5b662b, type: 2}
   m_sharedMaterial: {fileID: 8803327015381973461, guid: 63331647c678bf24a9b8479c8e5b662b, type: 2}
