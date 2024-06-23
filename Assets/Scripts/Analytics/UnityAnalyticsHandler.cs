@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
@@ -11,8 +13,13 @@ namespace Analytics
         /*** Begin Unity state functions ***/
         protected override void OnEnable()
         {
+            HandleAndWaitForInit();
+        }
+
+        private async void HandleAndWaitForInit()
+        {
             // Initialize the analytics core first, and then check for existing player consent to start data collection.
-            InitializeAnalytics();
+            await InitializeAnalytics();
             base.OnEnable();
         }
         
@@ -32,7 +39,14 @@ namespace Analytics
         public override void OptOut()
         {
             base.OptOut();
-            AnalyticsService.Instance.StopDataCollection();
+            try
+            {
+                AnalyticsService.Instance.StopDataCollection();
+            }
+            catch (NotSupportedException)
+            {
+                // Ignore - we don't care about Unity Analytics not being started before being stopped.
+            }
         }
 
         public override void RequestDataDeletion()
@@ -55,7 +69,7 @@ namespace Analytics
             }
         }
 
-        private async void InitializeAnalytics()
+        private async Task InitializeAnalytics()
         {
             try
             {
