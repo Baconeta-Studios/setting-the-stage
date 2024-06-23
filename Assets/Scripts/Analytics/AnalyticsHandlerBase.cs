@@ -18,14 +18,6 @@ namespace Analytics
         /// If it is, we will display the opt-in/opt-out prompt.
         /// Regardless, we will save to PlayerPrefs that they have been asked and never show the prompt to them again.
         protected bool _doPromptForConsent;
-
-        public enum EventType
-        {
-            LevelStartedEvent,
-            StagePlacementEvent,
-            LevelCompletedEvent,
-            LevelAbandonedEvent,
-        }
         
         protected virtual void OnEnable() {
             if (PlayerPrefs.HasKey(CONSENT_PREFS_KEY))
