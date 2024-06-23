@@ -471,8 +471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleImage: {fileID: 146465312}
-  toggleOff: {fileID: -736933570, guid: e8654d821b4ee3a40a51b2d74517ea82, type: 3}
-  toggleOn: {fileID: 1527718010, guid: e8654d821b4ee3a40a51b2d74517ea82, type: 3}
+  toggleOff: {fileID: 1527718010, guid: e8654d821b4ee3a40a51b2d74517ea82, type: 3}
+  toggleOn: {fileID: -736933570, guid: e8654d821b4ee3a40a51b2d74517ea82, type: 3}
   toggle: {fileID: 343300090}
   analyticsHandler: {fileID: 1841495425}
 --- !u!224 &348843588 stripped

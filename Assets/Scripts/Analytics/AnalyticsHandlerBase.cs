@@ -56,7 +56,8 @@ namespace Analytics
 
         protected virtual void OnDisable()
         {
-            OptOut();
+            // This seems to break the game lol
+            // OptOut();
         }
 
         public virtual void RequestDataDeletion()
