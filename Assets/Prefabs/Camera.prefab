@@ -26,14 +26,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340481521514750041}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0327754, y: 5, z: -12.42}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0.371, y: 2.0484855, z: -4.0425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3797835923726909396}
   m_Father: {fileID: 3340369173935842953}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!114 &514964442251036603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +120,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3318598367105216635}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.0327754, y: 5, z: -12.42}
+  m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
+  m_LocalPosition: {x: 0.371, y: 2.0484855, z: -4.0425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,7 +137,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -337,7 +337,7 @@ Transform:
   m_GameObject: {fileID: 4820373933180639161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -3.42}
+  m_LocalPosition: {x: 0.371, y: 1.597, z: -1.482}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -394,13 +394,13 @@ MonoBehaviour:
   - Name: 0
     focusTarget: {fileID: 9005563914267394941}
     fieldOfView: 0
-    focusOffset: {x: 0, y: 0, z: 9}
+    focusOffset: {x: 0, y: 0, z: 2.6}
     screenX: 0.5
   - Name: 1
     focusTarget: {fileID: 0}
     fieldOfView: 0
-    focusOffset: {x: 0, y: 0, z: 6}
-    screenX: 0.25
+    focusOffset: {x: 0, y: 0, z: 2}
+    screenX: 0.276
   currentCameraState:
     Name: 0
     focusTarget: {fileID: 0}
@@ -409,9 +409,9 @@ MonoBehaviour:
     screenX: 0
   vCam: {fileID: 514964442251036603}
   IsMovingCamera: 0
-  panMin: {x: -2, y: -0.5, z: 0}
-  panMax: {x: 2, y: 0.5, z: 0}
-  panSensitvity: 20
+  panMin: {x: -0.5, y: -0.4, z: 0}
+  panMax: {x: 0.5, y: 0, z: 0}
+  panSensitvity: 2
 --- !u!1 &8488927127906904031
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,9 +477,9 @@ MonoBehaviour:
   m_YDamping: 1.5
   m_ZDamping: 2.5
   m_TargetMovementOnly: 1
-  m_ScreenX: 0.25
+  m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 9
+  m_CameraDistance: 2.6
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0

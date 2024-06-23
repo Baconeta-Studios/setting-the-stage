@@ -16,9 +16,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Musician3
       objectReference: {fileID: 0}
+    - target: {fileID: -8339294883439827558, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: -7817286911781073316, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: AnkleL
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,10 +76,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7509357486253149465, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: -6604932818691863580, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: -6419214705759113975, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: FootR
       objectReference: {fileID: 0}
+    - target: {fileID: -4764083161544631287, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: -4164435001322943467, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: ArmR
@@ -72,10 +104,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForearmR
       objectReference: {fileID: 0}
+    - target: {fileID: -2920773591846562257, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: -2792741764276040761, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: AnkleR
       objectReference: {fileID: 0}
+    - target: {fileID: -2092500033041196940, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: -1960836046075355864, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: -1024815538560704356, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: Head
@@ -88,6 +132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LegR
       objectReference: {fileID: 0}
+    - target: {fileID: 222146576306382940, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: 386791141387813222, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: Pelvis
@@ -96,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LegL
       objectReference: {fileID: 0}
+    - target: {fileID: 651852791210071408, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: 862970082822076206, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: ArmL
@@ -116,6 +168,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 3702625906476247133, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 3725613321712544271, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     - target: {fileID: 4157741701538757237, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
       propertyPath: m_Name
       value: Neck
@@ -124,6 +184,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: LowerLegL
       objectReference: {fileID: 0}
+    - target: {fileID: 4697738299780926677, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 5065211878340780742, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 5819539054849802340, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 6574411514180739195, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 6732901008405706445, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 6825619374058725425, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
+    - target: {fileID: 8602271568199095730, guid: bf8b5e7cff5284b538bc076fbe809ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aedec6899abf1745a313d2d6764dc53, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

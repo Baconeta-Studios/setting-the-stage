@@ -76,12 +76,6 @@ public class Carousel : MonoBehaviour
                 }
                 break;
         }
-
-        if (items.Count == 0)
-        {
-            StSDebug.LogError($"{gameObject.name}: No items to add to carousel when initializing.");
-        }
-
         
         //Get the current selection
         StSObject currentSelection = null;
@@ -123,7 +117,7 @@ public class Carousel : MonoBehaviour
         }
         
         // Log items - 1 because there is always 1 empty item.
-        StSDebug.Log($"Initialized {gameObject.name} with {contentPanel.childCount - 1} non-empty items");
+        StSDebug.Log($"Opened and Initialized {gameObject.name} with {contentPanel.childCount - 1} non-empty items");
         
         HighlightItem(_contentItems[selectedItemIndex]);
     }

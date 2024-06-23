@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Linq;
 using Animation;
 using GameStructure;
 using UnityEngine;
 
 public enum InstrumentProficiency
 {
-    Expert = 3,
-    Proficient = 2,
-    Beginner = 1,
     Poor = 0,
+    Beginner = 1,
+    Proficient = 3,
+    Expert = 5,
 }
 public class Musician : StSObject
 {
@@ -36,17 +37,17 @@ public class Musician : StSObject
     /// <returns> Returns Expert, Proficient, Beginner, or Poor based on the musicians proficiency with the given instrument. </returns>
     public InstrumentProficiency GetInstrumentProficiency(Instrument instrument)
     {
-        if (expertInstruments.Contains(instrument))
+        if (expertInstruments.Any(item => item.GetName() == instrument.GetName())) 
         {
             return InstrumentProficiency.Expert;
         }
 
-        if (proficientInstruments.Contains(instrument))
+        if (proficientInstruments.Any(item => item.GetName() == instrument.GetName()))
         {
             return InstrumentProficiency.Proficient;
         }
 
-        if (beginnerInstruments.Contains(instrument))
+        if (beginnerInstruments.Any(item => item.GetName() == instrument.GetName()))
         {
             return InstrumentProficiency.Beginner;
         }
