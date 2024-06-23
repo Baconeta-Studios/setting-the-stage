@@ -76,6 +76,12 @@ namespace Analytics
             PlayerPrefs.SetInt(CONSENT_PREFS_KEY, -1);
         }
 
+        public virtual void OptLater()
+        {
+            _playerConsents = false;
+            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, 0);
+        }
+
         protected abstract void SendAnalytics(string eventName, Dictionary<string, object> analytics);
         
         /// <summary>
