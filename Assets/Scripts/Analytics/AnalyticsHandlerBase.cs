@@ -1,10 +1,23 @@
 using System.Collections.Generic;
+using UnityEngine;
 using Utils;
 
 namespace Analytics
 {
     public abstract class AnalyticsHandlerBase : EverlastingSingleton<AnalyticsHandlerBase>
     {
+        // The string used to lookup PlayerPrefs for the last state of player consent.
+        protected const string CONSENT_PREFS_KEY = "analytics_consent";
+
+        /// Has the player granted explicit consent for data collection?
+        protected bool _playerConsents;
+        [SerializeField] protected bool _playerConsentsDebug;
+
+        /// Starts false - when a player reaches the main-menu, we check if this is false.
+        /// If it is, we will display the opt-in/opt-out prompt.
+        /// Regardless, we will save to PlayerPrefs that they have been asked and never show the prompt to them again.
+        protected bool _doPromptForConsent;
+
         public enum EventType
         {
             LevelStartedEvent,
@@ -13,9 +26,49 @@ namespace Analytics
             LevelAbandonedEvent,
         }
 
-        public abstract void OptIn();
-        public abstract void OptOut();
-        public abstract void RequestDataDeletion();
+        public virtual void OptIn()
+        {
+            _playerConsents = true;
+            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, 1);
+        }
+
+        public virtual void OptOut()
+        {
+            _playerConsents = false;
+            PlayerPrefs.SetInt(CONSENT_PREFS_KEY, -1);
+        }
+
+        public virtual void RequestDataDeletion()
+        {
+            OptOut();
+        }
+        
+        protected virtual void OnEnable() {
+            if (PlayerPrefs.HasKey(CONSENT_PREFS_KEY))
+            {
+                switch (PlayerPrefs.GetInt(CONSENT_PREFS_KEY))
+                {
+                    case -1: // Player has explicitly opted-out.
+                        OptOut();
+                        _doPromptForConsent = false;
+                        break;
+                    case 0: // Player has ask-me-again-later'd.
+                        goto default;
+                    case 1: // Player has explicitly opted-in.
+                        OptIn();
+                        _doPromptForConsent = false;
+                        break;
+                    default: // Player has not been asked yet.
+                        _doPromptForConsent = true;
+                        break;
+                }
+            }
+        }
+
+        protected virtual void OnDisable()
+        {
+            OptOut();
+        }
 
         protected abstract void SendAnalytics(string eventName, Dictionary<string, object> analytics);
         

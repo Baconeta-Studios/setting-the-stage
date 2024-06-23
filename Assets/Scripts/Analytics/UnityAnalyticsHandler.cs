@@ -8,21 +8,6 @@ namespace Analytics
 {
     public class UnityAnalyticsHandler : AnalyticsHandlerBase
     {
-
-        /// Has the player granted explicit consent for data collection?
-        [SerializeField] private bool _playerConsentsDebug;
-        private bool _playerConsents;
-
-        /// Starts false - when a player launches the game, we check if this is false.
-        /// If it is, we will ask them if they would like to opt-out of analytics collection.
-        /// Regardless, we will save to PlayerPrefs that they have been asked and never show the prompt to them again.
-        private bool _consentHasBeenRequested;
-
-        // Persistent Data Variables //
-        private int _totalLevelsPlayed;
-        private IDictionary<string, int> _levelPlayCount;
-        private int _interactionsMadeThisAttempt;
-
         /*** Begin Unity state functions ***/
         private async void Init()
         {
@@ -41,37 +26,33 @@ namespace Analytics
             }
         }
 
-        protected void OnEnable()
-        {
+        protected override void OnEnable() {
             Init();
+            // Do persistent consent check.
+            base.OnEnable();
         }
-
-        protected void OnDisable()
-        {
-            OptOut();
+        
+        protected override void OnDisable() {
+            base.OnDisable();
         }
         /*** End Unity state function ***/
 
         /// Called when the player opts-in via the settings menu.
         public override void OptIn()
         {
-            if (_playerConsents) return;
-
-            _playerConsents = true;
+            base.OptIn();
             AnalyticsService.Instance.StartDataCollection();
         }
 
         public override void OptOut()
         {
-            if (!_playerConsents) return;
-
-            _playerConsents = false;
+            base.OptOut();
             AnalyticsService.Instance.StopDataCollection();
         }
 
         public override void RequestDataDeletion()
         {
-            OptOut();
+            base.RequestDataDeletion();
             AnalyticsService.Instance.RequestDataDeletion();
         }
 
