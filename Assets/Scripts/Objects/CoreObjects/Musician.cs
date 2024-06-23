@@ -8,8 +8,8 @@ public enum InstrumentProficiency
 {
     Poor = 0,
     Beginner = 1,
-    Proficient = 2,
-    Expert = 3,
+    Proficient = 3,
+    Expert = 5,
 }
 public class Musician : StSObject
 {
