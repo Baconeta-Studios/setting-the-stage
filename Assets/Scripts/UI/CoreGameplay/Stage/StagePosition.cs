@@ -25,6 +25,19 @@ public class StagePosition : MonoBehaviour
     [Header("Lighting")] 
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
+    [SerializeField] private MeshRenderer floorMarkerRenderer;
+
+    private void OnEnable()
+    {
+        StageSelection.OnStageSelectionStarted += OnStageSelectionStart;
+        StageSelection.OnStageSelectionEnded += OnStageSelectionEnd;
+    }
+    
+    private void OnDisable()
+    {
+        StageSelection.OnStageSelectionStarted -= OnStageSelectionStart;
+        StageSelection.OnStageSelectionEnded -= OnStageSelectionEnd;
+    }
 
     public void OnInteract()
     {
@@ -109,14 +122,36 @@ public class StagePosition : MonoBehaviour
 
     public void OnFocusStart()
     {
-        spotlight.enabled = true;
-        spotlightMesh.SetActive(true);
+        BrightenLights();
+        floorMarkerRenderer.enabled = true;
     }
 
     public void OnFocusEnd()
     {
+        DimLights();
+        floorMarkerRenderer.enabled = false;
+    }
+
+    private void OnStageSelectionStart(StagePosition unusedPosition)
+    {
+        floorMarkerRenderer.enabled = false;
+    }
+
+    private void OnStageSelectionEnd()
+    {
+        DimLights();
+        floorMarkerRenderer.enabled = true;
+    }
+    
+    private void BrightenLights()
+    {
+        spotlight.enabled = true;
+        spotlightMesh.SetActive(true);
+    }
+
+    private void DimLights()
+    {
         spotlight.enabled = false;
         spotlightMesh.SetActive(false);
-
     }
 }

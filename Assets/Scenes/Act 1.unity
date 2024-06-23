@@ -131,6 +131,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 605385048872364687, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: panMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605385048872364687, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: panMin.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 605385048872364687, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
+      propertyPath: panSensitvity
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3340369173935842953, guid: e49f356fb3c72174a9609b4857e7eee7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
