@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Utils;
+using static Utils.UnityHelper;
 
 namespace Analytics
 {
@@ -62,6 +63,11 @@ namespace Analytics
                         _doPromptForConsent = true;
                         break;
                 }
+            }
+
+            if (IsNotInUnityEditor)
+            {
+                _playerConsentsDebug = false;
             }
         }
 

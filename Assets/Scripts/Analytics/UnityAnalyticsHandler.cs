@@ -9,26 +9,10 @@ namespace Analytics
     public class UnityAnalyticsHandler : AnalyticsHandlerBase
     {
         /*** Begin Unity state functions ***/
-        private async void Init()
+        protected override void OnEnable()
         {
-            try
-            {
-                await UnityServices.InitializeAsync();
-            }
-            catch (ConsentCheckException e)
-            {
-                Debug.Log(e.ToString());
-            }
-
-            if (IsNotInUnityEditor)
-            {
-                _playerConsentsDebug = false;
-            }
-        }
-
-        protected override void OnEnable() {
-            Init();
-            // Do persistent consent check.
+            // Initialize the analytics core first, and then check for existing player consent to start data collection.
+            InitializeAnalytics();
             base.OnEnable();
         }
         
@@ -67,6 +51,18 @@ namespace Analytics
                     gameEvent.Add(kvp.Key, kvp.Value);
                 }
                 AnalyticsService.Instance.RecordEvent(gameEvent);
+            }
+        }
+
+        private async void InitializeAnalytics()
+        {
+            try
+            {
+                await UnityServices.InitializeAsync();
+            }
+            catch (ConsentCheckException e)
+            {
+                Debug.Log(e.ToString());
             }
         }
     }
