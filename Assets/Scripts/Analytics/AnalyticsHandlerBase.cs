@@ -82,6 +82,11 @@ namespace Analytics
             PlayerPrefs.SetInt(CONSENT_PREFS_KEY, 0);
         }
 
+        public bool AnalyticsEnabled()
+        {
+            return PlayerPrefs.GetInt(CONSENT_PREFS_KEY, 0) == 1;
+        }
+
         protected abstract void SendAnalytics(string eventName, Dictionary<string, object> analytics);
         
         /// <summary>
