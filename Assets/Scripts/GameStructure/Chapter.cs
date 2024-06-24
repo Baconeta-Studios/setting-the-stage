@@ -12,6 +12,8 @@ public class Chapter : Singleton<Chapter>
     public event Action<ChapterStage> onStageChanged;
     public event Action<float> onRevealRating;
 
+    public ChapterTrackData chapterTrackData;
+
     // The amount of stars the player earned in the performance. -1 indicates the performance has not occured.
     public float starsEarned = -1;
     

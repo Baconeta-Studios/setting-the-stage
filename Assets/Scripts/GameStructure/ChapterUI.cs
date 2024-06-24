@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using GameStructure;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,20 +10,16 @@ using UnityEngine.UI;
 public class ChapterUI : MonoBehaviour
 {
     public Chapter Chapter { get; private set; }
+    public ChapterTrackData ChapterTrackData { get; private set; }
 
     [SerializeField] private TextMeshProUGUI chapterTitle;
-    
-    [SerializeField]
-    private ChapterProgress _StageProgressButton;
-    
-    [SerializeField]
-    private StageSelection _SelectionCarousels;
-    
-    [SerializeField]
-    private StarContainer _StarDisplay;
-    
-    [SerializeField]
-    private GraphicRaycaster _graphicRaycaster;
+    [SerializeField] private Button trackInfoButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private ChapterPopup chapterPopup;
+    [SerializeField] private ChapterProgress _StageProgressButton;
+    [SerializeField] private StageSelection _SelectionCarousels;
+    [SerializeField] private StarContainer _StarDisplay;
+    [SerializeField] private GraphicRaycaster _graphicRaycaster;
 
     private PlayerInput input;
     private InputAction onPointerPosition;
@@ -31,13 +29,13 @@ public class ChapterUI : MonoBehaviour
     {
         _StarDisplay.gameObject.SetActive(false);
         Chapter = FindObjectOfType<Chapter>();
-
         if (!Chapter)
         {
             StSDebug.LogError($"ChapterUI could not find chapter object.");
         }
+        ChapterTrackData = Chapter.chapterTrackData;
 
-        chapterTitle.text = $"Chapter {Chapter.ChapterNumber}";
+        chapterTitle.text = ChapterTrackData.chapterTitle;
         
         input = FindObjectOfType<PlayerInput>();
         if (input)
@@ -46,6 +44,8 @@ public class ChapterUI : MonoBehaviour
             onPointerPosition = input.actions["PointerPosition"];
             onPointerPosition.performed += OnPointerPosition;
         }
+        
+        trackInfoButton.onClick.AddListener(() => OpenTrackInfoPopup(CloseChapterPopup));
     }
 
     private void OnEnable()
@@ -83,11 +83,17 @@ public class ChapterUI : MonoBehaviour
         switch (chapterStage)
         {
             case Chapter.ChapterStage.Intro:
+                _StageProgressButton.ToggleInteractable(false);
+                OpenTrackInfoPopup(() => Chapter.NextStage());
+                HideChapterTitle();
                 break;
             case Chapter.ChapterStage.StageSelection:
-                _StageProgressButton.gameObject.SetActive(false);
+                ShowChapterTitle();
+                CloseChapterPopup();
+                settingsButton.interactable = true;
                 break;
             case Chapter.ChapterStage.Performing:
+                HideChapterTitle();
                 _SelectionCarousels.HideStageSelection();
                 _StageProgressButton.ToggleInteractable(false);
                 break;
@@ -123,7 +129,8 @@ public class ChapterUI : MonoBehaviour
         }
 
         //Only show the progress button if all positions are occupied
-        _StageProgressButton.gameObject.SetActive(allPositionsOccupied);
+        _StageProgressButton.ToggleActive(allPositionsOccupied);
+        _StageProgressButton.ToggleInteractable(allPositionsOccupied);
     }
 
     private void RevealRating(float starsEarned)
@@ -155,5 +162,24 @@ public class ChapterUI : MonoBehaviour
     private void ShowChapterTitle()
     {
         chapterTitle.transform.parent.gameObject.SetActive(true);
+    }
+    
+    private void HideChapterTitle()
+    {
+        chapterTitle.transform.parent.gameObject.SetActive(false);
+    }
+
+    private void OpenTrackInfoPopup(Action onCloseCallback=null)
+    {
+        HideChapterTitle();
+        settingsButton.interactable = false;
+        chapterPopup.Init(ChapterTrackData, onCloseCallback);
+    }
+
+    private void CloseChapterPopup()
+    {
+        ShowChapterTitle();
+        settingsButton.interactable = true;
+        chapterPopup.ClosePopup();
     }
 }
