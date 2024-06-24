@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChapterAudio_Chapter1
   m_EditorClassIdentifier: 
   chapterNumber: 1
-  trackName: Tuned in Teal
+  trackName: Back to Teal
   instrumentTrackProficiencyData:
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 3
