@@ -11,6 +11,7 @@ public class ChapterStruct
 {
     public float starsEarned;
     public float starsRequiredToUnlock;
+    public Sprite bgImage;
     public SceneStruct sceneInfo;
 }
 

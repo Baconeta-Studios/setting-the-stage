@@ -10,7 +10,6 @@ public class ChapterInfo : MonoBehaviour
     [SerializeField] private StarContainer stars;
     [SerializeField] private Button startButton;
     [SerializeField] private Image bgImageComponent;
-    [SerializeField] private Sprite bgImage;
     
     public static event Action<ChapterStruct> OnChapterStartRequested;
     
@@ -20,7 +19,7 @@ public class ChapterInfo : MonoBehaviour
         startButton.interactable = false;
 
         chapterTitle.text = newChapter.sceneInfo.sceneDisplayName;
-        bgImageComponent.sprite = bgImage;
+        bgImageComponent.sprite = newChapter.bgImage;
         // Add other initialization such as chapter name, any buttons, or other text wanted here.
     }
     
