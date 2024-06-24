@@ -74,7 +74,7 @@ namespace Audio
             foreach (InstrumentTrackProficiencyData instrumentData in from act in audioData.actAudioData
                      from chapter in act.chapterAudioSo
                      from instrumentData in chapter.instrumentTrackProficiencyData
-                     where instrumentData.instrument == instrument && instrumentData.proficiency == proficiency
+                     where instrumentData.instrument.Equals(instrument) && instrumentData.proficiency == proficiency
                      select instrumentData)
             {
                 StSDebug.Log($"Found track {instrumentData.clip} matching parameters in another act.");
@@ -94,7 +94,7 @@ namespace Audio
                      where act.actNumber == actNumber
                      from chapter in act.chapterAudioSo
                      from instrumentData in chapter.instrumentTrackProficiencyData
-                     where instrumentData.instrument == instrument && instrumentData.proficiency == proficiency
+                     where instrumentData.instrument.Equals(instrument) && instrumentData.proficiency == proficiency
                      select instrumentData)
             {
                 StSDebug.Log($"Found track {instrumentData.clip} matching parameters in another chapter.");
