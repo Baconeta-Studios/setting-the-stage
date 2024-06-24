@@ -1,13 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class MusicianInfoPanel : MonoBehaviour
 {
     public TextMeshProUGUI musicianNameText;
+    public TextMeshProUGUI musicianBioText;
+    public TextMeshProUGUI musicianFunFactText;
     public GameObject panel;
 
     private void OnEnable()
@@ -39,9 +38,11 @@ public class MusicianInfoPanel : MonoBehaviour
         }
     }
 
-    public void UpdateDetailsFromMusician(Musician musician)
+    private void UpdateDetailsFromMusician(Musician musician)
     {
         musicianNameText.text = musician.GetName();
+        musicianBioText.text = musician.GetBio();
+        musicianFunFactText.text = musician.GetFunFact();
     }
 
     public void HidePanel()
