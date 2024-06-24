@@ -16,8 +16,15 @@ namespace Settings
         {
             if (analyticsHandler == null)
             {
-                StSDebug.LogError("Analytics handler ref not set on toggle element");
-                return;
+                // Try to remedy the missing reference to the analytics handler.
+                AnalyticsHandlerBase foundHandler = FindObjectOfType<AnalyticsHandlerBase>();
+                if (foundHandler != null)
+                {
+                    analyticsHandler = foundHandler;
+                } else {
+                    StSDebug.LogError("Analytics handler ref not set on toggle element, and could not be found manually.");
+                    return;
+                }
             }
 
             bool optedIn = AnalyticsHandlerBase.AnalyticsEnabled();
