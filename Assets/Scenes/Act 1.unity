@@ -200,6 +200,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
+      propertyPath: actName
+      value: The Cellar Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: actCanvas
       value: 
       objectReference: {fileID: 876787884}

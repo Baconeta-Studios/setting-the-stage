@@ -20,20 +20,15 @@ public class ChapterStruct
 public class Act : MonoBehaviour
 {
     [SerializeField] private int actNumber;
+    [SerializeField] private string actName;
     
     [Header("Chapters")]
     [SerializeField] private List<ChapterStruct> chapters;
-    
     [SerializeField] private int currentChapterIndex = -1;
-    
     [SerializeField] private Chapter currentChapter;
-    
     [SerializeField] private float starsEarnedThisAct;
-    
     [SerializeField] private float starsRequiredToCompleteAct;
-
     [SerializeField] private ActCanvas actCanvas;
-
     [SerializeField] private GameObject layoutIntroCutscene;
     [SerializeField] private GameObject layoutOutroCutscene;
     
@@ -271,6 +266,11 @@ public class Act : MonoBehaviour
     public int GetActNumber()
     {
         return actNumber;
+    }
+    
+    public string GetActName()
+    {
+        return actName;
     }
 
     public bool HasNextAct()
