@@ -625,7 +625,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -883,6 +883,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5653939750059239062}
     m_Modifications:
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_margin.w
+      value: -20.685757
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1904702172792615993, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_characterSpacing
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_horizontalMapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494191309991321861, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4054528096602876343, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -961,6 +1005,86 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4054528096602876343, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_margin.w
+      value: -20.685757
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1904702172792615993, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_characterSpacing
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842020528815653634, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_margin.w
+      value: -20.685757
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1904702172792615993, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_characterSpacing
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296482948196476738, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_enableVertexGradient
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8367674613500720179, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
