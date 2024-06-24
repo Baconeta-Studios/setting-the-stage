@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3524462202143410628}
   - component: {fileID: 3813400677889403344}
   m_Layer: 0
-  m_Name: InstrumentSocket
+  m_Name: _InstrumentSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

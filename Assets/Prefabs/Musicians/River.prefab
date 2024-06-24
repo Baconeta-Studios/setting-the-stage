@@ -26,28 +26,57 @@ PrefabInstance:
       objectReference: {fileID: 1992286500842023614}
     - target: {fileID: 2848168879404490538, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: m_Name
-      value: Musician3
+      value: River
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: bio
+      value: River can keep rhythm <i>or</i> rock out, but never both at once - once
+        the melody gets heavy her inner rocker takes over and all rhythm goes off
+        the stage. She is assertive and trusting to a fault. Not only does she prefer
+        blunt feedback and critique but she will give it too, when asked.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name
-      value: placeholder3
+      value: River
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: gender
+      value: Female
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: funFact
+      value: River's parents were ghost hunters who went missing a few years ago
+        in a paranormal accident. Since then, her hair and eyes have gradually become
+        lighter and lighter, leading to her closest friend nicknaming her "Ghost".
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: _animator
       value: 
       objectReference: {fileID: 1927195894754259133}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: occupation
+      value: '-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: nationality
+      value: '-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.data[0]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: expertInstruments.Array.data[1]
+      value: 
+      objectReference: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: proficientInstruments.Array.size
       value: 1
@@ -59,7 +88,7 @@ PrefabInstance:
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.data[1]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.data[2]
       value: 
@@ -68,6 +97,10 @@ PrefabInstance:
       propertyPath: beginnerInstruments.Array.data[3]
       value: 
       objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: proficientInstruments.Array.data[0]
+      value: 
+      objectReference: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     - target: {fileID: 8466268619714108625, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
