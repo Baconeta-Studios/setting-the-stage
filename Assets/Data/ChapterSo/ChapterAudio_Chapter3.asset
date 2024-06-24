@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea058ebd7af14675adf69e800f4b1fe0, type: 3}
   m_Name: ChapterAudio_Chapter3
   m_EditorClassIdentifier: 
-  chapterNumber: 1
-  trackName: I am a track
+  chapterNumber: 3
+  trackName: Reeds on the Sand
   instrumentTrackProficiencyData:
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 3

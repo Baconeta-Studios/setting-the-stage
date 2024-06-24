@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChapterAudio_Chapter2
   m_EditorClassIdentifier: 
   chapterNumber: 2
-  trackName: I am a track
+  trackName: Sizzle and Snare
   instrumentTrackProficiencyData:
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 3
