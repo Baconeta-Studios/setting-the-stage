@@ -29,6 +29,10 @@ PrefabInstance:
       value: River
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: age
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: bio
       value: River can keep rhythm <i>or</i> rock out, but never both at once - once
         the melody gets heavy her inner rocker takes over and all rhythm goes off
