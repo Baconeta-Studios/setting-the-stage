@@ -240,19 +240,35 @@ PrefabInstance:
       objectReference: {fileID: 8205325397464623891}
     - target: {fileID: 2848168879404490538, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: m_Name
-      value: Musician1
+      value: Pete
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: age
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: bio
+      value: "Pete\u2019s mastery over the lower frequencies creates infectious grooves,
+        compelling even the most reluctant feet to dance. He typically manages the
+        sound and stage equipment for performances due to his tendency to step into
+        leading-man shoes when it is needed - even if he can't necessarily handle
+        it. His worst habit is hum-singing while he plays, even if the music being
+        played is instrumental, though luckily it's usually drowned out by his peers
+        on stage."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name
-      value: placeholder1
+      value: Pete
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: gender
       value: Male
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: funFact
+      value: Despite being an expert on maintaining rhythm, Pete wrestles with the
+        complexities of multi-limb synchronization as a result of an unnamed and
+        undiagnosed mental disorder.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: _animator
@@ -264,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: nationality
-      value: placeholder
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.size
@@ -272,20 +288,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: proficientInstruments.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.data[0]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.data[1]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.data[2]
       value: 
@@ -297,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: proficientInstruments.Array.data[1]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: proficientInstruments.Array.data[2]
       value: 
