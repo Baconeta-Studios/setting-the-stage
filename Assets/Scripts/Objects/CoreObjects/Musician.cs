@@ -89,6 +89,7 @@ public class Musician : StSObject
 
     public void EquipInstrument(Instrument instrumentData)
     {
+        UnequipInstrument();
         instrumentSockets.HoldInstrument(instrumentData);
         _animator.ResetTrigger(unequipAnimTriggerName);
     }

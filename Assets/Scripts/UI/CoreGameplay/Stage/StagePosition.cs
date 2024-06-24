@@ -78,6 +78,10 @@ public class StagePosition : MonoBehaviour
         
         if (instrumentOccupied)
         {
+            if (lastInstrument)
+            {
+                musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
+            }
             instrumentOccupied.transform.SetParent(musicianOrigin);
             instrumentOccupied.gameObject.SetActive(true);
             if (IsMusicianOccupied())
