@@ -109,32 +109,60 @@ PrefabInstance:
       objectReference: {fileID: 1448181015042340884}
     - target: {fileID: 2848168879404490538, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: m_Name
-      value: Musician2
+      value: Genevieve
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: bio
+      value: Constantly tapping away on her desk, the bar, the table... anything,
+        really, Genevieve constantly drives her friends and family mad - that is
+        until she jumps on stage and gets into the zone. Timid and introverted, she
+        has told only her closest friends that doesn't think she is good enough as
+        a performer to be playing on stage. Although she likes all instruments (and
+        people) equally, she struggles with anything heavy, like the pain of lost
+        love and the realisation that death is what makes life worthwhile.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name
-      value: Placeholder2
+      value: Genevieve
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: gender
+      value: Female
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: funFact
+      value: She played <i>Clair de Lune</i> on the xylophone for her school talent
+        show and it has since been a favourite piece for her after winning first
+        place.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: _animator
       value: 
       objectReference: {fileID: 2028961915470904375}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: occupation
+      value: '-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: nationality
+      value: '-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.data[0]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.data[1]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.data[2]
       value: 
@@ -150,11 +178,15 @@ PrefabInstance:
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: beginnerInstruments.Array.data[0]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: beginnerInstruments.Array.data[1]
+      value: 
+      objectReference: {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: proficientInstruments.Array.data[0]
       value: 
-      objectReference: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+      objectReference: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: proficientInstruments.Array.data[1]
       value: 
