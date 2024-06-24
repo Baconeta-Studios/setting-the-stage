@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
+using Utils;
+using static Utils.SaveSystem;
 using static Utils.UnityHelper;
 
 namespace Analytics
@@ -71,6 +73,7 @@ namespace Analytics
 
         private async Task InitializeAnalytics()
         {
+            UnityServices.ExternalUserId = SaveSystem.Instance.GetUserData().GetUUID();
             try
             {
                 await UnityServices.InitializeAsync();
