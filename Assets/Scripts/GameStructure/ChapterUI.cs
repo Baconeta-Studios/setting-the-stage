@@ -107,9 +107,8 @@ public class ChapterUI : MonoBehaviour
         if (inStageSelection && canClickPosition)
         {
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
+            chapterTitle.transform.parent.gameObject.SetActive(false);
         }
-        
-        chapterTitle.transform.parent.gameObject.SetActive(false);
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
     {

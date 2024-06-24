@@ -12,7 +12,6 @@ public class ChapterStruct
     public float starsEarned;
     public float starsRequiredToUnlock;
     public Sprite bgImage;
-    public GameObject chapterPopupPrefab;
     public SceneStruct sceneInfo;
 }
 
