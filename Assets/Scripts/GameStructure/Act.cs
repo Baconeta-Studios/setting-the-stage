@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Analytics;
+using Audio;
 using GameStructure.Narrative;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -112,6 +114,7 @@ public class Act : MonoBehaviour
             {
                 SceneLoader.Instance.onSceneOpened += ChapterLoaded;
                 onChapterOpen?.Invoke();
+                AudioWrapper.Instance.StopAllAudio();
             }
         }
         else
@@ -237,7 +240,7 @@ public class Act : MonoBehaviour
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
         currentChapterIndex = -1;
         currentChapter = null;
-
+        MainMenuAudio.Instance.RestartMenuAudio();
         onChapterClosed?.Invoke();
     }
 
