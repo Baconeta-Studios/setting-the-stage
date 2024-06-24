@@ -20,7 +20,6 @@ public class ChapterInfo : MonoBehaviour
 
         chapterTitle.text = newChapter.sceneInfo.sceneDisplayName;
         bgImageComponent.sprite = newChapter.bgImage;
-        // Add other initialization such as chapter name, any buttons, or other text wanted here.
     }
     
     public void UnlockChapter()
