@@ -146,8 +146,9 @@ public class Act : MonoBehaviour
     {
         int actID = actNumber;
         int levelID = currentChapterIndex;
-        int totalLevelsStarted = SaveSystem.Instance.GetUserData().GetTotalChaptersCompleted();
-        int timesThisLevelStarted = SaveSystem.Instance.GetUserData().GetStartedPlaysForChapter(actID, levelID);
+        SaveSystem.UserData data = SaveSystem.Instance.GetUserData();
+        int totalLevelsStarted = data.GetTotalChaptersCompleted();
+        int timesThisLevelStarted = data.GetStartedPlaysForChapter(actID, levelID);
         AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", new Dictionary<string, object>
         {
             { "actIdentifier", actID },
@@ -231,15 +232,16 @@ public class Act : MonoBehaviour
     {
         int actID = actNumber;
         int levelID = currentChapterIndex;
+        SaveSystem.UserData data = SaveSystem.Instance.GetUserData();
         var analytics = new Dictionary<string, object>
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
             { "selectionsMade", 0 },
             { "score", score },
-            { "personalHighscore", SaveSystem.Instance.GetUserData().GetStarsForChapter(actID, levelID)}, // TODO
+            { "personalHighscore", data.GetStarsForChapter(actID, levelID)},
             { "wasPerformanceSkipped", false },
-            { "timesCompletedThisLevel", SaveSystem.Instance.GetUserData().GetCompletedPlaysForChapter(actID, levelID)}
+            { "timesCompletedThisLevel", data.GetCompletedPlaysForChapter(actID, levelID)}
         };
 
         AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
