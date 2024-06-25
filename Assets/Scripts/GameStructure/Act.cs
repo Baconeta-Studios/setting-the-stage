@@ -205,7 +205,7 @@ public class Act : MonoBehaviour
             { "chapterState", chapterState },
         };
 
-        AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
+        AnalyticsHandlerBase.Instance.LogEvent("LevelAbandonEvent", analytics);
     }
 
     private void SendChapterCompleteAnalytics(float score)
