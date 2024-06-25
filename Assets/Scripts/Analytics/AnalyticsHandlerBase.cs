@@ -88,7 +88,7 @@ namespace Analytics
         /// We use a dict and convert everything to strings for the analytics system to be more generic
         /// </summary>
         /// <param name="eventName">name of the event being logged.</param>
-        /// <param name="analytics">Key-value pairs of an analytic being recorded and its value. Should contain "level_identifier" when applicable.</param>
+        /// <param name="analytics">Key-value pairs of an analytic being recorded and its value. Should contain "levelIdentifier" when applicable.</param>
         public void LogEvent(string eventName, Dictionary<string, object> analytics)
         {
             analytics.TryGetValue("level_identifier", out object levelID);
@@ -118,8 +118,8 @@ namespace Analytics
         {
             Dictionary<string, object> analytics = new Dictionary<string, object>
             {
-                { "times_completed_this_level", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) },
-                { "highscore_for_level", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) }
+                { "timesCompletedThisLevel", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) },
+                { "highscoreForLevel", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) }
             };
 
             return analytics;

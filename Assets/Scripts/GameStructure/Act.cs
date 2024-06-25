@@ -145,11 +145,11 @@ public class Act : MonoBehaviour
     {
         var analytics = new Dictionary<string, object>
         {
-            { "act_identifier", actNumber },
-            { "level_identifier", currentChapterIndex }
-        };
-
-        AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", analytics);
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "totalLevelsStarted", totalLevelsStarted},
+            { "timesStartedThisLevel",  timesThisLevelStarted}
+        });
     }
 
     private void ChapterComplete(float starsEarned)
@@ -180,8 +180,13 @@ public class Act : MonoBehaviour
     {
         var analytics = new Dictionary<string, object>
         {
-            { "act_identifier", actNumber },
-            { "level_identifier", currentChapterIndex }
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", },
+            { "score", score },
+            { "personalHighscore", SaveSystem.Instance.GetUserData().GetStarsForChapter(actID, levelID)}, // TODO
+            { "wasPerformanceSkipped", },
+            { "timesCompletedThisLevel", SaveSystem.Instance.GetUserData().GetCompletedPlaysForChapter(actID, levelID)}
         };
 
         AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
