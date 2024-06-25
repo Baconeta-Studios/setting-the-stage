@@ -103,8 +103,6 @@ namespace Analytics
             SendAnalytics(eventName, analytics);
         }
 
-        // Here we get the analytics data we want to send with every analytics event
-        private Dictionary<string, object> GetDefaultAnalytics()
         {
             Dictionary<string, object> analytics = new Dictionary<string, object>
             {
@@ -113,6 +111,8 @@ namespace Analytics
 
             return analytics;
         }
+        // Here we get the analytics data we want to send with every analytics event
+        protected abstract Dictionary<string, object> GetDefaultAnalytics();
         
         private Dictionary<string, object> GetLevelAnalytics(int actID, int levelID)
         {

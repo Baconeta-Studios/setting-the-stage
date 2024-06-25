@@ -83,5 +83,17 @@ namespace Analytics
                 Debug.Log(e.ToString());
             }
         }
+
+        protected override Dictionary<string, object> GetDefaultAnalytics()
+        {
+            Dictionary<string, object> analytics = new Dictionary<string, object>
+            {
+                // Unity automatically included the userUUID with each request.
+                { "totalLevelsPlayed", SaveSystem.Instance.GetTotalLevelsPlayed() },
+                { "totalUserStars", SaveSystem.Instance.GetTotalUserStars() }
+            };
+
+            return analytics;
+        }
     }
 }
