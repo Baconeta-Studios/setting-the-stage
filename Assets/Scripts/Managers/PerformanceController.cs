@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Audio;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ public class PerformanceController : MonoBehaviour
         }
     }
 
-    private void StartPerformance()
+    private async void StartPerformance()
     {
         if (isPerforming)
         {
@@ -51,10 +52,20 @@ public class PerformanceController : MonoBehaviour
         isPerforming = true;
         
         OnPerformanceStarted?.Invoke();
-
+        
+        await WaitForClipsToLoad();
+        
         float audioDuration = _audioBuilderSystem.PlayBuiltClips();
         
         StartCoroutine(Performance(audioDuration));
+    }
+
+    private async Task WaitForClipsToLoad()
+    {
+        while (!_audioBuilderSystem.ReadyToPlay)
+        {
+            await Task.Yield();
+        }
     }
 
     private IEnumerator Performance(float duration)
