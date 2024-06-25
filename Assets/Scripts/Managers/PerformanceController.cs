@@ -112,7 +112,7 @@ public class PerformanceController : MonoBehaviour
 
         StSDebug.Log($"Performance Complete, earned {weightedAverage} Stars");
 
-        return weightedAverage;
+        return Mathf.Max(0, weightedAverage);
     }
 
     private static float GetInstrumentStars()
