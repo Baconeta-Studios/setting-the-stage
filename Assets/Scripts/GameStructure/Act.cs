@@ -166,9 +166,9 @@ public class Act : MonoBehaviour
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
             { "selectionsMade", 0 },
-            { "musicianSelected", null },
-            { "instrumentSelected", null },
-            { "stagePosition", stagePosition }
+            { "musicianSelected", stagePosition.musicianOccupied.GetName() },
+            { "instrumentSelected", stagePosition.instrumentOccupied.GetName() },
+            { "stagePosition", stagePosition.stagePositionNumber }
         };
 
         AnalyticsHandlerBase.Instance.LogEvent("StagePlacementEvent", analytics);
