@@ -29,6 +29,7 @@ public class Carousel : MonoBehaviour
     [SerializeField] protected int selectedItemIndex = 0;
     [SerializeField] protected Color selectionColour = Color.yellow;
     [SerializeField] protected float selectionSizeMultiplier = 1.3f;
+    [SerializeField] protected float  unSelectionSizeMultiplier = 0.85f;
 
     public void OpenCarousel(StagePosition activeStagePosition)
     {
@@ -126,9 +127,9 @@ public class Carousel : MonoBehaviour
     {
         CarouselItem newCarouselItem = Instantiate(carouselItemPrefab, contentPanel).GetComponent<CarouselItem>();
         
-        newCarouselItem.Initialize(this, stsObject); // TODO add support for icons
+        newCarouselItem.Initialize(this, stsObject);
         _contentItems.Add(newCarouselItem);
-
+        newCarouselItem.transform.localScale = Vector3.one * unSelectionSizeMultiplier;
         return newCarouselItem;
     }
 
@@ -201,7 +202,7 @@ public class Carousel : MonoBehaviour
     private void ClearHighlightOnItem(CarouselItem itemToClear)
     {
         //Remove the highlight & size from the previous selection
-        itemToClear.transform.localScale = Vector3.one;
+        itemToClear.transform.localScale = Vector3.one * unSelectionSizeMultiplier;
         itemToClear.GetComponent<Image>().color = Color.black;
     }
 
