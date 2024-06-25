@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Analytics;
+using Audio;
 using GameStructure.Narrative;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -18,20 +20,15 @@ public class ChapterStruct
 public class Act : MonoBehaviour
 {
     [SerializeField] private int actNumber;
+    [SerializeField] private string actName;
     
     [Header("Chapters")]
     [SerializeField] private List<ChapterStruct> chapters;
-    
     [SerializeField] private int currentChapterIndex = -1;
-    
     [SerializeField] private Chapter currentChapter;
-    
     [SerializeField] private float starsEarnedThisAct;
-    
     [SerializeField] private float starsRequiredToCompleteAct;
-
     [SerializeField] private ActCanvas actCanvas;
-
     [SerializeField] private GameObject layoutIntroCutscene;
     [SerializeField] private GameObject layoutOutroCutscene;
     
@@ -112,6 +109,7 @@ public class Act : MonoBehaviour
             {
                 SceneLoader.Instance.onSceneOpened += ChapterLoaded;
                 onChapterOpen?.Invoke();
+                AudioWrapper.Instance.StopAllAudio();
             }
         }
         else
@@ -237,7 +235,7 @@ public class Act : MonoBehaviour
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
         currentChapterIndex = -1;
         currentChapter = null;
-
+        MainMenuAudio.Instance.RestartMenuAudio();
         onChapterClosed?.Invoke();
     }
 
@@ -268,6 +266,11 @@ public class Act : MonoBehaviour
     public int GetActNumber()
     {
         return actNumber;
+    }
+    
+    public string GetActName()
+    {
+        return actName;
     }
 
     public bool HasNextAct()
