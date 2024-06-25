@@ -97,16 +97,5 @@ namespace Analytics
 
         // Here we get the analytics data we want to send with every analytics event
         protected abstract Dictionary<string, object> GetDefaultAnalytics();
-        
-        private Dictionary<string, object> GetLevelAnalytics(int actID, int levelID)
-        {
-            Dictionary<string, object> analytics = new Dictionary<string, object>
-            {
-                { "timesCompletedThisLevel", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) },
-                { "highscoreForLevel", SaveSystem.Instance.GetCountOfChapterCompletion(actID, levelID) }
-            };
-
-            return analytics;
-        }
     }
 }
