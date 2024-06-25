@@ -143,7 +143,11 @@ public class Act : MonoBehaviour
 
     private void SendChapterStartedAnalytics()
     {
-        var analytics = new Dictionary<string, object>
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        int totalLevelsStarted = SaveSystem.Instance.GetUserData().GetTotalChaptersCompleted();
+        int timesThisLevelStarted = SaveSystem.Instance.GetUserData().GetStartedPlaysForChapter(actID, levelID);
+        AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", new Dictionary<string, object>
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
@@ -166,7 +170,7 @@ public class Act : MonoBehaviour
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         // Send analytics
-        SendChapterCompleteAnalytics();
+        SendChapterCompleteAnalytics(starsEarned);
 
         CloseChapter();
 
@@ -176,8 +180,10 @@ public class Act : MonoBehaviour
         }
     }
 
-    private void SendChapterCompleteAnalytics()
+    private void SendChapterCompleteAnalytics(float score)
     {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
         var analytics = new Dictionary<string, object>
         {
             { "actIdentifier", actID },
