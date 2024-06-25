@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using GameStructure;
 using Managers;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class Chapter : Singleton<Chapter>
     public event Action<float> onChapterComplete;
     public event Action<ChapterStage> onStageChanged;
     public event Action<float> onRevealRating;
+
+    public ChapterTrackData chapterTrackData;
+    public string backgroundAmbientTrack;
 
     // The amount of stars the player earned in the performance. -1 indicates the performance has not occured.
     public float starsEarned = -1;
@@ -25,12 +29,12 @@ public class Chapter : Singleton<Chapter>
     }
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
-
     [SerializeField] private Transform StsObjectStash;
     private List<GameObject> musicians = new List<GameObject>();
     private List<GameObject> instruments = new List<GameObject>();
     private List<Musician> availableMusicians = new List<Musician>();
     private List<Instrument> availableInstruments = new List<Instrument>();
+    private CustomAudioSource ambient;
 
     protected override void Awake()
     {
@@ -88,6 +92,8 @@ public class Chapter : Singleton<Chapter>
             // Replace the prefab with the spawned object.
             instruments[i] = instrumentGameObject;
         }
+
+        ambient = AudioWrapper.Instance.PlaySound(backgroundAmbientTrack);
     }
 
     private void OnEnable()
@@ -102,8 +108,6 @@ public class Chapter : Singleton<Chapter>
 
     private void Start()
     {
-        // Chapter has just been opened. Start the intro cutscene.
-        // TODO Create intro cutscene
         StSDebug.Log($"Started Chapter {ChapterNumber}");
         onStageChanged?.Invoke(currentStage);
     }
@@ -118,9 +122,11 @@ public class Chapter : Singleton<Chapter>
                 currentStage = ChapterStage.StageSelection;
                 break;
             case ChapterStage.StageSelection:
+                ambient?.StopAudio();
                 currentStage = ChapterStage.Performing;
                 break;
             case ChapterStage.Performing:
+                ambient = AudioWrapper.Instance.PlaySound(backgroundAmbientTrack);
                 currentStage = ChapterStage.Ratings;
                 break;
             case ChapterStage.Ratings:
@@ -135,12 +141,14 @@ public class Chapter : Singleton<Chapter>
     public void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
+        ambient?.StopAudio();
         onChapterComplete?.Invoke(starsEarned);
     }
     
     public void EndChapterEarly()
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
+        ambient?.StopAudio();
         onChapterComplete?.Invoke(0);
     }
 

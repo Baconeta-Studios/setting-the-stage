@@ -17,6 +17,8 @@ public class Musician : StSObject
     [SerializeField] private string gender;
     [SerializeField] private string nationality;
     [SerializeField] private string occupation;
+    [SerializeField] private string bio;
+    [SerializeField] private string funFact;
     [SerializeField] private InstrumentSocket instrumentSockets;
     [SerializeField] private string unequipAnimTriggerName = "unequip_all";
     
@@ -74,9 +76,20 @@ public class Musician : StSObject
     {
         return occupation;
     }
+    
+    public string GetBio()
+    {
+        return bio;
+    }
+    
+    public string GetFunFact()
+    {
+        return funFact;
+    }
 
     public void EquipInstrument(Instrument instrumentData)
     {
+        UnequipInstrument();
         instrumentSockets.HoldInstrument(instrumentData);
         _animator.ResetTrigger(unequipAnimTriggerName);
     }

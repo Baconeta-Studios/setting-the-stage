@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea058ebd7af14675adf69e800f4b1fe0, type: 3}
+  m_Name: ChapterAudio_Chapter2
+  m_EditorClassIdentifier: 
+  chapterNumber: 2
+  trackName: Sizzle and Snare
+  instrumentTrackProficiencyData:
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 10726789eec822348b6b49c59e345896, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 10726789eec822348b6b49c59e345896, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: 97ef1ba6b2b971b4eac95ea9754f6054, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: 97ef1ba6b2b971b4eac95ea9754f6054, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 0e89621f02c65a94f84428abec671127, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 0e89621f02c65a94f84428abec671127, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: cb1b4fcb5b8243d44b0a840ce66e3c94, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: cb1b4fcb5b8243d44b0a840ce66e3c94, type: 3}

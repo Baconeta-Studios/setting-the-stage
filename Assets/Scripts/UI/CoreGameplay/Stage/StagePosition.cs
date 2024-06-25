@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class StagePosition : MonoBehaviour
@@ -9,7 +8,6 @@ public class StagePosition : MonoBehaviour
     
     [SerializeField] private Transform viewTarget;
     
-
     [Header("Stage Parameters")]
     public int stagePositionNumber;
     
@@ -25,7 +23,7 @@ public class StagePosition : MonoBehaviour
     [Header("Lighting")] 
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
-    [SerializeField] private MeshRenderer floorMarkerRenderer;
+    [SerializeField] private GameObject floorMarkerSystem;
 
     private void OnEnable()
     {
@@ -60,12 +58,6 @@ public class StagePosition : MonoBehaviour
                 musicianOccupied.EquipInstrument(instrumentOccupied);
                 musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
             }
-
-            HideFloorMarker();
-        }
-        else
-        {
-            ShowFloorMarker();
         }
         
         OnStagePositionChanged?.Invoke(this);
@@ -78,6 +70,10 @@ public class StagePosition : MonoBehaviour
         
         if (instrumentOccupied)
         {
+            if (lastInstrument && musicianOccupied)
+            {
+                musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
+            }
             instrumentOccupied.transform.SetParent(musicianOrigin);
             instrumentOccupied.gameObject.SetActive(true);
             if (IsMusicianOccupied())
@@ -129,13 +125,11 @@ public class StagePosition : MonoBehaviour
     public void OnFocusStart()
     {
         BrightenLights();
-        ShowFloorMarker();
     }
 
     public void OnFocusEnd()
     {
         DimLights();
-        HideFloorMarker();
     }
 
     private void OnStageSelectionStart(StagePosition unusedPosition)
@@ -146,7 +140,10 @@ public class StagePosition : MonoBehaviour
     private void OnStageSelectionEnd()
     {
         DimLights();
-        ShowFloorMarker();
+        if (!musicianOccupied)
+        {
+            ShowFloorMarker();
+        }
     }
     
     private void BrightenLights()
@@ -163,15 +160,11 @@ public class StagePosition : MonoBehaviour
 
     private void ShowFloorMarker()
     {
-        if (!musicianOccupied)
-        {
-            floorMarkerRenderer.enabled = true;
-        }
-
+        floorMarkerSystem.SetActive(true);
     }
 
     private void HideFloorMarker()
     {
-        floorMarkerRenderer.enabled = false;
+        floorMarkerSystem.SetActive(false);
     }
 }
