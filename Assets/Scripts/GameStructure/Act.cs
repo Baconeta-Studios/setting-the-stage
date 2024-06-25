@@ -188,10 +188,10 @@ public class Act : MonoBehaviour
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
-            { "selectionsMade", },
+            { "selectionsMade", 0 },
             { "score", score },
             { "personalHighscore", SaveSystem.Instance.GetUserData().GetStarsForChapter(actID, levelID)}, // TODO
-            { "wasPerformanceSkipped", },
+            { "wasPerformanceSkipped", false },
             { "timesCompletedThisLevel", SaveSystem.Instance.GetUserData().GetCompletedPlaysForChapter(actID, levelID)}
         };
 

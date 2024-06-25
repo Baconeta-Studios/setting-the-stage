@@ -6,10 +6,10 @@ public class StagePosition : MonoBehaviour
 {
     public static event Action<StagePosition> OnStagePositionClicked;
     public static event Action<StagePosition> OnStagePositionChanged;
+    public static event Action<StagePosition> OnStagePositionCommitted;
     
     [SerializeField] private Transform viewTarget;
     
-
     [Header("Stage Parameters")]
     public int stagePositionNumber;
     
@@ -26,6 +26,8 @@ public class StagePosition : MonoBehaviour
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
     [SerializeField] private MeshRenderer floorMarkerRenderer;
+
+    private bool _hasUpdated = false;
 
     private void OnEnable()
     {
@@ -67,7 +69,8 @@ public class StagePosition : MonoBehaviour
         {
             ShowFloorMarker();
         }
-        
+
+        _hasUpdated = false;
         OnStagePositionChanged?.Invoke(this);
     }
     
@@ -97,7 +100,8 @@ public class StagePosition : MonoBehaviour
                 }
             }
         }
-        
+
+        _hasUpdated = false;
         OnStagePositionChanged?.Invoke(this);
     }
 
@@ -134,6 +138,7 @@ public class StagePosition : MonoBehaviour
 
     public void OnFocusEnd()
     {
+        CommitSelection();
         DimLights();
         HideFloorMarker();
     }
@@ -167,11 +172,21 @@ public class StagePosition : MonoBehaviour
         {
             floorMarkerRenderer.enabled = true;
         }
-
     }
 
     private void HideFloorMarker()
     {
         floorMarkerRenderer.enabled = false;
+    }
+
+    private void CommitSelection()
+    {
+        // We only want this to occur once per set of changes
+        if (_hasUpdated)
+        {
+            return;
+        }
+        OnStagePositionCommitted?.Invoke(this);
+        _hasUpdated = true;
     }
 }
