@@ -21,7 +21,7 @@ public class Act : MonoBehaviour
 {
     [SerializeField] private int actNumber;
     [SerializeField] private string actName;
-    
+
     [Header("Chapters")]
     [SerializeField] private List<ChapterStruct> chapters;
     [SerializeField] private int currentChapterIndex = -1;
@@ -69,11 +69,13 @@ public class Act : MonoBehaviour
     private void OnEnable()
     {
         ChapterInfo.OnChapterStartRequested += LoadChapter;
+        StagePosition.OnStagePositionCommitted += SendStagePositionCommittedEvent;
     }
 
     private void OnDisable()
     {
         ChapterInfo.OnChapterStartRequested -= LoadChapter;
+        StagePosition.OnStagePositionCommitted -= SendStagePositionCommittedEvent;
     }
 
     private void LoadActData()
@@ -142,21 +144,53 @@ public class Act : MonoBehaviour
 
     private void SendChapterStartedAnalytics()
     {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        SaveSystem.UserData data = SaveSystem.Instance.GetUserData();
+        int totalLevelsStarted = data.GetTotalChaptersCompleted();
+        int timesThisLevelStarted = data.GetStartedPlaysForChapter(actID, levelID);
+        AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", new Dictionary<string, object>
+        {
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "totalLevelsStarted", totalLevelsStarted},
+            { "timesStartedThisLevel",  timesThisLevelStarted}
+        });
+    }
+
+    private void SendStagePositionCommittedEvent(StagePosition stagePosition)
+    {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        int selectionsMade = StageSelection.Instance.GetTotalSelectionsMade();
         var analytics = new Dictionary<string, object>
         {
-            { "act_identifier", actNumber },
-            { "level_identifier", currentChapterIndex }
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", selectionsMade },
+            { "musicianSelected", stagePosition.musicianOccupied.GetName() },
+            { "instrumentSelected", stagePosition.instrumentOccupied.GetName() },
+            { "stagePosition", stagePosition.stagePositionNumber }
         };
 
-        AnalyticsHandlerBase.Instance.LogEvent("LevelStartedEvent", analytics);
+        AnalyticsHandlerBase.Instance.LogEvent("StagePlacementEvent", analytics);
     }
 
     private void ChapterComplete(float starsEarned)
     {
+        bool abandoned = starsEarned == -1;
+        if (abandoned) {
+            starsEarned = 0;
+        }
+
+        int selectionsMade = StageSelection.Instance.GetTotalSelectionsMade();
+        StSDebug.Log($"Chapter completed with '{selectionsMade}' selections made.");
+
         currentChapter.onChapterComplete -= ChapterComplete;
 
         float previousStarsOnChapter = chapters[currentChapterIndex].starsEarned;
-        //Update the current chapter as completed
+
+        // Update the current chapter as completed
         chapters[currentChapterIndex].starsEarned = starsEarned;
         starsEarnedThisAct += starsEarned - previousStarsOnChapter;
         
@@ -165,7 +199,15 @@ public class Act : MonoBehaviour
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         // Send analytics
-        SendChapterCompleteAnalytics();
+        if (abandoned)
+        {
+            int chapterState = (int) currentChapter.GetCurrentStage();
+            SendChapterAbandonedAnalytics(chapterState, selectionsMade);
+        }
+        else
+        {
+            SendChapterCompleteAnalytics(starsEarned, selectionsMade);
+        }
 
         CloseChapter();
 
@@ -175,12 +217,35 @@ public class Act : MonoBehaviour
         }
     }
 
-    private void SendChapterCompleteAnalytics()
+    private void SendChapterAbandonedAnalytics(int chapterState, int selectionsMade)
     {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
         var analytics = new Dictionary<string, object>
         {
-            { "act_identifier", actNumber },
-            { "level_identifier", currentChapterIndex }
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", selectionsMade },
+            { "chapterState", chapterState },
+        };
+
+        AnalyticsHandlerBase.Instance.LogEvent("LevelAbandonEvent", analytics);
+    }
+
+    private void SendChapterCompleteAnalytics(float score, int selectionsMade)
+    {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        SaveSystem.UserData data = SaveSystem.Instance.GetUserData();
+        var analytics = new Dictionary<string, object>
+        {
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", selectionsMade },
+            { "score", score },
+            { "personalHighscore", data.GetStarsForChapter(actID, levelID)},
+            { "wasPerformanceSkipped", false },
+            { "timesCompletedThisLevel", data.GetCompletedPlaysForChapter(actID, levelID)}
         };
 
         AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
@@ -231,7 +296,7 @@ public class Act : MonoBehaviour
 
     private void CloseChapter()
     {
-        //Close the chapter and clear the current chapter
+        // Close the chapter and clear the current chapter
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
         currentChapterIndex = -1;
         currentChapter = null;
@@ -267,7 +332,7 @@ public class Act : MonoBehaviour
     {
         return actNumber;
     }
-    
+
     public string GetActName()
     {
         return actName;

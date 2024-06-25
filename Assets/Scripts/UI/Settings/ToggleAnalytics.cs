@@ -28,7 +28,7 @@ namespace Settings
             }
 
             // Set the initial value of the toggle switch.
-            bool optedIn = AnalyticsHandlerBase.AnalyticsEnabled();
+            bool optedIn = AnalyticsHandlerBase.GetAnalyticsState();
             OnValueChanged(optedIn);
         }
 

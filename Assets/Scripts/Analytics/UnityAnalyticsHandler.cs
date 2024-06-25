@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
+using Utils;
 using static Utils.UnityHelper;
 
 namespace Analytics
@@ -55,7 +56,7 @@ namespace Analytics
             AnalyticsService.Instance.RequestDataDeletion();
         }
 
-        protected override void SendAnalytics(string eventName, Dictionary<string, object> analytics)
+        protected override void SendEventToBackend(string eventName, Dictionary<string, object> analytics)
         {
             StSDebug.Log($"Recording analytics event {eventName} with {analytics.Count} parameters");
 
@@ -71,6 +72,7 @@ namespace Analytics
 
         private async Task InitializeAnalytics()
         {
+            UnityServices.ExternalUserId = SaveSystem.Instance.GetUserData().GetUUID();
             try
             {
                 await UnityServices.InitializeAsync();
@@ -79,6 +81,18 @@ namespace Analytics
             {
                 Debug.Log(e.ToString());
             }
+        }
+
+        protected override Dictionary<string, object> GetDefaultAnalytics()
+        {
+            Dictionary<string, object> analytics = new Dictionary<string, object>
+            {
+                // Unity automatically included the userUUID with each request.
+                { "totalLevelsPlayed", SaveSystem.Instance.GetTotalLevelsPlayed() },
+                { "totalUserStars", SaveSystem.Instance.GetTotalUserStars() }
+            };
+
+            return analytics;
         }
     }
 }
