@@ -91,15 +91,7 @@ namespace Analytics
         /// <param name="analytics">Key-value pairs of an analytic being recorded and its value. Should contain "levelIdentifier" when applicable.</param>
         public void LogEvent(string eventName, Dictionary<string, object> analytics)
         {
-            analytics.TryGetValue("level_identifier", out object levelID);
-            analytics.TryGetValue("act_identifier", out object actID);
-            if (levelID is not null && actID is not null)
-            {
-                Dictionary<string, object> data = GetLevelAnalytics((int) actID, (int) levelID);
-                analytics = analytics.MergeDictionary(data);
-            }
-            
-            analytics = analytics.MergeDictionary(GetDefaultAnalytics());
+            analytics = analytics.MergeDictionary(GetDefaultAnalytics());            
             SendAnalytics(eventName, analytics);
         }
 
