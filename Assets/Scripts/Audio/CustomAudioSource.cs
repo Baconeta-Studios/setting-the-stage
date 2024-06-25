@@ -12,7 +12,10 @@ namespace Audio
         private void ResetData()
         {
             // Stop Audio
-            _self.Stop();
+            if (_self != null)
+            {
+                _self.Stop();
+            }
         }
 
         public void Init(AudioMixerGroup group)

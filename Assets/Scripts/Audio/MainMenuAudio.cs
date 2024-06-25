@@ -11,8 +11,7 @@ namespace Audio
         {
             if (_backgroundMusic == null)
             {
-                _backgroundMusic = AudioWrapper.Instance.PlaySound(backgroundMusicTrack);
-                _backgroundMusic.transform.parent = gameObject.transform;
+                Invoke(nameof(StartBackgroundMusic), 0.25f);
             }
         }
 
@@ -22,6 +21,12 @@ namespace Audio
             {
                 Destroy(_backgroundMusic.gameObject);
             }
+            _backgroundMusic = AudioWrapper.Instance.PlaySound(backgroundMusicTrack);
+            _backgroundMusic.transform.parent = gameObject.transform;
+        }
+
+        private void StartBackgroundMusic()
+        {
             _backgroundMusic = AudioWrapper.Instance.PlaySound(backgroundMusicTrack);
             _backgroundMusic.transform.parent = gameObject.transform;
         }
