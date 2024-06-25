@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fe1a69626b4fa897fbab44bc2aad92, type: 3}
+  m_Name: Act1_Chapter1
+  m_EditorClassIdentifier: 
+  act: 1
+  chapter: 1
+  chapterTitle: Back to Teal
+  composerName: Chester Wilde
+  chapterInfo: A classic music taste combined with an intense love for videos games
+    has led Wilde to craft a masterpiece of epic proportions. Fueled by aggression
+    and hard liquor, <i>Back to Teal</i> brings back the music that used to play
+    at<i>The Cellar Door</i> 50 years ago, and then reimagines it for the younger,
+    thrillseeking generation.

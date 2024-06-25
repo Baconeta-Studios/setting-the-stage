@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8146534789989966143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367090757285110327}
+  - component: {fileID: 8092438451812038026}
+  m_Layer: 0
+  m_Name: Act1_Chapter1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1367090757285110327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146534789989966143}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1249.2678, y: 516.8162, z: 50.093685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8092438451812038026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146534789989966143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabb5d10858f464b914c49e50012dfc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicians:
+  - {fileID: 7742997859520980283, guid: edde01390c491104f9868578f7b7c46d, type: 3}
+  - {fileID: 4308577510990970017, guid: ce9576c7783d775438cf2f2f5da9572b, type: 3}
+  - {fileID: 4308577510990970017, guid: 99ea9977de542a34cb6010bd4cf33fae, type: 3}
+  - {fileID: 4308577510990970017, guid: 754b7e68c333bc6468b9231408480ba7, type: 3}
+  instruments:
+  - {fileID: 6909787869312897912, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+  - {fileID: 6909787869312897912, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+  - {fileID: 6909787869312897912, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+  - {fileID: 6909787869312897912, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+  - {fileID: 6909787869312897912, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+  - {fileID: 6909787869312897912, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+  StsObjectStash: {fileID: 0}
+  availableMusicians: []
+  availableInstruments: []

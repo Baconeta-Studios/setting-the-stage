@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea058ebd7af14675adf69e800f4b1fe0, type: 3}
+  m_Name: ChapterAudio_Chapter1
+  m_EditorClassIdentifier: 
+  chapterNumber: 1
+  trackName: Back to Teal
+  instrumentTrackProficiencyData:
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 2cc7ce4d76899db498c03700f357cc8d, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 2cc7ce4d76899db498c03700f357cc8d, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: 29108951f83eb4946bb8dfc7a1750768, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: 29108951f83eb4946bb8dfc7a1750768, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 68ca072ec1fc74e4c87236320c0ccedd, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 68ca072ec1fc74e4c87236320c0ccedd, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: ac44012b3f9674545a7fa518ada51040, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: ac44012b3f9674545a7fa518ada51040, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+    proficiency: 3
+    clip: {fileID: 8300000, guid: 2d335575c3c0bce4592dc05da5483ac0, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+    proficiency: 5
+    clip: {fileID: 8300000, guid: 2d335575c3c0bce4592dc05da5483ac0, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+    proficiency: 1
+    clip: {fileID: 8300000, guid: 608955f630c96b64cade5926d116974e, type: 3}
+  - instrument: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+    proficiency: 0
+    clip: {fileID: 8300000, guid: 608955f630c96b64cade5926d116974e, type: 3}
