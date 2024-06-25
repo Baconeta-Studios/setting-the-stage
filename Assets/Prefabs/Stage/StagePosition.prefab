@@ -127,9 +127,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 2.7
   m_Range: 10
-  m_SpotAngle: 37.7
+  m_SpotAngle: 23
   m_InnerSpotAngle: 2
   m_CookieSize: 10
   m_Shadows:
@@ -320,8 +320,6 @@ MonoBehaviour:
   spotlight: {fileID: 2519312662601725627}
   spotlightMesh: {fileID: 7637667580249273228}
   floorMarkerRenderer: {fileID: 6645913311516023199}
-  floorMarkerEmissionColour: {r: 1, g: 0.9518049, b: 0.15566039, a: 0}
-  floorMarkerEmissionIntensity: 2
 --- !u!1 &6643859246700350224
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +404,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7637667580249273228}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6074743769694867565
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -414,7 +412,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7637667580249273228}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
