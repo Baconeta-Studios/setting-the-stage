@@ -418,6 +418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPerforming: 0
+  proficiencyWeightPercent: 50
+  instrumentWeightPercent: 50
 --- !u!1001 &1785131087
 PrefabInstance:
   m_ObjectHideFlags: 0
