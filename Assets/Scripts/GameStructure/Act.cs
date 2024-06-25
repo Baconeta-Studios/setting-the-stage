@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Analytics;
+using Audio;
 using GameStructure.Narrative;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -11,26 +13,22 @@ public class ChapterStruct
 {
     public float starsEarned;
     public float starsRequiredToUnlock;
+    public Sprite bgImage;
     public SceneStruct sceneInfo;
 }
 
 public class Act : MonoBehaviour
 {
     [SerializeField] private int actNumber;
-    
+    [SerializeField] private string actName;
+
     [Header("Chapters")]
     [SerializeField] private List<ChapterStruct> chapters;
-    
     [SerializeField] private int currentChapterIndex = -1;
-    
     [SerializeField] private Chapter currentChapter;
-    
     [SerializeField] private float starsEarnedThisAct;
-    
     [SerializeField] private float starsRequiredToCompleteAct;
-
     [SerializeField] private ActCanvas actCanvas;
-
     [SerializeField] private GameObject layoutIntroCutscene;
     [SerializeField] private GameObject layoutOutroCutscene;
     
@@ -111,6 +109,7 @@ public class Act : MonoBehaviour
             {
                 SceneLoader.Instance.onSceneOpened += ChapterLoaded;
                 onChapterOpen?.Invoke();
+                AudioWrapper.Instance.StopAllAudio();
             }
         }
         else
@@ -158,10 +157,16 @@ public class Act : MonoBehaviour
 
     private void ChapterComplete(float starsEarned)
     {
+        bool abandoned = starsEarned == -1;
+        if (abandoned) {
+            starsEarned = 0;
+        }
+
         currentChapter.onChapterComplete -= ChapterComplete;
 
         float previousStarsOnChapter = chapters[currentChapterIndex].starsEarned;
-        //Update the current chapter as completed
+
+        // Update the current chapter as completed
         chapters[currentChapterIndex].starsEarned = starsEarned;
         starsEarnedThisAct += starsEarned - previousStarsOnChapter;
         
@@ -170,7 +175,15 @@ public class Act : MonoBehaviour
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         // Send analytics
-        SendChapterCompleteAnalytics(starsEarned);
+        if (abandoned)
+        {
+            int chapterState = (int) currentChapter.GetCurrentStage();
+            SendChapterAbandonedAnalytics(chapterState);
+        }
+        else
+        {
+            SendChapterCompleteAnalytics(starsEarned);
+        }
 
         CloseChapter();
 
@@ -178,6 +191,21 @@ public class Act : MonoBehaviour
         {
             ProgressToNextAct();
         }
+    }
+
+    private void SendChapterAbandonedAnalytics(int chapterState)
+    {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        var analytics = new Dictionary<string, object>
+        {
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", 0 },
+            { "chapterState", chapterState },
+        };
+
+        AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
     }
 
     private void SendChapterCompleteAnalytics(float score)
@@ -188,10 +216,10 @@ public class Act : MonoBehaviour
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
-            { "selectionsMade", 0 },
+            { "selectionsMade", },
             { "score", score },
             { "personalHighscore", SaveSystem.Instance.GetUserData().GetStarsForChapter(actID, levelID)}, // TODO
-            { "wasPerformanceSkipped", false },
+            { "wasPerformanceSkipped", },
             { "timesCompletedThisLevel", SaveSystem.Instance.GetUserData().GetCompletedPlaysForChapter(actID, levelID)}
         };
 
@@ -243,11 +271,11 @@ public class Act : MonoBehaviour
 
     private void CloseChapter()
     {
-        //Close the chapter and clear the current chapter
+        // Close the chapter and clear the current chapter
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
         currentChapterIndex = -1;
         currentChapter = null;
-
+        MainMenuAudio.Instance.RestartMenuAudio();
         onChapterClosed?.Invoke();
     }
 
@@ -278,6 +306,11 @@ public class Act : MonoBehaviour
     public int GetActNumber()
     {
         return actNumber;
+    }
+
+    public string GetActName()
+    {
+        return actName;
     }
 
     public bool HasNextAct()

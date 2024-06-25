@@ -13,4 +13,9 @@ public class ChapterProgress : MonoBehaviour
     {
         _button.interactable = bEnabled;
     }
+    
+    public void ToggleActive(bool bEnabled)
+    {
+        gameObject.SetActive(bEnabled);
+    }
 }

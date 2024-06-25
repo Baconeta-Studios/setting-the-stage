@@ -65,6 +65,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1824127398670704913, guid: ef91914b77757f443ae463f0829333a6, type: 3}
     - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[0].bgImage
+      value: 
+      objectReference: {fileID: 21300000, guid: db9c8b15bee16b843a40b0e16fbe2d84, type: 3}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[1].bgImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a3d4d3e710ec664896da87047dd0f1c, type: 3}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[2].bgImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a7031fe2c698fa47b15eb07efae2749, type: 3}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
       propertyPath: chapters.Array.data[0].sceneInfo.sceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: 6c6662f25b8eaf54e83dacd85e2e7909, type: 3}
@@ -98,16 +110,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
       propertyPath: chapters.Array.data[0].sceneInfo.sceneDisplayName
-      value: Chapter 1
+      value: Back to Teal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[0].sceneInfo.sceneToLoad.guid
+      value: 6c6662f25b8eaf54e83dacd85e2e7909
       objectReference: {fileID: 0}
     - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
       propertyPath: chapters.Array.data[1].sceneInfo.sceneDisplayName
-      value: Chapter 2
+      value: Sizzle and Snare
+      objectReference: {fileID: 0}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[1].sceneInfo.sceneToLoad.guid
+      value: f4bffa912503f7d4ca35ecaa21f2c404
       objectReference: {fileID: 0}
     - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
       propertyPath: chapters.Array.data[2].sceneInfo.sceneDisplayName
-      value: Chapter 3
+      value: Reeds on the Sand
       objectReference: {fileID: 0}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[2].sceneInfo.sceneToLoad.guid
+      value: f30127b70b4837a4eaf9678db2751fd9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[0].sceneInfo.sceneToLoad.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: 6c6662f25b8eaf54e83dacd85e2e7909, type: 3}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[1].sceneInfo.sceneToLoad.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: f4bffa912503f7d4ca35ecaa21f2c404, type: 3}
+    - target: {fileID: 1389744847993714235, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
+      propertyPath: chapters.Array.data[2].sceneInfo.sceneToLoad.asset
+      value: 
+      objectReference: {fileID: 102900000, guid: f30127b70b4837a4eaf9678db2751fd9, type: 3}
     - target: {fileID: 3992261474338462211, guid: 7578447fa7d02304fabb3e52218b00fc, type: 3}
       propertyPath: m_Name
       value: Act 1

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fe1a69626b4fa897fbab44bc2aad92, type: 3}
+  m_Name: Act1_Chapter2
+  m_EditorClassIdentifier: 
+  act: 1
+  chapter: 2
+  chapterTitle: Sizzle and Snare
+  composerName: Delta Ellington-Jones
+  chapterInfo: From the great-granddaughter of one of the composers of history, an
+    old sound with a modern twist will drive you to bounce in your seat, much like
+    the musicians. Since controversially graduating from Berkley's prestigious conservatory
+    playing only the drums, she has branched out a little for her latest work. Delta
+    brings her unique style in <i>Sizzle and Snare</i> with a vibrant and catchy
+    melody that feels both familiar and fresh.
