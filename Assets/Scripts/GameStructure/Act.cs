@@ -177,7 +177,8 @@ public class Act : MonoBehaviour
         // Send analytics
         if (abandoned)
         {
-            SendChapterAbandonedAnalytics();
+            int chapterState = (int) currentChapter.GetCurrentStage();
+            SendChapterAbandonedAnalytics(chapterState);
         }
         else
         {
@@ -192,7 +193,7 @@ public class Act : MonoBehaviour
         }
     }
 
-    private void SendChapterAbandonedAnalytics()
+    private void SendChapterAbandonedAnalytics(int chapterState)
     {
     }
 
