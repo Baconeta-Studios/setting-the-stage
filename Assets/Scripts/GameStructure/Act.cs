@@ -195,6 +195,17 @@ public class Act : MonoBehaviour
 
     private void SendChapterAbandonedAnalytics(int chapterState)
     {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        var analytics = new Dictionary<string, object>
+        {
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", 0 },
+            { "chapterState", chapterState },
+        };
+
+        AnalyticsHandlerBase.Instance.LogEvent("LevelCompletedEvent", analytics);
     }
 
     private void SendChapterCompleteAnalytics(float score)
