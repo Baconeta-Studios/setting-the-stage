@@ -202,7 +202,7 @@ public class Carousel : MonoBehaviour
     {
         //Remove the highlight & size from the previous selection
         itemToClear.transform.localScale = Vector3.one;
-        itemToClear.GetComponent<Image>().color = Color.white;
+        itemToClear.GetComponent<Image>().color = Color.black;
     }
 
     private void OnStagePositionClicked(StagePosition clickedStagePosition)
