@@ -1536,18 +1536,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
-      propertyPath: allSoundData.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
-      propertyPath: allSoundData.Array.data[2].loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
-      propertyPath: allSoundData.Array.data[2].name
-      value: press_button
-      objectReference: {fileID: 0}
-    - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
       propertyPath: allSoundData.Array.data[3].loop
       value: 1
       objectReference: {fileID: 0}
@@ -1564,14 +1552,6 @@ PrefabInstance:
       value: bg_music
       objectReference: {fileID: 0}
     - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
-      propertyPath: allSoundData.Array.data[2].mixer
-      value: 
-      objectReference: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
-    - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
-      propertyPath: allSoundData.Array.data[2].sound
-      value: 
-      objectReference: {fileID: 8300000, guid: 0ffde583678d8bf4eb8aec11694ae3a1, type: 3}
-    - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
       propertyPath: allSoundData.Array.data[3].mixer
       value: 
       objectReference: {fileID: -9125522902173723532, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
@@ -1587,10 +1567,6 @@ PrefabInstance:
       propertyPath: allSoundData.Array.data[4].sound
       value: 
       objectReference: {fileID: 8300000, guid: 0c7ab2c9da9e96540b803f485168b839, type: 3}
-    - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
-      propertyPath: allSoundData.Array.data[2].volume
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 783654535267997578, guid: 17f4b0f6aa0dcea41a71ca43a789d2fe, type: 3}
       propertyPath: allSoundData.Array.data[3].volume
       value: 0.2
