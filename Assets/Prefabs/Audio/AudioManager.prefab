@@ -74,12 +74,12 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: f375ed42d766cd846ba0da77c4089935, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.15
   - name: confirm
     sound: {fileID: 8300000, guid: 55cd9397f6925eb409f5f4807a824555, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.15
   - name: select
     sound: {fileID: 8300000, guid: 0ffde583678d8bf4eb8aec11694ae3a1, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
@@ -89,35 +89,45 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: 8b3382226cbdd3c4f9dd7160fdde3c19, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
   - name: select_drums
     sound: {fileID: 8300000, guid: 3795b3aadfe8323449ff801511e6fb30, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
   - name: select_bass
     sound: {fileID: 8300000, guid: bc885007a94d1074db5b8b1a6937f489, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
   - name: select_guitar
     sound: {fileID: 8300000, guid: 3d8ea54f354e7ea4698d685103c7a31c, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
   - name: select_saxophone
     sound: {fileID: 8300000, guid: 5efd4d75584e4b54183137340a0b0a3a, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
   - name: select_piano
     sound: {fileID: 8300000, guid: b716b0335e2e45549bde0c8102aef22d, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
   - name: select_vibraphone
     sound: {fileID: 8300000, guid: 7df30f6307242d84a9c700b714553b78, type: 3}
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.1
+  - name: boo
+    sound: {fileID: 8300000, guid: 48b08ff67cf8ba74ab1955e5855aeae4, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
+  - name: cheer
+    sound: {fileID: 8300000, guid: f1b548601ae50844e872162f00f2a3ae, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
   customAudioSource: {fileID: 0}

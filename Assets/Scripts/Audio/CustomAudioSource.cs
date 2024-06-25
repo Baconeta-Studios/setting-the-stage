@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -8,6 +9,11 @@ namespace Audio
     public class CustomAudioSource : MonoBehaviour
     {
         private AudioSource _self;
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
 
         private void ResetData()
         {
