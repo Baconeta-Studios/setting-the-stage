@@ -80,7 +80,7 @@ namespace Analytics
             return PlayerPrefs.GetInt(CONSENT_PREFS_KEY, 0) == 1;
         }
 
-        protected abstract void SendAnalytics(string eventName, Dictionary<string, object> analytics);
+        protected abstract void SendEventToBackend(string eventName, Dictionary<string, object> analytics);
         
         /// <summary>
         /// Log an AnalyticsEvent with UnityAnalytics. This function will add to the values dictionary.
@@ -92,7 +92,7 @@ namespace Analytics
         public void LogEvent(string eventName, Dictionary<string, object> analytics)
         {
             analytics = analytics.MergeDictionary(GetDefaultAnalytics());            
-            SendAnalytics(eventName, analytics);
+            SendEventToBackend(eventName, analytics);
         }
 
         // Here we get the analytics data we want to send with every analytics event

@@ -56,7 +56,7 @@ namespace Analytics
             AnalyticsService.Instance.RequestDataDeletion();
         }
 
-        protected override void SendAnalytics(string eventName, Dictionary<string, object> analytics)
+        protected override void SendEventToBackend(string eventName, Dictionary<string, object> analytics)
         {
             StSDebug.Log($"Recording analytics event {eventName} with {analytics.Count} parameters");
 
