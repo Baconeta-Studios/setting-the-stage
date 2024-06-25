@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class StagePosition : MonoBehaviour
@@ -9,7 +8,6 @@ public class StagePosition : MonoBehaviour
     
     [SerializeField] private Transform viewTarget;
     
-
     [Header("Stage Parameters")]
     public int stagePositionNumber;
     
@@ -127,13 +125,11 @@ public class StagePosition : MonoBehaviour
     public void OnFocusStart()
     {
         BrightenLights();
-        ShowFloorMarker();
     }
 
     public void OnFocusEnd()
     {
         DimLights();
-        HideFloorMarker();
     }
 
     private void OnStageSelectionStart(StagePosition unusedPosition)
@@ -144,7 +140,10 @@ public class StagePosition : MonoBehaviour
     private void OnStageSelectionEnd()
     {
         DimLights();
-        ShowFloorMarker();
+        if (!musicianOccupied)
+        {
+            ShowFloorMarker();
+        }
     }
     
     private void BrightenLights()
