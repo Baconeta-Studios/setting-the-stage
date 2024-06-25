@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Analytics;
 using UnityEngine;
 using Utils;
 
@@ -27,5 +28,10 @@ public class StSDebug : MonoBehaviour
         {
             Debug.LogError(message);
         }
+        
+        AnalyticsHandlerBase.Instance.LogEvent("LogErrorEvent", new Dictionary<string, object>
+        {
+            { "errorString", message }
+        });
     }
 }
