@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,13 @@ public class ChapterInfo : MonoBehaviour
 
     public void StartChapter()
     {
+        // This allows the button audio to play TODO could resolve this nicer
+        StartCoroutine(DelayedChapterStart());
+    }
+
+    private IEnumerator DelayedChapterStart()
+    {
+        yield return new WaitForSeconds(0.15f);
         OnChapterStartRequested?.Invoke(chapter);
     }
 }
