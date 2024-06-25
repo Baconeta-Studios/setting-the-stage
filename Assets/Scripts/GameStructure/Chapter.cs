@@ -22,10 +22,10 @@ public class Chapter : Singleton<Chapter>
     [Serializable]
     public enum ChapterStage
     {
-        Intro,
-        StageSelection,
-        Performing,
-        Ratings,
+        Intro = 0,
+        StageSelection = 1,
+        Performing = 2,
+        Ratings = 3,
     }
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
@@ -149,7 +149,8 @@ public class Chapter : Singleton<Chapter>
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
         ambient?.StopAudio();
-        onChapterComplete?.Invoke(0);
+        // Supplying -1 will indicate that the chapter was ended early.
+        onChapterComplete?.Invoke(-1);
     }
 
     public ChapterStage GetCurrentStage()

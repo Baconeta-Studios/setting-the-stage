@@ -5,6 +5,7 @@ public class StagePosition : MonoBehaviour
 {
     public static event Action<StagePosition> OnStagePositionClicked;
     public static event Action<StagePosition> OnStagePositionChanged;
+    public static event Action<StagePosition> OnStagePositionCommitted;
     
     [SerializeField] private Transform viewTarget;
     
@@ -24,6 +25,8 @@ public class StagePosition : MonoBehaviour
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
     [SerializeField] private GameObject floorMarkerSystem;
+
+    private bool _hasUncommittedChanges = false;
 
     private void OnEnable()
     {
@@ -59,7 +62,8 @@ public class StagePosition : MonoBehaviour
                 musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
             }
         }
-        
+
+        _hasUncommittedChanges = true;
         OnStagePositionChanged?.Invoke(this);
     }
     
@@ -93,7 +97,8 @@ public class StagePosition : MonoBehaviour
                 }
             }
         }
-        
+
+        _hasUncommittedChanges = true;
         OnStagePositionChanged?.Invoke(this);
     }
 
@@ -129,6 +134,7 @@ public class StagePosition : MonoBehaviour
 
     public void OnFocusEnd()
     {
+        CommitSelection();
         DimLights();
     }
 
@@ -160,11 +166,23 @@ public class StagePosition : MonoBehaviour
 
     private void ShowFloorMarker()
     {
-        floorMarkerSystem.SetActive(true);
+        if (!musicianOccupied)
+        {
+            floorMarkerSystem.SetActive(true);
+        }
     }
 
     private void HideFloorMarker()
     {
         floorMarkerSystem.SetActive(false);
+    }
+
+    private void CommitSelection()
+    {
+        // We only want this to occur once per set of changes
+        if (_hasUncommittedChanges && musicianOccupied && instrumentOccupied)
+            OnStagePositionCommitted?.Invoke(this);
+            _hasUncommittedChanges = false;
+        }
     }
 }

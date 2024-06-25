@@ -12,7 +12,7 @@ namespace Audio
 
         private void OnEnable()
         {
-            StagePosition.OnStagePositionChanged += StagePositionChanged;
+            StagePosition.OnStagePositionCommitted += StagePositionUpdated;
             _audioDataManager = FindObjectOfType<PerformanceAudioDataManager>();
             if (_audioDataManager is null)
             {
@@ -22,7 +22,7 @@ namespace Audio
 
         private void OnDisable()
         {
-            StagePosition.OnStagePositionChanged -= StagePositionChanged;
+            StagePosition.OnStagePositionCommitted -= StagePositionUpdated;
         }
 
         private void Start()
@@ -40,7 +40,7 @@ namespace Audio
             }
         }
 
-        private void StagePositionChanged(StagePosition stagePosition)
+        private void StagePositionUpdated(StagePosition stagePosition)
         {
             if (stagePosition.instrumentOccupied is null || stagePosition.musicianOccupied is null)
             {

@@ -82,7 +82,7 @@ namespace Utils
             public string userName;
 
             [ReadOnly]
-            public string playerID = GeneratePlayerId();
+            protected string playerUUID = null;
 
             [ReadOnly]
             public List<ChapterSaveData> chapterSaveData = new List<ChapterSaveData>();
@@ -180,9 +180,18 @@ namespace Utils
                 return GetTotalChaptersStarted() - GetTotalChaptersCompleted();
             }
 
-            public static string GeneratePlayerId()
+            public void GenerateNewPlayerUUID()
             {
-                return Guid.NewGuid().ToString();
+                playerUUID = Guid.NewGuid().ToString();
+            }
+
+            public string GetUUID()
+            {
+                if (playerUUID == null)
+                {
+                    GenerateNewPlayerUUID();
+                }
+                return playerUUID;
             }
         }
 
@@ -233,7 +242,7 @@ namespace Utils
             else
             {
                 userData.userName = "";
-                userData.playerID = UserData.GeneratePlayerId();
+                userData.GenerateNewPlayerUUID();
                 userData.chapterSaveData.Clear();
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
@@ -327,7 +336,14 @@ namespace Utils
 
         public int GetTotalLevelsPlayed()
         {
+            // TODO
             return userData.GetTotalChaptersCompleted();
+        }
+
+        public float GetTotalUserStars()
+        {
+            // TODO
+            return -12.34f;
         }
         
         public int GetCountOfChapterCompletion(int act, int chapter)

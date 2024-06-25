@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Managers;
 using UnityEngine;
@@ -15,6 +16,13 @@ namespace Audio
         private AudioManager _audioManager;
         private CustomAudioSource _customAudioSource;
         private List<AudioClip> _builtClips;
+
+        public bool ReadyToPlay => AllTracksLoaded();
+
+        private bool AllTracksLoaded()
+        {
+            return _builtClips.All(clip => clip == null || clip.loadState == AudioDataLoadState.Loaded);
+        }
 
         private void Awake()
         {
