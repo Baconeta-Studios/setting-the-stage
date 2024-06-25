@@ -22,10 +22,10 @@ public class Chapter : Singleton<Chapter>
     [Serializable]
     public enum ChapterStage
     {
-        Intro,
-        StageSelection,
-        Performing,
-        Ratings,
+        Intro = 0,
+        StageSelection = 1,
+        Performing = 2,
+        Ratings = 3,
     }
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
