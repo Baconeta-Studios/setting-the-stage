@@ -27,11 +27,11 @@ public class StSDebug : MonoBehaviour
         if (UnityHelper.IsInUnityEditor || UnityHelper.IsInDebug)
         {
             Debug.LogError(message);
+        } else {
+            AnalyticsHandlerBase.Instance.LogEvent("LogErrorEvent", new Dictionary<string, object>
+            {
+                { "errorString", message }
+            });
         }
-        
-        AnalyticsHandlerBase.Instance.LogEvent("LogErrorEvent", new Dictionary<string, object>
-        {
-            { "errorString", message }
-        });
     }
 }
