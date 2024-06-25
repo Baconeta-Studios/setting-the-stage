@@ -117,7 +117,7 @@ public class Carousel : MonoBehaviour
         }
         
         // Log items - 1 because there is always 1 empty item.
-        StSDebug.Log($"Opened and Initialized {gameObject.name} with {contentPanel.childCount - 1} non-empty items");
+        StSDebug.LogInfo($"Opened and Initialized {gameObject.name} with {contentPanel.childCount - 1} non-empty items");
         
         HighlightItem(_contentItems[selectedItemIndex]);
     }
@@ -134,7 +134,7 @@ public class Carousel : MonoBehaviour
 
     public void CloseCarousel()
     {
-        StSDebug.Log($"Closing Carousel: {gameObject.name}");
+        StSDebug.LogInfo($"Closing Carousel: {gameObject.name}");
 
         for (int childIndex = contentPanel.childCount - 1; childIndex >= 0; childIndex--)
         {

@@ -209,7 +209,7 @@ namespace Utils
         {
             string jsonData = JsonUtility.ToJson(data);
             FileUtils.WriteToFile(SaveFileName, jsonData);
-            StSDebug.Log("User Data Saved");
+            StSDebug.LogInfo("User Data Saved");
         }
 
         public void LoadUserData()
@@ -221,7 +221,7 @@ namespace Utils
                 case PathStatus.ContainsData:
                     UserData loadedData = JsonUtility.FromJson<UserData>(jsonData);
                     userData = loadedData;
-                    StSDebug.Log("User Data loaded successfully.");
+                    StSDebug.LogInfo("User Data loaded successfully.");
                     break;
                 case PathStatus.Empty:
                     break;

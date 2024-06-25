@@ -59,7 +59,7 @@ namespace Analytics
 
         protected override void SendAnalytics(string eventName, Dictionary<string, object> analytics)
         {
-            StSDebug.Log($"Recording analytics event {eventName} with {analytics.Count} parameters");
+            StSDebug.LogInfo($"Recording analytics event {eventName} with {analytics.Count} parameters");
 
             if (DoEnableCloudServicesAnalytics) {
                 CustomEvent gameEvent = new(eventName);

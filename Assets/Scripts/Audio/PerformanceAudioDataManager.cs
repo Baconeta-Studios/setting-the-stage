@@ -43,7 +43,7 @@ namespace Audio
             PerformanceAudioData audioData = _dataLoader.AllPerformanceData;
 
             // First we look for data in the correct act and chapter
-            StSDebug.Log($"Searching for {instrument} in act {actNumber} data in chapter {chapterNumber}");
+            StSDebug.LogInfo($"Searching for {instrument} in act {actNumber} data in chapter {chapterNumber}");
             if (TryGetClipFromActAndChapter(actNumber, chapterNumber, instrument, proficiency, audioData,
                     out AudioClip audioTrack))
             {
@@ -51,14 +51,14 @@ namespace Audio
             }
 
             // If that instrument does not have a matching track in the chapter, find one from the rest of the act
-            StSDebug.Log($"Searching for {instrument} in act {actNumber} data in any chapter");
+            StSDebug.LogInfo($"Searching for {instrument} in act {actNumber} data in any chapter");
             if (TryGetTrackFromAnyChapter(actNumber, instrument, proficiency, audioData, out AudioClip audioClip))
             {
                 return audioClip;
             }
 
             // If somehow that doesn't exist, we now reach to the rest of the acts
-            StSDebug.Log($"Searching for {instrument} in any act, in any chapter");
+            StSDebug.LogInfo($"Searching for {instrument} in any act, in any chapter");
             if (TryGetTrackFromAnyAct(instrument, proficiency, audioData, out AudioClip clip))
             {
                 return clip;
@@ -77,7 +77,7 @@ namespace Audio
                      where instrumentData.instrument == instrument && instrumentData.proficiency == proficiency
                      select instrumentData)
             {
-                StSDebug.Log($"Found track {instrumentData.clip} matching parameters in another act.");
+                StSDebug.LogInfo($"Found track {instrumentData.clip} matching parameters in another act.");
                 {
                     audioClip = instrumentData.clip;
                     return true;
@@ -97,7 +97,7 @@ namespace Audio
                      where instrumentData.instrument == instrument && instrumentData.proficiency == proficiency
                      select instrumentData)
             {
-                StSDebug.Log($"Found track {instrumentData.clip} matching parameters in another chapter.");
+                StSDebug.LogInfo($"Found track {instrumentData.clip} matching parameters in another chapter.");
                 {
                     audioClip = instrumentData.clip;
                     return true;
@@ -118,7 +118,7 @@ namespace Audio
                      where instrumentData.instrument.Equals(instrument) && instrumentData.proficiency == proficiency
                      select instrumentData)
             {
-                StSDebug.Log($"Found track {instrumentData.clip} matching parameters.");
+                StSDebug.LogInfo($"Found track {instrumentData.clip} matching parameters.");
                 {
                     audioClip = instrumentData.clip;
                     return true;

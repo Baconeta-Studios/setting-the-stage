@@ -44,7 +44,7 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         if (sceneToLoad.sceneToLoad != null)
         {
-            StSDebug.Log($"Open Scene: {sceneToLoad.sceneDisplayName}");
+            StSDebug.LogInfo($"Open Scene: {sceneToLoad.sceneDisplayName}");
             
             AsyncOperation loadSceneOperation = SceneManager.LoadSceneAsync(sceneToLoad.sceneToLoad.BuildIndex, sceneToLoad.loadSceneMode);
             openScenes.Add(sceneToLoad);
@@ -55,13 +55,13 @@ public class SceneLoader : Singleton<SceneLoader>
             }
         }
  
-        StSDebug.Log($"Attempted to load '{sceneToLoad.sceneDisplayName}' but no scene asset was found.");
+        StSDebug.LogInfo($"Attempted to load '{sceneToLoad.sceneDisplayName}' but no scene asset was found.");
         return false;
     }
 
     private void SceneOpened(AsyncOperation loadOperation)
     {
-        StSDebug.Log($"Scene opened successfully");
+        StSDebug.LogInfo($"Scene opened successfully");
         onSceneOpened?.Invoke();
     }
 
@@ -76,7 +76,7 @@ public class SceneLoader : Singleton<SceneLoader>
     /// <param name="sceneToClose">The scene you want to close</param>
     public void CloseScene(SceneStruct sceneToClose)
     {
-        StSDebug.Log($"Close Scene: {sceneToClose.sceneDisplayName}");
+        StSDebug.LogInfo($"Close Scene: {sceneToClose.sceneDisplayName}");
         
         if (openScenes.Contains(sceneToClose))
         {
@@ -97,7 +97,7 @@ public class SceneLoader : Singleton<SceneLoader>
     /// <param name="unloadOperation"></param>
     private void SceneClosed(AsyncOperation unloadOperation)
     {
-        StSDebug.Log($"Scene closed successfully");
+        StSDebug.LogInfo($"Scene closed successfully");
         unloadOperation.completed -= SceneClosed;
     }
 

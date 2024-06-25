@@ -6,7 +6,7 @@ using Utils;
 
 public class StSDebug : MonoBehaviour
 {
-    public static void Log(string message)
+    public static void LogInfo(string message)
     {
         if (UnityHelper.IsInUnityEditor || UnityHelper.IsInDebug)
         {

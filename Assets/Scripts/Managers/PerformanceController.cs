@@ -95,7 +95,7 @@ public class PerformanceController : MonoBehaviour
         // Half to get the average proficiency rounded DOWN to the nearest 0.0f or 0.5f
         stars /= 2;
         
-        StSDebug.Log($"Performance Complete, earned {stars} Stars");
+        StSDebug.LogInfo($"Performance Complete, earned {stars} Stars");
 
         return stars;
     }
