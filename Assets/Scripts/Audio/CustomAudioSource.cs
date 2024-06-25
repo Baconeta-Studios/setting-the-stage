@@ -15,6 +15,7 @@ namespace Audio
             if (_self != null)
             {
                 _self.Stop();
+                Destroy(gameObject);
             }
         }
 
