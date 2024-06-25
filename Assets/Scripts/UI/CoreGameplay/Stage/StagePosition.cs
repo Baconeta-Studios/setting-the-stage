@@ -26,7 +26,7 @@ public class StagePosition : MonoBehaviour
     [SerializeField] private GameObject spotlightMesh;
     [SerializeField] private GameObject floorMarkerSystem;
 
-    private bool _hasUpdated = false;
+    private bool _hasUncommittedChanges = false;
 
     private void OnEnable()
     {
@@ -63,7 +63,7 @@ public class StagePosition : MonoBehaviour
             }
         }
 
-        _hasUpdated = false;
+        _hasUncommittedChanges = true;
         OnStagePositionChanged?.Invoke(this);
     }
     
@@ -98,7 +98,7 @@ public class StagePosition : MonoBehaviour
             }
         }
 
-        _hasUpdated = false;
+        _hasUncommittedChanges = true;
         OnStagePositionChanged?.Invoke(this);
     }
 
@@ -180,11 +180,15 @@ public class StagePosition : MonoBehaviour
     private void CommitSelection()
     {
         // We only want this to occur once per set of changes
-        if (_hasUpdated)
+        if (!_hasUncommittedChanges)
         {
             return;
         }
-        OnStagePositionCommitted?.Invoke(this);
-        _hasUpdated = true;
+
+        if (musicianOccupied && instrumentOccupied)
+        {
+            _hasUncommittedChanges = false;
+            OnStagePositionCommitted?.Invoke(this);
+        }
     }
 }

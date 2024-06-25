@@ -76,17 +76,17 @@ public class StageSelection : Singleton<StageSelection>
     {
         if (gameObject.activeSelf)
         {
-            gameObject.SetActive(false);
-            
             activeStagePosition.OnFocusEnd();
             activeStagePosition = null;
-            
+
             instrumentCarousel.CloseCarousel();
             musicianCarousel.CloseCarousel();
-            
+
             musicianInfoPanel.HidePanel();
-            
+
             OnStageSelectionEnded?.Invoke();
+            
+            gameObject.SetActive(false);
         }
     }
 
