@@ -39,13 +39,13 @@ public class PerformanceController : MonoBehaviour
             StSDebug.LogError("Performance Controller can't find an audioBuilderSystem in the scene!");
         }
 
-        if (proficiencyWeightPercent + instrumentWeightPercent != 100)
+        if (!Mathf.Approximately(proficiencyWeightPercent + instrumentWeightPercent, 100))
         {
             StSDebug.LogWarning("The weightings in this chapter do not sum to 100 and may cause issues with scoring.");
         }
     }
 
-    void OnStageChanged(Chapter.ChapterStage stage)
+    private void OnStageChanged(Chapter.ChapterStage stage)
     {
         if (stage == Chapter.ChapterStage.Performing)
         {
@@ -60,13 +60,12 @@ public class PerformanceController : MonoBehaviour
             return;
         }
         isPerforming = true;
-        
-        OnPerformanceStarted?.Invoke();
-        
+
         await WaitForClipsToLoad();
-        
+
         float audioDuration = _audioBuilderSystem.PlayBuiltClips();
-        
+        OnPerformanceStarted?.Invoke();
+
         StartCoroutine(Performance(audioDuration));
     }
 

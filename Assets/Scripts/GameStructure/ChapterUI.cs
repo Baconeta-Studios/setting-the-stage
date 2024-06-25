@@ -93,9 +93,9 @@ public class ChapterUI : MonoBehaviour
                 settingsButton.interactable = true;
                 break;
             case Chapter.ChapterStage.Performing:
+                _SelectionCarousels.HideStageSelection();
                 ShowChapterTitle();
                 trackInfoButton.gameObject.SetActive(false);
-                _SelectionCarousels.HideStageSelection();
                 _StageProgressButton.ToggleInteractable(false);
                 break;
             case Chapter.ChapterStage.Ratings:
