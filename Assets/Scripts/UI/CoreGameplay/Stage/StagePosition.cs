@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using UnityEngine;
 
 public class StagePosition : MonoBehaviour
@@ -74,6 +75,8 @@ public class StagePosition : MonoBehaviour
         
         if (instrumentOccupied)
         {
+            AudioWrapper.Instance.PlaySound(instrumentOccupied.GetSelectionTrackName());
+            
             if (lastInstrument && musicianOccupied)
             {
                 musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
