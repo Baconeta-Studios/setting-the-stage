@@ -180,15 +180,9 @@ public class StagePosition : MonoBehaviour
     private void CommitSelection()
     {
         // We only want this to occur once per set of changes
-        if (!_hasUncommittedChanges)
-        {
-            return;
-        }
-
-        if (musicianOccupied && instrumentOccupied)
-        {
-            _hasUncommittedChanges = false;
+        if (_hasUncommittedChanges && musicianOccupied && instrumentOccupied)
             OnStagePositionCommitted?.Invoke(this);
+            _hasUncommittedChanges = true;
         }
     }
 }
