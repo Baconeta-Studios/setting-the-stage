@@ -61,8 +61,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 54eba24200ffb90469061eced2665a67, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: socketPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f8ce0845e1225dd4d85c06fb9ee4e129, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: animationHoldName
+      value: hold_sax
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
-      value: 0.6
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingPosition.x
+      value: 1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentHoldingPosition.y
+      value: -0.83
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
