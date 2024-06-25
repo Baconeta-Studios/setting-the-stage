@@ -25,7 +25,7 @@ public class StagePosition : MonoBehaviour
     [Header("Lighting")] 
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
-    [SerializeField] private MeshRenderer floorMarkerRenderer;
+    [SerializeField] private GameObject floorMarkerSystem;
 
     private void OnEnable()
     {
@@ -60,12 +60,6 @@ public class StagePosition : MonoBehaviour
                 musicianOccupied.EquipInstrument(instrumentOccupied);
                 musicianOccupied.SetAnimationBool(instrumentOccupied.AnimationHoldName, true);
             }
-
-            HideFloorMarker();
-        }
-        else
-        {
-            ShowFloorMarker();
         }
         
         OnStagePositionChanged?.Invoke(this);
@@ -167,15 +161,11 @@ public class StagePosition : MonoBehaviour
 
     private void ShowFloorMarker()
     {
-        if (!musicianOccupied)
-        {
-            floorMarkerRenderer.enabled = true;
-        }
-
+        floorMarkerSystem.SetActive(true);
     }
 
     private void HideFloorMarker()
     {
-        floorMarkerRenderer.enabled = false;
+        floorMarkerSystem.SetActive(false);
     }
 }
