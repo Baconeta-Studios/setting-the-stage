@@ -69,11 +69,13 @@ public class Act : MonoBehaviour
     private void OnEnable()
     {
         ChapterInfo.OnChapterStartRequested += LoadChapter;
+        StagePosition.OnStagePositionCommitted += SendStagePositionCommittedEvent;
     }
 
     private void OnDisable()
     {
         ChapterInfo.OnChapterStartRequested -= LoadChapter;
+        StagePosition.OnStagePositionCommitted -= SendStagePositionCommittedEvent;
     }
 
     private void LoadActData()
@@ -153,6 +155,23 @@ public class Act : MonoBehaviour
             { "totalLevelsStarted", totalLevelsStarted},
             { "timesStartedThisLevel",  timesThisLevelStarted}
         });
+    }
+
+    private void SendStagePositionCommittedEvent(StagePosition stagePosition)
+    {
+        int actID = actNumber;
+        int levelID = currentChapterIndex;
+        var analytics = new Dictionary<string, object>
+        {
+            { "actIdentifier", actID },
+            { "levelIdentifier", levelID },
+            { "selectionsMade", 0 },
+            { "musicianSelected", null },
+            { "instrumentSelected", null },
+            { "stagePosition", stagePosition }
+        };
+
+        AnalyticsHandlerBase.Instance.LogEvent("StagePlacementEvent", analytics);
     }
 
     private void ChapterComplete(float starsEarned)
