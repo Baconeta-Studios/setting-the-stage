@@ -5,7 +5,6 @@ using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
 using Utils;
-using static Utils.SaveSystem;
 using static Utils.UnityHelper;
 
 namespace Analytics
