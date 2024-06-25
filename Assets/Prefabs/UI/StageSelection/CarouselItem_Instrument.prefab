@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4257956476310528148, guid: 78861ee69a8265347b5e5a025c3862b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4690801212870007290, guid: 78861ee69a8265347b5e5a025c3862b9, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -35,6 +39,10 @@ PrefabInstance:
     - target: {fileID: 5958993833455657973, guid: 78861ee69a8265347b5e5a025c3862b9, type: 3}
       propertyPath: m_Name
       value: CarouselItem_Instrument
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958993833455657973, guid: 78861ee69a8265347b5e5a025c3862b9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6513700137125613164, guid: 78861ee69a8265347b5e5a025c3862b9, type: 3}
       propertyPath: displayText
