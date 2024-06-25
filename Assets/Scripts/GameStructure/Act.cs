@@ -21,7 +21,7 @@ public class Act : MonoBehaviour
 {
     [SerializeField] private int actNumber;
     [SerializeField] private string actName;
-    
+
     [Header("Chapters")]
     [SerializeField] private List<ChapterStruct> chapters;
     [SerializeField] private int currentChapterIndex = -1;
@@ -216,10 +216,10 @@ public class Act : MonoBehaviour
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
-            { "selectionsMade", 0 }, // TODO
+            { "selectionsMade", 0 },
             { "score", score },
             { "personalHighscore", SaveSystem.Instance.GetUserData().GetStarsForChapter(actID, levelID)}, // TODO
-            { "wasPerformanceSkipped", false }, // TODO
+            { "wasPerformanceSkipped", false },
             { "timesCompletedThisLevel", SaveSystem.Instance.GetUserData().GetCompletedPlaysForChapter(actID, levelID)}
         };
 
@@ -307,7 +307,7 @@ public class Act : MonoBehaviour
     {
         return actNumber;
     }
-    
+
     public string GetActName()
     {
         return actName;
