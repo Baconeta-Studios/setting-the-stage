@@ -95,6 +95,11 @@ namespace Analytics
             SendAnalytics(eventName, analytics);
         }
 
+        /// <summary>
+        /// Calls LogEvent internally, collecting all required params automatically.
+        /// </summary>
+        /// <param name="actID">The integer representing the act that the level (see levelID) belongs to.</param>
+        /// <param name="levelID">The integer representing the level that was just started.</param>
         public void LogLevelStartedEvent(int actID, int levelID)
         {
             int totalLevelsStarted = SaveSystem.Instance.GetUserData().GetTotalChaptersCompleted();
