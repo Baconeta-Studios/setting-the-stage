@@ -78,7 +78,7 @@ public class StagePosition : MonoBehaviour
         
         if (instrumentOccupied)
         {
-            if (lastInstrument)
+            if (lastInstrument && musicianOccupied)
             {
                 musicianOccupied.SetAnimationBool(lastInstrument?.AnimationHoldName, false);
             }

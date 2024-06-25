@@ -747,6 +747,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2025496648257256653, guid: 96c82c813d66c624691bf111568ff665, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 24.200104
+      objectReference: {fileID: 0}
     - target: {fileID: 2513851119371973600, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -763,6 +767,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2850750433991575505, guid: 96c82c813d66c624691bf111568ff665, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2880895334664806915, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -778,6 +786,10 @@ PrefabInstance:
     - target: {fileID: 2880895334664806915, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4069166356051600273, guid: 96c82c813d66c624691bf111568ff665, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4450795168731229190, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchorMax.y
@@ -883,6 +895,18 @@ PrefabInstance:
       propertyPath: chapter
       value: 
       objectReference: {fileID: 741236656}
+    - target: {fileID: 6999977352117475167, guid: 96c82c813d66c624691bf111568ff665, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 24.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354960718412784435, guid: 96c82c813d66c624691bf111568ff665, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.5999756
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354960718412784435, guid: 96c82c813d66c624691bf111568ff665, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.9000244
+      objectReference: {fileID: 0}
     - target: {fileID: 8266991268395459404, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_Name
       value: ChapterCanvas
