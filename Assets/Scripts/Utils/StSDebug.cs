@@ -7,6 +7,10 @@ using Utils;
 public class StSDebug : MonoBehaviour
 {
     /// <summary>
+    /// Log info into Debug.Log when in editor/when debug mode is on.
+    /// </summary>
+    /// <param name="message">The log to record.</param>
+    public static void Log(string message)
     {
         if (UnityHelper.IsInUnityEditor || UnityHelper.IsInDebug)
         {
