@@ -88,29 +88,11 @@ namespace Analytics
         /// We use a dict and convert everything to strings for the analytics system to be more generic
         /// </summary>
         /// <param name="eventName">name of the event being logged.</param>
-        /// <param name="analytics">Key-value pairs of an analytic being recorded and its value. Should contain "levelIdentifier" when applicable.</param>
+        /// <param name="analytics">Key-value pairs of an analytic being recorded and its value. Should contain "actIdentifier" and "levelIdentifier" when applicable.</param>
         public void LogEvent(string eventName, Dictionary<string, object> analytics)
         {
             analytics = analytics.MergeDictionary(GetDefaultAnalytics());            
             SendAnalytics(eventName, analytics);
-        }
-
-        /// <summary>
-        /// Calls LogEvent internally, collecting all required params automatically.
-        /// </summary>
-        /// <param name="actID">The integer representing the act that the level (see levelID) belongs to.</param>
-        /// <param name="levelID">The integer representing the level that was just started.</param>
-        public void LogLevelStartedEvent(int actID, int levelID)
-        {
-            int totalLevelsStarted = SaveSystem.Instance.GetUserData().GetTotalChaptersCompleted();
-            int timesThisLevelStarted = SaveSystem.Instance.GetUserData().GetStartedPlaysForChapter(actID, levelID);
-            LogEvent("LevelStartedEvent", new Dictionary<string, object>
-            {
-                { "actIdentifier", actID },
-                { "levelIdentifier", levelID },
-                { "totalLevelsStarted", totalLevelsStarted},
-                { "timesStartedThisLevel",  timesThisLevelStarted}
-            });
         }
 
         // Here we get the analytics data we want to send with every analytics event
