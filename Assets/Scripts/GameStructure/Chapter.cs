@@ -149,6 +149,7 @@ public class Chapter : Singleton<Chapter>
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
         ambient?.StopAudio();
+        // Supplying -1 will indicate that the chapter was ended early.
         onChapterComplete?.Invoke(-1);
     }
 
