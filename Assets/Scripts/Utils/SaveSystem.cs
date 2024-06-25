@@ -336,7 +336,14 @@ namespace Utils
 
         public int GetTotalLevelsPlayed()
         {
+            // TODO
             return userData.GetTotalChaptersCompleted();
+        }
+
+        public float GetTotalUserStars()
+        {
+            // TODO
+            return -12.34f;
         }
         
         public int GetCountOfChapterCompletion(int act, int chapter)

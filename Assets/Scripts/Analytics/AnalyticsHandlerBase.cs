@@ -95,14 +95,19 @@ namespace Analytics
             SendAnalytics(eventName, analytics);
         }
 
+        public void LogLevelStartedEvent(int actID, int levelID)
         {
-            Dictionary<string, object> analytics = new Dictionary<string, object>
+            int totalLevelsStarted = SaveSystem.Instance.GetUserData().GetTotalChaptersCompleted();
+            int timesThisLevelStarted = SaveSystem.Instance.GetUserData().GetStartedPlaysForChapter(actID, levelID);
+            LogEvent("LevelStartedEvent", new Dictionary<string, object>
             {
-                { "total_levels_played", SaveSystem.Instance.GetTotalLevelsPlayed() }
-            };
-
-            return analytics;
+                { "actIdentifier", actID },
+                { "levelIdentifier", levelID },
+                { "totalLevelsStarted", totalLevelsStarted},
+                { "timesStartedThisLevel",  timesThisLevelStarted}
+            });
         }
+
         // Here we get the analytics data we want to send with every analytics event
         protected abstract Dictionary<string, object> GetDefaultAnalytics();
         
