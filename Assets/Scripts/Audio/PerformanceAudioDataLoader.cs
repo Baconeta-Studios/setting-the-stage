@@ -31,7 +31,7 @@ namespace Audio
             {
                 _dataObject = data.Result;
                 AllPerformanceData = _dataObject.GetComponent<PerformanceAudioData>();
-                StSDebug.LogInfo("Addressable object loaded - PerformanceAudioData");
+                StSDebug.Log("Addressable object loaded - PerformanceAudioData");
             }
             else
             {

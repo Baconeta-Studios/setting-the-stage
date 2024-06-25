@@ -104,13 +104,13 @@ public class Chapter : Singleton<Chapter>
     {
         // Chapter has just been opened. Start the intro cutscene.
         // TODO Create intro cutscene
-        StSDebug.LogInfo($"Started Chapter {ChapterNumber}");
+        StSDebug.Log($"Started Chapter {ChapterNumber}");
         onStageChanged?.Invoke(currentStage);
     }
     
     public void NextStage()
     {
-        StSDebug.LogInfo($"Finished Chapter {ChapterNumber}: {currentStage.ToString()}");
+        StSDebug.Log($"Finished Chapter {ChapterNumber}: {currentStage.ToString()}");
 
         switch (currentStage)
         {
@@ -128,19 +128,19 @@ public class Chapter : Singleton<Chapter>
                 return;
         }
         
-        StSDebug.LogInfo($"Starting Chapter {ChapterNumber}: {currentStage.ToString()}");
+        StSDebug.Log($"Starting Chapter {ChapterNumber}: {currentStage.ToString()}");
         onStageChanged?.Invoke(currentStage);
     }
 
     public void CompleteChapter()
     {
-        StSDebug.LogInfo($"Completed Chapter {ChapterNumber}");
+        StSDebug.Log($"Completed Chapter {ChapterNumber}");
         onChapterComplete?.Invoke(starsEarned);
     }
     
     public void EndChapterEarly()
     {
-        StSDebug.LogInfo($"End Chapter {ChapterNumber} early");
+        StSDebug.Log($"End Chapter {ChapterNumber} early");
         onChapterComplete?.Invoke(0);
     }
 

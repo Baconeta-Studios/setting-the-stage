@@ -16,7 +16,7 @@ namespace Managers
                 {
                     if (narrativeSo.actNumber == actNumber && narrativeSo.narrativeType == narrativeType)
                     {
-                        StSDebug.LogInfo($"Loaded {narrativeSo.readableNarrativeName} for act {actNumber}");
+                        StSDebug.Log($"Loaded {narrativeSo.readableNarrativeName} for act {actNumber}");
                         return narrativeSo;
                     }
                 }
