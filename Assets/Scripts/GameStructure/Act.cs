@@ -162,11 +162,12 @@ public class Act : MonoBehaviour
     {
         int actID = actNumber;
         int levelID = currentChapterIndex;
+        int selectionsMade = StageSelection.Instance.GetTotalSelectionsMade();
         var analytics = new Dictionary<string, object>
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
-            { "selectionsMade", 0 },
+            { "selectionsMade", selectionsMade },
             { "musicianSelected", stagePosition.musicianOccupied.GetName() },
             { "instrumentSelected", stagePosition.instrumentOccupied.GetName() },
             { "stagePosition", stagePosition.stagePositionNumber }
@@ -181,6 +182,9 @@ public class Act : MonoBehaviour
         if (abandoned) {
             starsEarned = 0;
         }
+
+        int selectionsMade = StageSelection.Instance.GetTotalSelectionsMade();
+        StSDebug.Log($"Chapter completed with '{selectionsMade}' selections made.");
 
         currentChapter.onChapterComplete -= ChapterComplete;
 
@@ -198,11 +202,11 @@ public class Act : MonoBehaviour
         if (abandoned)
         {
             int chapterState = (int) currentChapter.GetCurrentStage();
-            SendChapterAbandonedAnalytics(chapterState);
+            SendChapterAbandonedAnalytics(chapterState, selectionsMade);
         }
         else
         {
-            SendChapterCompleteAnalytics(starsEarned);
+            SendChapterCompleteAnalytics(starsEarned, selectionsMade);
         }
 
         CloseChapter();
@@ -213,7 +217,7 @@ public class Act : MonoBehaviour
         }
     }
 
-    private void SendChapterAbandonedAnalytics(int chapterState)
+    private void SendChapterAbandonedAnalytics(int chapterState, int selectionsMade)
     {
         int actID = actNumber;
         int levelID = currentChapterIndex;
@@ -221,14 +225,14 @@ public class Act : MonoBehaviour
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
-            { "selectionsMade", 0 },
+            { "selectionsMade", selectionsMade },
             { "chapterState", chapterState },
         };
 
         AnalyticsHandlerBase.Instance.LogEvent("LevelAbandonEvent", analytics);
     }
 
-    private void SendChapterCompleteAnalytics(float score)
+    private void SendChapterCompleteAnalytics(float score, int selectionsMade)
     {
         int actID = actNumber;
         int levelID = currentChapterIndex;
@@ -237,7 +241,7 @@ public class Act : MonoBehaviour
         {
             { "actIdentifier", actID },
             { "levelIdentifier", levelID },
-            { "selectionsMade", 0 },
+            { "selectionsMade", selectionsMade },
             { "score", score },
             { "personalHighscore", data.GetStarsForChapter(actID, levelID)},
             { "wasPerformanceSkipped", false },
