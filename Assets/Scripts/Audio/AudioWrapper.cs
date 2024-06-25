@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
@@ -75,6 +74,15 @@ namespace Audio
             yield return new WaitForSeconds(delay);
 
             PlaySound(soundName);
+        }
+
+        public void StopAllAudio()
+        {
+            CustomAudioSource[] allAudio = FindObjectsOfType<CustomAudioSource>();
+            foreach (CustomAudioSource sound in allAudio)
+            {
+                sound.StopAudio();
+            }
         }
     }
 }

@@ -59,5 +59,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da31f05749ba09540a722f81a604930e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allSoundData: []
+  allSoundData:
+  - name: bar_ambient
+    sound: {fileID: 8300000, guid: 4390f4dd24e808f459320ebf121d5900, type: 3}
+    mixer: {fileID: -2331718101565934472, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 1
+    volume: 0.1
+  - name: bg_music
+    sound: {fileID: 8300000, guid: 0c7ab2c9da9e96540b803f485168b839, type: 3}
+    mixer: {fileID: -9125522902173723532, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 1
+    volume: 0.2
+  - name: press_button
+    sound: {fileID: 8300000, guid: 0ffde583678d8bf4eb8aec11694ae3a1, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.1
   customAudioSource: {fileID: 0}

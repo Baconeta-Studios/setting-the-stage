@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fe1a69626b4fa897fbab44bc2aad92, type: 3}
+  m_Name: Act1_Chapter3
+  m_EditorClassIdentifier: 
+  act: 1
+  chapter: 3
+  chapterTitle: Reeds on the Sand
+  composerName: Oliver "Teaspoon" Baskin
+  chapterInfo: When his father couldn't fulfill his dream of becoming a famous rapper
+    or producer, he settled into life coaching and settled down. Oliver discovered
+    his innate talent in composition by accident when exploring the family attic
+    and ever since has been writing music faster than Stephen King writes bestsellers.
+    <i>Reeds on the Sand</i> is an homage to his roots, playfully created around
+    a reggae/ska type beat that he wrote when on the bus one day.
