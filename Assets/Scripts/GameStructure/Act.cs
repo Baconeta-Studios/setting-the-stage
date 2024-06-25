@@ -158,10 +158,16 @@ public class Act : MonoBehaviour
 
     private void ChapterComplete(float starsEarned)
     {
+        bool abandoned = starsEarned == -1;
+        if (abandoned) {
+            starsEarned = 0;
+        }
+
         currentChapter.onChapterComplete -= ChapterComplete;
 
         float previousStarsOnChapter = chapters[currentChapterIndex].starsEarned;
-        //Update the current chapter as completed
+
+        // Update the current chapter as completed
         chapters[currentChapterIndex].starsEarned = starsEarned;
         starsEarnedThisAct += starsEarned - previousStarsOnChapter;
         
@@ -170,7 +176,14 @@ public class Act : MonoBehaviour
         saveSystem.ChapterCompleted(actNumber, currentChapterIndex, starsEarned);
         
         // Send analytics
-        SendChapterCompleteAnalytics(starsEarned);
+        if (abandoned)
+        {
+            SendChapterAbandonedAnalytics();
+        }
+        else
+        {
+            SendChapterCompleteAnalytics(starsEarned);
+        }
 
         CloseChapter();
 
@@ -178,6 +191,10 @@ public class Act : MonoBehaviour
         {
             ProgressToNextAct();
         }
+    }
+
+    private void SendChapterAbandonedAnalytics()
+    {
     }
 
     private void SendChapterCompleteAnalytics(float score)
@@ -243,7 +260,7 @@ public class Act : MonoBehaviour
 
     private void CloseChapter()
     {
-        //Close the chapter and clear the current chapter
+        // Close the chapter and clear the current chapter
         SceneLoader.Instance.CloseScene(chapters[currentChapterIndex].sceneInfo);
         currentChapterIndex = -1;
         currentChapter = null;

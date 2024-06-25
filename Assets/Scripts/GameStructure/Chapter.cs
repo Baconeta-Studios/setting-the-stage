@@ -141,7 +141,7 @@ public class Chapter : Singleton<Chapter>
     public void EndChapterEarly()
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
-        onChapterComplete?.Invoke(0);
+        onChapterComplete?.Invoke(-1);
     }
 
     public ChapterStage GetCurrentStage()
