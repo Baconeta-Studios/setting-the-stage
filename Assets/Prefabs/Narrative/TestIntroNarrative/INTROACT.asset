@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: INTROACT
   m_EditorClassIdentifier: 
   readableNarrativeName: yesintro
-  actNumber: 1
+  actNumber: 3
   allPanels:
   - {fileID: 11400000, guid: c1ae02334e3ca224e9c244f2b996a09a, type: 2}
   - {fileID: 11400000, guid: cc94a3e768cae404595e8abcebd3ada1, type: 2}

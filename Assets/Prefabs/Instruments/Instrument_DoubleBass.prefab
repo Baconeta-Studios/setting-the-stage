@@ -73,6 +73,10 @@ PrefabInstance:
       value: hold_doublebass
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: selectionAudioName
+      value: select_doublebass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
       value: 0.8
       objectReference: {fileID: 0}
