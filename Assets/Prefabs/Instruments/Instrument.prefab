@@ -44,3 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8431b342a2a3def42af9cebc01c814f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  _animator: {fileID: 0}
+  instrumentHoldingRotation: {x: 0, y: 0, z: 0}
+  instrumentHoldingPosition: {x: 0, y: 0, z: 0}
+  instrumentHoldingScale: 0.6
+  socketPosition: 0
+  instrumentSprite: {fileID: 0}
+  animationHoldName: 
+  animationPlayNames: []
+  selectionAudioName: 

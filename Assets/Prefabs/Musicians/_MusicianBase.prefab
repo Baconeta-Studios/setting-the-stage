@@ -51,7 +51,10 @@ MonoBehaviour:
   gender: placeholder
   nationality: placeholder
   occupation: placeholder
+  bio: 
+  funFact: 
   instrumentSockets: {fileID: 583808605999725201}
+  unequipAnimTriggerName: unequip_all
   expertInstruments:
   - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
   - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
@@ -82,7 +85,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc229eaebeca4a008dfead721a8a4221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandSocket: {fileID: 0}
-  rightHandSocket: {fileID: 0}
-  leftHandSprite: {fileID: 0}
-  rightHandSprite: {fileID: 0}
+  allSocketReferences:
+  - socketPosition: 0
+    socketRectTransform: {fileID: 0}
+    socketSpriteRenderer: {fileID: 0}
+  - socketPosition: 1
+    socketRectTransform: {fileID: 0}
+    socketSpriteRenderer: {fileID: 0}
+  - socketPosition: 2
+    socketRectTransform: {fileID: 0}
+    socketSpriteRenderer: {fileID: 0}
