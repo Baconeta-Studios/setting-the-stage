@@ -379,7 +379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: bio
-      value: To be confirmed, bro
+      value: From birth, Frank has always been in the gym in one way or another.
+        He teaches classes at his own gym, where he founded the art of <i>rhythmic
+        boxing</i> as a workout technique. Off the stage, Frank is loud, tough and
+        dominant, but once in the zone, he is 100% concentrated on his own performance
+        and nothing else.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name
@@ -391,7 +395,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: funFact
-      value: What a meat head, honestly!
+      value: Frank's favourite two hobbies are lifting, and lifting. His father was
+        in the woodwind military band and marching band, which is what inspired Frank
+        to become a musician in the first place.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: _animator
