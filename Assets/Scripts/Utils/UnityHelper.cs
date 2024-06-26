@@ -19,5 +19,21 @@ namespace Utils
 #else
         public static bool DoEnableCloudServicesAnalytics = false;
 #endif
+#if UNITY_ANDROID
+        public static bool IsAndroid = true;
+#else
+        public static bool IsAndroid = false;
+#endif
+#if UNITY_IOS
+        public static bool IsIOS = true;
+#else
+        public static bool IsIOS = false;
+#endif
+        public static bool IsMobile = IsAndroid || IsIOS;
+#if UNITY_WEBGL
+        public static bool IsWebGL = true;
+#else
+        public static bool IsWebGL = false;
+#endif
     }
 }
