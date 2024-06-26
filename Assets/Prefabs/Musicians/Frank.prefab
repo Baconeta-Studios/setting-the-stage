@@ -396,7 +396,7 @@ PrefabInstance:
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: funFact
       value: Frank's favourite two hobbies are lifting, and lifting. His father was
-        in the woodwind military band and marching band, which is what inspired Frank
+        in the woodwind military band and marching band, which is what inspired him
         to become a musician in the first place.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
