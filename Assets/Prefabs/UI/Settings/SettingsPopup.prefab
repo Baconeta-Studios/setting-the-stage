@@ -177,7 +177,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 13
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -772,6 +772,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2024017043126411326, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3326045074031484318, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -787,6 +791,10 @@ PrefabInstance:
     - target: {fileID: 3326045074031484318, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636678396085196852, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 4815496377204248718, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
       propertyPath: m_Pivot.x
@@ -903,6 +911,10 @@ PrefabInstance:
     - target: {fileID: 5779150374708317578, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6361494948522041239, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6955818025460630476, guid: 27bb67c845520fe4dadfc5129948ad64, type: 3}
       propertyPath: m_fontColor.b
