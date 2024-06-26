@@ -7,6 +7,7 @@ namespace Audio
         private AudioBuilderSystem _audioBuilder;
         private Chapter _chapter;
         private PerformanceAudioDataManager _audioDataManager;
+        private Act _act;
 
         [SerializeField] private AudioClip testClip1;
 
@@ -33,6 +34,12 @@ namespace Audio
                 StSDebug.LogError($"PerformanceAudioController could not find chapter object.");
             }
             
+            _act = FindObjectOfType<Act>();
+            if (!_act)
+            {
+                StSDebug.LogError($"PerformanceAudioController could not find act object.");
+            }
+            
             _audioBuilder = FindObjectOfType<AudioBuilderSystem>();
             if (!_audioBuilder)
             {
@@ -46,7 +53,7 @@ namespace Audio
             {
                 return;
             }
-            AudioClip clipToLoad = _audioDataManager.GetAudioTrack(_chapter.ChapterNumber, _chapter.ChapterNumber, stagePosition.instrumentOccupied, stagePosition.GetMusicianProficiency());
+            AudioClip clipToLoad = _audioDataManager.GetAudioTrack(_act.GetActNumber(), _chapter.ChapterNumber, stagePosition.instrumentOccupied, stagePosition.GetMusicianProficiency());
             _audioBuilder.UpdateClipAtIndex(clipToLoad, stagePosition.stagePositionNumber);
         }
     }

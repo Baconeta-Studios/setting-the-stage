@@ -22,3 +22,12 @@ MonoBehaviour:
     and ever since has been writing music faster than Stephen King writes bestsellers.
     <i>Reeds on the Sand</i> is an homage to his roots, playfully created around
     a reggae/ska type beat that he wrote when on the bus one day.
+  correctInstruments:
+  - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+  - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+  - {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+  - {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+  veryBadInstruments:
+  - {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+  - {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+  - {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}

@@ -49,7 +49,7 @@ namespace Audio
             foreach (var clip in _builtClips.Where(clip => clip is not null))
             {
                 if (clip.length > longestClip) longestClip = clip.length;
-                _customAudioSource.PlayOnce(clip);
+                _customAudioSource.PlayOnce(clip, 1f);
             }
             
             return longestClip;

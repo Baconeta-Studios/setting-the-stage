@@ -30,6 +30,10 @@ public class Chapter : Singleton<Chapter>
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
     [SerializeField] private Transform StsObjectStash;
+    
+    [SerializeField] private string successfulSound = "cheers";
+    [SerializeField] private string awfulSound = "boo";
+    
     private List<GameObject> musicians = new List<GameObject>();
     private List<GameObject> instruments = new List<GameObject>();
     private List<Musician> availableMusicians = new List<Musician>();
@@ -282,6 +286,8 @@ public class Chapter : Singleton<Chapter>
     private void OnPerformanceComplete(float newStarsEarned)
     {
         starsEarned = newStarsEarned;
+        
+        AudioWrapper.Instance.PlaySound(newStarsEarned >= 3.5 ? successfulSound : awfulSound);
         
         // TODO Move reveal rating to when we actually want to reveal the star count. Currently just enables the star UI above the chapter navigation.
         onRevealRating?.Invoke(starsEarned);

@@ -11,6 +11,7 @@ public class Instrument : StSObject
     [SerializeField] private Sprite instrumentSprite;
     [SerializeField] private string animationHoldName;
     [SerializeField] private string[] animationPlayNames;
+    [SerializeField] private string selectionAudioName;
 
     public Sprite InstrumentSprite => instrumentSprite;
 
@@ -34,5 +35,10 @@ public class Instrument : StSObject
     public SocketPosition GetSocketPosition()
     {
         return socketPosition;
+    }
+    
+    public string GetSelectionTrackName()
+    {
+        return selectionAudioName;
     }
 }

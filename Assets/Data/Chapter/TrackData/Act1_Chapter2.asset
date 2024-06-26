@@ -22,3 +22,10 @@ MonoBehaviour:
     playing only the drums, she has branched out a little for her latest work. Delta
     brings her unique style in <i>Sizzle and Snare</i> with a vibrant and catchy
     melody that feels both familiar and fresh.
+  correctInstruments:
+  - {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+  - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+  - {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
+  veryBadInstruments:
+  - {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+  - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}

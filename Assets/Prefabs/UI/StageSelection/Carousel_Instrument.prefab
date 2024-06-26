@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.0000019073486, y: 0}
+  m_SizeDelta: {x: -0.0000019073486, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6508131008586073634
 CanvasRenderer:
@@ -229,7 +229,7 @@ MonoBehaviour:
   contentPanel: {fileID: 4930058957077684119}
   carouselItemPrefab: {fileID: 8115001319713805579, guid: 67d3b9b965bf30b43b57a1acd4779f70, type: 3}
   selectedItemIndex: 0
-  selectionColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  selectionColour: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   selectionSizeMultiplier: 1.3
   isDragging: 0
   snapSpeed: 10
