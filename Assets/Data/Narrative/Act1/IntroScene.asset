@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27fc70b9cd60b24b821952a613ad3bb, type: 3}
+  m_Name: IntroScene
+  m_EditorClassIdentifier: 
+  readableNarrativeName: IntroBarScene
+  actNumber: 1
+  allPanels:
+  - {fileID: 11400000, guid: 78ddefebac95ee54a87b32a9d3f3df2e, type: 2}
+  - {fileID: 11400000, guid: 14325955d4382f046a5fc7d87ab14ed0, type: 2}
+  - {fileID: 11400000, guid: 1754a30f4bbfadb45a93fbd673839921, type: 2}
+  - {fileID: 11400000, guid: 19b4b123c3b2ed8429558376c4e32bc7, type: 2}
+  - {fileID: 11400000, guid: dbe15cdc2c101154995469dbf369d9f8, type: 2}
+  - {fileID: 11400000, guid: fcc60e2097be4914db434c25015945e7, type: 2}
+  - {fileID: 11400000, guid: 86bfe731977340b4db79638ff0b91c67, type: 2}
+  - {fileID: 11400000, guid: 51ffe178da0cb80448005690b83f997d, type: 2}
+  - {fileID: 11400000, guid: 386548c8a8a4f934082ffcafa26ceb2c, type: 2}
+  narrativeType: 1
