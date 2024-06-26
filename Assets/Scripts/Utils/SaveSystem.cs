@@ -110,6 +110,11 @@ namespace Utils
                 return 0.0f;
             }
 
+            public float GetTotalStars()
+            {
+                return chapterSaveData.Sum(chapter => chapter.starsEarned);
+            }
+
             /// <summary>
             /// Gets the chapter save data if it exists, or creates it freshly and adds it, if it does not. 
             /// </summary>
@@ -336,14 +341,12 @@ namespace Utils
 
         public int GetTotalLevelsPlayed()
         {
-            // TODO
             return userData.GetTotalChaptersCompleted();
         }
 
         public float GetTotalUserStars()
         {
-            // TODO
-            return -12.34f;
+            return userData.GetTotalStars();
         }
         
         public int GetCountOfChapterCompletion(int act, int chapter)

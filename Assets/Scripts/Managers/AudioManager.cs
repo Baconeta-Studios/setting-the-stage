@@ -17,17 +17,17 @@ namespace Managers
         public const string SfxKey = "SfxVolume";
         public const string AmbientKey = "AmbientVolume";
         
-        public CustomAudioSource Play(AudioClip clip, AudioMixerGroup mixerGroup, bool looping = true, CustomAudioSource presetAudioSource = null)
+        public CustomAudioSource Play(AudioClip clip, AudioMixerGroup mixerGroup, bool looping = true, float volume = 1, CustomAudioSource presetAudioSource = null)
         {
             CustomAudioSource audioSource = presetAudioSource ? presetAudioSource : Setup(mixerGroup, looping);
 
             if (looping)
             {
-                audioSource.PlayLooping(clip);
+                audioSource.PlayLooping(clip, volume);
             }
             else
             {
-                audioSource.PlayOnce(clip);
+                audioSource.PlayOnce(clip, volume);
             }
 
             return audioSource;

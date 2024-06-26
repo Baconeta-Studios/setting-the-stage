@@ -2,6 +2,7 @@ using System;
 using GameStructure;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CarouselItem : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class CarouselItem : MonoBehaviour
     public StSObject item;
     public TextMeshProUGUI displayText;
     public RectTransform rectTransform;
+    public Image spriteImage;
 
     public void Initialize(Carousel parent, StSObject newItem)
     {
@@ -31,6 +33,18 @@ public class CarouselItem : MonoBehaviour
         if (displayText)
         {
             displayText.text = itemName;
+        }
+        
+        // Handle instrument sprites as special case
+        if (newItem == null && spriteImage != null)
+        {
+            spriteImage.enabled = false;
+            return;
+        }
+        Sprite sprite = (newItem as Instrument)?.InstrumentSprite;
+        if (sprite != null && spriteImage != null)
+        {
+            spriteImage.sprite = sprite;
         }
     }
 
