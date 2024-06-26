@@ -19,6 +19,7 @@ namespace Utils
 #else
         public static bool DoEnableCloudServicesAnalytics = false;
 #endif
+/// Mobile checks.
 #if UNITY_ANDROID
         public static bool IsAndroid = true;
 #else
@@ -30,6 +31,7 @@ namespace Utils
         public static bool IsIOS = false;
 #endif
         public static bool IsMobile = IsAndroid || IsIOS;
+// Other platform checks.
 #if UNITY_WEBGL
         public static bool IsWebGL = true;
 #else
