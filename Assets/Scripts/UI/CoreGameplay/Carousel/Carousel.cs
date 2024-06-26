@@ -28,6 +28,7 @@ public class Carousel : MonoBehaviour
     [Header("Selection")]
     [SerializeField] protected int selectedItemIndex = 0;
     [SerializeField] protected Color selectionColour = Color.yellow;
+    [SerializeField] protected Color unSelectionColour = Color.yellow;
     [SerializeField] protected float selectionSizeMultiplier = 1.3f;
     [SerializeField] protected float  unSelectionSizeMultiplier = 0.85f;
 
@@ -203,7 +204,7 @@ public class Carousel : MonoBehaviour
     {
         //Remove the highlight & size from the previous selection
         itemToClear.transform.localScale = Vector3.one * unSelectionSizeMultiplier;
-        itemToClear.GetComponent<Image>().color = Color.black;
+        itemToClear.GetComponent<Image>().color = unSelectionColour;
     }
 
     private void OnStagePositionClicked(StagePosition clickedStagePosition)

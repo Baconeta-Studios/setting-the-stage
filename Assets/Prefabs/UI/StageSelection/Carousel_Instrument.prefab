@@ -229,8 +229,10 @@ MonoBehaviour:
   contentPanel: {fileID: 4930058957077684119}
   carouselItemPrefab: {fileID: 8115001319713805579, guid: 67d3b9b965bf30b43b57a1acd4779f70, type: 3}
   selectedItemIndex: 0
-  selectionColour: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
+  selectionColour: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 0.78431374}
+  unSelectionColour: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 0.78431374}
   selectionSizeMultiplier: 1.3
+  unSelectionSizeMultiplier: 0.85
   isDragging: 0
   snapSpeed: 10
   scrollRect: {fileID: 0}
