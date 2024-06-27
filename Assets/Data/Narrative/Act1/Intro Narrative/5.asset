@@ -15,4 +15,23 @@ MonoBehaviour:
   simplePanelName: act1_intro_5
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 687e32f13655b7448a5ef10f075cc3c1, type: 3}
-  textPanels: []
+  textPanels:
+  - text: That guy seems to be struggling there on the stage.
+    textPanelSize: {x: 1000, y: 100}
+    anchorMin: {x: 0.5, y: 1}
+    anchorMax: {x: 0.5, y: 1}
+    textPanelPosition: {x: 0, y: -100}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 0.25
+    isDialogue: 0
+  - text: "Maybe it\u2019s the beer, maybe it\u2019s the need to distract myself\u2026
+      I should help."
+    textPanelSize: {x: 800, y: 160}
+    anchorMin: {x: 0.5, y: 0}
+    anchorMax: {x: 0.5, y: 0}
+    textPanelPosition: {x: 0, y: 100}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 2
+    isDialogue: 0

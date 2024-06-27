@@ -17,7 +17,7 @@ MonoBehaviour:
   panelImage: {fileID: 21300000, guid: 52ca62ca5cd86124f905e138562d265d, type: 3}
   textPanels:
   - text: "With a beer in hand\u2026 maybe the night will get better."
-    textPanelSize: {x: 800, y: 80}
+    textPanelSize: {x: 800, y: 160}
     anchorMin: {x: 0.5, y: 0}
     anchorMax: {x: 0.5, y: 0}
     textPanelPosition: {x: 0, y: 90}

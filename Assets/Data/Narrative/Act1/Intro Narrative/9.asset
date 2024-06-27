@@ -15,4 +15,22 @@ MonoBehaviour:
   simplePanelName: act1_intro_9
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 476ea72a802d01347b1d48291e9cd390, type: 3}
-  textPanels: []
+  textPanels:
+  - text: "Maybe tonight won\u2019t just be the end of another bad day"
+    textPanelSize: {x: 800, y: 120}
+    anchorMin: {x: 0.5, y: 1}
+    anchorMax: {x: 0.5, y: 1}
+    textPanelPosition: {x: 0, y: -80}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 0
+    isDialogue: 0
+  - text: "\u2026Maybe it\u2019s the start of something better."
+    textPanelSize: {x: 800, y: 120}
+    anchorMin: {x: 0.5, y: 0}
+    anchorMax: {x: 0.5, y: 0}
+    textPanelPosition: {x: 0, y: 100}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 2
+    isDialogue: 0

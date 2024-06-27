@@ -15,4 +15,22 @@ MonoBehaviour:
   simplePanelName: act1_intro_8
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 5bfe0000cf507024fb316895b01fcfed, type: 3}
-  textPanels: []
+  textPanels:
+  - text: How about I help manage the stage tonight?
+    textPanelSize: {x: 500, y: 350}
+    anchorMin: {x: 0.15, y: 0.15}
+    anchorMax: {x: 0.15, y: 0.15}
+    textPanelPosition: {x: 0, y: 0}
+    textSize: 28
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 0
+    isDialogue: 1
+  - text: "You\u2019d do that?"
+    textPanelSize: {x: 400, y: 250}
+    anchorMin: {x: 0.5, y: 0.5}
+    anchorMax: {x: 0.5, y: 0.5}
+    textPanelPosition: {x: -400, y: 200}
+    textSize: 36
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 1.5
+    isDialogue: 1

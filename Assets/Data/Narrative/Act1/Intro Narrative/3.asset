@@ -17,20 +17,20 @@ MonoBehaviour:
   panelImage: {fileID: 21300000, guid: 4e723f73d00fe5144ac4d97b601e3253, type: 3}
   textPanels:
   - text: What can I get you?
-    textPanelSize: {x: 300, y: 200}
-    anchorMin: {x: 0.5, y: 0.5}
-    anchorMax: {x: 0.5, y: 0.5}
-    textPanelPosition: {x: -400, y: 100}
-    textSize: 30
+    textPanelSize: {x: 400, y: 300}
+    anchorMin: {x: 0.5, y: 0.65}
+    anchorMax: {x: 0.5, y: 0.65}
+    textPanelPosition: {x: -450, y: 100}
+    textSize: 36
     font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
     displayDelayInSec: 0.5
     isDialogue: 1
   - text: Just a beer thanks.
-    textPanelSize: {x: 300, y: 200}
-    anchorMin: {x: 0.7, y: 0.2}
-    anchorMax: {x: 0.7, y: 0.2}
+    textPanelSize: {x: 400, y: 300}
+    anchorMin: {x: 0.15, y: 0.2}
+    anchorMax: {x: 0.15, y: 0.2}
     textPanelPosition: {x: 0, y: 0}
-    textSize: 30
+    textSize: 36
     font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
     displayDelayInSec: 2
     isDialogue: 1
