@@ -10,10 +10,13 @@ namespace GameStructure.Narrative
     {
         public string text;
         public Vector2 textPanelSize;
+        public Vector2 anchorMin;
+        public Vector2 anchorMax;
         public Vector2 textPanelPosition;
         public int textSize;
         public TMP_FontAsset font;
-        public int displayDisplayInMs;
+        public float displayDelayInSec;
+        public bool isDialogue;
     }
     
     [CreateAssetMenu]

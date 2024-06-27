@@ -115,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 40}
+  m_SizeDelta: {x: 2500, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7523819147380517315
 CanvasRenderer:
@@ -223,6 +223,7 @@ MonoBehaviour:
   - {fileID: 7237498886757738137}
   fullScreenPanelObject: {fileID: 8885768809545659703}
   textPanelPrefab: {fileID: 1281815934558128911, guid: d839d39ecad03854da2b213643fcab90, type: 3}
+  dialogueTextPanelPrefab: {fileID: 1281815934558128911, guid: e618660eb27abd64ea1a379c0bd4bb65, type: 3}
   backButton: {fileID: 4136893387861159200}
   nextButton: {fileID: 9040807568553462329}
   skipAllButton: {fileID: 5742029808254177976}
@@ -901,7 +902,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 40}
+  m_SizeDelta: {x: 2500, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3660067649932496744
 CanvasRenderer:

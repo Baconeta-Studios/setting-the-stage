@@ -216,6 +216,8 @@ MonoBehaviour:
   starsEarned: -1
   currentStage: 0
   StsObjectStash: {fileID: 0}
+  successfulSound: cheer
+  awfulSound: boo
 --- !u!4 &741236657
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPerforming: 0
+  proficiencyWeightPercent: 70
+  instrumentWeightPercent: 30
 --- !u!1001 &844436197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -668,7 +672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 778737607739176446, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 2025496648257256653, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -684,11 +688,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2513851119371973600, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.5999985
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2513851119371973600, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 2850750433991575505, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -708,7 +712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2880895334664806915, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 4069166356051600273, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -728,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4450795168731229190, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 4707571682937795290, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -848,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9206434770258691792, guid: 96c82c813d66c624691bf111568ff665, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

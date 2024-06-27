@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -11,6 +12,7 @@ namespace GameStructure.Narrative
         [SerializeField] protected NarrativePanelObject[] panelObjects;
         [SerializeField] private NarrativePanelObject fullScreenPanelObject;
         [SerializeField] private GameObject textPanelPrefab;
+        [SerializeField] private GameObject dialogueTextPanelPrefab;
 
         [SerializeField] private Button backButton;
         [SerializeField] private Button nextButton;
@@ -171,31 +173,62 @@ namespace GameStructure.Narrative
 
         protected void SetupPanel(NarrativePanelObject panelObject, Image panelImage,  NarrativePanelData panelData)
         {
+            Dictionary<GameObject, NarrativeTextData> delayedPanels = new ();
             panelImage.sprite = panelData.panelImage;
 
             // Setup any text elements
             for (var i = 0; i < panelData.textPanels?.Count; i++)
             {
                 NarrativeTextData textData = panelData.textPanels[i];
-                GameObject textPanelObject = Instantiate(textPanelPrefab, panelObject.transform);
+                GameObject textPanelObject = Instantiate(
+                    textData.isDialogue ? dialogueTextPanelPrefab : textPanelPrefab,
+                    panelObject.transform);
                 SetTextData(textPanelObject, textData);
-                SetPanelData(textPanelObject, textData);
+                SetPanelData(textPanelObject, textData, panelData);
                 _currentTextPanels.Add(textPanelObject);
+                if (textData.displayDelayInSec > 0)
+                {
+                    textPanelObject.SetActive(false);
+                    delayedPanels.Add(textPanelObject, textData);
+                }
             }
-
+            
             panelObject.SetActive(true);
+            foreach ((GameObject textPanel, NarrativeTextData textData) in delayedPanels)
+            {
+                StartCoroutine(DisplayTextPanel(textPanel, textData));
+            }
+            
         }
 
-        private static void SetPanelData(GameObject textPanelObject, NarrativeTextData textData)
+        private static IEnumerator DisplayTextPanel(GameObject panel, NarrativeTextData textData)
         {
-            textPanelObject.GetComponent<RectTransform>().sizeDelta = textData.textPanelSize;
-            textPanelObject.transform.localPosition = textData.textPanelPosition;
+            yield return new WaitForSeconds(textData.displayDelayInSec);
+            if (panel != null)
+            {
+                panel.SetActive(true);
+            }
+        }
+
+        private static void SetPanelData(GameObject textPanelObject, NarrativeTextData textData, NarrativePanelData panelData)
+        {
+            RectTransform rect = textPanelObject.transform as RectTransform;
+            if (rect == null)
+            {
+                StSDebug.LogWarning($"Missing data in text object for panel { panelData.simplePanelName }");
+                return;
+            }
+
+            rect.anchorMin = textData.anchorMin;
+            rect.anchorMax = textData.anchorMax;
+            rect.sizeDelta = textData.textPanelSize;
+            rect.anchoredPosition = textData.textPanelPosition;
         }
 
         private static void SetTextData(GameObject textPanelObject, NarrativeTextData textDataData)
         {
-            TMP_Text textObject = textPanelObject.GetComponent<TMP_Text>();
-            textObject.text = textDataData.text;
+            TMP_Text textObject = textPanelObject.GetComponentInChildren<TMP_Text>();
+            textObject.SetText(textDataData.text);
             textObject.fontSize = textDataData.textSize;
             textObject.font = textDataData.font;
         }

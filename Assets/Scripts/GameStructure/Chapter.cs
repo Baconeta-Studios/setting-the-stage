@@ -31,7 +31,7 @@ public class Chapter : Singleton<Chapter>
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
     [SerializeField] private Transform StsObjectStash;
     
-    [SerializeField] private string successfulSound = "cheers";
+    [SerializeField] private string successfulSound = "cheer";
     [SerializeField] private string awfulSound = "boo";
     
     private List<GameObject> musicians = new List<GameObject>();

@@ -3,6 +3,7 @@ using System.Linq;
 using Animation;
 using GameStructure;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum InstrumentProficiency
 {
@@ -19,7 +20,7 @@ public class Musician : StSObject
     [SerializeField] private string occupation;
     [SerializeField] private string bio;
     [SerializeField] private string funFact;
-    [SerializeField] private InstrumentSocket instrumentSockets;
+    [SerializeField] private InstrumentSockets instrumentSockets;
     [SerializeField] private string unequipAnimTriggerName = "unequip_all";
     
     [Header("Instruments")]
