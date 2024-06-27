@@ -15,4 +15,13 @@ MonoBehaviour:
   simplePanelName: act1_intro_1
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: d3539b09740f64d4ba11e51de47565bf, type: 3}
-  textPanels: []
+  textPanels:
+  - text: "A late-night walk has led you here\u2026Well, you did say you could do
+      with a drink"
+    textPanelSize: {x: 800, y: 160}
+    anchorMin: {x: 0.5, y: 0}
+    anchorMax: {x: 0.5, y: 0}
+    textPanelPosition: {x: 0, y: 90}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDisplayInMs: 0

@@ -15,4 +15,12 @@ MonoBehaviour:
   simplePanelName: act1_intro_2
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 07d5c4d6e2829dc46a2106a143a05986, type: 3}
-  textPanels: []
+  textPanels:
+  - text: It smells cosy and welcoming.
+    textPanelSize: {x: 600, y: 125}
+    anchorMin: {x: 0.5, y: 0}
+    anchorMax: {x: 0.5, y: 0}
+    textPanelPosition: {x: 0, y: 80}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 0.75

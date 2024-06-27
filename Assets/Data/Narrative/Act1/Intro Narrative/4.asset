@@ -15,4 +15,13 @@ MonoBehaviour:
   simplePanelName: act1_intro_4
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 52ca62ca5cd86124f905e138562d265d, type: 3}
-  textPanels: []
+  textPanels:
+  - text: "With a beer in hand\u2026 maybe the night will get better."
+    textPanelSize: {x: 800, y: 80}
+    anchorMin: {x: 0.5, y: 0}
+    anchorMax: {x: 0.5, y: 0}
+    textPanelPosition: {x: 0, y: 90}
+    textSize: 40
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 0.5
+    isDialogue: 0
