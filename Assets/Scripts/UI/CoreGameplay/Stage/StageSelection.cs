@@ -5,12 +5,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using Yarn.Unity;
 
 public class StageSelection : Singleton<StageSelection>
 {
     public Carousel instrumentCarousel;
     public Carousel musicianCarousel;
     public MusicianInfoPanel musicianInfoPanel;
+    public DialogueRunner selectionDialogueRunner;
     private StagePosition activeStagePosition = null;
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
@@ -66,8 +68,10 @@ public class StageSelection : Singleton<StageSelection>
 
         musicianCarousel.OpenCarousel(activeStagePosition);
         instrumentCarousel.OpenCarousel(activeStagePosition);
-
-        musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
+        
+        // TODO Show Yarn Spinner dialogue here.
+        selectionDialogueRunner.gameObject.SetActive(true);
+        // musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
         
         OnStageSelectionFocusChanged?.Invoke(activeStagePosition);
     }
@@ -81,8 +85,10 @@ public class StageSelection : Singleton<StageSelection>
 
             instrumentCarousel.CloseCarousel();
             musicianCarousel.CloseCarousel();
-
-            musicianInfoPanel.HidePanel();
+            
+            // TODO Hide Yarn Spinner Dialogue here.
+            selectionDialogueRunner.gameObject.SetActive(false);
+            //musicianInfoPanel.HidePanel();
 
             OnStageSelectionEnded?.Invoke();
             

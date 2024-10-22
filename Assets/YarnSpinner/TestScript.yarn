@@ -1,0 +1,58 @@
+﻿title: Start
+tags:
+position: 40,-401
+---
+Hey there! I'm Pete
+I’m all about those deep, heavy grooves, man.
+<<jump Moves>>
+===
+
+title: Moves
+position: -230,-401
+---
+I love making people move, even the ones who swear they can't dance.
+<<if visited("Hub")>>
+    <<jump Hub>>
+<<endif>>
+<<jump BadHabits>>
+===
+
+title: BadHabits
+position: -59,-391
+---
+Oh, and I’ve got this bad habit of hum-singing while I play.
+It’s embarrassing, especially during instrumental sets, but luckily the band usually drowns me out.
+<<if visited("Hub")>>
+    <<jump Hub>>
+<<endif>>
+<<jump Rhythm>>
+===
+title: Rhythm
+position: -49,-381
+---
+Funny thing is, even though I’m all about rhythm, I’ve always struggled with syncing up all my limbs at once.
+Probably some undiagnosed issue, but I just roll with it.
+I try not to base my personality on it though.
+<<if visited("Hub")>>
+    <<jump Hub>>
+<<endif>>
+<<jump Hub>>
+===
+
+title: Hub
+position: 40,-401
+---
+-> What was it you loved?
+    <<jump Moves>>
+-> You said you had a bad habit?
+    <<jump BadHabits>>
+-> Did you say you have no rhythm?
+    <<jump Rhythm>>
+-> Thanks for your time!
+    <<jump Conclusion>>
+===
+title: Conclusion
+position: 50,-391
+---
+Just so you know, I'd love to play!
+===
