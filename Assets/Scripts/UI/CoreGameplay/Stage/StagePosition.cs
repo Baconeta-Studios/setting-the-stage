@@ -25,7 +25,7 @@ public class StagePosition : MonoBehaviour
     [Header("Lighting")] 
     [SerializeField] private Light spotlight;
     [SerializeField] private GameObject spotlightMesh;
-    [SerializeField] private GameObject floorMarkerSystem;
+    [SerializeField] private ParticleSystem floorMarkerSystem;
 
     private bool _hasUncommittedChanges = false;
 
@@ -171,13 +171,13 @@ public class StagePosition : MonoBehaviour
     {
         if (!musicianOccupied)
         {
-            floorMarkerSystem.SetActive(true);
+            floorMarkerSystem.Play();
         }
     }
 
     private void HideFloorMarker()
     {
-        floorMarkerSystem.SetActive(false);
+        floorMarkerSystem.Stop();
     }
 
     private void CommitSelection()
