@@ -228,6 +228,9 @@ public class Chapter : Singleton<Chapter>
         {
             if (musician.GetComponent<Musician>().GetName() == returningObject.GetName())
             {
+                //First unequip the instrument from the musician
+                ((Musician)returningObject).UnequipInstrument();
+                
                 ReturnMusician((Musician)returningObject);
                 StashObject(returningObject);
                 return;
