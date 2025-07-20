@@ -108,6 +108,12 @@ public class Musician : StSObject
     
     public void SetAnimationBool(string animBoolName, bool enable)
     {
+        if (animBoolName == "")
+        {
+            StSDebug.Log("Instrument animation string is empty");
+            return;
+        }
+
         _animator.SetBool(animBoolName,enable);
     }
 }
