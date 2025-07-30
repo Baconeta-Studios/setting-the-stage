@@ -7,10 +7,17 @@ using UnityEngine;
 namespace Utils
 {
     [Serializable]
+    public struct InstrumentProficiencyRecord
+    {
+        public InstrumentProficiency proficiency;
+        public string learnedAt; // Stores as ISO-8601 string for serialization (e.g., "2025-07-30T21:15:00Z")
+    }
+    
+    [Serializable]
     public class LearnedMusicianProficiency
     {
         public string musicianID;
-        public Dictionary<string, InstrumentProficiency> instrumentKnowledge = new();
+        public Dictionary<string, InstrumentProficiencyRecord> instrumentKnowledge;
     }
     
     public class SaveSystem : Singleton<SaveSystem>
@@ -367,9 +374,9 @@ namespace Utils
         public InstrumentProficiency GetLearnedProficiency(string musicianID, string instrumentID)
         {
             var entry = userData.knownMusicianProficiencies.FirstOrDefault(m => m.musicianID == musicianID);
-            if (entry != null && entry.instrumentKnowledge.TryGetValue(instrumentID, out var level))
+            if (entry != null && entry.instrumentKnowledge.TryGetValue(instrumentID, out var record))
             {
-                return level;
+                return record.proficiency;
             }
 
             return InstrumentProficiency.Unknown; 
@@ -394,21 +401,27 @@ namespace Utils
                 existing = new LearnedMusicianProficiency
                 {
                     musicianID = musicianID,
-                    instrumentKnowledge = new Dictionary<string, InstrumentProficiency>()
+                    instrumentKnowledge = new Dictionary<string, InstrumentProficiencyRecord>()
                 };
                 userData.knownMusicianProficiencies.Add(existing);
             }
+            
+            var now = DateTime.UtcNow.ToString("o"); // ISO 8601 format (safe for JSON)
 
             if (!existing.instrumentKnowledge.TryGetValue(instrumentID, out var current))
             {
-                existing.instrumentKnowledge[instrumentID] = actualProficiency;
+                existing.instrumentKnowledge[instrumentID] = new InstrumentProficiencyRecord
+                {
+                    proficiency = actualProficiency,
+                    learnedAt = now
+                };
                 StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
                              + actualProficiency + " proficiency with " +  instrumentID);
             }
             else
             {
                 // We overwrite in case this is different, but we raise a warning for debugging
-                if (actualProficiency != existing.instrumentKnowledge[instrumentID])
+                if (actualProficiency != current.proficiency)
                 {
                     StSDebug.LogWarning("We already have the knowledge that musician " 
                                         + existing.musicianID + " has proficiency " 
@@ -420,7 +433,11 @@ namespace Utils
                     StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
                                  + actualProficiency + " proficiency with " +  instrumentID);
                 }
-                existing.instrumentKnowledge[instrumentID] = actualProficiency;
+                existing.instrumentKnowledge[instrumentID] = new InstrumentProficiencyRecord
+                {
+                    proficiency = actualProficiency,
+                    learnedAt = current.learnedAt // we only care about the first time we learnt this
+                };
             }
 
             SaveUserData(userData);
