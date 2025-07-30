@@ -381,7 +381,10 @@ namespace Utils
             string instrumentID = instrument.GetInstrumentID();
 
             if (string.IsNullOrEmpty(musicianID) || string.IsNullOrEmpty(instrumentID))
+            {
+                StSDebug.LogError("Either musicianID or instrumentID are null or empty!");
                 return;
+            }
 
             var existing = userData.knownMusicianProficiencies
                 .FirstOrDefault(x => x.musicianID == musicianID);
@@ -399,14 +402,25 @@ namespace Utils
             if (!existing.instrumentKnowledge.TryGetValue(instrumentID, out var current))
             {
                 existing.instrumentKnowledge[instrumentID] = actualProficiency;
+                StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
+                             + actualProficiency + " proficiency with " +  instrumentID);
             }
             else
             {
-                // Only overwrite if this is more accurate/better
-                if ((int)actualProficiency > (int)current)
+                // We overwrite in case this is different, but we raise a warning for debugging
+                if (actualProficiency != existing.instrumentKnowledge[instrumentID])
                 {
-                    existing.instrumentKnowledge[instrumentID] = actualProficiency;
+                    StSDebug.LogWarning("We already have the knowledge that musician " 
+                                        + existing.musicianID + " has proficiency " 
+                                        + existing.instrumentKnowledge[instrumentID] + " and we are now saving "
+                                        + actualProficiency + ".");
                 }
+                else
+                {
+                    StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
+                                 + actualProficiency + " proficiency with " +  instrumentID);
+                }
+                existing.instrumentKnowledge[instrumentID] = actualProficiency;
             }
 
             SaveUserData(userData);
