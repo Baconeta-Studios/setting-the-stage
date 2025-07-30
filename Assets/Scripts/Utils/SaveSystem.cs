@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace Utils
 {
+    [Serializable]
+    public class LearnedMusicianProficiency
+    {
+        public string musicianID;
+        public Dictionary<string, InstrumentProficiency> instrumentKnowledge = new();
+    }
+    
     public class SaveSystem : Singleton<SaveSystem>
     {
         #region UserData Management
@@ -95,6 +102,9 @@ namespace Utils
 
             [ReadOnly]
             public List<string> narrativesViewed = new List<string>();
+            
+            [ReadOnly]
+            public List<LearnedMusicianProficiency> knownMusicianProficiencies = new();
             
             // Get user data functions
             public float GetStarsForChapter(int actNumber, int chapterNumber)
@@ -352,6 +362,54 @@ namespace Utils
         public int GetCountOfChapterCompletion(int act, int chapter)
         {
             return userData.GetCompletedPlaysForChapter(act, chapter);
+        }
+        
+        public InstrumentProficiency GetLearnedProficiency(string musicianID, string instrumentID)
+        {
+            var entry = userData.knownMusicianProficiencies.FirstOrDefault(m => m.musicianID == musicianID);
+            if (entry != null && entry.instrumentKnowledge.TryGetValue(instrumentID, out var level))
+            {
+                return level;
+            }
+
+            return InstrumentProficiency.Unknown; 
+        }
+        
+        public void LearnInstrumentProficiency(Musician musician, Instrument instrument, InstrumentProficiency actualProficiency)
+        {
+            string musicianID = musician.GetMusicianID();
+            string instrumentID = instrument.GetInstrumentID();
+
+            if (string.IsNullOrEmpty(musicianID) || string.IsNullOrEmpty(instrumentID))
+                return;
+
+            var existing = userData.knownMusicianProficiencies
+                .FirstOrDefault(x => x.musicianID == musicianID);
+
+            if (existing == null)
+            {
+                existing = new LearnedMusicianProficiency
+                {
+                    musicianID = musicianID,
+                    instrumentKnowledge = new Dictionary<string, InstrumentProficiency>()
+                };
+                userData.knownMusicianProficiencies.Add(existing);
+            }
+
+            if (!existing.instrumentKnowledge.TryGetValue(instrumentID, out var current))
+            {
+                existing.instrumentKnowledge[instrumentID] = actualProficiency;
+            }
+            else
+            {
+                // Only overwrite if this is more accurate/better
+                if ((int)actualProficiency > (int)current)
+                {
+                    existing.instrumentKnowledge[instrumentID] = actualProficiency;
+                }
+            }
+
+            SaveUserData(userData);
         }
     }
 }

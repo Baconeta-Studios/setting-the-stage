@@ -12,6 +12,10 @@ public class Instrument : StSObject
     [SerializeField] private string animationHoldName;
     [SerializeField] private string[] animationPlayNames;
     [SerializeField] private string selectionAudioName;
+    
+    [SerializeField][Tooltip("This must be unique and never change for save file reasons")]
+    private string instrumentID;
+    public string GetInstrumentID() => instrumentID;
 
     public Sprite InstrumentSprite => instrumentSprite;
 
