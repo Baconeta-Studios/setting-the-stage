@@ -82,6 +82,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1927195894754259133}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: musicianID
+      value: mus_river
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: occupation
       value: '-'
       objectReference: {fileID: 0}
