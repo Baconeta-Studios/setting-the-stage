@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Carousel_Scroll : Carousel
@@ -18,6 +20,9 @@ public class Carousel_Scroll : Carousel
     {
         if (!isDragging)
         {
+            //TODO make this work in CarouselItem Pointer Handler system
+            HandleCarouselItemClick();
+
             if (selectedItemIndex < _contentItems.Count)
             {
                 SnapToItem(_contentItems[selectedItemIndex]);
@@ -26,6 +31,30 @@ public class Carousel_Scroll : Carousel
         else
         {
             FindClosestItem();
+        }
+    }
+
+    private void HandleCarouselItemClick()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Vector2 inputPos = Input.touchCount > 0 ? Input.GetTouch(0).position : (Vector2)Input.mousePosition;
+
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = inputPos;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (var result in results)
+            {
+                var item = result.gameObject.GetComponent<CarouselItem>();
+                if (item != null)
+                {
+                    SelectItem(item.transform.parent.GetSiblingIndex());
+                    break;
+                }
+            }
         }
     }
 
@@ -55,7 +84,7 @@ public class Carousel_Scroll : Carousel
         return targetPosition;
     }
 
-    void FindClosestItem()
+    private void FindClosestItem()
     {
         float closestDistance = float.MaxValue;
         int closestItemIndex = selectedItemIndex;

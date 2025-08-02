@@ -137,7 +137,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BackGroundColor: {r: 0.0627451, g: 0.050980393, b: 0.078431375, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -399,7 +399,7 @@ MonoBehaviour:
   - Name: 1
     focusTarget: {fileID: 0}
     fieldOfView: 0
-    focusOffset: {x: 0, y: 0, z: 2}
+    focusOffset: {x: -0.15, y: 0, z: 2}
     screenX: 0.276
   currentCameraState:
     Name: 0

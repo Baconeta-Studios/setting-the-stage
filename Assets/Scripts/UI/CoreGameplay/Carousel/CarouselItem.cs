@@ -1,10 +1,10 @@
-using System;
 using GameStructure;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CarouselItem : MonoBehaviour
+public class CarouselItem : MonoBehaviour, IPointerClickHandler
 {
     // This is used to denote "Clear Selection"
     private bool _isEmpty = false;
@@ -13,11 +13,14 @@ public class CarouselItem : MonoBehaviour
     public TextMeshProUGUI displayText;
     public RectTransform rectTransform;
     public Image spriteImage;
+    
+    private Carousel parentCarousel;
 
     public void Initialize(Carousel parent, StSObject newItem)
     {
         rectTransform = GetComponent<RectTransform>();
         item = newItem;
+        parentCarousel = parent;
         
         string itemName = "Empty";
         if (newItem is null)
@@ -53,5 +56,11 @@ public class CarouselItem : MonoBehaviour
     public bool IsEmpty()
     {
         return _isEmpty;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // int index = item.transform.parent.GetSiblingIndex();
+        // FindAnyObjectByType<Carousel_Scroll>().SelectItem(index);
     }
 }
