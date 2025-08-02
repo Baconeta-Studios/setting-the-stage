@@ -846,14 +846,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carousel_Instrument
       objectReference: {fileID: 0}
-    - target: {fileID: 7157155129789202201, guid: 44edaaa7416b3784397905df0663bf4c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7157155129789202201, guid: 44edaaa7416b3784397905df0663bf4c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -963,81 +955,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3387948336313153577, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387948336313153577, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387948336313153577, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387948336313153577, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlaySimpleButtonAudio
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387948336313153577, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ButtonAudio, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387948336313153577, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5915950129967495915, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
       propertyPath: m_Name
       value: Carousel_Musician
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091094319788592767, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091094319788592767, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091094319788592767, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091094319788592767, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlaySimpleButtonAudio
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091094319788592767, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ButtonAudio, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091094319788592767, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
