@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Utils;
 
 public class StageSelection : Singleton<StageSelection>
@@ -9,6 +10,8 @@ public class StageSelection : Singleton<StageSelection>
     public Carousel musicianCarousel;
     public MusicianInfoPanel musicianInfoPanel;
     private StagePosition activeStagePosition = null;
+    
+    [SerializeField] private GameObject exitSelectionButton;
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
@@ -65,8 +68,14 @@ public class StageSelection : Singleton<StageSelection>
         instrumentCarousel.OpenCarousel(activeStagePosition);
 
         musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
+        SetExitButtonVisibility(activeStagePosition.musicianOccupied == null);
         
         OnStageSelectionFocusChanged?.Invoke(activeStagePosition);
+    }
+
+    public void SetExitButtonVisibility(bool isVisible)
+    {
+        exitSelectionButton.gameObject.SetActive(isVisible);
     }
 
     public void HideStageSelection()
@@ -85,11 +94,6 @@ public class StageSelection : Singleton<StageSelection>
             
             gameObject.SetActive(false);
         }
-    }
-
-    private void FocusChanged()
-    {
-        
     }
 
     public List<StagePosition> GetStagePositions()

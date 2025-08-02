@@ -48,6 +48,7 @@ public class StagePosition : MonoBehaviour
 
     public void MusicianSelectionChanged(Musician selection)
     {
+        StageSelection.Instance.SetExitButtonVisibility(selection == null);
         Musician lastMusician = musicianOccupied;
         musicianOccupied = selection;
 

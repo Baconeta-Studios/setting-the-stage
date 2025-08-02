@@ -427,18 +427,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonAudio, Assembly-CSharp
-        m_MethodName: PlayCancelButtonAudio
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &8367674613500720179
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +484,7 @@ MonoBehaviour:
   instrumentCarousel: {fileID: 4234778779256398718}
   musicianCarousel: {fileID: 5345760275254667109}
   musicianInfoPanel: {fileID: 3796675358613573865}
+  exitSelectionButton: {fileID: 8542531547529013766}
 --- !u!1 &8764059516730558105
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,19 +956,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+    - target: {fileID: 4044373728187833952, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -987,6 +964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carousel_Musician
       objectReference: {fileID: 0}
+    - target: {fileID: 6586381734689474713, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1183901214132014878}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1008,3 +989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc61d30fbeb469489e02094b30fc5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8542531547529013766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6301638220056721134, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+  m_PrefabInstance: {fileID: 2449608262623534312}
+  m_PrefabAsset: {fileID: 0}
