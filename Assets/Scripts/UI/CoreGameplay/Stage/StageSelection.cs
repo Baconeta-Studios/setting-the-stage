@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using Utils;
 
 public class StageSelection : Singleton<StageSelection>
@@ -12,6 +10,8 @@ public class StageSelection : Singleton<StageSelection>
     public Carousel musicianCarousel;
     public MusicianInfoPanel musicianInfoPanel;
     private StagePosition activeStagePosition = null;
+    
+    [SerializeField] private GameObject exitSelectionButton;
 
     private List<StagePosition> _StagePositions = new List<StagePosition>();
 
@@ -68,8 +68,14 @@ public class StageSelection : Singleton<StageSelection>
         instrumentCarousel.OpenCarousel(activeStagePosition);
 
         musicianInfoPanel.UpdatePanel(activeStagePosition.musicianOccupied);
+        SetExitButtonVisibility(activeStagePosition.musicianOccupied == null);
         
         OnStageSelectionFocusChanged?.Invoke(activeStagePosition);
+    }
+
+    public void SetExitButtonVisibility(bool isVisible)
+    {
+        exitSelectionButton.gameObject.SetActive(isVisible);
     }
 
     public void HideStageSelection()
@@ -90,11 +96,6 @@ public class StageSelection : Singleton<StageSelection>
         }
     }
 
-    private void FocusChanged()
-    {
-        
-    }
-
     public List<StagePosition> GetStagePositions()
     {
         return _StagePositions;
@@ -109,8 +110,13 @@ public class StageSelection : Singleton<StageSelection>
     {
         MoveCurrentSelection(-1);
     }
+    
+    public void MoveToNextIncompletePosition()
+    {
+        MoveCurrentSelection(1, true);
+    }
 
-    private void MoveCurrentSelection(int indexDirection)
+    private void MoveCurrentSelection(int indexDirection, bool skipComplete=false)
     {
         if (_StagePositions.Count <= 0)
         {
@@ -118,20 +124,48 @@ public class StageSelection : Singleton<StageSelection>
             return;
         }
         
-        int currentIndex = activeStagePosition.stagePositionNumber;
+        var currentIndex = activeStagePosition.stagePositionNumber;
 
-        // Left subtracts 1, Right adds one.
-        currentIndex += indexDirection;
-        
-        if (currentIndex < 0)
+        var incompleteStagePositions = GetIncompleteStagePositions();
+        if (skipComplete && incompleteStagePositions.Count > 0)
         {
-            // Wrap to the right
-            currentIndex = _StagePositions.Count - 1;
+            int tryValue = TryWrapToLeft(currentIndex + 1);
+            int attempts = 0;
+            int maxAttempts = _StagePositions.Count + 1;
+
+            while (attempts < maxAttempts)
+            {
+                if (IsStagePositionIncomplete(_StagePositions.Find(x => x.stagePositionNumber == tryValue)))
+                {
+                    currentIndex = tryValue;
+                    break;
+                }
+                tryValue = TryWrapToLeft(tryValue + 1);
+                attempts++;
+
+                if (tryValue == currentIndex)
+                {
+                    StSDebug.Log("MoveCurrentSelection: Wrapped all the way around, no incomplete stage found.");
+                    MoveCurrentSelection(1, false);
+                    return;
+                }
+            }
         }
-        else if (currentIndex >= _StagePositions.Count)
+        else
         {
-            // Wrap to the Left
-            currentIndex = 0;
+            // Left subtracts 1, Right adds one.
+            currentIndex += indexDirection;
+        
+            if (currentIndex < 0)
+            {
+                // Wrap to the far right
+                currentIndex = _StagePositions.Count - 1;
+            }
+            else
+            {
+                // Wrap to the far left
+                currentIndex = TryWrapToLeft(currentIndex);
+            }
         }
         
         // Simulate a "Click" on the new stage position, this will move the camera, update the carousels, and the active stage position.
@@ -144,6 +178,26 @@ public class StageSelection : Singleton<StageSelection>
         {
             StSDebug.LogError($"StageSelection: Could not find stage position with the index '{currentIndex}'");
         }
+    }
+
+    private int TryWrapToLeft(int value)
+    {
+        if (value >= _StagePositions.Count)
+        {
+            value = 0;
+        }
+
+        return value;
+    }
+
+    private List<StagePosition> GetIncompleteStagePositions()
+    {
+        return _StagePositions.Where(IsStagePositionIncomplete).ToList();
+    }
+
+    private bool IsStagePositionIncomplete(StagePosition position)
+    {
+        return position.musicianOccupied == null || position.instrumentOccupied == null;
     }
 
     public bool HasActiveSelection()

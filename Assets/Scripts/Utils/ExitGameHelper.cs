@@ -8,7 +8,7 @@ public class ExitGameHelper : EverlastingSingleton<ExitGameHelper>
     public void OnEnable()
     {
         // The exit button will be hidden on mobile and WebGL platforms.
-        if (UnityHelper.IsMobile || UnityHelper.IsWebGL)
+        if (UnityHelper.IsMobile || UnityHelper.IsWebGL || UnityHelper.IsInUnityEditor)
         {
             _exitButton.SetActive(false);
         } else {
