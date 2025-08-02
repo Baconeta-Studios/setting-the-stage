@@ -134,21 +134,17 @@ public class StageSelection : Singleton<StageSelection>
 
             while (attempts < maxAttempts)
             {
-                StSDebug.Log($"Attempting to check {tryValue} position.");
                 if (IsStagePositionIncomplete(_StagePositions.Find(x => x.stagePositionNumber == tryValue)))
                 {
-                    StSDebug.Log($"{tryValue} position was not complete - success.");
                     currentIndex = tryValue;
                     break;
                 }
-                StSDebug.Log($"{tryValue} position was already complete - failure.");
                 tryValue = TryWrapToLeft(tryValue + 1);
                 attempts++;
 
-                // If we've looped all the way around and found nothing, exit
                 if (tryValue == currentIndex)
                 {
-                    StSDebug.Log("MoveCurrentSelection: Wrapped all the way around, no incomplete stage found.");
+                    StSDebug.LogError("MoveCurrentSelection: Wrapped all the way around, no incomplete stage found.");
                     return;
                 }
             }
@@ -199,7 +195,6 @@ public class StageSelection : Singleton<StageSelection>
 
     private bool IsStagePositionIncomplete(StagePosition position)
     {
-        StSDebug.Log($"{position.musicianOccupied} with {position.instrumentOccupied} at position {position.stagePositionNumber}.");
         return position.musicianOccupied == null || position.instrumentOccupied == null;
     }
 
