@@ -49,8 +49,9 @@ namespace Audio
 
         private void StagePositionUpdated(StagePosition stagePosition)
         {
-            if (stagePosition.instrumentOccupied is null || stagePosition.musicianOccupied is null)
+            if (stagePosition.instrumentOccupied == null || stagePosition.musicianOccupied ==  null)
             {
+                _audioBuilder.UpdateClipAtIndex(null, stagePosition.stagePositionNumber);
                 return;
             }
             AudioClip clipToLoad = _audioDataManager.GetAudioTrack(_act.GetActNumber(), _chapter.ChapterNumber, stagePosition.instrumentOccupied, stagePosition.GetMusicianProficiency());

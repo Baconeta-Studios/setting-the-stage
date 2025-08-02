@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Managers;
 using UnityEngine;
@@ -33,6 +32,11 @@ namespace Audio
         
         public void UpdateClipAtIndex(AudioClip clip, int index)
         {
+            if (_builtClips[index] != null)
+            {
+                _builtClips[index].UnloadAudioData();
+            }
+            _builtClips[index] = null;
             clip?.LoadAudioData(); // Since clip can be null we use null prop
             _builtClips[index] = clip;
         }
