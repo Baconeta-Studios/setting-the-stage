@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
 using Utils;
 
 public class StageSelection : Singleton<StageSelection>
@@ -144,7 +141,8 @@ public class StageSelection : Singleton<StageSelection>
 
                 if (tryValue == currentIndex)
                 {
-                    StSDebug.LogError("MoveCurrentSelection: Wrapped all the way around, no incomplete stage found.");
+                    StSDebug.Log("MoveCurrentSelection: Wrapped all the way around, no incomplete stage found.");
+                    MoveCurrentSelection(1, false);
                     return;
                 }
             }
