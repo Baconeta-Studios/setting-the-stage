@@ -32,7 +32,7 @@ public class Carousel_Button : Carousel
         SelectItem(newIndex);
     }
 
-    protected override void SelectItem(int newSelectedItemIndex)
+    public override void SelectItem(int newSelectedItemIndex)
     {
         if (newSelectedItemIndex != selectedItemIndex)
         {

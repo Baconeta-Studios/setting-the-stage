@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using GameStructure;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -150,9 +148,8 @@ public class Carousel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    
 
-    protected virtual void SelectItem(int newSelectedItemIndex)
+    public virtual void SelectItem(int newSelectedItemIndex)
     {
         if (newSelectedItemIndex != selectedItemIndex)
         {
