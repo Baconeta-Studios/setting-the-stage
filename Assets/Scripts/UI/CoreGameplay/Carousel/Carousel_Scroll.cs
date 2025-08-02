@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using GameStructure;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Carousel_Scroll : Carousel
@@ -18,6 +21,24 @@ public class Carousel_Scroll : Carousel
     {
         if (!isDragging)
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                PointerEventData pointerData = new PointerEventData(EventSystem.current);
+                pointerData.position = Input.mousePosition;
+
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
+
+                foreach (var result in results)
+                {
+                    var item = result.gameObject.GetComponent<CarouselItem>();
+                    if (item != null)
+                    {
+                        SelectItem(item.transform.parent.GetSiblingIndex());
+                        break;
+                    }
+                }
+            }
             if (selectedItemIndex < _contentItems.Count)
             {
                 SnapToItem(_contentItems[selectedItemIndex]);
@@ -55,7 +76,7 @@ public class Carousel_Scroll : Carousel
         return targetPosition;
     }
 
-    void FindClosestItem()
+    private void FindClosestItem()
     {
         float closestDistance = float.MaxValue;
         int closestItemIndex = selectedItemIndex;
