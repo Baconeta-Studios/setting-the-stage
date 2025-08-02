@@ -109,8 +109,13 @@ public class StageSelection : Singleton<StageSelection>
     {
         MoveCurrentSelection(-1);
     }
+    
+    public void MoveToNextIncompletePosition()
+    {
+        MoveCurrentSelection(1, true);
+    }
 
-    private void MoveCurrentSelection(int indexDirection)
+    private void MoveCurrentSelection(int indexDirection, bool skipComplete=false)
     {
         if (_StagePositions.Count <= 0)
         {
@@ -118,20 +123,51 @@ public class StageSelection : Singleton<StageSelection>
             return;
         }
         
-        int currentIndex = activeStagePosition.stagePositionNumber;
+        var currentIndex = activeStagePosition.stagePositionNumber;
 
-        // Left subtracts 1, Right adds one.
-        currentIndex += indexDirection;
-        
-        if (currentIndex < 0)
+        var incompleteStagePositions = GetIncompleteStagePositions();
+        if (skipComplete && incompleteStagePositions.Count > 0)
         {
-            // Wrap to the right
-            currentIndex = _StagePositions.Count - 1;
+            int tryValue = TryWrapToLeft(currentIndex + 1);
+            int attempts = 0;
+            int maxAttempts = _StagePositions.Count + 1;
+
+            while (attempts < maxAttempts)
+            {
+                StSDebug.Log($"Attempting to check {tryValue} position.");
+                if (IsStagePositionIncomplete(_StagePositions.Find(x => x.stagePositionNumber == tryValue)))
+                {
+                    StSDebug.Log($"{tryValue} position was not complete - success.");
+                    currentIndex = tryValue;
+                    break;
+                }
+                StSDebug.Log($"{tryValue} position was already complete - failure.");
+                tryValue = TryWrapToLeft(tryValue + 1);
+                attempts++;
+
+                // If we've looped all the way around and found nothing, exit
+                if (tryValue == currentIndex)
+                {
+                    StSDebug.Log("MoveCurrentSelection: Wrapped all the way around, no incomplete stage found.");
+                    return;
+                }
+            }
         }
-        else if (currentIndex >= _StagePositions.Count)
+        else
         {
-            // Wrap to the Left
-            currentIndex = 0;
+            // Left subtracts 1, Right adds one.
+            currentIndex += indexDirection;
+        
+            if (currentIndex < 0)
+            {
+                // Wrap to the far right
+                currentIndex = _StagePositions.Count - 1;
+            }
+            else
+            {
+                // Wrap to the far left
+                currentIndex = TryWrapToLeft(currentIndex);
+            }
         }
         
         // Simulate a "Click" on the new stage position, this will move the camera, update the carousels, and the active stage position.
@@ -144,6 +180,27 @@ public class StageSelection : Singleton<StageSelection>
         {
             StSDebug.LogError($"StageSelection: Could not find stage position with the index '{currentIndex}'");
         }
+    }
+
+    private int TryWrapToLeft(int value)
+    {
+        if (value >= _StagePositions.Count)
+        {
+            value = 0;
+        }
+
+        return value;
+    }
+
+    private List<StagePosition> GetIncompleteStagePositions()
+    {
+        return _StagePositions.Where(IsStagePositionIncomplete).ToList();
+    }
+
+    private bool IsStagePositionIncomplete(StagePosition position)
+    {
+        StSDebug.Log($"{position.musicianOccupied} with {position.instrumentOccupied} at position {position.stagePositionNumber}.");
+        return position.musicianOccupied == null || position.instrumentOccupied == null;
     }
 
     public bool HasActiveSelection()
