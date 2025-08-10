@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using GameStructure;
-using UnityEngine;
 
 public class Carousel_Button : Carousel
 {
@@ -32,7 +29,7 @@ public class Carousel_Button : Carousel
         SelectItem(newIndex);
     }
 
-    protected override void SelectItem(int newSelectedItemIndex)
+    public override void SelectItem(int newSelectedItemIndex)
     {
         if (newSelectedItemIndex != selectedItemIndex)
         {
