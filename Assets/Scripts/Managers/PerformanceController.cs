@@ -71,6 +71,7 @@ public class PerformanceController : MonoBehaviour
 
     private async Task WaitForClipsToLoad()
     {
+        await Task.Delay(100);
         while (!_audioBuilderSystem.ReadyToPlay)
         {
             await Task.Yield();
