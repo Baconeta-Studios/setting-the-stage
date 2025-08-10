@@ -75,7 +75,8 @@ public class StageSelection : Singleton<StageSelection>
 
     public void SetExitButtonVisibility(bool isVisible)
     {
-        exitSelectionButton.gameObject.SetActive(isVisible);
+        // No longer needs to be here but holding data for reference for now
+        //exitSelectionButton.gameObject.SetActive(isVisible);
     }
 
     public void HideStageSelection()
@@ -93,6 +94,12 @@ public class StageSelection : Singleton<StageSelection>
             OnStageSelectionEnded?.Invoke();
             
             gameObject.SetActive(false);
+        }
+
+        var chapterUI = FindObjectOfType<ChapterUI>();
+        if (chapterUI != null)
+        {
+            chapterUI.HideStageSelectionUIInChapter();
         }
     }
 

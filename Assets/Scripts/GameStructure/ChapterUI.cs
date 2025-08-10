@@ -15,6 +15,7 @@ public class ChapterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI chapterTitle;
     [SerializeField] private Button trackInfoButton;
     [SerializeField] private Button settingsButton;
+    [SerializeField] private Button exitButton;
     [SerializeField] private ChapterPopup chapterPopup;
     [SerializeField] private ChapterProgress _StageProgressButton;
     [SerializeField] private StageSelection _SelectionCarousels;
@@ -83,6 +84,7 @@ public class ChapterUI : MonoBehaviour
         switch (chapterStage)
         {
             case Chapter.ChapterStage.Intro:
+                exitButton.gameObject.SetActive(false);
                 _StageProgressButton.ToggleInteractable(false);
                 OpenTrackInfoPopup(() => Chapter.NextStage());
                 HideChapterTitle();
@@ -113,8 +115,15 @@ public class ChapterUI : MonoBehaviour
         bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
         if (inStageSelection && canClickPosition)
         {
+            exitButton.gameObject.SetActive(true);
+            settingsButton.gameObject.SetActive(false);
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            exitButton.gameObject.SetActive(false);
+            settingsButton.gameObject.SetActive(true);
         }
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
@@ -182,5 +191,11 @@ public class ChapterUI : MonoBehaviour
         ShowChapterTitle();
         settingsButton.interactable = true;
         chapterPopup.ClosePopup();
+    }
+
+    public void HideStageSelectionUIInChapter()
+    {
+        exitButton.gameObject.SetActive(false);
+        settingsButton.gameObject.SetActive(true);
     }
 }

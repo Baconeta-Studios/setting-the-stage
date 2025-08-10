@@ -63,7 +63,7 @@ PrefabInstance:
         vibe of where she grew up. Due to her intense and serious attitude towards
         her work, none of her coworkers would expect her to be artistic in the slightest,
         but secretly she\u2019s been a passionate closet musician ever since watching
-        Moldova in Eurovision back in 2010, and often plays her signature instrument(s)
+        Moldova in Eurovision back in 2010, and often plays her <b>signature instrument(s)</b>
         to relieve stress after a long day at work. "
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
