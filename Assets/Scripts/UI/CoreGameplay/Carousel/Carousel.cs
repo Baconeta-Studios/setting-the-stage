@@ -214,9 +214,9 @@ public class Carousel : MonoBehaviour
             return;
         }
 
-        foreach (var item in _contentItems)
+        foreach (var itemBox in _contentItems)
         {
-            Instrument instrument = item.item as Instrument;
+            Instrument instrument = itemBox.item as Instrument;
             if (instrument == null)
             {
                 continue;
@@ -224,12 +224,11 @@ public class Carousel : MonoBehaviour
             if (musician != null)
             {
                 var learnedProficiency = SaveSystem.Instance.GetLearnedProficiency(musician.GetMusicianID(), instrument.GetInstrumentID());
-                item.UpdateInstrumentImage(learnedProficiency);
-
+                itemBox.UpdateInstrumentImage(learnedProficiency);
             }
             else
             {
-                item.UpdateInstrumentImage(InstrumentProficiency.Unknown);
+                itemBox.UpdateInstrumentImage(InstrumentProficiency.Unknown);
             }
         }
     }
