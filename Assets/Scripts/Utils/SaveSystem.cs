@@ -269,6 +269,7 @@ namespace Utils
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
                 userData.narrativesViewed.Clear();
+                userData.knownMusicianProficiencies.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
