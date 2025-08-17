@@ -8,7 +8,11 @@ public class Instrument : StSObject
     [SerializeField] private Vector3 instrumentHoldingPosition;
     [SerializeField] private float instrumentHoldingScale = 0.6f;
     [SerializeField] private SocketPosition socketPosition;
-    [SerializeField] private Sprite instrumentSprite;
+    [SerializeField][Tooltip("This is the default or base image for this intrument")] private Sprite instrumentSprite;
+    [SerializeField] private Sprite instrumentSpritePoor;
+    [SerializeField] private Sprite instrumentSpriteBeginner;
+    [SerializeField] private Sprite instrumentSpriteProficient;
+    [SerializeField] private Sprite instrumentSpriteExpert;
     [SerializeField] private string animationHoldName;
     [SerializeField] private string[] animationPlayNames;
     [SerializeField] private string selectionAudioName;
