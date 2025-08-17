@@ -8,12 +8,36 @@ public class Instrument : StSObject
     [SerializeField] private Vector3 instrumentHoldingPosition;
     [SerializeField] private float instrumentHoldingScale = 0.6f;
     [SerializeField] private SocketPosition socketPosition;
-    [SerializeField] private Sprite instrumentSprite;
+    [SerializeField][Tooltip("This is the default or base image for this intrument")] private Sprite instrumentSprite;
+    [SerializeField] private Sprite instrumentSpritePoor;
+    [SerializeField] private Sprite instrumentSpriteBeginner;
+    [SerializeField] private Sprite instrumentSpriteProficient;
+    [SerializeField] private Sprite instrumentSpriteExpert;
     [SerializeField] private string animationHoldName;
     [SerializeField] private string[] animationPlayNames;
     [SerializeField] private string selectionAudioName;
+    
+    [SerializeField][Tooltip("This must be unique and never change for save file reasons")]
+    private string instrumentID;
+    public string GetInstrumentID() => instrumentID;
 
-    public Sprite InstrumentSprite => instrumentSprite;
+    public Sprite GetInstrumentSprite(InstrumentProficiency proficiency=InstrumentProficiency.Unknown)
+    {
+        switch (proficiency)
+        {
+            case InstrumentProficiency.Unknown:
+                return instrumentSprite;
+            case InstrumentProficiency.Poor:
+                return instrumentSpritePoor;
+            case InstrumentProficiency.Beginner:
+                return instrumentSpriteBeginner;
+            case InstrumentProficiency.Proficient:
+                return instrumentSpriteProficient;
+            case InstrumentProficiency.Expert:
+                return instrumentSpriteExpert;
+        }
+        return instrumentSprite;
+    }
 
     public string AnimationHoldName => animationHoldName;
 

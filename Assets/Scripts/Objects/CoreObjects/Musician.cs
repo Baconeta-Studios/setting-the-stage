@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using GameStructure;
 using UnityEngine;
-using UnityEngine.Serialization;
 
+[Serializable]
 public enum InstrumentProficiency
 {
+    Unknown = -1, // This is mostly used by the proficiency learning system
     Poor = 0,
     Beginner = 1,
     Proficient = 3,
@@ -22,6 +24,10 @@ public class Musician : StSObject
     [SerializeField] private string funFact;
     [SerializeField] private InstrumentSockets instrumentSockets;
     [SerializeField] private string unequipAnimTriggerName = "unequip_all";
+    
+    [SerializeField][Tooltip("This must be unique and never change for save file reasons")]
+    private string musicianID;
+    public string GetMusicianID() => musicianID;
     
     [Header("Instruments")]
     [Tooltip("Instruments the musician is best at.\nAny instruments not listed in any of these lists are considered poor.")] 

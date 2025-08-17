@@ -56,6 +56,7 @@ MonoBehaviour:
   funFact: 
   instrumentSockets: {fileID: 583808605999725201}
   unequipAnimTriggerName: unequip_all
+  musicianID: ADDME
   expertInstruments:
   - {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
   - {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}

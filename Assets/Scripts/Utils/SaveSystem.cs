@@ -6,6 +6,20 @@ using UnityEngine;
 
 namespace Utils
 {
+    [Serializable]
+    public struct InstrumentProficiencyRecord
+    {
+        public InstrumentProficiency proficiency;
+        public string learnedAt; // Stores as ISO-8601 string for serialization (e.g., "2025-07-30T21:15:00Z")
+    }
+    
+    [Serializable]
+    public class LearnedMusicianProficiency
+    {
+        public string musicianID;
+        public SerializableDictionary<string, InstrumentProficiencyRecord> instrumentKnowledge;
+    }
+    
     public class SaveSystem : Singleton<SaveSystem>
     {
         #region UserData Management
@@ -95,6 +109,9 @@ namespace Utils
 
             [ReadOnly]
             public List<string> narrativesViewed = new List<string>();
+            
+            [ReadOnly]
+            public List<LearnedMusicianProficiency> knownMusicianProficiencies = new();
             
             // Get user data functions
             public float GetStarsForChapter(int actNumber, int chapterNumber)
@@ -252,6 +269,7 @@ namespace Utils
                 userData.totalStarsEarned = 0.0f;
                 userData.highestCompletedAct = -1;
                 userData.narrativesViewed.Clear();
+                userData.knownMusicianProficiencies.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
@@ -352,6 +370,79 @@ namespace Utils
         public int GetCountOfChapterCompletion(int act, int chapter)
         {
             return userData.GetCompletedPlaysForChapter(act, chapter);
+        }
+        
+        public InstrumentProficiency GetLearnedProficiency(string musicianID, string instrumentID)
+        {
+            var entry = userData.knownMusicianProficiencies.FirstOrDefault(m => m.musicianID == musicianID);
+            if (entry != null && entry.instrumentKnowledge.TryGetValue(instrumentID, out var record))
+            {
+                return record.proficiency;
+            }
+
+            return InstrumentProficiency.Unknown; 
+        }
+        
+        public void LearnInstrumentProficiency(Musician musician, Instrument instrument, InstrumentProficiency actualProficiency)
+        {
+            string musicianID = musician.GetMusicianID();
+            string instrumentID = instrument.GetInstrumentID();
+
+            if (string.IsNullOrEmpty(musicianID) || string.IsNullOrEmpty(instrumentID))
+            {
+                StSDebug.LogError("Either musicianID or instrumentID are null or empty!");
+                return;
+            }
+
+            var existing = userData.knownMusicianProficiencies
+                .FirstOrDefault(x => x.musicianID == musicianID);
+
+            if (existing == null)
+            {
+                existing = new LearnedMusicianProficiency
+                {
+                    musicianID = musicianID,
+                    instrumentKnowledge = new SerializableDictionary<string, InstrumentProficiencyRecord>()
+                };
+                userData.knownMusicianProficiencies.Add(existing);
+            }
+            
+            var now = DateTime.UtcNow.ToString("o"); // ISO 8601 format (safe for JSON)
+
+            if (!existing.instrumentKnowledge.TryGetValue(instrumentID, out var current))
+            {
+                var newLearnings = new InstrumentProficiencyRecord
+                {
+                    proficiency = actualProficiency,
+                    learnedAt = now
+                };
+                existing.instrumentKnowledge.Add(instrumentID, newLearnings);
+                StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
+                             + actualProficiency + " proficiency with " +  instrumentID);
+            }
+            else
+            {
+                // We overwrite in case this is different, but we raise a warning for debugging
+                if (actualProficiency != current.proficiency)
+                {
+                    StSDebug.LogWarning("We already have the knowledge that musician " 
+                                        + existing.musicianID + " has proficiency " 
+                                        + existing.instrumentKnowledge[instrumentID] + " and we are now saving "
+                                        + actualProficiency + ".");
+                }
+                else
+                {
+                    StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
+                                 + actualProficiency + " proficiency with " +  instrumentID);
+                }
+                existing.instrumentKnowledge[instrumentID] = new InstrumentProficiencyRecord
+                {
+                    proficiency = actualProficiency,
+                    learnedAt = current.learnedAt // we only care about the first time we learnt this
+                };
+            }
+
+            SaveUserData(userData);
         }
     }
 }

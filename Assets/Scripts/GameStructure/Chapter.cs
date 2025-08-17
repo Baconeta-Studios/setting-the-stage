@@ -288,6 +288,8 @@ public class Chapter : Singleton<Chapter>
 
     private void OnPerformanceComplete(float newStarsEarned)
     {
+        SaveLearnedProficiencies();
+
         starsEarned = newStarsEarned;
         
         AudioWrapper.Instance.PlaySound(newStarsEarned >= 3.5 ? successfulSound : awfulSound);
@@ -296,5 +298,22 @@ public class Chapter : Singleton<Chapter>
         onRevealRating?.Invoke(starsEarned);
         
         NextStage();
+    }
+
+    private static void SaveLearnedProficiencies()
+    {
+        // Now we can save the information we have learned in this play into the save system for our next run
+        List<StagePosition> stagePositions = StageSelection.Instance.GetStagePositions();
+        foreach (var position in stagePositions)
+        {
+            var musician = position.musicianOccupied;
+            var instrument = position.instrumentOccupied;
+            if (instrument == null || musician == null)
+            {
+                StSDebug.LogError("Something went wrong - how did we complete the song without a full stage?");
+                return;
+            }
+            SaveSystem.Instance.LearnInstrumentProficiency(musician, instrument, musician.GetInstrumentProficiency(instrument));
+        }
     }
 }

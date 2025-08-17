@@ -14,13 +14,13 @@ public class CarouselItem : MonoBehaviour, IPointerClickHandler
     public RectTransform rectTransform;
     public Image spriteImage;
     
-    private Carousel parentCarousel;
+    private Carousel _parentCarousel;
 
     public void Initialize(Carousel parent, StSObject newItem)
     {
         rectTransform = GetComponent<RectTransform>();
         item = newItem;
-        parentCarousel = parent;
+        _parentCarousel = parent;
         
         string itemName = "Empty";
         if (newItem is null)
@@ -44,7 +44,16 @@ public class CarouselItem : MonoBehaviour, IPointerClickHandler
             spriteImage.enabled = false;
             return;
         }
-        Sprite sprite = (newItem as Instrument)?.InstrumentSprite;
+        Sprite sprite = (newItem as Instrument)?.GetInstrumentSprite();
+        if (sprite != null && spriteImage != null)
+        {
+            spriteImage.sprite = sprite;
+        }
+    }
+
+    public void UpdateInstrumentImage(InstrumentProficiency proficiency)
+    {
+        Sprite sprite = (item as Instrument)?.GetInstrumentSprite(proficiency);
         if (sprite != null && spriteImage != null)
         {
             spriteImage.sprite = sprite;
