@@ -72,7 +72,6 @@ public class StagePosition : MonoBehaviour
                 lastMusician?.UnequipInstrument();
             }
         }
-
         _hasUncommittedChanges = true;
         OnStagePositionChanged?.Invoke(this);
     }

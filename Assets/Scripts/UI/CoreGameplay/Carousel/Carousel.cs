@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameStructure;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class Carousel : MonoBehaviour
 {
@@ -110,7 +111,6 @@ public class Carousel : MonoBehaviour
         }
 
         // Add the available items
-        //TODO Replace string with a data type
         foreach (StSObject item in items)
         {
             AddItemToCarousel(item);
@@ -179,7 +179,9 @@ public class Carousel : MonoBehaviour
                         currentStagePosition.InstrumentSelectionChanged((Instrument)selection);
                         break;
                     case CarouselType.Musician:
-                        currentStagePosition.MusicianSelectionChanged((Musician)selection);
+                        var musician = (Musician)selection;
+                        currentStagePosition.MusicianSelectionChanged(musician);
+                        StageSelection.Instance.instrumentCarousel.UpdateCarouselInstrumentImages(musician);
                         break;
                 }
             }
@@ -204,9 +206,37 @@ public class Carousel : MonoBehaviour
         itemToClear.GetComponent<Image>().color = unSelectionColour;
     }
 
+    public void UpdateCarouselInstrumentImages(Musician musician)
+    {
+        if (carouselType != CarouselType.Instrument) 
+        {
+            StSDebug.LogWarning("Something went wrong and this is not an instrument carousel");
+            return;
+        }
+
+        foreach (var item in _contentItems)
+        {
+            Instrument instrument = item.item as Instrument;
+            if (instrument == null)
+            {
+                continue;
+            }
+            if (musician != null)
+            {
+                var learnedProficiency = SaveSystem.Instance.GetLearnedProficiency(musician.GetMusicianID(), instrument.GetInstrumentID());
+                item.UpdateInstrumentImage(learnedProficiency);
+
+            }
+            else
+            {
+                item.UpdateInstrumentImage(InstrumentProficiency.Unknown);
+            }
+        }
+    }
+
     private void OnStagePositionClicked(StagePosition clickedStagePosition)
     {
         currentStagePosition = clickedStagePosition;
     }
-    
+
 }

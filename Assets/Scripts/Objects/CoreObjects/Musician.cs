@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Animation;
 using GameStructure;
 using UnityEngine;
 
+[Serializable]
 public enum InstrumentProficiency
 {
     Unknown = -1, // This is mostly used by the proficiency learning system

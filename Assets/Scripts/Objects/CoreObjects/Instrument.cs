@@ -21,7 +21,23 @@ public class Instrument : StSObject
     private string instrumentID;
     public string GetInstrumentID() => instrumentID;
 
-    public Sprite InstrumentSprite => instrumentSprite;
+    public Sprite InstrumentSprite(InstrumentProficiency proficiency=InstrumentProficiency.Unknown)
+    {
+        switch (proficiency)
+        {
+            case InstrumentProficiency.Unknown:
+                return instrumentSprite;
+            case InstrumentProficiency.Poor:
+                return instrumentSpritePoor;
+            case InstrumentProficiency.Beginner:
+                return instrumentSpriteBeginner;
+            case InstrumentProficiency.Proficient:
+                return instrumentSpriteProficient;
+            case InstrumentProficiency.Expert:
+                return instrumentSpriteExpert;
+        }
+        return instrumentSprite;
+    }
 
     public string AnimationHoldName => animationHoldName;
 

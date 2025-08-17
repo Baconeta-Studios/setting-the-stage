@@ -44,7 +44,16 @@ public class CarouselItem : MonoBehaviour, IPointerClickHandler
             spriteImage.enabled = false;
             return;
         }
-        Sprite sprite = (newItem as Instrument)?.InstrumentSprite;
+        Sprite sprite = (newItem as Instrument)?.InstrumentSprite();
+        if (sprite != null && spriteImage != null)
+        {
+            spriteImage.sprite = sprite;
+        }
+    }
+
+    public void UpdateInstrumentImage(InstrumentProficiency proficiency)
+    {
+        Sprite sprite = (item as Instrument)?.InstrumentSprite(proficiency);
         if (sprite != null && spriteImage != null)
         {
             spriteImage.sprite = sprite;

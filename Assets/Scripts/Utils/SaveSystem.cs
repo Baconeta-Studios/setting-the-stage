@@ -17,7 +17,7 @@ namespace Utils
     public class LearnedMusicianProficiency
     {
         public string musicianID;
-        public Dictionary<string, InstrumentProficiencyRecord> instrumentKnowledge;
+        public SerializableDictionary<string, InstrumentProficiencyRecord> instrumentKnowledge;
     }
     
     public class SaveSystem : Singleton<SaveSystem>
@@ -402,7 +402,7 @@ namespace Utils
                 existing = new LearnedMusicianProficiency
                 {
                     musicianID = musicianID,
-                    instrumentKnowledge = new Dictionary<string, InstrumentProficiencyRecord>()
+                    instrumentKnowledge = new SerializableDictionary<string, InstrumentProficiencyRecord>()
                 };
                 userData.knownMusicianProficiencies.Add(existing);
             }
@@ -411,11 +411,12 @@ namespace Utils
 
             if (!existing.instrumentKnowledge.TryGetValue(instrumentID, out var current))
             {
-                existing.instrumentKnowledge[instrumentID] = new InstrumentProficiencyRecord
+                var newLearnings = new InstrumentProficiencyRecord
                 {
                     proficiency = actualProficiency,
                     learnedAt = now
                 };
+                existing.instrumentKnowledge.Add(instrumentID, newLearnings);
                 StSDebug.Log("Saved knowledge that musician "  + musicianID + " has " 
                              + actualProficiency + " proficiency with " +  instrumentID);
             }

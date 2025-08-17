@@ -51,6 +51,10 @@ MonoBehaviour:
   instrumentHoldingScale: 0.6
   socketPosition: 0
   instrumentSprite: {fileID: 0}
+  instrumentSpritePoor: {fileID: 21300000, guid: 5509abf6378adf84480c44b3ce9e1026, type: 3}
+  instrumentSpriteBeginner: {fileID: 21300000, guid: 4da0bb4a4c4ad3245b1198122d31d04e, type: 3}
+  instrumentSpriteProficient: {fileID: 21300000, guid: a2dbe35f5cff72442b1424cfce6f195c, type: 3}
+  instrumentSpriteExpert: {fileID: 21300000, guid: fe8f0d06e9774404899f1caed78462ab, type: 3}
   animationHoldName: 
   animationPlayNames: []
   selectionAudioName: 
