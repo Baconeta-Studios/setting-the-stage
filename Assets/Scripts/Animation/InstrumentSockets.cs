@@ -38,7 +38,7 @@ namespace Animation
             try
             {
                 float scale = instrument.GetInstrumentHoldingScale();
-                socket.socketSpriteRenderer.sprite = instrument.InstrumentSprite();
+                socket.socketSpriteRenderer.sprite = instrument.GetInstrumentSprite();
                 socket.socketRectTransform.transform.localEulerAngles = instrument.GetInstrumentHoldingRotation();
                 socket.socketRectTransform.transform.localPosition = instrument.GetInstrumentHoldingPosition();
                 socket.socketRectTransform.transform.localScale = new Vector3(scale,scale,scale);

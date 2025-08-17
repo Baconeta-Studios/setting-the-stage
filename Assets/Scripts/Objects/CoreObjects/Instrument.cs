@@ -21,7 +21,7 @@ public class Instrument : StSObject
     private string instrumentID;
     public string GetInstrumentID() => instrumentID;
 
-    public Sprite InstrumentSprite(InstrumentProficiency proficiency=InstrumentProficiency.Unknown)
+    public Sprite GetInstrumentSprite(InstrumentProficiency proficiency=InstrumentProficiency.Unknown)
     {
         switch (proficiency)
         {
