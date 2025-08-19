@@ -81,9 +81,25 @@ PrefabInstance:
       value: select_saxophone
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpritePoor
+      value: 
+      objectReference: {fileID: 21300000, guid: 40956e5454182874689fdbd8fd2c7213, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
       value: 0.45
       objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteExpert
+      value: 
+      objectReference: {fileID: 21300000, guid: a052adc1448fb0145bdbc25fdb2e5c4d, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteBeginner
+      value: 
+      objectReference: {fileID: 21300000, guid: d283ed66de96a424199630b8be47eab8, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteProficient
+      value: 
+      objectReference: {fileID: 21300000, guid: 3738275e0c8108f46ba2539dd4dee5b8, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
       value: 1.17
