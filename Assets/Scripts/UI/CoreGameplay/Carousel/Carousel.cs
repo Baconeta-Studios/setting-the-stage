@@ -27,7 +27,9 @@ public class Carousel : MonoBehaviour
     [Header("Selection")]
     [SerializeField] protected int selectedItemIndex = 0;
     [SerializeField] protected Color selectionColour = Color.yellow;
+    [SerializeField] protected Color instrumentSelectionColour = Color.yellow;
     [SerializeField] protected Color unSelectionColour = Color.yellow;
+    [SerializeField] protected Color instrumentUnselectionColour = Color.yellow;
     [SerializeField] protected float selectionSizeMultiplier = 1.3f;
     [SerializeField] protected float  unSelectionSizeMultiplier = 0.85f;
 
@@ -197,6 +199,11 @@ public class Carousel : MonoBehaviour
         //Highlight the current selection and increase the size
         itemToHighlight.transform.localScale = Vector3.one * selectionSizeMultiplier;
         itemToHighlight.GetComponent<Image>().color = selectionColour;
+        var image = itemToHighlight.spriteImage?.GetComponent<Image>();
+        if (image != null)
+        {
+            image.color = instrumentSelectionColour;
+        }
     }
 
     private void ClearHighlightOnItem(CarouselItem itemToClear)
@@ -204,6 +211,11 @@ public class Carousel : MonoBehaviour
         //Remove the highlight & size from the previous selection
         itemToClear.transform.localScale = Vector3.one * unSelectionSizeMultiplier;
         itemToClear.GetComponent<Image>().color = unSelectionColour;
+        var image = itemToClear.spriteImage?.GetComponent<Image>();
+        if (image != null)
+        {
+            image.color = instrumentUnselectionColour;
+        }
     }
 
     public void UpdateCarouselInstrumentImages(Musician musician)
