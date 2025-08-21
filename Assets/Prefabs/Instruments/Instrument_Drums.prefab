@@ -77,9 +77,25 @@ PrefabInstance:
       value: select_drums
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpritePoor
+      value: 
+      objectReference: {fileID: 21300000, guid: ec0e0e2ee4f10c44a8d8b052ba1b7946, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteExpert
+      value: 
+      objectReference: {fileID: 21300000, guid: be7114f637d437647bc8e17ce11e9743, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteBeginner
+      value: 
+      objectReference: {fileID: 21300000, guid: f7c829986fc4e0e489bff6c652f56266, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteProficient
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c8b67d30fa8eec40baf4ad08318647f, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
       value: 0.47

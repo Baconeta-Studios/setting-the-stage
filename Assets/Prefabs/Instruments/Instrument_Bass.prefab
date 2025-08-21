@@ -77,9 +77,25 @@ PrefabInstance:
       value: select_bass
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpritePoor
+      value: 
+      objectReference: {fileID: 21300000, guid: 440336d1ba41de54ba85423bcb7c32da, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteExpert
+      value: 
+      objectReference: {fileID: 21300000, guid: ace40d876132c5947bd95856c0570bac, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteBeginner
+      value: 
+      objectReference: {fileID: 21300000, guid: c255f14065a2c0d49944ccb36e6260c4, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteProficient
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e1562a2c5b8c574eaf530d638b8b701, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
       value: -3.86

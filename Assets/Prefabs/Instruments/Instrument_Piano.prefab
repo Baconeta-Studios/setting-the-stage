@@ -77,9 +77,25 @@ PrefabInstance:
       value: select_piano
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpritePoor
+      value: 
+      objectReference: {fileID: 21300000, guid: 7c6123cd668739f48a3ba3abc3eccdd1, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteExpert
+      value: 
+      objectReference: {fileID: 21300000, guid: d64dd0a1212c9af41aa0995d60cfabba, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteBeginner
+      value: 
+      objectReference: {fileID: 21300000, guid: d35f61c389bd39c4db7884ba2360ef25, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteProficient
+      value: 
+      objectReference: {fileID: 21300000, guid: 389284e281b5fda4390169523e49f81e, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
       value: 0.11

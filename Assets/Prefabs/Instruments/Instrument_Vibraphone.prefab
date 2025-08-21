@@ -77,9 +77,25 @@ PrefabInstance:
       value: select_vibraphone
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpritePoor
+      value: 
+      objectReference: {fileID: 21300000, guid: 90f9befd9e1ff5f46badddcaeae055a7, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingScale
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteExpert
+      value: 
+      objectReference: {fileID: 21300000, guid: df17ac3bacbe3324484360323c7f552c, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteBeginner
+      value: 
+      objectReference: {fileID: 21300000, guid: 64604cbf89f1a3240ac4bc7429850c2f, type: 3}
+    - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
+      propertyPath: instrumentSpriteProficient
+      value: 
+      objectReference: {fileID: 21300000, guid: a9856478930f21f499fd07715446bb47, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
       value: 0.11
