@@ -102,11 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 5f9f5c18ad52dbc47919e92024489b26, type: 3}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.x
-      value: -2.27
+      value: -0.56
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingPosition.y
-      value: -5.7
+      value: -4.68
       objectReference: {fileID: 0}
     - target: {fileID: 8886843751237080600, guid: a5bdd81d77569204bb2befe84910948a, type: 3}
       propertyPath: instrumentHoldingRotation.z
