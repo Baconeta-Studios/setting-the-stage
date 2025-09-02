@@ -24,6 +24,8 @@ public class Musician : StSObject
     [SerializeField] private string funFact;
     [SerializeField] private InstrumentSockets instrumentSockets;
     [SerializeField] private string unequipAnimTriggerName = "unequip_all";
+
+    [SerializeField] private Instrument editorInstrument;
     
     [SerializeField][Tooltip("This must be unique and never change for save file reasons")]
     private string musicianID;
@@ -121,5 +123,15 @@ public class Musician : StSObject
         }
 
         _animator.SetBool(animBoolName,enable);
+    }
+    
+    public void EquipEditorInstrument()
+    {
+        if (editorInstrument == null)
+        {
+            StSDebug.LogError("Editor instrument field is empty on this instrument");
+        }
+        instrumentSockets.HoldInstrument(editorInstrument);
+        _animator.ResetTrigger(unequipAnimTriggerName);
     }
 }
