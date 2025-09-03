@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Settings
 {
@@ -31,6 +31,11 @@ namespace Settings
         public void CloseSettingsPopup()
         {
             gameObject.SetActive(false);
+        }
+
+        public void ResetAllSaveData()
+        {
+            SaveSystem.Instance.ResetUserData();
         }
     }
 }

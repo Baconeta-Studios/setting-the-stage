@@ -644,9 +644,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4215791646679492786}
-        m_TargetAssemblyTypeName: Utils.SaveSystem, Assembly-CSharp
-        m_MethodName: ResetUserData
+      - m_Target: {fileID: 2068313244}
+        m_TargetAssemblyTypeName: Settings.SettingsPopup, Assembly-CSharp
+        m_MethodName: ResetAllSaveData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2653,6 +2653,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8985170104781746702, guid: aca4872e40dba5449a56677ebc81e876, type: 3}
   m_PrefabInstance: {fileID: 2068313239}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2068313244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6837015468409084909, guid: aca4872e40dba5449a56677ebc81e876, type: 3}
+  m_PrefabInstance: {fileID: 2068313239}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9a4ac21a6c482381a3b5147fc6067f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3771308016392471256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2818,17 +2829,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 318f7f1dcbca10b41b48198751508cce, type: 3}
---- !u!114 &4215791646679492786 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4221015226019962516, guid: 318f7f1dcbca10b41b48198751508cce, type: 3}
-  m_PrefabInstance: {fileID: 4215791646679492785}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407c964183577b544997339739983acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2837,8 +2837,8 @@ SceneRoots:
   - {fileID: 726748197}
   - {fileID: 1841495424}
   - {fileID: 3771308016392471256}
-  - {fileID: 642290249}
   - {fileID: 4215791646679492785}
+  - {fileID: 642290249}
   - {fileID: 1010329405}
   - {fileID: 1397857691}
   - {fileID: 1320747352}
