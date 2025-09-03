@@ -86,6 +86,7 @@ public class ChapterUI : MonoBehaviour
             case Chapter.ChapterStage.Intro:
                 exitButton.gameObject.SetActive(false);
                 _StageProgressButton.ToggleInteractable(false);
+                _StageProgressButton.ToggleActive(false);
                 OpenTrackInfoPopup(() => Chapter.NextStage());
                 HideChapterTitle();
                 break;
