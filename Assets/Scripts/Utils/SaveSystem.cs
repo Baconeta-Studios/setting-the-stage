@@ -20,7 +20,7 @@ namespace Utils
         public SerializableDictionary<string, InstrumentProficiencyRecord> instrumentKnowledge;
     }
     
-    public class SaveSystem : Singleton<SaveSystem>
+    public class SaveSystem : EverlastingSingleton<SaveSystem>
     {
         #region UserData Management
 
