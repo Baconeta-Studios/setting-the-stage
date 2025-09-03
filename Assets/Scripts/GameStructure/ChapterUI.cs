@@ -103,6 +103,7 @@ public class ChapterUI : MonoBehaviour
                 break;
             case Chapter.ChapterStage.Ratings:
                 _StageProgressButton.ToggleInteractable(true);
+                settingsButton.gameObject.SetActive(false);
                 break;
             default:
                 StSDebug.LogWarning("ChapterUI: Unhandled chapter stage when changing stage.");
