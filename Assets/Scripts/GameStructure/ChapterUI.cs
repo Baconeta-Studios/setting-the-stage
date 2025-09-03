@@ -120,7 +120,7 @@ public class ChapterUI : MonoBehaviour
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
         }
-        else
+        else if (!inStageSelection)
         {
             exitButton.gameObject.SetActive(false);
             settingsButton.gameObject.SetActive(true);
