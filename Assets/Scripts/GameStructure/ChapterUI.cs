@@ -102,6 +102,7 @@ public class ChapterUI : MonoBehaviour
                 _StageProgressButton.ToggleInteractable(false);
                 break;
             case Chapter.ChapterStage.Ratings:
+                PopupManager.Instance.CloseAll();
                 _StageProgressButton.ToggleInteractable(true);
                 settingsButton.gameObject.SetActive(false);
                 break;
@@ -122,7 +123,7 @@ public class ChapterUI : MonoBehaviour
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
         }
-        else if (!inStageSelection)
+        else if (!inStageSelection && !Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.Ratings))
         {
             exitButton.gameObject.SetActive(false);
             settingsButton.gameObject.SetActive(true);

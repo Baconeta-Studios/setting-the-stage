@@ -4,19 +4,21 @@ using Utils;
 
 namespace Settings
 {
-    public class SettingsPopup : MonoBehaviour
+    public class SettingsPopup : Popup
     {
         [SerializeField] private Button exitLevelButton;
         [SerializeField] private Button optionsButton;
         [SerializeField] private ChapterUI chapterUI;
 
-        public void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             optionsButton?.gameObject.SetActive(false);
         }
 
-        public void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             optionsButton?.gameObject.SetActive(true);
         }
 
