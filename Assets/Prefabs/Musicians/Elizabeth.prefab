@@ -95,6 +95,10 @@ PrefabInstance:
       value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
+      propertyPath: editorInstrument
+      value: 
+      objectReference: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+    - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: expertInstruments.Array.size
       value: 1
       objectReference: {fileID: 0}
