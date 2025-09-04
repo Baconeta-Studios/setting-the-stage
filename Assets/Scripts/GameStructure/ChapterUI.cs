@@ -86,6 +86,7 @@ public class ChapterUI : MonoBehaviour
             case Chapter.ChapterStage.Intro:
                 exitButton.gameObject.SetActive(false);
                 _StageProgressButton.ToggleInteractable(false);
+                _StageProgressButton.ToggleActive(false);
                 OpenTrackInfoPopup(() => Chapter.NextStage());
                 HideChapterTitle();
                 break;
@@ -101,7 +102,9 @@ public class ChapterUI : MonoBehaviour
                 _StageProgressButton.ToggleInteractable(false);
                 break;
             case Chapter.ChapterStage.Ratings:
+                PopupManager.Instance.CloseAll();
                 _StageProgressButton.ToggleInteractable(true);
+                settingsButton.gameObject.SetActive(false);
                 break;
             default:
                 StSDebug.LogWarning("ChapterUI: Unhandled chapter stage when changing stage.");
@@ -120,7 +123,7 @@ public class ChapterUI : MonoBehaviour
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
         }
-        else
+        else if (!inStageSelection && !Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.Ratings))
         {
             exitButton.gameObject.SetActive(false);
             settingsButton.gameObject.SetActive(true);
