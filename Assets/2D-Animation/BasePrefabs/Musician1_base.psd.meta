@@ -515,8 +515,8 @@ ScriptedImporter:
     - name: WristR
       guid: 0ca2d26d22f80f742815d3a9e680bca4
       position: {x: 817.0477, y: 315.97498, z: 0}
-      rotation: {x: 0, y: 0, z: 0.10682637, w: 0.9942777}
-      length: 65.237854
+      rotation: {x: 0, y: 0, z: 0.013813408, w: 0.9999046}
+      length: 66.7618
       parentId: -1
       color:
         serializedVersion: 2
@@ -1739,14 +1739,14 @@ ScriptedImporter:
       guid: 271139fa97e1c0849bd7766a0fa77fd8
       position: {x: 409.90115, y: -0.000019065827, z: 0}
       rotation: {x: 0, y: 0, z: -0.0386221, w: 0.99925387}
-      length: 460.42926
+      length: 460.4293
       parentId: 0
       color:
         serializedVersion: 2
         rgba: 4286578943
     - name: AnkleR
       guid: aaa451c541c64684a8b7ed267f688371
-      position: {x: 460.42935, y: -0.00017682782, z: 0}
+      position: {x: 460.42938, y: -0.00017598519, z: 0}
       rotation: {x: 0, y: 0, z: 0.026622523, w: 0.99964553}
       length: 99.20174
       parentId: 4
@@ -2343,14 +2343,14 @@ ScriptedImporter:
       guid: 496b2e0a4bb726c45b03e455435d46ed
       position: {x: 455.42288, y: -0.00023665631, z: 0}
       rotation: {x: 0, y: 0, z: -0.09181292, w: 0.9957763}
-      length: 84.8713
+      length: 84.871315
       parentId: 0
       color:
         serializedVersion: 2
         rgba: 4294902015
     - name: FootL
       guid: f1db86f911b51e849a35b9fbc7bd8dc4
-      position: {x: 84.87128, y: 0.000012954522, z: 0}
+      position: {x: 84.87129, y: 0.000015240442, z: 0}
       rotation: {x: 0, y: 0, z: -0.42333984, w: 0.905971}
       length: 151.76268
       parentId: 2
@@ -2361,14 +2361,14 @@ ScriptedImporter:
       guid: 271139fa97e1c0849bd7766a0fa77fd8
       position: {x: 404.24353, y: 683.7055, z: 0}
       rotation: {x: 0, y: 0, z: -0.7168024, w: 0.69727635}
-      length: 460.4294
+      length: 460.42944
       parentId: -1
       color:
         serializedVersion: 2
         rgba: 4286578943
     - name: AnkleR
       guid: aaa451c541c64684a8b7ed267f688371
-      position: {x: 460.42953, y: -0.00016974685, z: 0}
+      position: {x: 460.42957, y: -0.00016890423, z: 0}
       rotation: {x: 0, y: 0, z: 0.026622523, w: 0.9996456}
       length: 99.20178
       parentId: 4
@@ -2807,7 +2807,7 @@ ScriptedImporter:
       guid: 271139fa97e1c0849bd7766a0fa77fd8
       position: {x: 409.9011, y: 0.00010317673, z: 0}
       rotation: {x: 0, y: 0, z: -0.038622104, w: 0.9992539}
-      length: 460.42935
+      length: 460.42938
       parentId: 1
       color:
         serializedVersion: 2
@@ -2832,7 +2832,7 @@ ScriptedImporter:
         rgba: 4294901760
     - name: AnkleR
       guid: aaa451c541c64684a8b7ed267f688371
-      position: {x: 460.42944, y: -0.000084409585, z: 0}
+      position: {x: 460.42947, y: -0.00008356694, z: 0}
       rotation: {x: 0, y: 0, z: 0.026622523, w: 0.99964553}
       length: 99.20177
       parentId: 0
@@ -2841,7 +2841,7 @@ ScriptedImporter:
         rgba: 4278255615
     - name: FootR
       guid: 68d2355d4e4cb4742b1ab1e3efeebd90
-      position: {x: 99.20178, y: -0.000031059168, z: 0}
+      position: {x: 99.20179, y: 0.00009018874, z: 0}
       rotation: {x: 0, y: 0, z: 0.50550455, w: 0.86282396}
       length: 158.10579
       parentId: 3
@@ -3740,7 +3740,7 @@ ScriptedImporter:
       guid: fe26535b1831b3344a0a1227071470e2
       position: {x: 428.62012, y: 93.92615, z: 0}
       rotation: {x: 0, y: 0, z: 0.9989492, w: -0.045831893}
-      length: 222.15952
+      length: 222.15948
       parentId: -1
       color:
         serializedVersion: 2
@@ -3748,8 +3748,8 @@ ScriptedImporter:
     - name: WristL
       guid: 730f563e6fb9d2b49b830419eeb6a7e9
       position: {x: 222.15936, y: -0.00008872959, z: 0}
-      rotation: {x: 0, y: 0, z: -0.26485783, w: 0.9642875}
-      length: 59.144848
+      rotation: {x: 0, y: 0, z: -0.078708425, w: 0.99689776}
+      length: 57.565792
       parentId: 0
       color:
         serializedVersion: 2
@@ -4335,8 +4335,8 @@ ScriptedImporter:
     - name: WristR
       guid: 0ca2d26d22f80f742815d3a9e680bca4
       position: {x: 266.6014, y: -0.000043633616, z: 0}
-      rotation: {x: 0, y: 0, z: 0.13779916, w: 0.9904602}
-      length: 65.237854
+      rotation: {x: 0, y: 0, z: 0.04500707, w: 0.9989867}
+      length: 66.7618
       parentId: 0
       color:
         serializedVersion: 2
@@ -4894,7 +4894,7 @@ ScriptedImporter:
       guid: fe26535b1831b3344a0a1227071470e2
       position: {x: 280.00037, y: 0.00000035211315, z: 0}
       rotation: {x: 0, y: 0, z: -0.07327149, w: 0.99731207}
-      length: 222.1596
+      length: 222.15958
       parentId: 1
       color:
         serializedVersion: 2
@@ -4911,8 +4911,8 @@ ScriptedImporter:
     - name: WristL
       guid: 730f563e6fb9d2b49b830419eeb6a7e9
       position: {x: 222.15947, y: -0.000008616757, z: 0}
-      rotation: {x: 0, y: 0, z: -0.26485783, w: 0.96428746}
-      length: 59.144867
+      rotation: {x: 0, y: 0, z: -0.07870841, w: 0.99689776}
+      length: 57.56582
       parentId: 0
       color:
         serializedVersion: 2
@@ -5245,8 +5245,8 @@ ScriptedImporter:
     - name: WristR
       guid: 0ca2d26d22f80f742815d3a9e680bca4
       position: {x: 266.6015, y: -0.000102527796, z: 0}
-      rotation: {x: 0, y: 0, z: 0.13779919, w: 0.9904603}
-      length: 65.237854
+      rotation: {x: 0, y: 0, z: 0.04500707, w: 0.9989867}
+      length: 66.7618
       parentId: 0
       color:
         serializedVersion: 2
@@ -5589,7 +5589,7 @@ ScriptedImporter:
       guid: fe26535b1831b3344a0a1227071470e2
       position: {x: 280.00037, y: -0.00019534862, z: 0}
       rotation: {x: 0, y: 0, z: -0.07327143, w: 0.997312}
-      length: 222.1596
+      length: 222.15958
       parentId: 0
       color:
         serializedVersion: 2
@@ -6375,7 +6375,7 @@ ScriptedImporter:
         rgba: 4278190335
     - name: FootR
       guid: 68d2355d4e4cb4742b1ab1e3efeebd90
-      position: {x: 268.07312, y: -1157.7177, z: 0}
+      position: {x: 268.07324, y: -1157.7177, z: 0}
       rotation: {x: 0, y: 0, z: -0.24024022, w: 0.9707135}
       length: 158.10579
       parentId: -1
@@ -7211,8 +7211,8 @@ ScriptedImporter:
     - name: WristR
       guid: 0ca2d26d22f80f742815d3a9e680bca4
       position: {x: 266.60138, y: -0.00002621403, z: 0}
-      rotation: {x: 0, y: 0, z: 0.1377991, w: 0.9904602}
-      length: 65.23785
+      rotation: {x: 0, y: 0, z: 0.045007043, w: 0.99898666}
+      length: 66.761795
       parentId: 5
       color:
         serializedVersion: 2
@@ -7230,16 +7230,16 @@ ScriptedImporter:
       guid: fe26535b1831b3344a0a1227071470e2
       position: {x: 280.0003, y: 0.00004284303, z: 0}
       rotation: {x: 0, y: 0, z: -0.07327148, w: 0.99731207}
-      length: 222.15953
+      length: 222.1595
       parentId: 7
       color:
         serializedVersion: 2
         rgba: 4286643968
     - name: WristL
       guid: 730f563e6fb9d2b49b830419eeb6a7e9
-      position: {x: 222.15952, y: -0.00012399502, z: 0}
-      rotation: {x: 0, y: 0, z: -0.26485777, w: 0.9642875}
-      length: 59.14485
+      position: {x: 222.15948, y: -0.00012120061, z: 0}
+      rotation: {x: 0, y: 0, z: -0.078708395, w: 0.9968977}
+      length: 57.5658
       parentId: 8
       color:
         serializedVersion: 2
@@ -7257,14 +7257,14 @@ ScriptedImporter:
       guid: 271139fa97e1c0849bd7766a0fa77fd8
       position: {x: 409.9011, y: -0.000051660827, z: 0}
       rotation: {x: 0, y: 0, z: -0.0386221, w: 0.9992539}
-      length: 460.4294
+      length: 460.42944
       parentId: 10
       color:
         serializedVersion: 2
         rgba: 4286578943
     - name: AnkleR
       guid: aaa451c541c64684a8b7ed267f688371
-      position: {x: 460.42947, y: -0.00020782083, z: 0}
+      position: {x: 460.4295, y: -0.0002069782, z: 0}
       rotation: {x: 0, y: 0, z: 0.02662253, w: 0.9996456}
       length: 99.20177
       parentId: 11
@@ -7273,7 +7273,7 @@ ScriptedImporter:
         rgba: 4278255615
     - name: FootR
       guid: 68d2355d4e4cb4742b1ab1e3efeebd90
-      position: {x: 99.20178, y: -0.000117443014, z: 0}
+      position: {x: 99.20178, y: 0.0000038450144, z: 0}
       rotation: {x: 0, y: 0, z: 0.50550455, w: 0.86282396}
       length: 158.10577
       parentId: 12
@@ -7302,14 +7302,14 @@ ScriptedImporter:
       guid: 496b2e0a4bb726c45b03e455435d46ed
       position: {x: 455.4226, y: -0.00022546752, z: 0}
       rotation: {x: 0, y: 0, z: -0.09181295, w: 0.9957763}
-      length: 84.87128
+      length: 84.87129
       parentId: 15
       color:
         serializedVersion: 2
         rgba: 4294902015
     - name: FootL
       guid: f1db86f911b51e849a35b9fbc7bd8dc4
-      position: {x: 84.87129, y: 0.000009930685, z: 0}
+      position: {x: 84.87131, y: 0.000012216603, z: 0}
       rotation: {x: 0, y: 0, z: -0.4233398, w: 0.905971}
       length: 151.76265
       parentId: 16
