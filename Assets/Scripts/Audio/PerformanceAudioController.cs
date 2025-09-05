@@ -54,7 +54,8 @@ namespace Audio
                 _audioBuilder.UpdateClipAtIndex(null, stagePosition.stagePositionNumber);
                 return;
             }
-            AudioClip clipToLoad = _audioDataManager.GetAudioTrack(_act.GetActNumber(), _chapter.ChapterNumber, stagePosition.instrumentOccupied, stagePosition.GetMusicianProficiency());
+            // use act number -1 for sandbox mode
+            AudioClip clipToLoad = _audioDataManager.GetAudioTrack(_act == null ? -1 : _act.GetActNumber(), _chapter.ChapterNumber, stagePosition.instrumentOccupied, stagePosition.GetMusicianProficiency());
             _audioBuilder.UpdateClipAtIndex(clipToLoad, stagePosition.stagePositionNumber);
         }
     }
