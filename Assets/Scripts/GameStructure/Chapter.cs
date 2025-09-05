@@ -40,6 +40,8 @@ public class Chapter : Singleton<Chapter>
     private List<Instrument> availableInstruments = new List<Instrument>();
     private CustomAudioSource ambient;
 
+    public bool isSandboxChapter = false;
+
     protected override void Awake()
     {
         base.Awake();
