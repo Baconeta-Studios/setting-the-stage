@@ -53,8 +53,8 @@ jobs:
           mobileprovision-base64: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
 
       - name: Build xcode and archive
-        runs: |
           xcodebuild -project ios/Unity-iPhone.xcodeproj \
+        run: |
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
