@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*-build'
+  workflow_dispatch:
 jobs:
   unity-build-ios:
     runs-on: macos-latest
