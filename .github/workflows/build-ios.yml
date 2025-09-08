@@ -1,5 +1,5 @@
 name: Build iOS
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is building for iOS
 on:
   push:
     branches:
