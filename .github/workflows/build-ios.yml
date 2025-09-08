@@ -1,5 +1,5 @@
 name: Build iOS
-run-name: ${{ github.actor }} is building for iOS
+run-name: ${{ github.actor }} is building for Apple App Store
 on:
   push:
     branches:
