@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem; // New input system
 
 public class Carousel_Scroll : Carousel
 {
@@ -11,16 +12,30 @@ public class Carousel_Scroll : Carousel
 
     [SerializeField] private ScrollRect scrollRect;
     private Transform scrollPanel;
-    
+
+    // Input actions
+    private InputAction clickAction;
+    private InputAction positionAction;
+
+    private void Awake()
+    {
+        // Setup actions manually (alternative: generate C# class from Input Actions asset)
+        clickAction = new InputAction("Click", binding: "<Pointer>/press");
+        positionAction = new InputAction("Position", binding: "<Pointer>/position");
+
+        clickAction.Enable();
+        positionAction.Enable();
+    }
+
     private void Start()
     {
         scrollPanel = scrollRect.transform;
     }
+
     private void Update()
     {
         if (!isDragging)
         {
-            //TODO make this work in CarouselItem Pointer Handler system
             HandleCarouselItemClick();
 
             if (selectedItemIndex < _contentItems.Count)
@@ -36,12 +51,14 @@ public class Carousel_Scroll : Carousel
 
     private void HandleCarouselItemClick()
     {
-        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (clickAction.WasPressedThisFrame())
         {
-            Vector2 inputPos = Input.touchCount > 0 ? Input.GetTouch(0).position : (Vector2)Input.mousePosition;
+            Vector2 inputPos = positionAction.ReadValue<Vector2>();
 
-            PointerEventData pointerData = new PointerEventData(EventSystem.current);
-            pointerData.position = inputPos;
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = inputPos
+            };
 
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
@@ -71,16 +88,18 @@ public class Carousel_Scroll : Carousel
 
     void SnapToItem(CarouselItem target)
     {
-        // Lerp from current to target position.
-        contentPanel.anchoredPosition = Vector2.Lerp(contentPanel.anchoredPosition, GetItemPosition(target), Time.deltaTime * snapSpeed);
+        contentPanel.anchoredPosition = Vector2.Lerp(
+            contentPanel.anchoredPosition,
+            GetItemPosition(target),
+            Time.deltaTime * snapSpeed
+        );
     }
 
     Vector2 GetItemPosition(CarouselItem target)
     {
-        //Get target position in local space of the content panel
         Vector2 targetPosition = (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
                                  - (Vector2)scrollRect.transform.InverseTransformPoint(target.rectTransform.position);
-        
+
         return targetPosition;
     }
 
@@ -91,7 +110,7 @@ public class Carousel_Scroll : Carousel
         for (int index = 0; index < _contentItems.Count; index++)
         {
             Vector2 itemPos = _contentItems[index].rectTransform.position;
-            
+
             float distance = Vector2.Distance(scrollPanel.position, itemPos);
 
             if (distance < closestDistance)

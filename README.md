@@ -2,7 +2,7 @@
 A musical puzzle game in development by Baconeta Collaborative and to be published by Baconeta Studios
 
 ## Tools and dependencies
-- [Unity 2022.3.20f1](https://unity3d.com/unity/whats-new/2022.3.20)
+- [Unity 2022.3.62f1](https://unity.com/releases/editor/whats-new/2022.3.62f1)
 - [git LFS](https://git-lfs.github.com/)
 - [Figma](https://www.figma.com/) for mockups and UI planning
 - [Procreate](https://procreate.com/) for all art assets
@@ -10,8 +10,10 @@ A musical puzzle game in development by Baconeta Collaborative and to be publish
 - [GitHub](https://github.com/) for task and issue tracking + project management
 - [Discord](https://discord.com/) for team collaboration and communication
 - [Canva](https://www.canva.com/) for collaborative whiteboarding
+- [Adobe Illustrator](https://www.adobe.com/nz/products/illustrator.html) for UI and design elements
 
 ## Links
+- Website: https://baconetastudios.com/
 - Itch link for Demo: Coming soon
 - Steam link for Demo: Coming soon
 - Steam link to wishlist: Coming soon
@@ -38,7 +40,7 @@ A musical puzzle game in development by Baconeta Collaborative and to be publish
 ##### James Coburn
 - Lead Tools Developer
 - Game Programmer
-##### Jordan Loose
+##### Amber-Rose Archer
 - QA Lead
 - Game Tester
 ##### Amruth Varshan
