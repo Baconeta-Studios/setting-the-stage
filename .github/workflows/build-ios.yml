@@ -1,20 +1,16 @@
 name: Build iOS
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-
 on:
   push:
     branches:
       - main
       - '*-build'
-
 jobs:
   unity-build-ios:
     runs-on: macos-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
-
       - name: Install Unity
         uses: game-ci/unity-activate@v4
         with:
@@ -37,7 +33,7 @@ jobs:
   xcode-build-ios:
     runs-on: macos-latest
     needs: unity-build-ios
-    
+
     steps:
       - name: Download unity build
         uses: actions/download-artifact@v5
@@ -53,20 +49,18 @@ jobs:
           mobileprovision-base64: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
 
       - name: Build xcode and archive
-          xcodebuild -project ios/Unity-iPhone.xcodeproj \
         run: |
+          xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
           archive -archivePath build/Unity.xarchive
-
       - name: Export
         run: |
-        xcodebuild -exportArchive \
+          xcodebuild -exportArchive \
           -archivePath build/Unity.xarchive \
-          -exportOptionsPlist ios/exportOptions.plist \
-          -exportPath Build
-
+          -exportOptionsPlist build/iOS/exportOptions.plist \
+          -exportPath build
       - name: Upload
         uses: actions/upload-artifact@v5
         with:
