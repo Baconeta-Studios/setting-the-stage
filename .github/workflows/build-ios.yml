@@ -12,18 +12,17 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
-      - name: Install Unity
-        uses: game-ci/unity-activate@v2
-        with:
-          unityVersion: 2023.2.20f1
-          unitySerial: ${{ secrets.UNITY_SERIAL }}
-          unityEmail: ${{ secrets.UNITY_EMAIL }}
-          unityPassword: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Build iOS
         uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: ios
+          targetPlatform: iOS
+          unityVersion: 2022.3.62f1
+          versioning: Semantic
 
       - name: Upload Build
         uses: actions/upload-artifact@v4
