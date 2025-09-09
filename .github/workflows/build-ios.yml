@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is building for Apple App Store
 on:
   push:
     branches:
-      - main
+      - releases
       - '*-build'
   workflow_dispatch:
 jobs:
