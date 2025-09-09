@@ -10,7 +10,7 @@ jobs:
   unity-build-ios:
     runs-on: macos-latest
     steps:
-      - name: Handle cache
+      - name: Retrieve cache if viable
         uses: actions/cache@v4
         with:
           path: Library
@@ -19,10 +19,10 @@ jobs:
             Library-${{ runner.os }}-
             Library
 
-      - name: Checkout repo
+      - name: Checkout git repo
         uses: actions/checkout@v5
 
-      - name: Build iOS
+      - name: Generate Unity build for iOS
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -33,7 +33,7 @@ jobs:
           unityVersion: 2022.3.62f1
           versioning: Semantic
 
-      - name: Upload Build
+      - name: Upload Unity build
         uses: actions/upload-artifact@v4
         with:
           name: ios-build
@@ -44,33 +44,33 @@ jobs:
     needs: unity-build-ios
 
     steps:
-      - name: Download unity build
+      - name: Download Unity build
         uses: actions/download-artifact@v5
         with:
           name: ios-build
           path: build/iOS
 
-      - name: Prepare signing
+      - name: Prepare .p12 certificate signing
         uses: Apple-Actions/import-codesign-cert@v2
         with:
           p12-file-base64: ${{ secrets.APPLE_P12 }}
           p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
           mobileprovision-base64: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
 
-      - name: Build xcode and archive
+      - name: Generate Xcode build
         run: |
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
           archive -archivePath build/Unity.xarchive
-      - name: Export
+      - name: Export Xcode build
         run: |
           xcodebuild -exportArchive \
           -archivePath build/Unity.xarchive \
           -exportOptionsPlist build/iOS/exportOptions.plist \
           -exportPath build
-      - name: Upload
+      - name: Upload Xcode build
         uses: actions/upload-artifact@v4
         with:
           name: ios-ipa
