@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
       - name: Install Unity
-        uses: game-ci/unity-activate@v4
+        uses: game-ci/unity-activate@v2
         with:
           unityVersion: 2023.2.20f1
           unitySerial: ${{ secrets.UNITY_SERIAL }}
@@ -21,12 +21,12 @@ jobs:
           unityPassword: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Build iOS
-        uses: game-ci/unity-builder@v5
+        uses: game-ci/unity-builder@v4
         with:
           targetPlatform: ios
 
       - name: Upload Build
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: ios-build
           path: build/iOS
@@ -63,7 +63,7 @@ jobs:
           -exportOptionsPlist build/iOS/exportOptions.plist \
           -exportPath build
       - name: Upload
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: ios-ipa
           path: build/*.ipa
