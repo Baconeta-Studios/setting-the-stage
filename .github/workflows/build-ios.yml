@@ -10,6 +10,15 @@ jobs:
   unity-build-ios:
     runs-on: macos-latest
     steps:
+      - name: Handle cache
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+            Library
+
       - name: Checkout repo
         uses: actions/checkout@v5
 
