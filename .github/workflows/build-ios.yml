@@ -10,7 +10,18 @@ jobs:
   unity-build-ios:
     runs-on: macos-latest
     steps:
-      - name: Retrieve cache if viable
+      - name: Retrive cached Unity Installation
+        uses: actions/cache@v3
+        with:
+          path: |
+            /Applications/Unity/Hub/Editor/${{ env.UNITY_VERSION }}
+            ~/Library/Application Support/Unity
+          key: unity-${{ runner.os }}-${{ env.UNITY_VERSION }}
+          restore-keys: |
+            unity-${{ runner.os }}-${{ env.UNITY_VERSION }}
+            unity-${{ runner.os }}-
+
+      - name: Retrieve cached Library folder
         uses: actions/cache@v4
         with:
           path: Library
@@ -30,7 +41,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: iOS
-          unityVersion: 2022.3.62f1
+          unityVersion: ${{ env.UNITY_VERSION }}
           versioning: Semantic
 
       - name: Upload Unity build
