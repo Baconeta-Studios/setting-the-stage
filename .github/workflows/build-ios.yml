@@ -1,0 +1,69 @@
+name: Build iOS
+run-name: ${{ github.actor }} is building for Apple App Store
+on:
+  push:
+    branches:
+      - main
+      - '*-build'
+  workflow_dispatch:
+jobs:
+  unity-build-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+      - name: Install Unity
+        uses: game-ci/unity-activate@v4
+        with:
+          unityVersion: 2023.2.20f1
+          unitySerial: ${{ secrets.UNITY_SERIAL }}
+          unityEmail: ${{ secrets.UNITY_EMAIL }}
+          unityPassword: ${{ secrets.UNITY_PASSWORD }}
+
+      - name: Build iOS
+        uses: game-ci/unity-builder@v5
+        with:
+          targetPlatform: ios
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v5
+        with:
+          name: ios-build
+          path: build/iOS
+
+  xcode-build-ios:
+    runs-on: macos-latest
+    needs: unity-build-ios
+
+    steps:
+      - name: Download unity build
+        uses: actions/download-artifact@v5
+        with:
+          name: ios-build
+          path: build/iOS
+
+      - name: Prepare signing
+        uses: apple-actions/import-codesign-cert@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_P12 }}
+          p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
+          mobileprovision-base64: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
+
+      - name: Build xcode and archive
+        run: |
+          xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
+          -scheme Unity-iPhone \
+          -sdk iphoneos \
+          -configuration Release \
+          archive -archivePath build/Unity.xarchive
+      - name: Export
+        run: |
+          xcodebuild -exportArchive \
+          -archivePath build/Unity.xarchive \
+          -exportOptionsPlist build/iOS/exportOptions.plist \
+          -exportPath build
+      - name: Upload
+        uses: actions/upload-artifact@v5
+        with:
+          name: ios-ipa
+          path: build/*.ipa
