@@ -10,7 +10,7 @@ jobs:
   unity-build-ios:
     runs-on: macos-latest
     steps:
-      - name: Retrive cached Unity Installation
+      - name: Process cached Unity Installation
         uses: actions/cache@v3
         with:
           path: |
@@ -21,7 +21,7 @@ jobs:
             unity-${{ runner.os }}-${{ env.UNITY_VERSION }}
             unity-${{ runner.os }}-
 
-      - name: Retrieve cached Library folder
+      - name: Process cached Library folder
         uses: actions/cache@v4
         with:
           path: Library
