@@ -30,6 +30,9 @@ jobs:
             Library-${{ runner.os }}-
             Library
 
+      - name: Checkout git repo
+        uses: actions/checkout@v5
+
       - name: Generate Unity build for iOS
         uses: game-ci/unity-builder@v4
         env:
