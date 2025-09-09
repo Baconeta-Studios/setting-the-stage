@@ -77,7 +77,7 @@ namespace Analytics
             {
                 await UnityServices.InitializeAsync();
             }
-            catch (ConsentCheckException e)
+            catch (ServicesInitializationException e)
             {
                 Debug.Log(e.ToString());
             }

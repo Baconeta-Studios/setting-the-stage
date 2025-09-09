@@ -1,0 +1,9 @@
+name: Build Android
+run-name: ${{ github.actor }} is building for Google Play
+on:
+  push:
+    branches:
+      - main
+      - '*-build'
+  workflow_dispatch:
+jobs:
