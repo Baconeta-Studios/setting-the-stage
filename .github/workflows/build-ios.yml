@@ -42,7 +42,7 @@ jobs:
           path: build/iOS
 
       - name: Prepare signing
-        uses: apple-actions/import-codesign-cert@v2
+        uses: Apple-Actions/import-codesign-cert@v2
         with:
           p12-file-base64: ${{ secrets.APPLE_P12 }}
           p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
