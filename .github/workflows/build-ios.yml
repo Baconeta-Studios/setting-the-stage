@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ios-build
-          path: build/iOS
+          path: build
 
       - name: Import signing certificate
         uses: apple-actions/import-codesign-certs@v2
@@ -83,12 +83,14 @@ jobs:
           -sdk iphoneos \
           -configuration Release \
           archive -archivePath build/Unity.xarchive
+
       - name: Export Xcode build
         run: |
           xcodebuild -exportArchive \
           -archivePath build/Unity.xarchive \
           -exportOptionsPlist build/iOS/exportOptions.plist \
           -exportPath build
+
       - name: Upload Xcode build
         uses: actions/upload-artifact@v4
         with:
