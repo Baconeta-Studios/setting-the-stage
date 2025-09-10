@@ -64,7 +64,7 @@ jobs:
       - name: Import signing certificate
         uses: apple-actions/import-codesign-certs@v2
         with:
-          p12-file-base64: ${{ secrets.APPLE_P12 }}
+          p12-file-base64: ${{ secrets.APPLE_P12_FILE_BASE64 }}
           p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
 
       - name: Install provising profile
