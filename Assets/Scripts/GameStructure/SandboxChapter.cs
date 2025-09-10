@@ -6,6 +6,6 @@
     {
         StSDebug.Log($"Leaving sandbox mode.");
         ambient?.StopAudio();
-        SceneLoader.Instance.LoadScene("MainMenu");
+        SceneLoader.Instance.LoadScene("Main Menu");
     }
 }
