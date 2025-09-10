@@ -70,7 +70,11 @@ jobs:
       - name: Install provising profile
         uses: apple-actions/download-provisioning-profiles@v4
         with:
-          profile-base64: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
+          bundle-id: com.BaconetaStudios.Setting-The-Stage
+          profile-type: IOS_APP_STORE
+          issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
 
       - name: Generate Xcode build
         run: |
