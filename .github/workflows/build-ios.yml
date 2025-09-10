@@ -82,7 +82,12 @@ jobs:
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
-          archive -archivePath build/Unity.xarchive
+          -archivePath build/Unity.xarchive \
+          CODE_SIGN_STYLE=Manual \
+          CODE_SIGN_IDENTITY="Apple Distribution" \
+          PROVISIONING_PROFILE_SPECIFIER="match AppStore com.BaconetaStudios.Setting-The-Stage" \
+          DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
+          archive
 
       - name: Export Xcode build
         run: |
