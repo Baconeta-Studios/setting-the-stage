@@ -295,12 +295,12 @@ public class Chapter : Singleton<Chapter>
         AudioWrapper.Instance.PlaySound(newStarsEarned >= 3.5 ? successfulSound : awfulSound);
         
         // TODO Move reveal rating to when we actually want to reveal the star count. Currently just enables the star UI above the chapter navigation.
-        onRevealRating?.Invoke(starsEarned);
+        onRevealRating?.Invoke(IsSandboxChapter ? 5 : starsEarned);
         
         NextStage();
     }
 
-    private static void SaveLearnedProficiencies()
+    protected virtual void SaveLearnedProficiencies()
     {
         // Now we can save the information we have learned in this play into the save system for our next run
         List<StagePosition> stagePositions = StageSelection.Instance.GetStagePositions();

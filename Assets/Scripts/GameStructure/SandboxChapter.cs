@@ -16,4 +16,9 @@
         ambient?.StopAudio();
         SceneLoader.Instance.LoadScene("Main Menu");
     }
+
+    protected override void SaveLearnedProficiencies()
+    {
+        // Do nothing - we don't save knowledge learned in Sandbox mode
+    }
 }
