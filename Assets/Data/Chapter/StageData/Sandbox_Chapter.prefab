@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1367090757285110327}
   - component: {fileID: 8092438451812038026}
+  - component: {fileID: 4775075633910480972}
+  - component: {fileID: 5028593595528443397}
   m_Layer: 0
   m_Name: Sandbox_Chapter
   m_TagString: Untagged
@@ -62,3 +64,38 @@ MonoBehaviour:
   StsObjectStash: {fileID: 0}
   availableMusicians: []
   availableInstruments: []
+--- !u!114 &4775075633910480972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146534789989966143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062e33ed0156db543af24de1ec963813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPerforming: 0
+  proficiencyWeightPercent: 50
+  instrumentWeightPercent: 50
+--- !u!114 &5028593595528443397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146534789989966143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb024f814054057b8f1919064572c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChapterNumber: -1
+  chapterTrackData: {fileID: 11400000, guid: 3916acb902b51cd4da0978c9c05dfa81, type: 2}
+  backgroundAmbientTrack: bar_ambient
+  starsEarned: -1
+  currentStage: 0
+  StsObjectStash: {fileID: 0}
+  successfulSound: cheer
+  awfulSound: boo

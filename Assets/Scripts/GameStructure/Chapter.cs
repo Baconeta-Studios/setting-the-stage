@@ -38,9 +38,9 @@ public class Chapter : Singleton<Chapter>
     private List<GameObject> instruments = new List<GameObject>();
     private List<Musician> availableMusicians = new List<Musician>();
     private List<Instrument> availableInstruments = new List<Instrument>();
-    private CustomAudioSource ambient;
+    protected CustomAudioSource ambient;
 
-    public bool isSandboxChapter = false;
+    public virtual bool IsSandboxChapter { get; set; } = false;
 
     protected override void Awake()
     {
@@ -151,7 +151,7 @@ public class Chapter : Singleton<Chapter>
         onChapterComplete?.Invoke(starsEarned);
     }
     
-    public void EndChapterEarly()
+    public virtual void EndChapterEarly()
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
         ambient?.StopAudio();

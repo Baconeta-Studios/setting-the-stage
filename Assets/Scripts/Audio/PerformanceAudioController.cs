@@ -35,7 +35,7 @@ namespace Audio
             }
             
             _act = FindObjectOfType<Act>();
-            if (!_act && !_chapter.isSandboxChapter) // The sandbox chapter does not need to worry about performance (todo revisit)
+            if (!_act && !_chapter.IsSandboxChapter) // The sandbox chapter does not need to worry about performance (todo revisit)
             {
                 StSDebug.LogError($"PerformanceAudioController could not find act object.");
             }
