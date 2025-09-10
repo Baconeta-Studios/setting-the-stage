@@ -89,6 +89,27 @@ jobs:
           DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
           archive
 
+      - name: Create export options
+        run: |
+          cat > build/iOS/exportOptions.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>app-store</string>
+              <key>teamID</key>
+              <string>${{ secrets.APPLE_TEAM_ID }}</string>
+              <key>uploadBitcode</key>
+              <false/>
+              <key>uploadSymbols</key>
+              <true/>
+              <key>compileBitcode</key>
+              <false/>
+          </dict>
+          </plist>
+          EOF
+
       - name: Export Xcode build
         run: |
           xcodebuild -exportArchive \
