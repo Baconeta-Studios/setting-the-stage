@@ -295,7 +295,7 @@ public class Chapter : Singleton<Chapter>
         AudioWrapper.Instance.PlaySound(newStarsEarned >= 3.5 ? successfulSound : awfulSound);
         
         // TODO Move reveal rating to when we actually want to reveal the star count. Currently just enables the star UI above the chapter navigation.
-        onRevealRating?.Invoke(IsSandboxChapter ? 5 : starsEarned);
+        onRevealRating?.Invoke(starsEarned);
         
         NextStage();
     }
@@ -315,5 +315,10 @@ public class Chapter : Singleton<Chapter>
             }
             SaveSystem.Instance.LearnInstrumentProficiency(musician, instrument, musician.GetInstrumentProficiency(instrument));
         }
+    }
+
+    private void DimAllSpotLighting()
+    {
+        
     }
 }

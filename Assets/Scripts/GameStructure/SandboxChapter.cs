@@ -1,4 +1,6 @@
-﻿public class SandboxChapter : Chapter
+﻿using System.Collections.Generic;
+
+public class SandboxChapter : Chapter
 { 
     public override bool IsSandboxChapter => true;
 

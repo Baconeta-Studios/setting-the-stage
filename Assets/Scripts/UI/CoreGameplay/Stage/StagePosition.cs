@@ -197,4 +197,10 @@ public class StagePosition : MonoBehaviour
             _hasUncommittedChanges = false;
         }
     }
+
+    public void DimAndHideLights()
+    {
+        DimLights();
+        HideFloorMarker();
+    }
 }

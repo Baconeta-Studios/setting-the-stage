@@ -94,6 +94,11 @@ public class StageSelection : Singleton<StageSelection>
             OnStageSelectionEnded?.Invoke();
             
             gameObject.SetActive(false);
+            
+            foreach (var position in _StagePositions)
+            {
+                position.DimAndHideLights();
+            }
         }
 
         var chapterUI = FindObjectOfType<ChapterUI>();
