@@ -44,8 +44,6 @@ public class Chapter : Singleton<Chapter>
 
     protected override void Awake()
     {
-        base.Awake();
-        
         ChapterCarouselOptions carouselOptions = FindObjectOfType<ChapterCarouselOptions>();
         if (carouselOptions == null)
         {
@@ -144,7 +142,7 @@ public class Chapter : Singleton<Chapter>
         onStageChanged?.Invoke(currentStage);
     }
 
-    public void CompleteChapter()
+    public virtual void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
         ambient?.StopAudio();
