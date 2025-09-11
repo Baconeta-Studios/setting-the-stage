@@ -1,0 +1,256 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620649cd4ff24d74ae19326f7610628d, type: 3}
+  m_Name: SandboxInstrumentData
+  m_EditorClassIdentifier: 
+  instrumentTrackData:
+  - instrumentObject: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
+    instrumentName: Guitar
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 68ca072ec1fc74e4c87236320c0ccedd, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 68ca072ec1fc74e4c87236320c0ccedd, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: ac44012b3f9674545a7fa518ada51040, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: ac44012b3f9674545a7fa518ada51040, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c8008f3d3ecf2734f8a3ce969ca8e0d2, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c8008f3d3ecf2734f8a3ce969ca8e0d2, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 767779280bbc149458d894b632b6b4da, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 767779280bbc149458d894b632b6b4da, type: 3}
+  - instrumentObject: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
+    instrumentName: Drums
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+  - instrumentObject: {fileID: 2695519527301998527, guid: cb4da02ecc5fca5409771cc6b047f571, type: 3}
+    instrumentName: Bass
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+  - instrumentObject: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
+    instrumentName: DoubleBass
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+  - instrumentObject: {fileID: 2695519527301998527, guid: f4ab44bb21f0012459e594101c871562, type: 3}
+    instrumentName: Piano
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+  - instrumentObject: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
+    instrumentName: Saxophone
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+  - instrumentObject: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
+    instrumentName: Vibraphone
+    instrumentTrackProficiencyData:
+    - trackName: Blues
+      visibleTrackName: Track1
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    - trackName: Ska
+      visibleTrackName: Track3
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}

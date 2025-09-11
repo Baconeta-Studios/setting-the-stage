@@ -6,10 +6,9 @@ namespace Audio
 {
     public class PerformanceAudioDataManager : Singleton<PerformanceAudioDataManager>
     {
-        public const string AddressablePathForAudio = "AllPerformanceData";
-
         // This class instantiates a loader and gets the data from there
-        protected PerformanceAudioDataLoader _dataLoader;
+        private PerformanceAudioDataLoader _dataLoader;
+        public static string AddressablePathForAudio => "AllPerformanceData";
 
         private void OnEnable()
         {

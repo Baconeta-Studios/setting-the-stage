@@ -952,6 +952,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223693889625690657, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5915950129967495915, guid: 4d41746c7d43f324b83b6f96978f6996, type: 3}
       propertyPath: m_Name
       value: Carousel_Musician
