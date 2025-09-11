@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Utils;
 
 namespace Audio
@@ -50,6 +51,19 @@ namespace Audio
             // Finally, we somehow have an instrument for which we do not have a matching set of data, so we throw an error
             StSDebug.LogError($"We don't have a single track for {instrument} matching proficiency level {proficiency}.");
             return null;
+        }
+
+        public List<string> GetAllTracksForInstrument(Instrument instrument)
+        {
+            if (_dataLoader?.SandboxAudioData is null)
+            {
+                StSDebug.LogError("Somehow we don't actually have any data ready yet");
+                return null;
+            }
+
+            var audioData = _dataLoader.SandboxAudioData;
+
+            return audioData.GetAllTracksByInstrument(instrument.GetInstrumentID());
         }
     }
 }
