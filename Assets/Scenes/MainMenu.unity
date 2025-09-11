@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 369041637}
   - component: {fileID: 369041636}
   m_Layer: 5
-  m_Name: CreditsButton
+  m_Name: SandboxButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
