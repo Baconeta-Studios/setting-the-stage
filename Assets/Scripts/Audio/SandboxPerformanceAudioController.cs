@@ -38,9 +38,13 @@
             if (stagePosition.instrumentOccupied == null || stagePosition.musicianOccupied ==  null)
             {
                 _audioBuilder.UpdateClipAtIndex(null, stagePosition.stagePositionNumber);
-                return;
             }
-            
+        }
+
+        public void UpdateAudioOnTrackSelection(string trackName, StagePosition stagePosition)
+        {
+            var trackClip = _sandboxAudioDataManager.GetAudioTrack(stagePosition.instrumentOccupied, trackName, stagePosition.GetMusicianProficiency());
+            _audioBuilder.UpdateClipAtIndex(trackClip, stagePosition.stagePositionNumber);
         }
     }
 }

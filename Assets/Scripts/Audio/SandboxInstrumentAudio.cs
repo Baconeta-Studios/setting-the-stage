@@ -44,5 +44,35 @@ namespace Audio
 
             return instrumentData.instrumentTrackProficiencyData.Select(track => track.visibleTrackName).ToList();
         }
+        
+        public bool TryGetAudioByTrackName(string trackName, string instrumentID, InstrumentProficiency instrumentProficiency, out AudioClip clip)
+        {
+            clip = null;
+            
+            var instrumentData = new InstrumentByTrackData();
+            foreach (var instrument in instrumentTrackData.Where(instrument => instrument.instrumentObject.GetInstrumentID() == instrumentID))
+            {
+                instrumentData = instrument;
+                break;
+            }
+
+            var track = new InstrumentTrackData();
+            foreach (var trackData in instrumentData.instrumentTrackProficiencyData)
+            {
+                if (trackData.visibleTrackName == trackName || trackData.trackName == trackName)
+                {
+                    track = trackData;
+                    break;
+                }
+            }
+
+            foreach (var instrumentProficiencyData in track.instrumentTrackProficiencyData.Where(instrumentProficiencyData => instrumentProficiencyData.proficiency == instrumentProficiency))
+            {
+                clip =  instrumentProficiencyData.clip;
+                return true;
+            }
+
+            return false;
+        }
     }
 }
