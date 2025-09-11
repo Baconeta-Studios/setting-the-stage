@@ -76,6 +76,13 @@ jobs:
           api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
 
+      - name: Get provisioning profile UUID
+        id: get-uuid
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          UUID=$(basename "$PROFILE_PATH" .mobileprovision)
+          echo "uuid=$UUID" >> $GITHUB_OUTPUT
+
       - name: Generate Xcode build
         run: |
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
@@ -85,7 +92,7 @@ jobs:
           -archivePath build/Unity.xarchive \
           CODE_SIGN_STYLE=Manual \
           CODE_SIGN_IDENTITY="Apple Distribution" \
-          "Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER=Unity-iPhone.match AppStore com.BaconetaStudios.Setting-The-Stage" \
+          "Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER=${{ steps.get-uuid.outputs.uuid }}" \
           "Unity-iPhone.DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}" \
           archive
 
