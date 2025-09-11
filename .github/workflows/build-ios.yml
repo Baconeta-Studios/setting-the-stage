@@ -90,10 +90,16 @@ jobs:
           # Get the target UUID for Unity-iPhone
           TARGET_UUID=$(grep -E '^[[:space:]]*[0-9A-F]{24} /\* Unity-iPhone \*/ =' "$PBXPROJ" | awk '{print $1}')
           echo "Unity-iPhone target UUID: $TARGET_UUID"
+          # Get the project UUID
+          PROJECT_UUID=$(grep -E 'rootObject = [0-9A-F]{24}' "$PBXPROJ" | sed -E 's/.*rootObject = ([0-9A-F]{24}).*/\1/')
+          echo "Project UUID: $PROJECT_UUID"
+          # Create TargetAttributes structure if it doesn't exist
+          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
+          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID dict" "$PBXPROJ" 2>/dev/null || true
           # Set ProvisioningStyle to Manual
-          /usr/libexec/PlistBuddy -c "Set :objects:$TARGET_UUID:attributes:TargetAttributes:$TARGET_UUID:ProvisioningStyle Manual" "$PBXPROJ"
+          /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID:ProvisioningStyle Manual" "$PBXPROJ"
           # Remove any leftover provisioning profile specifier
-          /usr/libexec/PlistBuddy -c "Delete :objects:$TARGET_UUID:attributes:TargetAttributes:$TARGET_UUID:PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ" || true
+          /usr/libexec/PlistBuddy -c "Delete :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID:PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ" 2>/dev/null || true
 
       - name: Generate Xcode build
         run: |
