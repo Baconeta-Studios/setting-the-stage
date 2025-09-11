@@ -83,6 +83,18 @@ jobs:
           UUID=$(basename "$PROFILE_PATH" .mobileprovision)
           echo "uuid=$UUID" >> $GITHUB_OUTPUT
 
+      - name: Patch Unity-iPhone target for manual signing
+        id: patch-target
+        run: |
+          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
+          # Get the target UUID for Unity-iPhone
+          TARGET_UUID=$(grep -E '^[[:space:]]*[0-9A-F]{24} /\* Unity-iPhone \*/ =' "$PBXPROJ" | awk '{print $1}')
+          echo "Unity-iPhone target UUID: $TARGET_UUID"
+          # Set ProvisioningStyle to Manual
+          /usr/libexec/PlistBuddy -c "Set :objects:$TARGET_UUID:attributes:TargetAttributes:$TARGET_UUID:ProvisioningStyle Manual" "$PBXPROJ"
+          # Remove any leftover provisioning profile specifier
+          /usr/libexec/PlistBuddy -c "Delete :objects:$TARGET_UUID:attributes:TargetAttributes:$TARGET_UUID:PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ" || true
+
       - name: Generate Xcode build
         run: |
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
