@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/UI/PopupManager.prefab.meta
+guid: 1cbdcdda0869a5341b5d967c9e11a755
+========
+guid: 1112014d17394254390c611de9752d40
+>>>>>>>> main:Assets/Prefabs/UI/Settings/SettingsPopup_MainMenu.prefab.meta
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
