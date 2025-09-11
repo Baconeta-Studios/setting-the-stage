@@ -97,6 +97,7 @@ public class ChapterUI : MonoBehaviour
                 break;
             case Chapter.ChapterStage.Performing:
                 _SelectionCarousels.HideStageSelection();
+                _SelectionCarousels.DimStageUIAndLights();
                 ShowChapterTitle();
                 trackInfoButton.gameObject.SetActive(false);
                 _StageProgressButton.ToggleInteractable(false);
