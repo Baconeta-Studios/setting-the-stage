@@ -186,7 +186,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.36",
+      "version": "3.0.37",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -204,7 +204,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.14.0",
+      "version": "1.14.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -217,6 +217,15 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.mobile.notifications": {
+      "version": "2.4.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
@@ -250,7 +259,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.analytics": {
-      "version": "6.0.3",
+      "version": "6.1.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -269,6 +278,16 @@
         "com.unity.services.core": "1.15.1",
         "com.unity.nuget.newtonsoft-json": "3.2.1",
         "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.cloudsave": {
+      "version": "3.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.services.core": "1.12.5",
+        "com.unity.services.authentication": "3.3.1"
       },
       "url": "https://packages.unity.com"
     },
