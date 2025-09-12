@@ -50,32 +50,15 @@ jobs:
           name: ios-build
           path: build/iOS
 
-  list-info:
+  prepare:
     runs-on: macos-latest
 
     steps:
       - name: List available Xcode versions
         run: ls /Applications | grep Xcode
+
       - name: Show current version of Xcode
         run: xcodebuild -version
-
-
-  xcode-build-ios:
-    runs-on: macos-latest
-    needs: unity-build-ios
-
-    steps:
-      - name: Download Unity build
-        uses: actions/download-artifact@v4
-        with:
-          name: ios-build
-          path: build
-
-      - name: Import signing certificate
-        uses: apple-actions/import-codesign-certs@v2
-        with:
-          p12-file-base64: ${{ secrets.APPLE_P12_FILE_BASE64 }}
-          p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
 
       - name: Install provising profile
         uses: apple-actions/download-provisioning-profiles@v4
@@ -85,6 +68,60 @@ jobs:
           issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
           api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
+
+      - name: Debug provisioning profile
+        run: |
+          echo "Profile UUID: ${{ steps.get-uuid.outputs.uuid }}"
+          ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
+          security find-identity -v -p codesigning
+
+      - name: List installed provisioning profiles
+        run: |
+          echo "Provisioning profiles in ~/Library/MobileDevice/Provisioning Profiles:"
+          ls -l ~/Library/MobileDevice/Provisioning\ Profiles/ || true
+          echo ""
+          echo "Extracting metadata:"
+          for p in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            echo "File: $p"
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :UUID" /dev/stdin || true
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin || true
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :ApplicationIdentifierPrefix" /dev/stdin || true
+            echo "-----"
+          done
+
+      - name: Upload provisioning profile for later jobs
+        uses: actions/upload-artifact@v4
+        with:
+          name: provisioning-profile
+          path: ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
+
+  xcode-build-ios:
+    runs-on: macos-latest
+    needs: [unity-build-ios, prepare]
+
+    steps:
+      - name: Download Unity build
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-build
+          path: build
+
+      - name: Download provisioning profile
+        uses: actions/download-artifact@v4
+        with:
+          name: provisioning-profile
+          path: ~/Library/MobileDevice/Provisioning Profiles
+
+      - name: Import signing certificate
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_P12_FILE_BASE64 }}
+          p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
+
+      - name: Show project signing settings
+        run: |
+          /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:CODE_SIGN_STYLE" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj
+          /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:PROVISIONING_PROFILE_SPECIFIER" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj || true
 
       - name: Get provisioning profile UUID
         id: get-uuid
@@ -111,6 +148,16 @@ jobs:
           # Remove any leftover provisioning profile specifier
           /usr/libexec/PlistBuddy -c "Delete :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID:PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ" 2>/dev/null || true
 
+      - name: Show Xcode build settings for debugging
+        run: |
+          xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
+          -scheme Unity-iPhone \
+          -sdk iphoneos \
+          -configuration Release \
+          -archivePath build/Unity.xarchive \
+          -verbose
+          -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
+
       - name: Generate Xcode build
         run: |
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
@@ -118,6 +165,7 @@ jobs:
           -sdk iphoneos \
           -configuration Release \
           -archivePath build/Unity.xarchive \
+          -verbose
           UnityFramework.CODE_SIGN_STYLE=Automatic \
           Unity-iPhone.CODE_SIGN_STYLE=Manual \
           Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
