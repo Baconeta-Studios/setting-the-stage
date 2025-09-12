@@ -50,6 +50,16 @@ jobs:
           name: ios-build
           path: build/iOS
 
+  list-info:
+    runs-on: macos-latest
+
+    steps:
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+      - name: Show current version of Xcode
+        run: xcodebuild -version
+
+
   xcode-build-ios:
     runs-on: macos-latest
     needs: unity-build-ios
