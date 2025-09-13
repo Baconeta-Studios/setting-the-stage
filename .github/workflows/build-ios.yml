@@ -219,12 +219,14 @@ jobs:
           set -e
       
           PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-          UUID="$UUID"   # provisioning profile UUID
-          TEAM="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"      # your team ID
+          UUID="$UUID"   # provisioning profile UUID (for reference/debug)
+          PROFILE_NAME="$PROFILE_NAME"   # provisioning profile name extracted from .mobileprovision
+          TEAM="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"  # your team ID
       
           echo "== Patching PBXNativeTarget entries for manual signing =="
           echo "Project file: $PBXPROJ"
           echo "Provisioning profile UUID: $UUID"
+          echo "Provisioning profile name: $PROFILE_NAME"
           echo "Development team: $TEAM"
       
           # Get project UUID (root object)
@@ -257,14 +259,10 @@ jobs:
                 # Ensure buildSettings dict exists
                 /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
       
-                # Set provisioning and signing settings
-                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $UUID" "$PBXPROJ"
+                # Set provisioning and signing settings using the profile name
+                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $PROFILE_NAME" "$PBXPROJ"
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
-                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
-              done
-            fi
-          done
-          echo "== Patch complete =="
+                /usr/libexec/P
 
       - name: Show Xcode build settings for debugging
         run: |
@@ -301,13 +299,7 @@ jobs:
             -configuration Release \
             -archivePath build/Unity.xarchive \
             -verbose \
-            UnityFramework.CODE_SIGN_STYLE=Automatic \
-            Unity-iPhone.CODE_SIGN_STYLE=Manual \
-            Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
-            Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-profile-name.outputs.profile_name }}" \
-            Unity-iPhone.DEVELOPMENT_TEAM="$TEAM_ID" \
             archive
-
 
       - name: Create export options
         run: |
