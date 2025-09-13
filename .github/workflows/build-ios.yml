@@ -68,7 +68,16 @@ jobs:
           issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
           api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
-
+          
+      - name: Get provisioning profile UUID
+        id: get-uuid
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          echo "Found profile: $PROFILE_PATH"
+          UUID=$(security cms -D -i "$PROFILE_PATH" | /usr/libexec/PlistBuddy -c "Print :UUID" /dev/stdin)
+          echo "Profile UUID: $UUID"
+          echo "uuid=$UUID" >> $GITHUB_OUTPUT
+          
       - name: Debug provisioning profile
         run: |
           echo "Profile UUID: ${{ steps.get-uuid.outputs.uuid }}"
