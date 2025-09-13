@@ -285,6 +285,7 @@ jobs:
           
       - name: Generate Xcode build
         run: |
+          TEAM_ID="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"   # trims whitespace
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
             -scheme Unity-iPhone \
             -sdk iphoneos \
@@ -295,7 +296,7 @@ jobs:
             Unity-iPhone.CODE_SIGN_STYLE=Manual \
             Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
             Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-uuid.outputs.uuid }}" \
-            Unity-iPhone.DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" \
+            Unity-iPhone.DEVELOPMENT_TEAM="$TEAM_ID" \
             archive
 
       - name: Create export options
