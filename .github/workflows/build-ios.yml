@@ -194,51 +194,58 @@ jobs:
           ' "$PBXPROJ"
           shell: /bin/bash
 
-      - name: Patch Xcode project for manual signing
+      - name: Patch Xcode project for manual signing (debug)
+        shell: bash
         run: |
+          set -e
+      
           PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-          UUID="ecd1e226-5886-4461-91e8-a8988efbd2a8"
-          TEAM="***"  # replace with your team ID
+          UUID="ecd1e226-5886-4461-91e8-a8988efbd2a8"   # provisioning profile UUID
+          TEAM="***"                                    # your team ID
       
-          echo "Patching PBXNativeTarget entries for manual signing..."
+          echo "== Patching PBXNativeTarget entries for manual signing =="
+          echo "Project file: $PBXPROJ"
+          echo "Provisioning profile UUID: $UUID"
+          echo "Development team: $TEAM"
       
-          # Extract all PBXNativeTarget entries using multiline-aware awk
-          awk '/^[[:space:]]*[0-9A-F]{24} .* = {/,/};/ {
-            if ($0 ~ /isa = PBXNativeTarget;/) target_block=1
-            if (target_block) print
-            if ($0 ~ /};/ && target_block) {target_block=0; print "---END---"}
-          }' "$PBXPROJ" | while IFS= read -r block; do
-            # Skip separator lines
-            [[ "$block" == "---END---" ]] && continue
+          # Get project UUID (root object)
+          PROJECT_UUID=$(grep -m1 "rootObject" "$PBXPROJ" | awk -F ' = ' '{print $2}' | tr -d ' ;')
+          echo "Project root UUID: $PROJECT_UUID"
       
-            # Extract UUID and name
-            if [[ "$block" =~ ([0-9A-F]{24})\ /\*.*\*/ ]]; then
-              TUUID="${BASH_REMATCH[1]}"
-            fi
-            if [[ "$block" =~ name\ =\ \"?([^\";]+)\"?\; ]]; then
-              TNAME="${BASH_REMATCH[1]}"
-            fi
+          # Ensure root attributes dict exists
+          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes dict" "$PBXPROJ" 2>/dev/null || true
+          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
+      
+          # Find all PBXNativeTarget UUIDs and names (multi-line safe)
+          echo "== Found PBXNativeTargets =="
+          awk '/isa = PBXNativeTarget;/ {uuid=prev_line_uuid; getline; if ($0 ~ /name =/) {name=$0; gsub(/.*name = "(.*)";/, "\\1", name); print uuid "|" name} } {prev_line_uuid=$1}' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
+            echo "Target: $TNAME (UUID: $TUUID)"
       
             # Only patch targets we care about
             if [[ "$TNAME" == "Unity-iPhone" || "$TNAME" == "UnityFramework" ]]; then
-              echo "Patching target $TNAME ($TUUID)..."
+              echo "Patching target $TNAME"
       
-              # Ensure TargetAttributes dict exists
-              /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
+              # Ensure dict exists for this target in TargetAttributes
               /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
+      
+              # Set ProvisioningStyle to Manual
               /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
       
-              # Patch buildSettings for each configuration
-              CONFIGS=$(grep -A20 "$TUUID" "$PBXPROJ" | grep "buildConfigurationList" | awk -F' = ' '{print $2}' | tr -d ' ;')
-              for CONFIG_ID in $CONFIGS; do
+              # Patch build settings for all configurations
+              grep -A10 "$TUUID" "$PBXPROJ" | grep "buildConfigurationList" | awk -F' = ' '{print $2}' | tr -d ' ;' | while read CONFIG_ID; do
+                echo "  Patching build configuration: $CONFIG_ID"
+      
+                # Ensure buildSettings dict exists
                 /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
+      
+                # Set provisioning and signing settings
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $UUID" "$PBXPROJ"
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
               done
             fi
           done
-          shell: /bin/bash -e
+          echo "== Patch complete =="
 
       - name: Show Xcode build settings for debugging
         run: |
