@@ -130,23 +130,39 @@ jobs:
           UUID=$(basename "$PROFILE_PATH" .mobileprovision)
           echo "uuid=$UUID" >> $GITHUB_OUTPUT
 
-      - name: Patch Unity-iPhone target for manual signing
+      - name: Patch Unity-iPhone & UnityFramework targets for manual signing
         id: patch-target
         run: |
           PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-          # Get the target UUID for Unity-iPhone
-          TARGET_UUID=$(grep -E '^[[:space:]]*[0-9A-F]{24} /\* Unity-iPhone \*/ =' "$PBXPROJ" | awk '{print $1}')
-          echo "Unity-iPhone target UUID: $TARGET_UUID"
-          # Get the project UUID
           PROJECT_UUID=$(grep -E 'rootObject = [0-9A-F]{24}' "$PBXPROJ" | sed -E 's/.*rootObject = ([0-9A-F]{24}).*/\1/')
           echo "Project UUID: $PROJECT_UUID"
-          # Create TargetAttributes structure if it doesn't exist
-          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
-          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID dict" "$PBXPROJ" 2>/dev/null || true
-          # Set ProvisioningStyle to Manual
-          /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID:ProvisioningStyle Manual" "$PBXPROJ"
-          # Remove any leftover provisioning profile specifier
-          /usr/libexec/PlistBuddy -c "Delete :objects:$PROJECT_UUID:attributes:TargetAttributes:$TARGET_UUID:PROVISIONING_PROFILE_SPECIFIER" "$PBXPROJ" 2>/dev/null || true
+
+          # Get provisioning info from previous step
+          UUID="${{ steps.get-uuid.outputs.uuid }}"
+          TEAM="${{ secrets.APPLE_TEAM_ID }}"
+
+          # Targets to patch
+          TARGETS=("Unity-iPhone" "UnityFramework")
+
+          for T in "${TARGETS[@]}"; do
+            echo "Patching target $T"
+
+            # Get target UUID
+            TUUID=$(grep -E "^[[:space:]]*[0-9A-F]{24} /\* $T \*/ =" "$PBXPROJ" | awk '{print $1}')
+            echo "Target UUID: $TUUID"
+
+            # Ensure TargetAttributes dict exists
+            /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
+            /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
+            /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
+
+            # Patch buildSettings inside the target
+            # If existing lines exist, replace; otherwise append
+            sed -i '' -E "s/(PROVISIONING_PROFILE_SPECIFIER = ).*;/\1\"$UUID\";/" "$PBXPROJ" || echo "PROVISIONING_PROFILE_SPECIFIER = \"$UUID\";" >> "$PBXPROJ"
+            sed -i '' -E "s/(DEVELOPMENT_TEAM = ).*;/\1\"$TEAM\";/" "$PBXPROJ" || echo "DEVELOPMENT_TEAM = \"$TEAM\";" >> "$PBXPROJ"
+            sed -i '' -E "s/(CODE_SIGN_STYLE = ).*;/\1Manual;/" "$PBXPROJ" || echo "CODE_SIGN_STYLE = Manual;" >> "$PBXPROJ"
+          done
+
 
       - name: Show Xcode build settings for debugging
         run: |
