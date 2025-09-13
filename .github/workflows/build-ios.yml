@@ -221,7 +221,7 @@ jobs:
           PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
           UUID="${{ steps.get-uuid.outputs.uuid }}"
           PROFILE_NAME="${{ steps.get-profile-name.outputs.profile_name }}"
-          TEAM="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"  # your team ID
+          TEAM="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"
       
           echo "== Patching PBXNativeTarget entries for manual signing =="
           echo "Project file: $PBXPROJ"
@@ -237,9 +237,24 @@ jobs:
           /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes dict" "$PBXPROJ" 2>/dev/null || true
           /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
       
-          # Find all PBXNativeTarget UUIDs and names (multi-line safe)
           echo "== Found PBXNativeTargets =="
-          awk '/isa = PBXNativeTarget;/ {uuid=prev_line_uuid; getline; if ($0 ~ /name =/) {name=$0; gsub(/.*name = "(.*)";/, "\\1", name); print uuid "|" name} } {prev_line_uuid=$1}' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
+          awk '
+            /isa = PBXNativeTarget;/ {
+              # Extract UUID from comment before isa
+              if (match($0, /([A-F0-9]{24}) \/\*/, arr)) {
+                uuid = arr[1];
+              } else {
+                uuid = "";
+              }
+              # Find the target name
+              while (getline && $0 !~ /name =/) {}
+              if ($0 ~ /name =/) {
+                name = $0;
+                gsub(/.*name = "(.*)";/, "\\1", name);
+                print uuid "|" name
+              }
+            }
+          ' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
             echo "Target: $TNAME (UUID: $TUUID)"
       
             # Only patch targets we care about
