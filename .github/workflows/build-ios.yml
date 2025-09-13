@@ -130,17 +130,20 @@ jobs:
           UUID=$(basename "$PROFILE_PATH" .mobileprovision)
           echo "uuid=$UUID" >> $GITHUB_OUTPUT
 
-      - name: Debug cert and profile
+      - name: Debug provisioning profile
         run: |
-          ls -lh
-          echo "== Certificate file size =="
-          ls -lh build/certs/*.p12 || true
-          echo "== Provisioning profile size =="
-          ls -lh build/certs/*.mobileprovision || true
-          echo "== First 50 bytes of cert =="
-          head -c 50 build/certs/*.p12 | base64 || true
-          echo "== First 50 bytes of profile =="
-          head -c 50 build/certs/*.mobileprovision | base64 || true
+          echo "== Provisioning Profiles =="
+          ls -lh ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "== First 20 lines =="
+          head -n 20 ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision || true
+
+      - name: Verify signing certificate in keychain
+        run: |
+          echo "== Listing all code signing identities in keychain =="
+          security find-identity -v -p codesigning || true
+          echo ""
+          echo "== Check if Apple Distribution cert is present =="
+          security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
 
       - name: List Xcode project targets
         run: |
