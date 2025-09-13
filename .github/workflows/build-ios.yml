@@ -158,20 +158,30 @@ jobs:
           -verbose
           -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
 
-      - name: Generate Xcode build
+      - name: Generate Xcode build (no signing, debug only)
         run: |
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
           -archivePath build/Unity.xarchive \
-          -verbose
-          UnityFramework.CODE_SIGN_STYLE=Automatic \
-          Unity-iPhone.CODE_SIGN_STYLE=Manual \
-          Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
-          Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-uuid.outputs.uuid }}" \
-          Unity-iPhone.DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" \
+          CODE_SIGNING_ALLOWED=NO \
           archive
+          
+      # - name: Generate Xcode build
+      #   run: |
+      #     xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
+      #     -scheme Unity-iPhone \
+      #     -sdk iphoneos \
+      #     -configuration Release \
+      #     -archivePath build/Unity.xarchive \
+      #     -verbose
+      #     UnityFramework.CODE_SIGN_STYLE=Automatic \
+      #     Unity-iPhone.CODE_SIGN_STYLE=Manual \
+      #     Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
+      #     Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-uuid.outputs.uuid }}" \
+      #     Unity-iPhone.DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" \
+      #     archive
 
       - name: Create export options
         run: |
