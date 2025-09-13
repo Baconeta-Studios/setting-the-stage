@@ -165,6 +165,15 @@ jobs:
           UUID=$(basename "$PROFILE_PATH" .mobileprovision)
           echo "uuid=$UUID" >> $GITHUB_OUTPUT
 
+      - name: Get provisioning profile name
+        id: get-profile-name
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          security cms -D -i "$PROFILE_PATH" > profile.plist
+          PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
+          echo "Profile name: $PROFILE_NAME"
+          echo "profile_name=$PROFILE_NAME" >> $GITHUB_OUTPUT
+
       - name: Debug provisioning profile
         run: |
           echo "== Provisioning Profiles =="
@@ -295,9 +304,10 @@ jobs:
             UnityFramework.CODE_SIGN_STYLE=Automatic \
             Unity-iPhone.CODE_SIGN_STYLE=Manual \
             Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
-            Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-uuid.outputs.uuid }}" \
+            Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-profile-name.outputs.profile_name }}" \
             Unity-iPhone.DEVELOPMENT_TEAM="$TEAM_ID" \
             archive
+
 
       - name: Create export options
         run: |
