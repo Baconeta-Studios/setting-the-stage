@@ -142,6 +142,18 @@ jobs:
           echo "== First 50 bytes of profile =="
           head -c 50 build/certs/*.mobileprovision | base64 || true
 
+      - name: List Xcode project targets
+        run: |
+          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
+          echo "== Project Targets =="
+          grep -E '^[[:space:]]*[0-9A-F]{24} /\* .* \*/ = {isa = PBXNativeTarget;' "$PBXPROJ" \
+            | sed -E 's/^[[:space:]]*([0-9A-F]{24}) /\1/' \
+            | while read -r line; do
+                UUID=$(echo "$line" | awk '{print $1}')
+                NAME=$(echo "$line" | sed -E 's/.*\* (.*) \*\/.*/\1/')
+                echo "Target: $NAME ($UUID)"
+              done
+
       - name: Patch Unity-iPhone & UnityFramework targets for manual signing
         id: patch-target
         run: |
