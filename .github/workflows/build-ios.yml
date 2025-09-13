@@ -137,6 +137,16 @@ jobs:
           name: provisioning-profile
           path: ~/Library/MobileDevice/Provisioning Profiles
 
+      - name: Inspect provisioning profile
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n 1)
+          echo "Profile path: $PROFILE_PATH"
+          security cms -D -i "$PROFILE_PATH" > profile.plist
+          /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist
+          /usr/libexec/PlistBuddy -c "Print :Name" profile.plist
+          /usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" profile.plist
+          /usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" profile.plist
+
       - name: Import signing certificate
         uses: apple-actions/import-codesign-certs@v2
         with:
@@ -256,6 +266,10 @@ jobs:
           -archivePath build/Unity.xarchive \
           -verbose \
           -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
+
+      - name: Check installed certs
+        run: |
+          security find-identity -v -p codesigning
 
       # - name: Generate Xcode build (no signing, debug only)
       #   run: |
