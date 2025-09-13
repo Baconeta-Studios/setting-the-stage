@@ -192,7 +192,7 @@ jobs:
               } 
             }
           ' "$PBXPROJ"
-          shell: /bin/bash
+        shell: bash
 
       - name: Patch Xcode project for manual signing (debug)
         shell: bash
