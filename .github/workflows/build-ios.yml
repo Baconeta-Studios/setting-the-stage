@@ -158,13 +158,15 @@ jobs:
             /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
             /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
 
-            # Patch buildSettings for provisioning
-            sed -i '' -E "s/(PROVISIONING_PROFILE_SPECIFIER = ).*;/\1\"$UUID\";/" "$PBXPROJ" || echo "PROVISIONING_PROFILE_SPECIFIER = \"$UUID\";" >> "$PBXPROJ"
-            sed -i '' -E "s/(DEVELOPMENT_TEAM = ).*;/\1\"$TEAM\";/" "$PBXPROJ" || echo "DEVELOPMENT_TEAM = \"$TEAM\";" >> "$PBXPROJ"
-            sed -i '' -E "s/(CODE_SIGN_STYLE = ).*;/\1Manual;/" "$PBXPROJ" || echo "CODE_SIGN_STYLE = Manual;" >> "$PBXPROJ"
+           # For each build configuration of the target
+            CONFIGS=$(grep -A10 "$TUUID" "$PBXPROJ" | grep "buildConfigurationList" | awk -F' = ' '{print $2}' | tr -d ' ;')
+            for CONFIG_ID in $CONFIGS; do
+              /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
+              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $UUID" "$PBXPROJ"
+              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
+              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
+            done
           done
-
-
 
       - name: Show Xcode build settings for debugging
         run: |
@@ -173,7 +175,7 @@ jobs:
           -sdk iphoneos \
           -configuration Release \
           -archivePath build/Unity.xarchive \
-          -verbose
+          -verbose \
           -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
 
       - name: Generate Xcode build (no signing, debug only)
