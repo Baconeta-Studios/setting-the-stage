@@ -130,6 +130,18 @@ jobs:
           UUID=$(basename "$PROFILE_PATH" .mobileprovision)
           echo "uuid=$UUID" >> $GITHUB_OUTPUT
 
+      - name: Debug cert and profile
+        run: |
+          ls -lh
+          echo "== Certificate file size =="
+          ls -lh build/certs/*.p12 || true
+          echo "== Provisioning profile size =="
+          ls -lh build/certs/*.mobileprovision || true
+          echo "== First 50 bytes of cert =="
+          head -c 50 build/certs/*.p12 | base64 || true
+          echo "== First 50 bytes of profile =="
+          head -c 50 build/certs/*.mobileprovision | base64 || true
+
       - name: Patch Unity-iPhone & UnityFramework targets for manual signing
         id: patch-target
         run: |
