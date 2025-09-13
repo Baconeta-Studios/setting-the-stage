@@ -32,8 +32,17 @@ jobs:
 
       - name: Checkout git repo
         uses: actions/checkout@v5
+        
+      - name: Skip Unity build if cache hit
+        id: cache-check
+        run: |
+          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
+            echo "Cache hit, skipping Unity build."
+            echo "skip_build=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Generate Unity build for iOS
+        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -43,6 +52,14 @@ jobs:
           targetPlatform: iOS
           unityVersion: ${{ vars.UNITY_VERSION }}
           versioning: Semantic
+
+      - name: Cache Unity build output
+        uses: actions/cache@v3
+        with:
+          path: build/iOS
+          key: unity-ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            unity-ios-build-${{ runner.os }}-
 
       - name: Upload Unity build
         uses: actions/upload-artifact@v4
