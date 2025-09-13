@@ -137,18 +137,20 @@ jobs:
           PROJECT_UUID=$(grep -E 'rootObject = [0-9A-F]{24}' "$PBXPROJ" | sed -E 's/.*rootObject = ([0-9A-F]{24}).*/\1/')
           echo "Project UUID: $PROJECT_UUID"
 
-          # Get provisioning info from previous step
           UUID="${{ steps.get-uuid.outputs.uuid }}"
           TEAM="${{ secrets.APPLE_TEAM_ID }}"
 
-          # Targets to patch
           TARGETS=("Unity-iPhone" "UnityFramework")
 
           for T in "${TARGETS[@]}"; do
             echo "Patching target $T"
 
-            # Get target UUID
-            TUUID=$(grep -E "^[[:space:]]*[0-9A-F]{24} /\* $T \*/ =" "$PBXPROJ" | awk '{print $1}')
+            # Safely get target UUID
+            TUUID=$(grep -m1 "$T" "$PBXPROJ" | grep "PBXNativeTarget" | awk '{print $1}')
+            if [ -z "$TUUID" ]; then
+              echo "Warning: Could not find target $T, skipping"
+              continue
+            fi
             echo "Target UUID: $TUUID"
 
             # Ensure TargetAttributes dict exists
@@ -156,12 +158,12 @@ jobs:
             /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
             /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
 
-            # Patch buildSettings inside the target
-            # If existing lines exist, replace; otherwise append
+            # Patch buildSettings for provisioning
             sed -i '' -E "s/(PROVISIONING_PROFILE_SPECIFIER = ).*;/\1\"$UUID\";/" "$PBXPROJ" || echo "PROVISIONING_PROFILE_SPECIFIER = \"$UUID\";" >> "$PBXPROJ"
             sed -i '' -E "s/(DEVELOPMENT_TEAM = ).*;/\1\"$TEAM\";/" "$PBXPROJ" || echo "DEVELOPMENT_TEAM = \"$TEAM\";" >> "$PBXPROJ"
             sed -i '' -E "s/(CODE_SIGN_STYLE = ).*;/\1Manual;/" "$PBXPROJ" || echo "CODE_SIGN_STYLE = Manual;" >> "$PBXPROJ"
           done
+
 
 
       - name: Show Xcode build settings for debugging
