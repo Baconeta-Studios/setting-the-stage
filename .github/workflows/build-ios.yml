@@ -257,20 +257,15 @@ jobs:
           echo "== Found PBXNativeTargets =="
           awk '
             /isa = PBXNativeTarget;/ {
-              # Extract UUID from comment before isa
-              if (match($0, /([A-F0-9]{24}) \/\*/, arr)) {
-                uuid = arr[1];
-              } else {
-                uuid = "";
-              }
-              # Find the target name
+              uuid = prev_line
               while (getline && $0 !~ /name =/) {}
               if ($0 ~ /name =/) {
-                name = $0;
-                gsub(/.*name = "(.*)";/, "\\1", name);
+                name = $0
+                gsub(/.*name = "(.*)";/, "\\1", name)
                 print uuid "|" name
               }
             }
+            { prev_line = $1 }
           ' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
             echo "Target: $TNAME (UUID: $TUUID)"
       
@@ -299,6 +294,7 @@ jobs:
             fi
           done
           echo "== Patch complete =="
+
 
       - name: Show Xcode build settings for debugging
         run: |
