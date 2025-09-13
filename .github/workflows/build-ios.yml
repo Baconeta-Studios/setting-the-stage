@@ -219,8 +219,8 @@ jobs:
           set -e
       
           PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-          UUID="$UUID"   # provisioning profile UUID (for reference/debug)
-          PROFILE_NAME="$PROFILE_NAME"   # provisioning profile name extracted from .mobileprovision
+          UUID="${{ steps.get-uuid.outputs.uuid }}"
+          PROFILE_NAME="${{ steps.get-profile-name.outputs.profile_name }}"
           TEAM="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"  # your team ID
       
           echo "== Patching PBXNativeTarget entries for manual signing =="
