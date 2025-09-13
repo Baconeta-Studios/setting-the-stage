@@ -262,7 +262,11 @@ jobs:
                 # Set provisioning and signing settings using the profile name
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $PROFILE_NAME" "$PBXPROJ"
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
-                /usr/libexec/P
+                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
+              done
+            fi
+          done
+          echo "== Patch complete =="
 
       - name: Show Xcode build settings for debugging
         run: |
