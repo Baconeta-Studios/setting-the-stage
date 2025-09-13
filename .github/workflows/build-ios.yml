@@ -118,10 +118,10 @@ jobs:
           p12-file-base64: ${{ secrets.APPLE_P12_FILE_BASE64 }}
           p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
 
-      - name: Show project signing settings
-        run: |
-          /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:CODE_SIGN_STYLE" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj
-          /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:PROVISIONING_PROFILE_SPECIFIER" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj || true
+      # - name: Show project signing settings
+      #   run: |
+      #     /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:CODE_SIGN_STYLE" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj
+      #     /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:PROVISIONING_PROFILE_SPECIFIER" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj || true
 
       - name: Get provisioning profile UUID
         id: get-uuid
