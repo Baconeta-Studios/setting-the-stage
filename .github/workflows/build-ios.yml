@@ -170,17 +170,29 @@ jobs:
           echo "== Check if Apple Distribution cert is present =="
           security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
 
-      - name: List Xcode project targets
+      - name: List PBXNativeTargets in project
         run: |
           PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
           echo "== Project Targets =="
-          grep -E '^[[:space:]]*[0-9A-F]{24} /\* .* \*/ = {isa = PBXNativeTarget;' "$PBXPROJ" \
-            | sed -E 's/^[[:space:]]*([0-9A-F]{24}) /\1/' \
-            | while read -r line; do
-                UUID=$(echo "$line" | awk '{print $1}')
-                NAME=$(echo "$line" | sed -E 's/.*\* (.*) \*\/.*/\1/')
-                echo "Target: $NAME ($UUID)"
-              done
+      
+          # Extract all PBXNativeTarget UUIDs and Names
+          awk '
+            /\/\* .* \*\/ = {/ { 
+              uuid = $1; 
+              getline; 
+              if ($0 ~ /isa = PBXNativeTarget;/) { 
+                target_line = $0; 
+                while (getline && $0 !~ /name =/) {} 
+                if ($0 ~ /name =/) { 
+                  name = $0; 
+                  sub(/.*name = /, "", name); 
+                  sub(/;.*/, "", name); 
+                  print "Target: " name " (" uuid ")"; 
+                } 
+              } 
+            }
+          ' "$PBXPROJ"
+          shell: /bin/bash
 
       - name: Patch Xcode project for manual signing
         run: |
