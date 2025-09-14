@@ -1,16 +1,19 @@
 name: Build iOS
 run-name: ${{ github.actor }} is building for Apple App Store
+
 on:
   push:
     branches:
       - releases
       - '*-build'
   workflow_dispatch:
+
 jobs:
   unity-build-ios:
     runs-on: macos-latest
     steps:
-      - name: Process cached Unity Installation
+      # Cache Unity installation itself
+      - name: Cache Unity Installation
         uses: actions/cache@v3
         with:
           path: |
@@ -21,7 +24,8 @@ jobs:
             unity-${{ runner.os }}-${{ vars.UNITY_VERSION }}
             unity-${{ runner.os }}-
 
-      - name: Process cached Library folder
+      # Cache Library folder to avoid reimporting assets
+      - name: Cache Library folder
         uses: actions/cache@v4
         with:
           path: Library
@@ -30,15 +34,29 @@ jobs:
             Library-${{ runner.os }}-
             Library
 
+      # Cache iOS build output (Xcode project)
+      - name: Cache iOS build output
+        id: ios-cache
+        uses: actions/cache@v4
+        with:
+          path: build/iOS
+          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            ios-build-${{ runner.os }}-
+            ios-build
+
       - name: Checkout git repo
         uses: actions/checkout@v5
-        
-      - name: Skip Unity build if cache hit
+
+      # Skip Unity build entirely if cache restored successfully
+      - name: Check if Unity build can be skipped
         id: cache-check
         run: |
           if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
-            echo "Cache hit, skipping Unity build."
+            echo "Cache hit, skipping Unity build step."
             echo "skip_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "No cached build found, running Unity build."
           fi
 
       - name: Generate Unity build for iOS
@@ -53,14 +71,15 @@ jobs:
           unityVersion: ${{ vars.UNITY_VERSION }}
           versioning: Semantic
 
-      - name: Cache Unity build output
-        uses: actions/cache@v3
+      # Save build output into cache for future runs
+      - name: Save iOS build to cache
+        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
+        uses: actions/cache@v4
         with:
           path: build/iOS
-          key: unity-ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            unity-ios-build-${{ runner.os }}-
+          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
 
+      # Always upload build (cached or newly built) for downstream jobs
       - name: Upload Unity build
         uses: actions/upload-artifact@v4
         with:
