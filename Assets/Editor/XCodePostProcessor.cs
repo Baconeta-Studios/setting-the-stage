@@ -37,23 +37,24 @@ public class XCodePostProcessor : MonoBehaviour
         Debug.Log($"Using provisioning profile '{provisioningProfile}'.");
         Debug.Log($"Using development team '{devTeam}'.");
 
-        string targetGuid = project.GetUnityMainTargetGuid();
+        string iPhoneUnityTarget = project.GetUnityMainTargetGuid();
+        string releaseConfigGuid = project.BuildConfigByName(iPhoneUnityTarget, (devMode ? "Debug" : "Release")); 
 
         if (useAutomaticSigning)
         {
             // Configure automatic signing.
-            project.SetBuildProperty(targetGuid, "CODE_SIGN_STYLE", "Automatic");
-            project.SetBuildProperty(targetGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
+            project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_STYLE", "Automatic");
+            project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
             // Leave PROVISIONING_PROFILE_SPECIFIER empty, Xcode will handle it automatically.
         }
         else
         {
             // Configure manual signing.
-            project.SetBuildProperty(targetGuid, "CODE_SIGN_STYLE", "Manual");
-            project.SetBuildProperty(targetGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
-            project.SetBuildProperty(targetGuid, "PROVISIONING_PROFILE_SPECIFIER", provisioningProfile);
+            project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_STYLE", "Manual");
+            project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
+            project.SetBuildPropertyForConfig(releaseConfigGuid, "PROVISIONING_PROFILE_SPECIFIER", provisioningProfile);
         }
-        project.SetBuildProperty(targetGuid, "DEVELOPMENT_TEAM", devTeam);
+        project.SetBuildPropertyForConfig(releaseConfigGuid, "DEVELOPMENT_TEAM", devTeam);
 
         // Save changes.
         project.WriteToFile(projectPath);
