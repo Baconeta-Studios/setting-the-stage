@@ -50,15 +50,15 @@ jobs:
             ios-build
 
       # Skip Unity build entirely if cached build exists
-      - name: Check if Unity build can be skipped
-        id: cache-check
-        run: |
-          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
-            echo "Cache hit, skipping Unity build step."
-            echo "skip_build=true" >> $GITHUB_OUTPUT
-          else
-            echo "No cached build found, running Unity build."
-          fi
+#      - name: Check if Unity build can be skipped
+#        id: cache-check
+#        run: |
+#          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
+#            echo "Cache hit, skipping Unity build step."
+#            echo "skip_build=true" >> $GITHUB_OUTPUT
+#          else
+#            echo "No cached build found, running Unity build."
+#          fi
 
       # Generate Unity build only if cache missed
       - name: Generate Unity build for iOS
@@ -213,131 +213,44 @@ jobs:
           echo "Profile name: $PROFILE_NAME"
           echo "profile_name=$PROFILE_NAME" >> $GITHUB_OUTPUT
 
-      - name: Debug provisioning profile
-        run: |
-          echo "== Provisioning Profiles =="
-          ls -lh ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "== First 20 lines =="
-          head -n 20 ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision || true
+#      - name: Debug provisioning profile
+#        run: |
+#          echo "== Provisioning Profiles =="
+#          ls -lh ~/Library/MobileDevice/Provisioning\ Profiles
+#          echo "== First 20 lines =="
+#          head -n 20 ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision || true
 
-      - name: Verify signing certificate in keychain
-        run: |
-          echo "== Listing all code signing identities in keychain =="
-          security find-identity -v -p codesigning || true
-          echo ""
-          echo "== Check if Apple Distribution cert is present =="
-          security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
+#      - name: Verify signing certificate in keychain
+#        run: |
+#          echo "== Listing all code signing identities in keychain =="
+#          security find-identity -v -p codesigning || true
+#          echo ""
+#          echo "== Check if Apple Distribution cert is present =="
+#          security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
 
-      - name: List PBXNativeTargets in project
-        run: |
-          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-          echo "== Project Targets =="
-      
-          # Extract all PBXNativeTarget UUIDs and Names
-          awk '
-            /\/\* .* \*\/ = {/ { 
-              uuid = $1; 
-              getline; 
-              if ($0 ~ /isa = PBXNativeTarget;/) { 
-                target_line = $0; 
-                while (getline && $0 !~ /name =/) {} 
-                if ($0 ~ /name =/) { 
-                  name = $0; 
-                  sub(/.*name = /, "", name); 
-                  sub(/;.*/, "", name); 
-                  print "Target: " name " (" uuid ")"; 
-                } 
-              } 
-            }
-          ' "$PBXPROJ"
-        shell: bash
-
-      - name: Patch Xcode project for manual signing (debug)
-        shell: bash
-        run: |
-          set -e
-      
-          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-          UUID="${{ steps.get-uuid.outputs.uuid }}"
-          PROFILE_NAME="${{ steps.get-profile-name.outputs.profile_name }}"
-          TEAM="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"
-      
-          echo "== Patching PBXNativeTarget entries for manual signing =="
-          echo "Project file: $PBXPROJ"
-          echo "Provisioning profile UUID: $UUID"
-          echo "Provisioning profile name: $PROFILE_NAME"
-          echo "Development team: $TEAM"
-      
-          # Backup for diff later
-          cp "$PBXPROJ" "$PBXPROJ.bak"
-      
-          # Get project root UUID
-          PROJECT_UUID=$(grep -m1 "rootObject" "$PBXPROJ" | sed -E 's/.*= ([A-F0-9]+).*/\1/')
-          echo "Project root UUID: $PROJECT_UUID"
-      
-          # Ensure root attributes dict exists
-          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes dict" "$PBXPROJ" 2>/dev/null || true
-          /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes dict" "$PBXPROJ" 2>/dev/null || true
-      
-          echo "== Found PBXNativeTargets =="
-      
-          targets_scanned=0
-          configs_patched=0
-      
-          # Parse all PBXNativeTarget blocks
-          awk '
-            /^[[:space:]]*[A-F0-9][A-F0-9]*[[:space:]]\/\*.*\*\/ = {/ {
-              uuid = $1
-              name = $0
-              sub(/.*\/\* /,"",name)
-              sub(/ \*\/.*/,"",name)
-              print uuid "|" name
-            }
-          ' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
-            echo "Target: $TNAME (UUID: $TUUID)"
-            ((targets_scanned++))
-          
-            if [[ "$TNAME" != "Unity-iPhone" && "$TNAME" != "UnityFramework" ]]; then
-              echo "  Skipping target $TNAME"
-              continue
-            fi
-      
-            echo "  Patching target $TNAME"
-      
-            # Ensure dict exists for this target in TargetAttributes
-            /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
-            /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
-      
-            # Find build configuration list UUID
-            CONFIG_LIST=$(grep -A3 "$TUUID /\* $TNAME \*/" "$PBXPROJ" | grep buildConfigurationList | awk -F ' = ' '{print $2}' | tr -d ' ;')
-            if [ -z "$CONFIG_LIST" ]; then
-              echo "    ⚠️ No buildConfigurationList found for $TNAME"
-              continue
-            fi
-      
-            # Patch each build configuration
-            grep -A20 "$CONFIG_LIST" "$PBXPROJ" | grep -E '^[[:space:]]*[A-F0-9]+ /\* ' | awk '{print $1}' | while read CONFIG_ID; do
-              if [ -z "$CONFIG_ID" ]; then
-                echo "      ⚠️ Empty config ID"
-                continue
-              fi
-      
-              echo "    Patching build configuration: $CONFIG_ID"
-      
-              /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
-              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $PROFILE_NAME" "$PBXPROJ"
-              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
-              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
-              ((configs_patched++))
-            done
-          done
-      
-          echo "== Patch complete =="
-          echo "Targets scanned: $targets_scanned"
-          echo "Build configurations patched: $configs_patched"
-      
-          echo "== Diff Summary =="
-          diff -u "$PBXPROJ.bak" "$PBXPROJ" || true
+#      - name: List PBXNativeTargets in project
+#        run: |
+#          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
+#          echo "== Project Targets =="
+#
+#          # Extract all PBXNativeTarget UUIDs and Names
+#          awk '
+#            /\/\* .* \*\/ = {/ {
+#              uuid = $1;
+#              getline;
+#              if ($0 ~ /isa = PBXNativeTarget;/) {
+#                target_line = $0;
+#                while (getline && $0 !~ /name =/) {}
+#                if ($0 ~ /name =/) {
+#                  name = $0;
+#                  sub(/.*name = /, "", name);
+#                  sub(/;.*/, "", name);
+#                  print "Target: " name " (" uuid ")";
+#                }
+#              }
+#            }
+#          ' "$PBXPROJ"
+#        shell: bash
 
       - name: Show Xcode build settings for debugging
         run: |
@@ -353,28 +266,15 @@ jobs:
         run: |
           security find-identity -v -p codesigning
 
-      # - name: Generate Xcode build (no signing, debug only)
-      #   run: |
-      #     xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
-      #     -scheme Unity-iPhone \
-      #     -sdk iphoneos \
-      #     -configuration Release \
-      #     -archivePath build/Unity.xarchive \
-      #     Unity-iPhone.CODE_SIGN_IDENTITY="Apple Distribution" \
-      #     Unity-iPhone.PROVISIONING_PROFILE_SPECIFIER="${{ steps.get-uuid.outputs.uuid }}" \
-      #     Unity-iPhone.DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" \
-      #     archive
-          
       - name: Generate Xcode build
         run: |
-          TEAM_ID="$(echo "${{ secrets.APPLE_TEAM_ID }}" | xargs)"   # trims whitespace
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
-            -scheme Unity-iPhone \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath build/Unity.xarchive \
-            -verbose \
-            archive
+          -scheme Unity-iPhone \
+          -sdk iphoneos \
+          -configuration Release \
+          -archivePath build/Unity.xarchive \
+          -verbose \
+          archive
 
       - name: Create export options
         run: |
