@@ -275,19 +275,11 @@ jobs:
       
           echo "== Found PBXNativeTargets =="
       
-          awk '
-            /\*\// && /= {/ {
-              uuid=$1
-              gsub(/[^A-F0-9]/,"",uuid)
-              name=$0
-              sub(/^.*\/\*/, "", name)
-              sub(/\*\/.*$/, "", name)
-              getline
-              if ($0 ~ /isa = PBXNativeTarget;/) {
-                print uuid "|" name
-              }
-            }
-          ' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
+          # Loop over all PBXNativeTarget entries
+          grep -E '^[[:space:]]*[A-F0-9]{24} /\* .* \*/ = \{' "$PBXPROJ" | while read -r line; do
+            TUUID=$(echo "$line" | awk '{print $1}')
+            TNAME=$(echo "$line" | sed -n 's/.*\/\* \(.*\) \*\/.*/\1/p')
+      
             echo "Target: $TNAME (UUID: $TUUID)"
       
             if [[ "$TNAME" == "Unity-iPhone" || "$TNAME" == "UnityFramework" ]]; then
@@ -299,10 +291,12 @@ jobs:
               # Set ProvisioningStyle to Manual
               /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
       
-              # Patch build settings for all configurations
-              grep -A10 "$TUUID" "$PBXPROJ" | grep "buildConfigurationList" | awk -F ' = ' '{print $2}' | tr -d ' ;' | while read CONFIG_ID; do
-                echo "  Patching build configuration: $CONFIG_ID"
+              # Find build configuration list UUID
+              CONFIG_LIST=$(grep -A3 "$TUUID /\* $TNAME \*/" "$PBXPROJ" | grep buildConfigurationList | awk -F ' = ' '{print $2}' | tr -d ' ;')
       
+              # Patch each build configuration under that list
+              grep -A20 "$CONFIG_LIST" "$PBXPROJ" | grep -E '^[[:space:]]*[A-F0-9]{24} /\* ' | awk '{print $1}' | while read CONFIG_ID; do
+                echo "  Patching build configuration: $CONFIG_ID"
                 /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $PROFILE_NAME" "$PBXPROJ"
                 /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
@@ -312,7 +306,6 @@ jobs:
           done
       
           echo "== Patch complete =="
-
 
       - name: Show Xcode build settings for debugging
         run: |
