@@ -8,9 +8,10 @@
         {
             StagePosition.OnStagePositionCommitted += StagePositionUpdated;
             _sandboxAudioDataManager = FindObjectOfType<SandboxAudioDataManager>();
-            if (_sandboxAudioDataManager is null)
+            if (_sandboxAudioDataManager == null)
             {
                 StSDebug.LogError("Something went wrong - there is no SandboxAudioDataManager in the scene.");
+                _sandboxAudioDataManager = SandboxAudioDataManager.Instance;
             }
         }
 
