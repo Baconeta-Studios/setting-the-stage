@@ -26,11 +26,20 @@ public class XCodePostProcessor : MonoBehaviour
         PBXProject project = new PBXProject();
         project.ReadFromFile(projectPath);
 
+
         // Get environment variables.
-        bool useAutomaticSigning = Environment.GetEnvironmentVariable("IOS_AUTOMATIC_SIGNING") == "true";
-        bool devMode = Environment.GetEnvironmentVariable("IOS_DEV_MODE") == "true";
-        string provisioningProfile = Environment.GetEnvironmentVariable("IOS_PROVISIONING_PROFILE_SPECIFIER") ?? "";
-        string devTeam = Environment.GetEnvironmentVariable("IOS_DEVELOPMENT_TEAM") ?? "";
+
+        // Temporarily hardcode values, we were having issues with environment variables.
+        // TODO Fix fetching from environmental variables.
+        bool useAutomaticSigning = false;
+        bool devMode = false;
+        string provisioningProfile = "Alpha_PP";
+        string devTeam = "3W74XNV66H";
+
+        //bool useAutomaticSigning = Environment.GetEnvironmentVariable("IOS_AUTOMATIC_SIGNING") == "true";
+        //bool devMode = Environment.GetEnvironmentVariable("IOS_DEV_MODE") == "true";
+        //string provisioningProfile = Environment.GetEnvironmentVariable("IOS_PROVISIONING_PROFILE_SPECIFIER") ?? "";
+        //string devTeam = Environment.GetEnvironmentVariable("IOS_DEVELOPMENT_TEAM") ?? "";
         string codeSignIdentity = devMode ? "Apple Development" : "Apple Distribution";
 
         Debug.Log($"Using automatic signing '{useAutomaticSigning}'.");
@@ -39,7 +48,7 @@ public class XCodePostProcessor : MonoBehaviour
 
         string iPhoneUnityTarget = project.GetUnityMainTargetGuid();
         string releaseConfigGuid = project.BuildConfigByName(iPhoneUnityTarget, (devMode ? "Debug" : "Release")); 
-
+            
         if (useAutomaticSigning)
         {
             // Configure automatic signing.
