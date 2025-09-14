@@ -288,21 +288,15 @@ jobs:
           awk '
             /\/\* .* \*\/ = {/ {
               uuid = $1
-              getline
-              if ($0 ~ /isa = PBXNativeTarget;/) {
-                while (getline && $0 !~ /name =/) {}
-                if ($0 ~ /name =/) {
-                  name = $0
-                  sub(/.*name = /, "", name)
-                  sub(/;.*/, "", name)
-                  print uuid, name
-                }
-              }
+              name = $0
+              sub(/.*\/\* /,"",name)
+              sub(/ \*\/.*/,"",name)
+              print uuid "|" name
             }
-          ' "$PBXPROJ" | while read -r TUUID TNAME; do
+          ' "$PBXPROJ" | while IFS="|" read -r TUUID TNAME; do
             echo "Target: $TNAME (UUID: $TUUID)"
             ((targets_scanned++))
-      
+          
             if [[ "$TNAME" != "Unity-iPhone" && "$TNAME" != "UnityFramework" ]]; then
               echo "  Skipping target $TNAME"
               continue
