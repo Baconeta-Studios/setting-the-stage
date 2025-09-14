@@ -269,7 +269,7 @@ jobs:
           echo "Development team: $TEAM"
       
           # Get project root UUID
-          PROJECT_UUID=$(grep -m1 "rootObject" "$PBXPROJ" | awk -F ' = ' '{print $2}' | tr -d ' ;')
+          PROJECT_UUID=$(grep -m1 "rootObject" "$PBXPROJ" | sed -E 's/.*= ([A-F0-9]+).*/\1/')
           echo "Project root UUID: $PROJECT_UUID"
       
           # Ensure root attributes dict exists
