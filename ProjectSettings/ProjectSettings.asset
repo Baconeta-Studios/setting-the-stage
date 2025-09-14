@@ -167,7 +167,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.BaconetaStudios.SettingTheStage
     Standalone: com.DefaultCompany.2DProject
-    iPhone: com.BaconetaStudios.SettingTheStage
+    iPhone: com.baconetastudios.SettingTheStage
   buildNumber:
     Standalone: 0
     VisionOS: 0
