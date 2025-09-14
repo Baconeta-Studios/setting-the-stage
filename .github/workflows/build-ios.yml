@@ -286,7 +286,7 @@ jobs:
       
           # Parse all PBXNativeTarget blocks
           awk '
-            /\/\* .* \*\/ = {/ {
+            /^[[:space:]]*[A-F0-9]{24} /\* .* \*\/ = {/ {
               uuid = $1
               name = $0
               sub(/.*\/\* /,"",name)
