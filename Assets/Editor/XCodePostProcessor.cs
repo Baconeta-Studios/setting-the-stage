@@ -48,20 +48,21 @@ public class XCodePostProcessor : MonoBehaviour
         Debug.Log($"Using code signing identity '{codeSignIdentity}'.");
 
         string iPhoneUnityTarget = project.GetUnityMainTargetGuid();
-        string releaseConfigGuid = project.BuildConfigByName(iPhoneUnityTarget, (devMode ? "Debug" : "Release")); 
-            
+        string releaseConfigGuid = project.BuildConfigByName(iPhoneUnityTarget, (devMode ? "Debug" : "Release"));
+
+        // Set CODE_SIGN_IDENTITY at target-level AND at release-level.
+        project.SetBuildProperty(iPhoneUnityTarget, "CODE_SIGN_IDENTITY", codeSignIdentity);
+        project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
         if (useAutomaticSigning)
         {
             // Configure automatic signing.
             project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_STYLE", "Automatic");
-            project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
             // Leave PROVISIONING_PROFILE_SPECIFIER empty, Xcode will handle it automatically.
         }
         else
         {
             // Configure manual signing.
             project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_STYLE", "Manual");
-            project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
             project.SetBuildPropertyForConfig(releaseConfigGuid, "PROVISIONING_PROFILE_SPECIFIER", provisioningProfile);
         }
         project.SetBuildPropertyForConfig(releaseConfigGuid, "DEVELOPMENT_TEAM", devTeam);
