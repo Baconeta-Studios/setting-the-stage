@@ -268,7 +268,7 @@ jobs:
           echo "Provisioning profile name: $PROFILE_NAME"
           echo "Development team: $TEAM"
       
-          # Get project UUID (root object)
+          # Get project root UUID
           PROJECT_UUID=$(grep -m1 "rootObject" "$PBXPROJ" | awk -F ' = ' '{print $2}' | tr -d ' ;')
           echo "Project root UUID: $PROJECT_UUID"
       
@@ -278,34 +278,56 @@ jobs:
       
           echo "== Found PBXNativeTargets =="
       
-          # Loop over all PBXNativeTarget entries
+          # Loop over PBXNativeTarget entries
           grep -E '^[[:space:]]*[A-F0-9]{24} /\* .* \*/ = \{' "$PBXPROJ" | while read -r line; do
             TUUID=$(echo "$line" | awk '{print $1}')
             TNAME=$(echo "$line" | sed -n 's/.*\/\* \(.*\) \*\/.*/\1/p')
       
+            if [ -z "$TUUID" ] || [ -z "$TNAME" ]; then
+              echo "  ⚠️ Could not parse target UUID or name from line: $line"
+              continue
+            fi
+      
             echo "Target: $TNAME (UUID: $TUUID)"
       
-            if [[ "$TNAME" == "Unity-iPhone" || "$TNAME" == "UnityFramework" ]]; then
-              echo "Patching target $TNAME"
-      
-              # Ensure dict exists for this target in TargetAttributes
-              /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
-      
-              # Set ProvisioningStyle to Manual
-              /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
-      
-              # Find build configuration list UUID
-              CONFIG_LIST=$(grep -A3 "$TUUID /\* $TNAME \*/" "$PBXPROJ" | grep buildConfigurationList | awk -F ' = ' '{print $2}' | tr -d ' ;')
-      
-              # Patch each build configuration under that list
-              grep -A20 "$CONFIG_LIST" "$PBXPROJ" | grep -E '^[[:space:]]*[A-F0-9]{24} /\* ' | awk '{print $1}' | while read CONFIG_ID; do
-                echo "  Patching build configuration: $CONFIG_ID"
-                /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
-                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $PROFILE_NAME" "$PBXPROJ"
-                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
-                /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
-              done
+            if [[ "$TNAME" != "Unity-iPhone" && "$TNAME" != "UnityFramework" ]]; then
+              echo "  Skipping target $TNAME"
+              continue
             fi
+      
+            echo "  Patching target $TNAME"
+      
+            # Ensure dict exists for this target in TargetAttributes
+            /usr/libexec/PlistBuddy -c "Add :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID dict" "$PBXPROJ" 2>/dev/null || true
+      
+            # Set ProvisioningStyle to Manual
+            /usr/libexec/PlistBuddy -c "Set :objects:$PROJECT_UUID:attributes:TargetAttributes:$TUUID:ProvisioningStyle Manual" "$PBXPROJ"
+      
+            # Find build configuration list UUID
+            CONFIG_LIST=$(grep -A3 "$TUUID /\* $TNAME \*/" "$PBXPROJ" | grep buildConfigurationList | awk -F ' = ' '{print $2}' | tr -d ' ;')
+      
+            if [ -z "$CONFIG_LIST" ]; then
+              echo "    ⚠️ No buildConfigurationList found for $TNAME, skipping configurations"
+              continue
+            fi
+      
+            # Patch each build configuration under that list
+            grep -A20 "$CONFIG_LIST" "$PBXPROJ" | grep -E '^[[:space:]]*[A-F0-9]{24} /\* ' | awk '{print $1}' | while read CONFIG_ID; do
+              if [ -z "$CONFIG_ID" ]; then
+                echo "      ⚠️ Empty config ID, skipping"
+                continue
+              fi
+      
+              echo "    Patching build configuration: $CONFIG_ID"
+      
+              # Ensure buildSettings dict exists
+              /usr/libexec/PlistBuddy -c "Add :objects:$CONFIG_ID:buildSettings dict" "$PBXPROJ" 2>/dev/null || true
+      
+              # Set manual signing settings
+              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:PROVISIONING_PROFILE_SPECIFIER $PROFILE_NAME" "$PBXPROJ"
+              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:DEVELOPMENT_TEAM $TEAM" "$PBXPROJ"
+              /usr/libexec/PlistBuddy -c "Set :objects:$CONFIG_ID:buildSettings:CODE_SIGN_STYLE Manual" "$PBXPROJ"
+            done
           done
       
           echo "== Patch complete =="
