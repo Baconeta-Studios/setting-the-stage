@@ -278,8 +278,8 @@ jobs:
       
           echo "== Found PBXNativeTargets =="
       
-          # Loop over PBXNativeTarget entries
-          grep -E '^[[:space:]]*[A-F0-9]{24} /\* .* \*/ = \{' "$PBXPROJ" | while read -r line; do
+          # Loop over PBXNativeTarget entries (tolerant of whitespace/tabs)
+          grep -E '[A-F0-9]{24} /\* .* \*/ = \{' "$PBXPROJ" || true | while read -r line; do
             TUUID=$(echo "$line" | awk '{print $1}')
             TNAME=$(echo "$line" | sed -n 's/.*\/\* \(.*\) \*\/.*/\1/p')
       
