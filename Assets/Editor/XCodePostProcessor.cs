@@ -33,7 +33,7 @@ public class XCodePostProcessor : MonoBehaviour
         // TODO Fix fetching from environmental variables.
         bool useAutomaticSigning = false;
         bool devMode = false;
-        string provisioningProfile = "Alpha_PP";
+        string provisioningProfile = "ecd1e226-5886-4461-91e8-a8988efbd2a8";
         string devTeam = "3W74XNV66H";
 
         //bool useAutomaticSigning = Environment.GetEnvironmentVariable("IOS_AUTOMATIC_SIGNING") == "true";
