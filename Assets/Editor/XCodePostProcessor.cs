@@ -45,6 +45,7 @@ public class XCodePostProcessor : MonoBehaviour
         Debug.Log($"Using automatic signing '{useAutomaticSigning}'.");
         Debug.Log($"Using provisioning profile '{provisioningProfile}'.");
         Debug.Log($"Using development team '{devTeam}'.");
+        Debug.Log($"Using code signing identity '{codeSignIdentity}'.");
 
         string iPhoneUnityTarget = project.GetUnityMainTargetGuid();
         string releaseConfigGuid = project.BuildConfigByName(iPhoneUnityTarget, (devMode ? "Debug" : "Release")); 
