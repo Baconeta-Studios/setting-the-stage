@@ -7,26 +7,23 @@ using UnityEngine.UI;
 
 public class SandboxMusicianPanel : MusicianInfoPanel
 {
-    [Header("Panel Parts")] [SerializeField]
-    private GameObject contentArea; // Bio + FunFact container
-
-    [SerializeField] private GameObject trackGrid; // Grid parent
-    [SerializeField] private Button toggleButton; // Collapse/expand button
+    [Header("Panel Parts")] 
+    [SerializeField] private GameObject contentArea; // Bio + FunFact container
+    [SerializeField] private GameObject trackGrid;   // Grid parent
+    [SerializeField] private Button toggleButton;    // Collapse/expand button
     [SerializeField] private TextMeshProUGUI toggleButtonLabel; // optional, for ▲▼
 
-    [Header("Track Button Setup")] [SerializeField]
-    private GameObject trackButtonPrefab; // prefab with TMP + Button
+    [Header("Track Button Setup")] 
+    [SerializeField] private GameObject trackButtonPrefab; // prefab with TMP + Button
+    [SerializeField] private Transform trackButtonParent;  // where track buttons go
 
-    [SerializeField] private Transform trackButtonParent; // where track buttons go
-
-    [Header("Animation Settings")] [SerializeField]
-    private float animationDuration = 0.25f;
+    [Header("Animation Settings")] 
+    [SerializeField] private float animationDuration = 0.25f;
 
     private bool _isExpanded = true;
     private LayoutElement _contentLayout;
     private float _expandedHeight = 200f; // tweak in inspector or auto-detect
     private readonly List<Button> _trackButtons = new List<Button>();
-
     private Instrument _currentlySelectedInstrument;
 
     protected void Awake()
@@ -34,9 +31,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
         // Grab LayoutElement for animating height
         _contentLayout = contentArea.GetComponent<LayoutElement>();
         if (_contentLayout == null)
-        {
             _contentLayout = contentArea.AddComponent<LayoutElement>();
-        }
 
         // Optional: auto-detect expanded height
         _expandedHeight = contentArea.GetComponent<RectTransform>().rect.height;
@@ -63,14 +58,10 @@ public class SandboxMusicianPanel : MusicianInfoPanel
         else
         {
             if (_currentlySelectedInstrument == null)
-            {
                 StSDebug.Log("No instrument selected");
-            }
             else
-            {
                 PopulateTrackButtons(
                     SandboxAudioDataManager.Instance.GetAllTracksForInstrument(_currentlySelectedInstrument));
-            }
 
             trackGrid.SetActive(true);
             if (toggleButtonLabel) toggleButtonLabel.text = "▼";
@@ -79,18 +70,38 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
     private IEnumerator AnimatePanel(bool expand)
     {
-        float start = _contentLayout.preferredHeight;
+        RectTransform rect = contentArea.GetComponent<RectTransform>();
+        float start = rect.sizeDelta.y;
         float target = expand ? _expandedHeight : 0f;
         float time = 0f;
+
+        // If collapsing, hide children immediately
+        if (!expand)
+            SetChildrenActive(contentArea.transform, false);
 
         while (time < 1f)
         {
             time += Time.deltaTime / animationDuration;
-            _contentLayout.preferredHeight = Mathf.Lerp(start, target, time);
+            float newHeight = Mathf.Lerp(start, target, time);
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, newHeight);
             yield return null;
         }
 
-        _contentLayout.preferredHeight = target;
+        rect.sizeDelta = new Vector2(rect.sizeDelta.x, target);
+
+        // If expanding, enable children at the end
+        if (expand)
+            SetChildrenActive(contentArea.transform, true);
+        contentArea.SetActive(expand);
+    }
+
+    private void SetChildrenActive(Transform parent, bool active)
+    {
+        foreach (Transform child in parent)
+        {
+            // Don’t toggle the LayoutElement itself
+            child.gameObject.SetActive(active);
+        }
     }
 
     private void PopulateTrackButtons(List<string> trackNames)
@@ -102,7 +113,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
         foreach (string trackName in trackNames)
         {
-            var go = GameObject.Instantiate(trackButtonPrefab, trackButtonParent);
+            var go = Instantiate(trackButtonPrefab, trackButtonParent);
             var label = go.GetComponentInChildren<TextMeshProUGUI>();
             label.text = trackName;
 
@@ -114,9 +125,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
         // Default select first if any
         if (_trackButtons.Count > 0)
-        {
             OnTrackSelected(trackNames[0], _trackButtons[0]);
-        }
     }
 
     private void OnTrackSelected(string trackName, Button selectedButton)
@@ -135,7 +144,8 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
         if (_currentlySelectedInstrument != stagePosition.instrumentOccupied)
         {
-            PopulateTrackButtons(SandboxAudioDataManager.Instance.GetAllTracksForInstrument(stagePosition.instrumentOccupied));
+            PopulateTrackButtons(
+                SandboxAudioDataManager.Instance.GetAllTracksForInstrument(stagePosition.instrumentOccupied));
         }
 
         _currentlySelectedInstrument = stagePosition.instrumentOccupied;
