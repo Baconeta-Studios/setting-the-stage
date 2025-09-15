@@ -31,7 +31,9 @@ public class SandboxMusicianPanel : MusicianInfoPanel
         // Grab LayoutElement for animating height
         _contentLayout = contentArea.GetComponent<LayoutElement>();
         if (_contentLayout == null)
+        {
             _contentLayout = contentArea.AddComponent<LayoutElement>();
+        }
 
         // Optional: auto-detect expanded height
         _expandedHeight = contentArea.GetComponent<RectTransform>().rect.height;
@@ -58,13 +60,17 @@ public class SandboxMusicianPanel : MusicianInfoPanel
         else
         {
             if (_currentlySelectedInstrument == null)
+            {
                 StSDebug.Log("No instrument selected");
+            }
             else
-                PopulateTrackButtons(
-                    SandboxAudioDataManager.Instance.GetAllTracksForInstrument(_currentlySelectedInstrument));
+                PopulateTrackButtons(SandboxAudioDataManager.Instance.GetAllTracksForInstrument(_currentlySelectedInstrument));
 
             trackGrid.SetActive(true);
-            if (toggleButtonLabel) toggleButtonLabel.text = "▼";
+            if (toggleButtonLabel)
+            {
+                toggleButtonLabel.text = "▼";
+            }
         }
     }
 
@@ -77,7 +83,9 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
         // If collapsing, hide children immediately
         if (!expand)
+        {
             SetChildrenActive(contentArea.transform, false);
+        }
 
         while (time < 1f)
         {
@@ -108,7 +116,10 @@ public class SandboxMusicianPanel : MusicianInfoPanel
     {
         // Clear old buttons
         foreach (Transform child in trackButtonParent)
+        {
             Destroy(child.gameObject);
+        }
+
         _trackButtons.Clear();
 
         foreach (string trackName in trackNames)
@@ -132,7 +143,9 @@ public class SandboxMusicianPanel : MusicianInfoPanel
     {
         // Reset all buttons to interactable
         foreach (var btn in _trackButtons)
+        {
             btn.interactable = true;
+        }
 
         // Disable the one we clicked (visual cue)
         selectedButton.interactable = false;
