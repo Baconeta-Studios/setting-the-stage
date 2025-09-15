@@ -5,4 +5,5 @@
 public class SandboxStagePosition : StagePosition
 {
     public SandboxAudioDataManager sandboxAudioDataManager;
+    public string selectedTrackName;
 }

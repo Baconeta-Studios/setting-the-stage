@@ -66,10 +66,13 @@ namespace Audio
                 }
             }
 
-            foreach (var instrumentProficiencyData in track.instrumentTrackProficiencyData.Where(instrumentProficiencyData => instrumentProficiencyData.proficiency == instrumentProficiency))
+            foreach (var instrumentProficiencyData in track.instrumentTrackProficiencyData)
             {
-                clip =  instrumentProficiencyData.clip;
-                return true;
+                if (instrumentProficiencyData.proficiency == instrumentProficiency)
+                {
+                    clip = instrumentProficiencyData.clip;
+                    return true;
+                }
             }
 
             return false;

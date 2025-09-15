@@ -7,6 +7,8 @@
         protected override void OnEnable()
         {
             StagePosition.OnStagePositionCommitted += StagePositionUpdated;
+            SandboxMusicianPanel.OnTrackSelected += UpdateAudioOnTrackSelection;
+            
             _sandboxAudioDataManager = FindObjectOfType<SandboxAudioDataManager>();
             if (_sandboxAudioDataManager == null)
             {
@@ -18,6 +20,7 @@
         protected override void OnDisable()
         {
             StagePosition.OnStagePositionCommitted -= StagePositionUpdated;
+            SandboxMusicianPanel.OnTrackSelected -= UpdateAudioOnTrackSelection;
         }
 
         protected override void Start()
@@ -31,25 +34,28 @@
 
         protected override void StagePositionUpdated(StagePosition stagePosition)
         {
-            // What do we do when the stage position is updated
-            // In this instance we have just changed an instrument - or we have started performing
-            // So what we actually want to do is to let the UI dictate the exact track we load and when
-            // For now, we do nothing else except clear a track if needed
-            
-            // TODO make sure this is called when we swap instruments - possibly we could consider this being the default
-            //game call and then from there we manually make a UI call to the sandbox controller from the special UI
-            // TODO also build special UI for inside sandbox mode to handle this scenario which will
-            //also need to have access to _sandboxAudioDataManager to be able to use GetAllTracksForInstrument for UI
-            
             if (stagePosition.instrumentOccupied == null || stagePosition.musicianOccupied ==  null)
             {
                 _audioBuilder.UpdateClipAtIndex(null, stagePosition.stagePositionNumber);
+                return;
             }
+
+            var sandboxPosition = stagePosition as SandboxStagePosition;
+            if (sandboxPosition == null)
+            {
+                StSDebug.LogError("Something went wrong - there is no SandboxStagePosition");
+                return;
+            }
+            UpdateAudioOnTrackSelection(sandboxPosition.selectedTrackName, sandboxPosition);
         }
 
-        public void UpdateAudioOnTrackSelection(string trackName, StagePosition stagePosition)
+        private void UpdateAudioOnTrackSelection(string trackName, SandboxStagePosition stagePosition)
         {
-            //TODO make this be called from UI changes (selecting a track)
+            if (stagePosition.musicianOccupied == null || stagePosition.instrumentOccupied == null || trackName == "" || trackName == null)
+            {
+                // we have to verify trackname exists also since many different scenarios can lead us down this code path
+                return;
+            }
             var trackClip = _sandboxAudioDataManager.GetAudioTrack(stagePosition.instrumentOccupied, trackName, stagePosition.GetMusicianProficiency());
             _audioBuilder.UpdateClipAtIndex(trackClip, stagePosition.stagePositionNumber);
         }

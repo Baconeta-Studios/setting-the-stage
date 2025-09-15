@@ -45,6 +45,7 @@ namespace Audio
             StSDebug.Log($"Searching for {instrument} in sandbox audio data");
             if (audioData.TryGetAudioByTrackName(trackName, instrument.GetInstrumentID(), proficiency, out AudioClip clip))
             {
+                StSDebug.Log($"Got clip {clip.name}");
                 return clip;
             }
 
