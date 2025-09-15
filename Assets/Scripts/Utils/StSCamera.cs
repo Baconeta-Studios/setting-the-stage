@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Utils;
 
 /// <summary>
@@ -48,6 +46,9 @@ public class StsCamera : Singleton<StsCamera>
     [SerializeField] private Vector3 panMin = new Vector3(-2f, -0.5f, 0f);
     [SerializeField] private Vector3 panMax = new Vector3(-2f, 0.5f, 0f);
     [SerializeField] private float panSensitvity;
+    
+    [Header("Sandbox")]
+    [SerializeField] private bool sandboxMode;
 
     private ChapterUI chapterUi;
     private Act _act;
@@ -61,6 +62,10 @@ public class StsCamera : Singleton<StsCamera>
         {
             _act.onChapterOpen += ChapterInitialize;
             _act.onChapterClosed += ChapterClearInitialize;
+        }
+        else if (sandboxMode)
+        {
+            Invoke(nameof(ChapterInitialize), 0.5f);
         }
     }
 

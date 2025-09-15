@@ -221,4 +221,12 @@ public class StageSelection : Singleton<StageSelection>
     {
         return totalSelectionsCommitted;
     }
+
+    public void DimStageUIAndLights()
+    {
+        foreach (var position in _StagePositions)
+        {
+            position.DimAndHideLights();
+        }
+    }
 }

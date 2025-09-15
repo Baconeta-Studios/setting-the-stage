@@ -6,10 +6,9 @@ namespace Audio
 {
     public class PerformanceAudioDataManager : Singleton<PerformanceAudioDataManager>
     {
-        public const string AddressablePathForAudio = "AllPerformanceData";
-
         // This class instantiates a loader and gets the data from there
         private PerformanceAudioDataLoader _dataLoader;
+        public static string AddressablePathForAudio => "AllPerformanceData";
 
         private void OnEnable()
         {
@@ -31,7 +30,7 @@ namespace Audio
             _dataLoader?.UnloadFromMemory();
         }
 
-        public AudioClip GetAudioTrack(int actNumber, int chapterNumber, Instrument instrument, InstrumentProficiency proficiency)
+        public virtual AudioClip GetAudioTrack(int actNumber, int chapterNumber, Instrument instrument, InstrumentProficiency proficiency)
         {
             // Based on the given values we want to give back the caller the correct audio track
             if (_dataLoader is null || _dataLoader.AllPerformanceData is null)
@@ -69,7 +68,7 @@ namespace Audio
             return null;
         }
 
-        private static bool TryGetTrackFromAnyAct(Instrument instrument, InstrumentProficiency proficiency, PerformanceAudioData audioData, out AudioClip audioClip)
+        protected static bool TryGetTrackFromAnyAct(Instrument instrument, InstrumentProficiency proficiency, PerformanceAudioData audioData, out AudioClip audioClip)
         {
             foreach (InstrumentTrackProficiencyData instrumentData in from act in audioData.actAudioData
                      from chapter in act.chapterAudioSo

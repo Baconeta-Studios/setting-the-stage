@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,19 +12,19 @@ public class MusicianInfoPanel : MonoBehaviour
     {
         StagePosition.OnStagePositionChanged += OnStagePositionChanged;
     }
-    
+
     private void OnDisable()
     {
         StagePosition.OnStagePositionChanged -= OnStagePositionChanged;
     }
 
-    private void OnStagePositionChanged(StagePosition stagePosition)
+    protected virtual void OnStagePositionChanged(StagePosition stagePosition)
     {
         UpdatePanel(stagePosition.musicianOccupied);
     }
-    
+
     // Shows or Hides the panel based on musician validity and fills the panel with the information from the musician
-    public void UpdatePanel(Musician musician)
+    public virtual void UpdatePanel(Musician musician)
     {
         if (musician)
         {
@@ -48,9 +47,8 @@ public class MusicianInfoPanel : MonoBehaviour
     public void HidePanel()
     {
         panel.SetActive(false);
-        
+
         // Clear details
-        musicianNameText.text = String.Empty;
-        
+        musicianNameText.text = string.Empty;
     }
 }

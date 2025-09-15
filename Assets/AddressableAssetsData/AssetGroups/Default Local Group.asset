@@ -17,6 +17,17 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 663fdd27843ca884193f7d679616d3c4
   m_SerializeEntries:
+  - m_GUID: a42ab481628881e428d3486efa21dedb
+    m_Address: SandboxPerformanceData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abba9b17773c5914f9ea4ce8ceb5629f
+    m_Address: SandboxPerformanceData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cc95fd2082a76a9438121dbf02212fed
     m_Address: AllPerformanceData
     m_ReadOnly: 0
