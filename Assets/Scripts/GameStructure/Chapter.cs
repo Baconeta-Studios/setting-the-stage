@@ -54,7 +54,11 @@ public class Chapter : Singleton<Chapter>
         instruments = carouselOptions.instruments;
 
         musicians.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
-        instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+        // Only sort instruments if not in sandbox mode (where multiples are available
+        if (!IsSandboxChapter)
+        {
+            instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+        }
         availableMusicians = new List<Musician>();
         availableInstruments = new List<Instrument>();
 

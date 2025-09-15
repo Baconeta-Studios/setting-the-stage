@@ -15,7 +15,12 @@ namespace Managers
         public void Awake()
         {
             musicians.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
-            instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+            // Keep order as is in sandbox chapter
+            if (!Chapter.Instance.IsSandboxChapter)
+            {
+                instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+            }
+            
             availableMusicians = new List<Musician>();
             availableInstruments = new List<Instrument>();
 
