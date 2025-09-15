@@ -149,7 +149,7 @@ public class ChapterUI : MonoBehaviour
     private void RevealRating(float starsEarned)
     {
         _StarDisplay.gameObject.SetActive(true);
-        _StarDisplay.ShowStars(starsEarned);
+        _StarDisplay.RevealStars(starsEarned);
     }
 
     private void OnPointerPosition(InputAction.CallbackContext context)

@@ -30,7 +30,7 @@ public class ChapterInfo : MonoBehaviour
     
     public void StarsChanged(float starsEarned)
     {
-        stars.ShowStars(starsEarned);
+        stars.RevealStars(starsEarned, false);
     }
 
     public void StartChapter()
