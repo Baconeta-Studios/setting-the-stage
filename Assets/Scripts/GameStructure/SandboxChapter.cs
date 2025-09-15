@@ -20,5 +20,6 @@
     protected override void SaveLearnedProficiencies()
     {
         // Do nothing - we don't save knowledge learned in Sandbox mode
+        StSDebug.Log("Skipping the saving of learned proficiencies");
     }
 }
