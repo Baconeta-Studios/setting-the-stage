@@ -93,7 +93,7 @@ public class PerformanceController : MonoBehaviour
         }
         isPerforming = false;
         
-        OnPerformanceEnded?.Invoke(CalculateStars());
+        OnPerformanceEnded?.Invoke(Chapter.Instance.IsSandboxChapter ? 5 : CalculateStars());
     }
 
     private float CalculateStars()
