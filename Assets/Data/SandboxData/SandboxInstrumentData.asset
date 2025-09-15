@@ -219,35 +219,57 @@ MonoBehaviour:
       visibleTrackName: Track1
       instrumentTrackProficiencyData:
       - proficiency: 5
-        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+        clip: {fileID: 8300000, guid: 2d2800727855ddb4dbc9ed4487a2acbb, type: 3}
       - proficiency: 3
-        clip: {fileID: 8300000, guid: 7e77a3ad4db89614891d0a8683350abe, type: 3}
+        clip: {fileID: 8300000, guid: b3a5335a2d9d7e946a5976f846583d23, type: 3}
       - proficiency: 1
-        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+        clip: {fileID: 8300000, guid: 70f9555d5ee7bb24595e84e673978624, type: 3}
       - proficiency: 0
-        clip: {fileID: 8300000, guid: fd3bf07567025624a86309d24e15cee8, type: 3}
+        clip: {fileID: 8300000, guid: 4f56eeb590d987940b12b3bd0cf4a236, type: 3}
     - trackName: Jazz
       visibleTrackName: Track2
       instrumentTrackProficiencyData:
       - proficiency: 5
-        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+        clip: {fileID: 8300000, guid: 4e771c019e51bbb47a3ab255755dc094, type: 3}
       - proficiency: 3
-        clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+        clip: {fileID: 8300000, guid: 4e771c019e51bbb47a3ab255755dc094, type: 3}
       - proficiency: 1
-        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+        clip: {fileID: 8300000, guid: 70f9555d5ee7bb24595e84e673978624, type: 3}
       - proficiency: 0
-        clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
-    - trackName: Ska
-      visibleTrackName: Track3
+        clip: {fileID: 8300000, guid: 4f56eeb590d987940b12b3bd0cf4a236, type: 3}
+    - trackName: DrumOut
+      visibleTrackName: Track4
       instrumentTrackProficiencyData:
       - proficiency: 5
-        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+        clip: {fileID: 8300000, guid: 45c1f898782d21344bff119ce07b2c4d, type: 3}
       - proficiency: 3
-        clip: {fileID: 8300000, guid: c83393445b098df45ad922ff21e89fff, type: 3}
+        clip: {fileID: 8300000, guid: 45c1f898782d21344bff119ce07b2c4d, type: 3}
       - proficiency: 1
-        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+        clip: {fileID: 8300000, guid: 15d454a81856b19439b19730ac00176f, type: 3}
       - proficiency: 0
-        clip: {fileID: 8300000, guid: 667fcf1493ef37449a2153195648ba4a, type: 3}
+        clip: {fileID: 8300000, guid: 15d454a81856b19439b19730ac00176f, type: 3}
+    - trackName: Synthtastic
+      visibleTrackName: Track6 Synth
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: bf65838e51078ed44bb82498de090e7b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: bf65838e51078ed44bb82498de090e7b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: b0f65eda69a96a04ab869d3be49eeb7e, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: b0f65eda69a96a04ab869d3be49eeb7e, type: 3}
+    - trackName: Synthtastic
+      visibleTrackName: Track6 Grand
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 623dcdcf143ea4647badf5c1a75c53e1, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 623dcdcf143ea4647badf5c1a75c53e1, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 542c6dab5d716cb44bfc5a9379c597a8, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: 542c6dab5d716cb44bfc5a9379c597a8, type: 3}
   - instrumentObject: {fileID: 2695519527301998527, guid: 46a80f3c744fc334690585151877cdc9, type: 3}
     instrumentName: Saxophone
     instrumentTrackProficiencyData:
