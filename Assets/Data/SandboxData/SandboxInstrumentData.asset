@@ -20,24 +20,46 @@ MonoBehaviour:
       visibleTrackName: Track1
       instrumentTrackProficiencyData:
       - proficiency: 5
-        clip: {fileID: 8300000, guid: 68ca072ec1fc74e4c87236320c0ccedd, type: 3}
+        clip: {fileID: 8300000, guid: fd4490221895b7940b55dc725a87719e, type: 3}
       - proficiency: 3
-        clip: {fileID: 8300000, guid: 68ca072ec1fc74e4c87236320c0ccedd, type: 3}
+        clip: {fileID: 8300000, guid: 90114a186c6e8624ba69aa18ac458a85, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: 76966b9602de62348b3f96dee620ebdf, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: afafc45be7c11694bb28ad4b22643557, type: 3}
+    - trackName: Jazz
+      visibleTrackName: Track2
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 5e7a5400746225c4993bc531eb9a37cf, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 5e7a5400746225c4993bc531eb9a37cf, type: 3}
       - proficiency: 1
         clip: {fileID: 8300000, guid: ac44012b3f9674545a7fa518ada51040, type: 3}
       - proficiency: 0
-        clip: {fileID: 8300000, guid: ac44012b3f9674545a7fa518ada51040, type: 3}
+        clip: {fileID: 8300000, guid: 767779280bbc149458d894b632b6b4da, type: 3}
     - trackName: Ska
       visibleTrackName: Track3
       instrumentTrackProficiencyData:
       - proficiency: 5
-        clip: {fileID: 8300000, guid: c8008f3d3ecf2734f8a3ce969ca8e0d2, type: 3}
+        clip: {fileID: 8300000, guid: f6021e6937b2a4d49a9e6c58048b1dee, type: 3}
       - proficiency: 3
-        clip: {fileID: 8300000, guid: c8008f3d3ecf2734f8a3ce969ca8e0d2, type: 3}
+        clip: {fileID: 8300000, guid: 6824fae93ea85c94d826cdaf6795eaba, type: 3}
       - proficiency: 1
-        clip: {fileID: 8300000, guid: 767779280bbc149458d894b632b6b4da, type: 3}
+        clip: {fileID: 8300000, guid: d1b642ddd7d5e4647a953ac68a747954, type: 3}
       - proficiency: 0
-        clip: {fileID: 8300000, guid: 767779280bbc149458d894b632b6b4da, type: 3}
+        clip: {fileID: 8300000, guid: 363b5889c9a63744fbd305056e28ab2d, type: 3}
+    - trackName: Drum Out
+      visibleTrackName: Track4
+      instrumentTrackProficiencyData:
+      - proficiency: 5
+        clip: {fileID: 8300000, guid: 9e1b8579f0aed4b418c0a8cf3297e46b, type: 3}
+      - proficiency: 3
+        clip: {fileID: 8300000, guid: 9e1b8579f0aed4b418c0a8cf3297e46b, type: 3}
+      - proficiency: 1
+        clip: {fileID: 8300000, guid: f5e7f4be4623c9941a333b0f2002983d, type: 3}
+      - proficiency: 0
+        clip: {fileID: 8300000, guid: f5e7f4be4623c9941a333b0f2002983d, type: 3}
   - instrumentObject: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     instrumentName: Drums
     instrumentTrackProficiencyData:
