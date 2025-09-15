@@ -97,6 +97,7 @@ public class ChapterUI : MonoBehaviour
                 break;
             case Chapter.ChapterStage.Performing:
                 _SelectionCarousels.HideStageSelection();
+                _SelectionCarousels.DimStageUIAndLights();
                 ShowChapterTitle();
                 trackInfoButton.gameObject.SetActive(false);
                 _StageProgressButton.ToggleInteractable(false);
@@ -131,8 +132,16 @@ public class ChapterUI : MonoBehaviour
     }
     private void OnStagePositionChanged(StagePosition changedStagePosition)
     {
-        bool allPositionsOccupied = true;
+        var stageFilledEnough = Chapter.IsSandboxChapter ? GetAnyStagePositionsFilled() : GetAllStagePositionsFilled();
         
+        _StageProgressButton.ToggleActive(stageFilledEnough);
+        _StageProgressButton.ToggleInteractable(stageFilledEnough);
+    }
+
+    private bool GetAllStagePositionsFilled()
+    {
+        bool allPositionsOccupied = true;
+
         foreach (StagePosition stagePosition in _SelectionCarousels.GetStagePositions())
         {
             if (!stagePosition.IsInstrumentOccupied() || !stagePosition.IsMusicianOccupied())
@@ -141,15 +150,26 @@ public class ChapterUI : MonoBehaviour
             }
         }
 
-        //Only show the progress button if all positions are occupied
-        _StageProgressButton.ToggleActive(allPositionsOccupied);
-        _StageProgressButton.ToggleInteractable(allPositionsOccupied);
+        return allPositionsOccupied;
+    }
+    
+    private bool GetAnyStagePositionsFilled()
+    {
+        foreach (StagePosition stagePosition in _SelectionCarousels.GetStagePositions())
+        {
+            if (stagePosition.IsInstrumentOccupied() && stagePosition.IsMusicianOccupied())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void RevealRating(float starsEarned)
     {
         _StarDisplay.gameObject.SetActive(true);
-        _StarDisplay.ShowStars(starsEarned);
+        _StarDisplay.RevealStars(starsEarned);
     }
 
     private void OnPointerPosition(InputAction.CallbackContext context)

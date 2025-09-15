@@ -18,7 +18,7 @@ public class Chapter : Singleton<Chapter>
 
     // The amount of stars the player earned in the performance. -1 indicates the performance has not occured.
     public float starsEarned = -1;
-    
+
     [Serializable]
     public enum ChapterStage
     {
@@ -30,40 +30,45 @@ public class Chapter : Singleton<Chapter>
 
     [SerializeField] private ChapterStage currentStage = ChapterStage.Intro;
     [SerializeField] private Transform StsObjectStash;
-    
+
     [SerializeField] private string successfulSound = "cheer";
     [SerializeField] private string awfulSound = "boo";
-    
+
     private List<GameObject> musicians = new List<GameObject>();
     private List<GameObject> instruments = new List<GameObject>();
     private List<Musician> availableMusicians = new List<Musician>();
     private List<Instrument> availableInstruments = new List<Instrument>();
-    private CustomAudioSource ambient;
+    protected CustomAudioSource ambient;
+
+    public virtual bool IsSandboxChapter { get; set; } = false;
 
     protected override void Awake()
     {
-        base.Awake();
-        
         ChapterCarouselOptions carouselOptions = FindObjectOfType<ChapterCarouselOptions>();
         if (carouselOptions == null)
         {
             StSDebug.LogError("There's no carousel options in this chapter scene!");
         }
+
         musicians = carouselOptions.musicians;
         instruments = carouselOptions.instruments;
-        
+
         musicians.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
-        instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+        // Only sort instruments if not in sandbox mode (where multiples are available
+        if (!IsSandboxChapter)
+        {
+            instruments.Sort((a, b) => String.Compare(a.name, b.name, StringComparison.Ordinal));
+        }
         availableMusicians = new List<Musician>();
         availableInstruments = new List<Instrument>();
-        
+
         // Spawn all musicians into the stash.
         for (int i = 0; i < musicians.Count; i++)
         {
             GameObject musicianGameObject = Instantiate(musicians[i], StsObjectStash);
-            
+
             musicianGameObject.SetActive(false);
-            
+
             Musician musician = musicianGameObject.GetComponent<Musician>();
             if (!musician)
             {
@@ -77,12 +82,12 @@ public class Chapter : Singleton<Chapter>
             // Replace the prefab with the spawned object.
             musicians[i] = musicianGameObject;
         }
-        
+
         // Spawn all Instruments into the stash.
         for (int i = 0; i < instruments.Count; i++)
         {
             GameObject instrumentGameObject = Instantiate(instruments[i], StsObjectStash);
-            
+
             Instrument instrument = instrumentGameObject.GetComponent<Instrument>();
             if (!instrument)
             {
@@ -115,7 +120,7 @@ public class Chapter : Singleton<Chapter>
         StSDebug.Log($"Started Chapter {ChapterNumber}");
         onStageChanged?.Invoke(currentStage);
     }
-    
+
     public void NextStage()
     {
         StSDebug.Log($"Finished Chapter {ChapterNumber}: {currentStage.ToString()}");
@@ -137,19 +142,19 @@ public class Chapter : Singleton<Chapter>
                 CompleteChapter();
                 return;
         }
-        
+
         StSDebug.Log($"Starting Chapter {ChapterNumber}: {currentStage.ToString()}");
         onStageChanged?.Invoke(currentStage);
     }
 
-    public void CompleteChapter()
+    public virtual void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
         ambient?.StopAudio();
         onChapterComplete?.Invoke(starsEarned);
     }
-    
-    public void EndChapterEarly()
+
+    public virtual void EndChapterEarly()
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
         ambient?.StopAudio();
@@ -213,7 +218,11 @@ public class Chapter : Singleton<Chapter>
         if (instrument != null && !availableInstruments.Contains(instrument))
         {
             availableInstruments.Add(instrument);
-            availableInstruments.Sort();
+            // Skip sorting in Sandbox
+            if (!IsSandboxChapter)
+            {
+                availableInstruments.Sort();
+            }
         }
     }
 
@@ -223,14 +232,14 @@ public class Chapter : Singleton<Chapter>
         {
             return;
         }
-        
+
         foreach (GameObject musician in musicians)
         {
             if (musician.GetComponent<Musician>().GetName() == returningObject.GetName())
             {
                 //First unequip the instrument from the musician
                 ((Musician)returningObject).UnequipInstrument();
-                
+
                 ReturnMusician((Musician)returningObject);
                 StashObject(returningObject);
                 return;
@@ -246,7 +255,7 @@ public class Chapter : Singleton<Chapter>
                 return;
             }
         }
-        
+
         StSDebug.LogError($"{gameObject.name}{ChapterNumber}: Could not find musician or instrument when returning an object. Something has gone wrong :(");
     }
 
@@ -255,7 +264,7 @@ public class Chapter : Singleton<Chapter>
         Transform objectTransform = objectToStash.transform;
         objectTransform.SetParent(StsObjectStash);
         objectTransform.localPosition = Vector3.zero;
-        
+
         objectToStash.gameObject.SetActive(false);
     }
 
@@ -265,7 +274,7 @@ public class Chapter : Singleton<Chapter>
         {
             return false;
         }
-        
+
         foreach (GameObject musician in musicians)
         {
             if (musician.GetComponent<Musician>().GetName() == objectToConsume.GetName())
@@ -281,7 +290,7 @@ public class Chapter : Singleton<Chapter>
                 return ConsumeInstrument((Instrument)objectToConsume);
             }
         }
-        
+
         StSDebug.LogError($"{gameObject.name}{ChapterNumber}: Could not find musician or instrument when returning an object. Something has gone wrong :(");
         return false;
     }
@@ -291,16 +300,15 @@ public class Chapter : Singleton<Chapter>
         SaveLearnedProficiencies();
 
         starsEarned = newStarsEarned;
-        
+
         AudioWrapper.Instance.PlaySound(newStarsEarned >= 3.5 ? successfulSound : awfulSound);
         
-        // TODO Move reveal rating to when we actually want to reveal the star count. Currently just enables the star UI above the chapter navigation.
         onRevealRating?.Invoke(starsEarned);
-        
+
         NextStage();
     }
 
-    private static void SaveLearnedProficiencies()
+    protected virtual void SaveLearnedProficiencies()
     {
         // Now we can save the information we have learned in this play into the save system for our next run
         List<StagePosition> stagePositions = StageSelection.Instance.GetStagePositions();
@@ -313,7 +321,9 @@ public class Chapter : Singleton<Chapter>
                 StSDebug.LogError("Something went wrong - how did we complete the song without a full stage?");
                 return;
             }
-            SaveSystem.Instance.LearnInstrumentProficiency(musician, instrument, musician.GetInstrumentProficiency(instrument));
+
+            SaveSystem.Instance.LearnInstrumentProficiency(musician, instrument,
+                musician.GetInstrumentProficiency(instrument));
         }
     }
 }
