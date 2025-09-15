@@ -61,7 +61,10 @@ public class SandboxMusicianPanel : MusicianInfoPanel
         if (_isExpanded)
         {
             trackGrid.SetActive(false);
-            if (toggleButtonLabel) toggleButtonLabel.text = "▲";
+            if (toggleButtonLabel)
+            {
+                toggleButtonLabel.text = "▲";
+            }
         }
         else
         {
@@ -93,6 +96,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
         if (!expand)
         {
             SetChildrenActive(contentArea.transform, false);
+            contentArea.SetActive(false);
         }
 
         while (time < 1f)
@@ -107,8 +111,10 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
         // If expanding, enable children at the end
         if (expand)
+        {
             SetChildrenActive(contentArea.transform, true);
-        contentArea.SetActive(expand);
+            contentArea.SetActive(true);
+        }
     }
 
     private void SetChildrenActive(Transform parent, bool active)
@@ -122,13 +128,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
     private void PopulateTrackButtons(List<string> trackNames)
     {
-        // Clear old buttons
-        foreach (Transform child in trackButtonParent)
-        {
-            Destroy(child.gameObject);
-        }
-
-        _trackButtons.Clear();
+        DeleteOldTrackButtons();
         
         var hasSelectedATrack = false;
 
@@ -185,6 +185,11 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
     protected override void OnStagePositionChanged(StagePosition stagePosition)
     {
+        if (stagePosition != _activeStagePosition)
+        {
+            // We have changed positions and should clear some data
+            _currentlySelectedInstrument = stagePosition.instrumentOccupied;
+        }
         _activeStagePosition = stagePosition as SandboxStagePosition;
         if (_activeStagePosition == null)
         {
@@ -193,11 +198,25 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
         base.OnStagePositionChanged(_activeStagePosition);
 
-        if (_currentlySelectedInstrument != stagePosition.instrumentOccupied && stagePosition.instrumentOccupied != null)
+        if (stagePosition.instrumentOccupied != null)
         {
             PopulateTrackButtons(SandboxAudioDataManager.Instance.GetAllTracksForInstrument(stagePosition.instrumentOccupied));
         }
+        else
+        {
+            DeleteOldTrackButtons();
+        }
 
         _currentlySelectedInstrument = stagePosition.instrumentOccupied;
+    }
+
+    private void DeleteOldTrackButtons()
+    {
+        foreach (Transform child in trackButtonParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        _trackButtons.Clear();
     }
 }
