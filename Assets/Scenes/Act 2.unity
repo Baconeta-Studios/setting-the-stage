@@ -181,8 +181,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Watch this space
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e3ed07f6a4278c544a1e760f139152e1, type: 2}
-  m_sharedMaterial: {fileID: -572190353951459363, guid: e3ed07f6a4278c544a1e760f139152e1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
+  m_sharedMaterial: {fileID: -1904702172792615993, guid: 78c1e366e05856e4c9231088a0b1ee48, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -206,13 +206,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.85
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

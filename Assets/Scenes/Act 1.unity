@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -200,89 +199,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: actName
-      value: The Cellar Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: actCanvas
       value: 
       objectReference: {fileID: 876787884}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapterObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapterObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapterObjects.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapterObjects.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[0].sceneAsset
-      value: 
-      objectReference: {fileID: 102900000, guid: 6c6662f25b8eaf54e83dacd85e2e7909, type: 3}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[1].sceneAsset
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[2].sceneAsset
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[0].loadSceneMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[1].loadSceneMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[2].loadSceneMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[0].sceneDisplayName
-      value: Chapter 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[1].sceneDisplayName
-      value: Chapter 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[2].sceneDisplayName
-      value: Chapter 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[0].sceneInfo.sceneAsset
-      value: 
-      objectReference: {fileID: 102900000, guid: 6c6662f25b8eaf54e83dacd85e2e7909, type: 3}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[1].sceneInfo.sceneAsset
-      value: 
-      objectReference: {fileID: 102900000, guid: f4bffa912503f7d4ca35ecaa21f2c404, type: 3}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[2].sceneInfo.sceneAsset
-      value: 
-      objectReference: {fileID: 102900000, guid: f30127b70b4837a4eaf9678db2751fd9, type: 3}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[0].sceneInfo.sceneToLoad.sceneGuid
-      value: 6c6662f25b8eaf54e83dacd85e2e7909
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[1].sceneInfo.sceneToLoad.sceneGuid
-      value: f4bffa912503f7d4ca35ecaa21f2c404
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125719129580430691, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
-      propertyPath: chapters.Array.data[2].sceneInfo.sceneToLoad.sceneGuid
-      value: f30127b70b4837a4eaf9678db2751fd9
-      objectReference: {fileID: 0}
     - target: {fileID: 1393569455893513127, guid: cef2c81bf6245c042a5963a0d358c4ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
