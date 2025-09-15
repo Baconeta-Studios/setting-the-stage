@@ -142,10 +142,9 @@ public class SandboxMusicianPanel : MusicianInfoPanel
     {
         base.OnStagePositionChanged(stagePosition);
 
-        if (_currentlySelectedInstrument != stagePosition.instrumentOccupied)
+        if (_currentlySelectedInstrument != stagePosition.instrumentOccupied && stagePosition.instrumentOccupied != null)
         {
-            PopulateTrackButtons(
-                SandboxAudioDataManager.Instance.GetAllTracksForInstrument(stagePosition.instrumentOccupied));
+            PopulateTrackButtons(SandboxAudioDataManager.Instance.GetAllTracksForInstrument(stagePosition.instrumentOccupied));
         }
 
         _currentlySelectedInstrument = stagePosition.instrumentOccupied;
