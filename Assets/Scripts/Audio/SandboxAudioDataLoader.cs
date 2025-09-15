@@ -19,10 +19,7 @@ namespace Audio
         public void UnloadFromMemory()
         {
             Addressables.Release(_handle);
-            if (_dataObject != null)
-            {
-                Addressables.Release(_dataObject);
-            }
+            //TODO look at this spot if we have performance issues from addressables
         }
 
         private void OnLoadData(AsyncOperationHandle<ScriptableObject> data)
