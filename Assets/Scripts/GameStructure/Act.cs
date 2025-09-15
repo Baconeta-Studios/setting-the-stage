@@ -306,6 +306,12 @@ public class Act : MonoBehaviour
 
     private bool CheckIfActIsComplete()
     {
+        if (GameDebugManager.Instance.isDemo)
+        {
+            // Never skip to next Act in demo mode
+            return false;
+        }
+
         foreach (ChapterStruct chapter in chapters)
         {
             if (chapter.starsEarned <= 0.0f)
