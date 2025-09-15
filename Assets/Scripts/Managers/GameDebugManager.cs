@@ -2,7 +2,7 @@
 
 namespace Managers
 {
-    public class GameDebugManager : Singleton<GameDebugManager>
+    public class GameDebugManager : EverlastingSingleton<GameDebugManager>
     {
         public bool isDemo = false;
         public bool cheatsEnabled;
