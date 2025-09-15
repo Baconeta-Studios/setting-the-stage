@@ -276,7 +276,7 @@ jobs:
           -verbose \
           archive
 
-      - name: Create export options
+      - name: Create export options file
         run: |
           cat > build/iOS/exportOptions.plist << EOF
           <?xml version="1.0" encoding="UTF-8"?>
@@ -287,6 +287,10 @@ jobs:
               <string>app-store</string>
               <key>teamID</key>
               <string>${{ secrets.APPLE_TEAM_ID }}</string>
+              <dict>
+                  <key>com.baconetastudios.SettingTheStage</key>
+                  <string>${{ steps.get-profile-name.outputs.profile_name }}</string>
+              </dict>
               <key>uploadBitcode</key>
               <false/>
               <key>uploadSymbols</key>
@@ -297,7 +301,11 @@ jobs:
           </plist>
           EOF
 
-      - name: Export Xcode build
+      - name: Attempt to find .xarchive files
+        run: |
+          find ~ -type f -name "*.xarchive"
+
+      - name: Export Xcode build archive
         run: |
           xcodebuild -exportArchive \
           -archivePath build/Unity.xarchive \
