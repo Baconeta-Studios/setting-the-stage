@@ -213,6 +213,12 @@ public class Act : MonoBehaviour
 
         if (CheckIfActIsComplete())
         {
+            if (GameDebugManager.Instance.isDemo)
+            {
+                // Never skip to next Act in demo mode
+                return;
+            }
+            
             ProgressToNextAct();
         }
     }

@@ -14,6 +14,14 @@ namespace Audio
                 Invoke(nameof(StartBackgroundMusic), 0.25f);
             }
         }
+        
+        public void StopMenuAudio()
+        {
+            if (_backgroundMusic != null)
+            {
+                _backgroundMusic.StopAudio();
+            }
+        }
 
         public void RestartMenuAudio()
         {

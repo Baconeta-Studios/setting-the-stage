@@ -1500,23 +1500,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7602226077943795401, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602226077943795401, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602226077943795401, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7602226077943795401, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7807815786110417828, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4968674120010809341}
+    - target: {fileID: 7876559970579589851, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 4968674120010809341}
@@ -1528,10 +1516,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 4968674120010809341}
-    - target: {fileID: 8542531547529013766, guid: 3d0eb8c67d8c79f4bac9863792b546be, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
