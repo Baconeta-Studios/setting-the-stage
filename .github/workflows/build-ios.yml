@@ -272,8 +272,7 @@ jobs:
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
-          -archivePath build/Unity.xarchive \
-          -verbose \
+          -archivePath build/Unity.xcarchive \
           archive
 
       - name: Create export options file
@@ -326,9 +325,12 @@ jobs:
       - name: Export Xcode build archive
         run: |
           xcodebuild -exportArchive \
-          -archivePath build/Unity.xarchive \
+          -archivePath build/Unity.xcarchive \
           -exportOptionsPlist build/iOS/exportOptions.plist \
           -exportPath build
+
+      - name: List contents of build directory
+        run: ls -R build
 
       - name: Upload Xcode build
         uses: actions/upload-artifact@v4
