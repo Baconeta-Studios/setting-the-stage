@@ -1536,6 +1536,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 4968674120010809341}
+    - target: {fileID: 7876559970579589851, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4968674120010809341}
     - target: {fileID: 8367674613500720179, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
       propertyPath: m_Name
       value: SandboxStageSelection
