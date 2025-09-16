@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectButtonAudioName: confirm
   cancelButtonAudioName: cancel
-  simpleButtonAudioName: blip
+  simpleButtonAudioName: select

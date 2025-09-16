@@ -1433,9 +1433,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1079360550478783681, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4968674120010809341}
+    - target: {fileID: 1079360550478783681, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 104821737036309430}
+    - target: {fileID: 1079360550478783681, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySimpleButtonAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079360550478783681, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MoveSelectionLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079360550478783681, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079360550478783681, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Carousel_Button, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2960012874719393518, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1545,14 +1565,45 @@ PrefabInstance:
       value: SandboxStageSelection
       objectReference: {fileID: 0}
     - target: {fileID: 8464845075920163479, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4968674120010809341}
+    - target: {fileID: 8464845075920163479, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 104821737036309430}
+    - target: {fileID: 8464845075920163479, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySimpleButtonAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 8464845075920163479, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MoveSelectionRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8464845075920163479, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8464845075920163479, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Carousel_Button, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+--- !u!114 &104821737036309430 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5345760275254667109, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
+  m_PrefabInstance: {fileID: 5430094807810376915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc61d30fbeb469489e02094b30fc5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6572332492366613453 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1183901214132014878, guid: 79fda38e21f868945bd23ac6a4f36fd5, type: 3}
