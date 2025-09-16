@@ -783,9 +783,33 @@ PrefabInstance:
       value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1183901214132014878}
+    - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlaySelectButtonAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ButtonAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797438510111729829, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7903057118943297916, guid: 1d8613c2a4cac924f8b30f6724cfd0f4, type: 3}
       propertyPath: m_fontSize
       value: 11

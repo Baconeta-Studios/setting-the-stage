@@ -12,6 +12,7 @@ public class StagePosition : MonoBehaviour
     
     [Header("Stage Parameters")]
     public int stagePositionNumber;
+    public string interactionAudioName = "select";
     
     [Header("Musician")]
     public Musician musicianOccupied = null;
@@ -43,6 +44,7 @@ public class StagePosition : MonoBehaviour
 
     public void OnInteract()
     {
+        AudioWrapper.Instance.PlaySoundVoid(interactionAudioName);
         OnStagePositionClicked?.Invoke(this);
     }
 
