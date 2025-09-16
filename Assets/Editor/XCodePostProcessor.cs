@@ -56,7 +56,7 @@ public class XCodePostProcessor : MonoBehaviour
         //project.SetBuildProperty(unityFramework, "CODE_SIGN_IDENTITY", codeSignIdentity);
         project.SetBuildPropertyForConfig(releaseConfigGuid, "CODE_SIGN_IDENTITY", codeSignIdentity);
 
-        // Set DEVELOPMENT_TEAM at target-level AND at release-level.
+        // Set DEVELOPMENT_TEAM at target-level AND at release-level. Also set for UnityFramework target.
         project.SetBuildProperty(iPhoneUnityTarget, "DEVELOPMENT_TEAM", devTeam);
         project.SetBuildProperty(unityFramework, "DEVELOPMENT_TEAM", devTeam);
         project.SetBuildPropertyForConfig(releaseConfigGuid, "DEVELOPMENT_TEAM", devTeam);
