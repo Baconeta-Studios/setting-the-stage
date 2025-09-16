@@ -50,15 +50,15 @@ jobs:
             ios-build
 
       # Skip Unity build entirely if cached build exists
-#      - name: Check if Unity build can be skipped
-#        id: cache-check
-#        run: |
-#          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
-#            echo "Cache hit, skipping Unity build step."
-#            echo "skip_build=true" >> $GITHUB_OUTPUT
-#          else
-#            echo "No cached build found, running Unity build."
-#          fi
+      - name: Check if Unity build can be skipped
+        id: cache-check
+        run: |
+          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
+            echo "Cache hit, skipping Unity build step."
+            echo "skip_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "No cached build found, running Unity build."
+          fi
 
       # Generate Unity build only if cache missed
       - name: Generate Unity build for iOS
