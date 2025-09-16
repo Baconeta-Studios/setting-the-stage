@@ -282,21 +282,39 @@ jobs:
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
-          <dict>
-              <key>method</key>
-              <string>app-store</string>
-              <key>teamID</key>
-              <string>${{ secrets.APPLE_TEAM_ID }}</string>
-              <dict>
-                  <key>com.baconetastudios.SettingTheStage</key>
-                  <string>${{ steps.get-profile-name.outputs.profile_name }}</string>
-              </dict>
-              <key>uploadBitcode</key>
-              <false/>
-              <key>uploadSymbols</key>
-              <true/>
-              <key>compileBitcode</key>
-              <false/>
+          <dict>          
+            <key>method</key>
+            <string>app-store</string>
+          
+            <key>teamID</key>
+            <string>3W74XNV66H</string>
+          
+            <key>signingStyle</key>
+            <string>manual</string>
+          
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.baconetastudios.SettingTheStage</key>
+              <string>SettingTheStage-Release-AppStore</string>
+            </dict>
+          
+            <key>signingCertificate</key>
+            <string>Apple Distribution</string>
+          
+            <key>stripSwiftSymbols</key>
+            <true/>
+          
+            <key>uploadSymbols</key>
+            <true/>
+          
+            <key>compileBitcode</key>
+            <false/>
+          
+            <key>uploadBitcode</key>
+            <false/>
+          
+            <key>thinning</key>
+            <string>&lt;none&gt;</string>
           </dict>
           </plist>
           EOF
