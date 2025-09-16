@@ -17,6 +17,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
     [Header("Track Button Setup")] [SerializeField]
     private GameObject trackButtonPrefab; // prefab with TMP + Button
+    private string trackButtonAudioName = "select";
 
     [SerializeField] private Transform trackButtonParent; // where track buttons go
 
@@ -166,6 +167,8 @@ public class SandboxMusicianPanel : MusicianInfoPanel
 
     private void OnTrackSelectedUI(string trackName, Button selectedButton)
     {
+        AudioWrapper.Instance.PlaySoundVoid(trackButtonAudioName);
+
         // Reset all buttons to interactable
         foreach (var btn in _trackButtons)
         {
