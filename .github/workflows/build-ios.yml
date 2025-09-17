@@ -337,3 +337,23 @@ jobs:
         with:
           name: ios-ipa
           path: build/*.ipa
+
+  upload-to-testflight:
+    runs-on: macos-latest
+    if: github.event_name == 'workflow_dispatch' || github.ref_name == 'releases'
+    needs: [xcode-build-ios]
+    steps:
+      - name: Fetch build archive
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-ipa
+          path: ./
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Upload to TestFlight
+        run: |
+          fastlane run upload_to_testflight ipa:"ios-ipa.ipa"
+        env:
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APPLE_API_PRIVATE_KEY }}
