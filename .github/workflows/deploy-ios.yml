@@ -1,0 +1,29 @@
+name: Deploy iOS to TestFlight
+run-name: ${{ github.actor }} is deploying to TestFlight
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build iOS"]
+    types:
+      - completed
+    branches:
+      - releases
+
+jobs:
+  upload-testflight:
+    runs-on: macos-latest
+    steps:
+      - name: Fetch build archive
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-ipa
+          path: ./
+
+      - name: Upload to TestFlight
+        run: |
+          fastlane run upload_to_testflight ipa:"ios-ipa.ipa"
+        env:
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APPLE_API_PRIVATE_KEY }}

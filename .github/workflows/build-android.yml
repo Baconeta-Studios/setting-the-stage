@@ -3,7 +3,10 @@ run-name: ${{ github.actor }} is building for Google Play
 on:
   push:
     branches:
-      - main
+      - releases
       - '*-build'
   workflow_dispatch:
 jobs:
+  unity-build-android:
+    runs-on: ubuntu-latest
+    steps:

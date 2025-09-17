@@ -1,69 +1,339 @@
 name: Build iOS
 run-name: ${{ github.actor }} is building for Apple App Store
+
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main
+      - releases
       - '*-build'
-  workflow_dispatch:
+
 jobs:
   unity-build-ios:
     runs-on: macos-latest
     steps:
-      - name: Checkout repo
+      # Checkout first so we can hash files for caching
+      - name: Checkout git repo
         uses: actions/checkout@v5
-      - name: Install Unity
-        uses: game-ci/unity-activate@v4
-        with:
-          unityVersion: 2023.2.20f1
-          unitySerial: ${{ secrets.UNITY_SERIAL }}
-          unityEmail: ${{ secrets.UNITY_EMAIL }}
-          unityPassword: ${{ secrets.UNITY_PASSWORD }}
 
-      - name: Build iOS
-        uses: game-ci/unity-builder@v5
+      # Cache Unity installation
+      - name: Cache Unity Installation
+        uses: actions/cache@v3
         with:
-          targetPlatform: ios
+          path: |
+            /Applications/Unity/Hub/Editor/${{ vars.UNITY_VERSION }}
+            ~/Library/Application Support/Unity
+          key: unity-${{ runner.os }}-${{ vars.UNITY_VERSION }}
+          restore-keys: |
+            unity-${{ runner.os }}-${{ vars.UNITY_VERSION }}
+            unity-${{ runner.os }}-
 
-      - name: Upload Build
-        uses: actions/upload-artifact@v5
+      # Cache Library folder to skip asset reimport
+      - name: Cache Library folder
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+            Library
+
+      # Cache iOS build output
+      - name: Cache iOS build output
+        id: ios-cache
+        uses: actions/cache@v4
+        with:
+          path: build/iOS
+          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            ios-build-${{ runner.os }}-
+            ios-build
+
+      # Skip Unity build entirely if cached build exists
+      - name: Check if Unity build can be skipped
+        id: cache-check
+        run: |
+          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
+            echo "Cache hit, skipping Unity build step."
+            echo "skip_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "No cached build found, running Unity build."
+          fi
+
+      # Generate Unity build only if cache missed
+      - name: Generate Unity build for iOS
+        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: iOS
+          unityVersion: ${{ vars.UNITY_VERSION }}
+          versioning: Semantic
+
+      # Save iOS build to cache for future runs
+      - name: Save iOS build to cache
+        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
+        uses: actions/cache@v4
+        with:
+          path: build/iOS
+          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+
+      # Upload build artifact for downstream jobs (always)
+      - name: Upload Unity build
+        uses: actions/upload-artifact@v4
         with:
           name: ios-build
           path: build/iOS
+
+
+  prepare:
+    runs-on: macos-latest
+
+    steps:
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+
+      - name: Show current version of Xcode
+        run: xcodebuild -version
+
+      - name: Install provising profile
+        uses: apple-actions/download-provisioning-profiles@v4
+        with:
+          bundle-id: com.baconetastudios.SettingTheStage
+          profile-type: IOS_APP_STORE
+          issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
+          
+      - name: Get provisioning profile UUID
+        id: get-uuid
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          if [[ ! -f "$PROFILE_PATH" ]]; then
+            echo "No provisioning profile found!"
+            exit 1
+          fi
+          echo "Found profile: $PROFILE_PATH"
+  
+          TMP_PLIST=$(mktemp /tmp/profile.XXXXXX.plist)
+          security cms -D -i "$PROFILE_PATH" > "$TMP_PLIST"
+  
+          # Validate the plist has a UUID key
+          UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$TMP_PLIST" 2>/dev/null || true)
+          if [[ -z "$UUID" ]]; then
+            echo "Could not extract UUID from provisioning profile!"
+            exit 1
+          fi
+  
+          echo "Profile UUID: $UUID"
+          echo "uuid=$UUID" >> $GITHUB_OUTPUT
+  
+          rm "$TMP_PLIST"
+          
+      - name: Debug provisioning profile
+        run: |
+          echo "Profile UUID: ${{ steps.get-uuid.outputs.uuid }}"
+          ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
+          security find-identity -v -p codesigning
+
+      - name: List installed provisioning profiles
+        run: |
+          echo "Provisioning profiles in ~/Library/MobileDevice/Provisioning Profiles:"
+          ls -l ~/Library/MobileDevice/Provisioning\ Profiles/ || true
+          echo ""
+          echo "Extracting metadata:"
+          for p in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            echo "File: $p"
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :UUID" /dev/stdin || true
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin || true
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :ApplicationIdentifierPrefix" /dev/stdin || true
+            echo "-----"
+          done
+
+      - name: Upload provisioning profile for later jobs
+        uses: actions/upload-artifact@v4
+        with:
+          name: provisioning-profile
+          path: ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
 
   xcode-build-ios:
     runs-on: macos-latest
-    needs: unity-build-ios
+    needs: [unity-build-ios, prepare]
 
     steps:
-      - name: Download unity build
-        uses: actions/download-artifact@v5
+      - name: Download Unity build
+        uses: actions/download-artifact@v4
         with:
           name: ios-build
-          path: build/iOS
+          path: build
 
-      - name: Prepare signing
-        uses: apple-actions/import-codesign-cert@v2
+      - name: Download provisioning profile
+        uses: actions/download-artifact@v4
         with:
-          p12-file-base64: ${{ secrets.APPLE_P12 }}
-          p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
-          mobileprovision-base64: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
+          name: provisioning-profile
+          path: ~/Library/MobileDevice/Provisioning Profiles
 
-      - name: Build xcode and archive
+      - name: Inspect provisioning profile
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n 1)
+          echo "Profile path: $PROFILE_PATH"
+          security cms -D -i "$PROFILE_PATH" > profile.plist
+          /usr/libexec/PlistBuddy -c "Print :UUID" profile.plist
+          /usr/libexec/PlistBuddy -c "Print :Name" profile.plist
+          /usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" profile.plist
+          /usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" profile.plist
+
+      - name: Import signing certificate
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_P12_FILE_BASE64 }}
+          p12-password: ${{ secrets.APPLE_P12_PASSWORD }}
+
+      # - name: Show project signing settings
+      #   run: |
+      #     /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:CODE_SIGN_STYLE" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj
+      #     /usr/libexec/PlistBuddy -c "Print :objects:Unity-iPhone:buildSettings:PROVISIONING_PROFILE_SPECIFIER" build/iOS/Unity-iPhone.xcodeproj/project.pbxproj || true
+
+      - name: Get provisioning profile UUID
+        id: get-uuid
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          UUID=$(basename "$PROFILE_PATH" .mobileprovision)
+          echo "uuid=$UUID" >> $GITHUB_OUTPUT
+
+      - name: Get provisioning profile name
+        id: get-profile-name
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          security cms -D -i "$PROFILE_PATH" > profile.plist
+          PROFILE_NAME=$( /usr/libexec/PlistBuddy -c "Print :Name" profile.plist )
+          echo "Profile name: $PROFILE_NAME"
+          echo "profile_name=$PROFILE_NAME" >> $GITHUB_OUTPUT
+
+#      - name: Debug provisioning profile
+#        run: |
+#          echo "== Provisioning Profiles =="
+#          ls -lh ~/Library/MobileDevice/Provisioning\ Profiles
+#          echo "== First 20 lines =="
+#          head -n 20 ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision || true
+
+#      - name: Verify signing certificate in keychain
+#        run: |
+#          echo "== Listing all code signing identities in keychain =="
+#          security find-identity -v -p codesigning || true
+#          echo ""
+#          echo "== Check if Apple Distribution cert is present =="
+#          security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
+
+#      - name: List PBXNativeTargets in project
+#        run: |
+#          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
+#          echo "== Project Targets =="
+#
+#          # Extract all PBXNativeTarget UUIDs and Names
+#          awk '
+#            /\/\* .* \*\/ = {/ {
+#              uuid = $1;
+#              getline;
+#              if ($0 ~ /isa = PBXNativeTarget;/) {
+#                target_line = $0;
+#                while (getline && $0 !~ /name =/) {}
+#                if ($0 ~ /name =/) {
+#                  name = $0;
+#                  sub(/.*name = /, "", name);
+#                  sub(/;.*/, "", name);
+#                  print "Target: " name " (" uuid ")";
+#                }
+#              }
+#            }
+#          ' "$PBXPROJ"
+#        shell: bash
+
+      - name: Show Xcode build settings for debugging
         run: |
           xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
           -scheme Unity-iPhone \
           -sdk iphoneos \
           -configuration Release \
-          archive -archivePath build/Unity.xarchive
-      - name: Export
+          -archivePath build/Unity.xarchive \
+          -verbose \
+          -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
+
+      - name: Check installed certs
+        run: |
+          security find-identity -v -p codesigning
+
+      - name: Generate Xcode build
+        run: |
+          xcodebuild -project build/iOS/Unity-iPhone.xcodeproj \
+          -scheme Unity-iPhone \
+          -sdk iphoneos \
+          -configuration Release \
+          -archivePath build/Unity.xcarchive \
+          archive
+
+      - name: Create export options file
+        run: |
+          cat > build/iOS/exportOptions.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>          
+            <key>method</key>
+            <string>app-store-connect</string>
+          
+            <key>teamID</key>
+            <string>3W74XNV66H</string>
+          
+            <key>signingStyle</key>
+            <string>manual</string>
+          
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.baconetastudios.SettingTheStage</key>
+              <string>SettingTheStage-Release-AppStore</string>
+            </dict>
+          
+            <key>signingCertificate</key>
+            <string>Apple Distribution</string>
+          
+            <key>stripSwiftSymbols</key>
+            <true/>
+          
+            <key>uploadSymbols</key>
+            <true/>
+          
+            <key>compileBitcode</key>
+            <false/>
+          
+            <key>uploadBitcode</key>
+            <false/>
+          
+            <key>thinning</key>
+            <string>&lt;none&gt;</string>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Attempt to find .xarchive files
+        run: |
+          find ~ -type f -name "*.xarchive"
+
+      - name: Export Xcode build archive
         run: |
           xcodebuild -exportArchive \
-          -archivePath build/Unity.xarchive \
+          -archivePath build/Unity.xcarchive \
           -exportOptionsPlist build/iOS/exportOptions.plist \
           -exportPath build
-      - name: Upload
-        uses: actions/upload-artifact@v5
+
+      - name: List contents of build directory
+        run: ls -R build
+
+      - name: Upload Xcode build
+        uses: actions/upload-artifact@v4
         with:
           name: ios-ipa
           path: build/*.ipa
