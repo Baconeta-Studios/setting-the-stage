@@ -352,7 +352,7 @@ jobs:
 
       - name: Upload to TestFlight
         run: |
-          fastlane run upload_to_testflight ipa:"ios-ipa.ipa"
+          fastlane run upload_to_testflight ipa:"SettingTheStage.ipa"
         env:
           APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
