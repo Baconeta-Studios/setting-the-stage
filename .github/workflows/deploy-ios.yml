@@ -24,6 +24,6 @@ jobs:
         run: |
           fastlane run upload_to_testflight ipa:"ios-ipa.ipa"
         env:
-          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secret.APPLE_API_ISSUER_ID }}
-          APP_STORE_CONNECT_API_KEY_ID: ${{ secret.APPLE_API_KEY_ID }}
-          APP_STORE_CONNECT_API_KEY: ${{ secret.APPLE_API_PRIVATE_KEY }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APPLE_API_PRIVATE_KEY }}
