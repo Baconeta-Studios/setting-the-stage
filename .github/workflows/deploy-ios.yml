@@ -2,13 +2,13 @@ name: Deploy iOS to TestFlight
 run-name: ${{ github.actor }} is deploying to TestFlight
 
 on:
-  workflow_dispatch:
   workflow_run:
     workflows: ["Build iOS"]
     types:
       - completed
     branches:
       - releases
+      - main
 
 jobs:
   upload-testflight:
@@ -19,6 +19,7 @@ jobs:
         with:
           name: ios-ipa
           path: ./
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Upload to TestFlight
         run: |
