@@ -1,12 +1,16 @@
 name: Build Android
 run-name: ${{ github.actor }} is building for Google Play
+
 on:
+  workflow_dispatch:
   push:
     branches:
       - releases
       - '*-build'
-  workflow_dispatch:
+
 jobs:
   unity-build-android:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout git repo
+        uses: actions/checkout@v5
