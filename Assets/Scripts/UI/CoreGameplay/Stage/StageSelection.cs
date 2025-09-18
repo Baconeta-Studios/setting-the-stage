@@ -227,6 +227,7 @@ public class StageSelection : Singleton<StageSelection>
         foreach (var position in _StagePositions)
         {
             position.DimAndHideLights();
+            position.SetInteraction(false);
         }
     }
 }
