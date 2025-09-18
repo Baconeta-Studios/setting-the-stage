@@ -325,6 +325,7 @@ jobs:
       - name: Export Xcode build archive
         run: |
           UPLOAD_FLAG=$([ "${{ github.ref }}" = "refs/heads/releases" ] && echo "YES" || echo "NO")
+          echo "Upload to TestFlight? '$UPLOAD_FLAG'"
           
           xcodebuild -exportArchive \
           -archivePath build/Unity.xcarchive \
