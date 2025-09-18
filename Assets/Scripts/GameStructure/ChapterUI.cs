@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using GameStructure;
 using TMPro;
 using UnityEngine;
@@ -126,6 +127,7 @@ public class ChapterUI : MonoBehaviour
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
             OnStagePositionChanged(clickedStagePosition);
+            AudioWrapper.Instance.PlaySoundVoid("select");
         }
         else if (!inStageSelection && !Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.Ratings))
         {
