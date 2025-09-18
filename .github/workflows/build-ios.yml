@@ -329,7 +329,7 @@ jobs:
           
           xcodebuild -exportArchive \
           -archivePath build/Unity.xcarchive \
-          -exportPath build
+          -exportPath build \
           -exportOptionsPlist build/iOS/exportOptions.plist \
           -uploadToAppStoreConnect $UPLOAD_FLAG
 
