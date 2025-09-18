@@ -357,4 +357,10 @@ jobs:
 
       - name: Upload to TestFlight
         run: |
-          xcrun altool --upload-package SettingTheStage.ipa -t ios --apiKey ${{ secrets.APPLE_API_KEY_ID }} --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} --apple-id 6737221632 --bundle-id com.baconetastudios.SettingTheStage
+          xcrun altool \
+          --upload-package SettingTheStage.ipa \
+          --apiKey ${{ secrets.APPLE_API_KEY_ID }} \
+          --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} \
+          --apple-id 6737221632 \
+          --bundle-id com.baconetastudios.SettingTheStage \
+          -t ios
