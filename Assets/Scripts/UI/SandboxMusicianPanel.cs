@@ -149,7 +149,7 @@ public class SandboxMusicianPanel : MusicianInfoPanel
                 if (_activeStagePosition.selectedTrackName != null && trackName == _activeStagePosition.selectedTrackName)
                 {
                     // Preselect the correctly saved track for this position
-                    btn.onClick.Invoke();
+                    OnTrackSelectedUI(trackName, btn, false);
                     hasSelectedATrack = true;
                 }
             }
@@ -160,15 +160,18 @@ public class SandboxMusicianPanel : MusicianInfoPanel
             // Default select first if any
             if (_trackButtons.Count > 0)
             {
-                OnTrackSelectedUI(trackNames[0], _trackButtons[0]);
+                OnTrackSelectedUI(trackNames[0], _trackButtons[0], false);
             }
         }
     }
 
-    private void OnTrackSelectedUI(string trackName, Button selectedButton)
+    private void OnTrackSelectedUI(string trackName, Button selectedButton, bool playAudio=true)
     {
-        AudioWrapper.Instance.PlaySoundVoid(trackButtonAudioName);
-
+        if (playAudio)
+        {
+            AudioWrapper.Instance.PlaySoundVoid(trackButtonAudioName);
+        }
+        
         // Reset all buttons to interactable
         foreach (var btn in _trackButtons)
         {

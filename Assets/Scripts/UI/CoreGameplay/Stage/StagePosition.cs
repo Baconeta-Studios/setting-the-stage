@@ -9,6 +9,7 @@ public class StagePosition : MonoBehaviour
     public static event Action<StagePosition> OnStagePositionCommitted;
     
     [SerializeField] private Transform viewTarget;
+    [SerializeField] private GameObject interactionArea;
     
     [Header("Stage Parameters")]
     public int stagePositionNumber;
@@ -204,5 +205,10 @@ public class StagePosition : MonoBehaviour
     {
         DimLights();
         HideFloorMarker();
+    }
+
+    public void SetInteraction(bool bEnabled)
+    {
+        interactionArea.gameObject.SetActive(bEnabled);
     }
 }

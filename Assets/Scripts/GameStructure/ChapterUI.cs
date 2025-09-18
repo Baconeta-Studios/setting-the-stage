@@ -18,6 +18,7 @@ public class ChapterUI : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private ChapterPopup chapterPopup;
     [SerializeField] private ChapterProgress _StageProgressButton;
+    [SerializeField] private ChapterProgress _InStageProgressButton;
     [SerializeField] private StageSelection _SelectionCarousels;
     [SerializeField] private StarContainer _StarDisplay;
     [SerializeField] private GraphicRaycaster _graphicRaycaster;
@@ -119,8 +120,10 @@ public class ChapterUI : MonoBehaviour
         bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
         if (inStageSelection && canClickPosition)
         {
+            OnStagePositionChanged(clickedStagePosition);
             exitButton.gameObject.SetActive(true);
             settingsButton.gameObject.SetActive(false);
+            _StageProgressButton.gameObject.SetActive(false);
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
         }
@@ -134,7 +137,8 @@ public class ChapterUI : MonoBehaviour
     {
         var stageFilledEnough = Chapter.IsSandboxChapter ? GetAnyStagePositionsFilled() : GetAllStagePositionsFilled();
         
-        _StageProgressButton.ToggleActive(stageFilledEnough);
+        _InStageProgressButton.ToggleActive(stageFilledEnough);
+        _InStageProgressButton.ToggleInteractable(stageFilledEnough);
         _StageProgressButton.ToggleInteractable(stageFilledEnough);
     }
 
@@ -220,5 +224,6 @@ public class ChapterUI : MonoBehaviour
     {
         exitButton.gameObject.SetActive(false);
         settingsButton.gameObject.SetActive(true);
+        _StageProgressButton.ToggleActive(true);
     }
 }
