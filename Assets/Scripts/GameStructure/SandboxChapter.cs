@@ -1,4 +1,6 @@
-﻿public class SandboxChapter : Chapter
+﻿using Audio;
+
+public class SandboxChapter : Chapter
 { 
     public override bool IsSandboxChapter => true;
 
@@ -6,7 +8,7 @@
     {
         StSDebug.Log($"Completed Sandbox chapter");
         ambient?.StopAudio();
-        // MainMenuAudio.Instance.RestartMenuAudio();
+        MainMenuAudio.Instance.RestartMenuAudio();
         SceneLoader.Instance.LoadScene("Main Menu");
     }
 
@@ -14,6 +16,7 @@
     {
         StSDebug.Log($"Leaving sandbox mode.");
         ambient?.StopAudio();
+        MainMenuAudio.Instance.RestartMenuAudio();
         SceneLoader.Instance.LoadScene("Main Menu");
     }
 
