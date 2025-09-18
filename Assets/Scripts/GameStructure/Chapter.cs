@@ -131,7 +131,10 @@ public class Chapter : Singleton<Chapter>
                 currentStage = ChapterStage.StageSelection;
                 break;
             case ChapterStage.StageSelection:
-                ambient?.StopAudio();
+                if (ambient != null)
+                {
+                    ambient?.StopAudio();
+                }
                 currentStage = ChapterStage.Performing;
                 break;
             case ChapterStage.Performing:
@@ -150,14 +153,22 @@ public class Chapter : Singleton<Chapter>
     public virtual void CompleteChapter()
     {
         StSDebug.Log($"Completed Chapter {ChapterNumber}");
-        ambient?.StopAudio();
+        if (ambient != null)
+        {
+            ambient?.StopAudio();
+        }
         onChapterComplete?.Invoke(starsEarned);
     }
 
     public virtual void EndChapterEarly()
     {
         StSDebug.Log($"End Chapter {ChapterNumber} early");
-        ambient?.StopAudio();
+        if (ambient != null)
+        {
+            ambient?.StopAudio();
+        }
+
+        AudioWrapper.Instance.StopAllAudio();
         // Supplying -1 will indicate that the chapter was ended early.
         onChapterComplete?.Invoke(-1);
     }
