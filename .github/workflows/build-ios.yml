@@ -364,4 +364,5 @@ jobs:
           --apple-id 6737221632 \
           --bundle-id com.baconetastudios.SettingTheStage \
           --bundle-version ${{ github.run_number }} \
+          --bundle-short-version-string ${{ vars.APP_VERSION }} \
           -t ios
