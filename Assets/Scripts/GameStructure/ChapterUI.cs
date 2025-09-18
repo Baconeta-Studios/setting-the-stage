@@ -120,12 +120,12 @@ public class ChapterUI : MonoBehaviour
         bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
         if (inStageSelection && canClickPosition)
         {
-            OnStagePositionChanged(clickedStagePosition);
             exitButton.gameObject.SetActive(true);
             settingsButton.gameObject.SetActive(false);
             _StageProgressButton.gameObject.SetActive(false);
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
+            OnStagePositionChanged(clickedStagePosition);
         }
         else if (!inStageSelection && !Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.Ratings))
         {
