@@ -363,4 +363,5 @@ jobs:
           --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} \
           --apple-id 6737221632 \
           --bundle-id com.baconetastudios.SettingTheStage \
+          --bundle-version ${{ github.run_number }} \
           -t ios
