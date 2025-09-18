@@ -350,6 +350,11 @@ jobs:
           path: ./
           run-id: ${{ github.event.workflow_run.id }}
 
+      - name: Save API key to file
+        run: |
+          mkdir -p ~/private_keys
+          echo "${{ secrets.APPLE_API_PRIVATE_KEY }}" > ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID}}.p8
+
       - name: Upload to TestFlight
         run: |
           xcrun altool --upload-package SettingTheStage.ipa -t ios --apiKey ${{ secrets.APPLE_API_KEY_ID }} --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} --apple-id 6737221632 --bundle-id com.baconetastudios.SettingTheStage
