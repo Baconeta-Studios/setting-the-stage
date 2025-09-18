@@ -324,10 +324,14 @@ jobs:
 
       - name: Export Xcode build archive
         run: |
+          UPLOAD_FLAG=$([ "${{ github.ref }}" = "refs/heads/releases" ] && echo "YES" || echo "NO")
+          echo "Upload to TestFlight? '$UPLOAD_FLAG'"
+          
           xcodebuild -exportArchive \
           -archivePath build/Unity.xcarchive \
-          -exportOptionsPlist build/iOS/exportOptions.plist \
           -exportPath build
+          -exportOptionsPlist build/iOS/exportOptions.plist \
+          -uploadToAppStoreConnect $UPLOAD_FLAG
 
       - name: List contents of build directory
         run: ls -R build
@@ -340,7 +344,7 @@ jobs:
 
   upload-to-testflight:
     runs-on: macos-latest
-    if: github.event_name == 'workflow_dispatch' || github.ref_name == 'releases'
+    if: github.ref == 'refs/heads/releases'
     needs: [xcode-build-ios]
     steps:
       - name: Fetch build archive
