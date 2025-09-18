@@ -17,40 +17,40 @@ MonoBehaviour:
   instrumentTrackProficiencyData:
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 3
-    clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+    clip: {fileID: 8300000, guid: fdedabea55c7aa049941ec8fba71ee72, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 0
-    clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    clip: {fileID: 8300000, guid: a8a705f4d13ff714daadc3d0ecf8d2b8, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 1
-    clip: {fileID: 8300000, guid: e92fb9a92e61dee40b5ecfd796711ee3, type: 3}
+    clip: {fileID: 8300000, guid: 58541e12a6ae0644bae343f22165482b, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 5ea886ab2e93c644b84824075dba9bf9, type: 3}
     proficiency: 5
-    clip: {fileID: 8300000, guid: 1a3f004d96c1a054897a78fd2e52009b, type: 3}
+    clip: {fileID: 8300000, guid: 137f2a73523ed4449b6032ba95d63f3a, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
     proficiency: 5
-    clip: {fileID: 8300000, guid: 10726789eec822348b6b49c59e345896, type: 3}
+    clip: {fileID: 8300000, guid: 5d0f5405c96f6a046b072d9f8317c6a3, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
     proficiency: 3
-    clip: {fileID: 8300000, guid: 10726789eec822348b6b49c59e345896, type: 3}
+    clip: {fileID: 8300000, guid: 91f4fd1e6b4b76a4e99b96f3b1977e07, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
     proficiency: 1
-    clip: {fileID: 8300000, guid: 97ef1ba6b2b971b4eac95ea9754f6054, type: 3}
+    clip: {fileID: 8300000, guid: aa2bab778dee68b47be394715acdb81d, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 3c545b1e5ea11cd4b8b1e6fa1e80e0af, type: 3}
     proficiency: 0
-    clip: {fileID: 8300000, guid: 97ef1ba6b2b971b4eac95ea9754f6054, type: 3}
+    clip: {fileID: 8300000, guid: ae019d91f58899d44a3d19a0f9a5e362, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
     proficiency: 3
-    clip: {fileID: 8300000, guid: 0e89621f02c65a94f84428abec671127, type: 3}
+    clip: {fileID: 8300000, guid: c152a6feaac7d7c429916ae7f506767f, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
     proficiency: 5
-    clip: {fileID: 8300000, guid: 0e89621f02c65a94f84428abec671127, type: 3}
+    clip: {fileID: 8300000, guid: de91a13fc4b15e04e853d5cc1ce586d5, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
     proficiency: 1
-    clip: {fileID: 8300000, guid: cb1b4fcb5b8243d44b0a840ce66e3c94, type: 3}
+    clip: {fileID: 8300000, guid: 80b8755e088d2fe42ac9abf9208dcd55, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 6ff51d9209edca84fbd060178bcd449e, type: 3}
     proficiency: 0
-    clip: {fileID: 8300000, guid: cb1b4fcb5b8243d44b0a840ce66e3c94, type: 3}
+    clip: {fileID: 8300000, guid: b4f9a88a2f0550d4ba15e1177de75c25, type: 3}
   - instrument: {fileID: 2695519527301998527, guid: 1cd52ff7670d3bc4281a68a31c18a444, type: 3}
     proficiency: 3
     clip: {fileID: 8300000, guid: 5e7a5400746225c4993bc531eb9a37cf, type: 3}
