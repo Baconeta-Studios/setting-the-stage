@@ -324,14 +324,10 @@ jobs:
 
       - name: Export Xcode build archive
         run: |
-          UPLOAD_FLAG=$([ "${{ github.ref }}" = "refs/heads/releases" ] && echo "YES" || echo "NO")
-          echo "Upload to TestFlight? '$UPLOAD_FLAG'"
-          
           xcodebuild -exportArchive \
           -archivePath build/Unity.xcarchive \
           -exportPath build \
           -exportOptionsPlist build/iOS/exportOptions.plist \
-          -uploadToAppStoreConnect $UPLOAD_FLAG
 
       - name: List contents of build directory
         run: ls -R build
@@ -356,8 +352,4 @@ jobs:
 
       - name: Upload to TestFlight
         run: |
-          fastlane run upload_to_testflight ipa:"SettingTheStage.ipa"
-        env:
-          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
-          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APPLE_API_PRIVATE_KEY }}
+          xcrun altool --upload-package SettingTheStage.ipa -t ios --apiKey ${{ secrets.APPLE_API_KEY_ID }} --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} --apple-id 6737221632 --bundle-id com.baconetastudios.SettingTheStage
