@@ -853,6 +853,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7079605504023439237, guid: 23b7b4d928c5875498bfd4da01097f1e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079605504023439237, guid: 23b7b4d928c5875498bfd4da01097f1e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534593180921850064, guid: 23b7b4d928c5875498bfd4da01097f1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1892452545}
     - target: {fileID: 8266991268395459404, guid: 23b7b4d928c5875498bfd4da01097f1e, type: 3}
       propertyPath: m_Name
       value: SandboxCanvas
