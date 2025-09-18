@@ -209,6 +209,6 @@ public class StagePosition : MonoBehaviour
 
     public void SetInteraction(bool bEnabled)
     {
-        interactionArea.SetActive(bEnabled);
+        interactionArea.gameObject.SetActive(bEnabled);
     }
 }
