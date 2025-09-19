@@ -73,6 +73,19 @@ jobs:
           unityVersion: ${{ vars.UNITY_VERSION }}
           versioning: Semantic
 
+      # TODO Replace "0.2.0" with "${{ github.ref_name }}"
+      - name: Update Info.plist
+        run: |
+          INFO_PLIST="build/iOS/Info.plist"
+
+          # Marketing version from your tag or env (example: 1.2.3)
+          MARKETING_VERSION="0.2.0" 
+          # Build number from GitHub run number
+          BUILD_NUMBER="${{ github.run_number }}"
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $MARKETING_VERSION" "$INFO_PLIST"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$INFO_PLIST"
+
       # Save iOS build to cache for future runs
       - name: Save iOS build to cache
         if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
@@ -361,7 +374,7 @@ jobs:
           --upload-package SettingTheStage.ipa \
           --apiKey ${{ secrets.APPLE_API_KEY_ID }} \
           --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} \
-          --apple-id 6737221632 \
+          --apple-id 6736443805 \
           --bundle-id com.baconetastudios.SettingTheStage \
           --bundle-version ${{ github.run_number }} \
           --bundle-short-version-string ${{ vars.APP_VERSION }} \
