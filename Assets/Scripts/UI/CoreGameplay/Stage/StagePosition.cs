@@ -46,7 +46,6 @@ public class StagePosition : MonoBehaviour
     public void OnInteract()
     {
         OnStagePositionClicked?.Invoke(this);
-        AudioWrapper.Instance.PlaySoundVoid(interactionAudioName); 
     }
 
     public void MusicianSelectionChanged(Musician selection)
@@ -209,6 +208,6 @@ public class StagePosition : MonoBehaviour
 
     public void SetInteraction(bool bEnabled)
     {
-        interactionArea.gameObject.SetActive(bEnabled);
+        interactionArea.SetActive(bEnabled);
     }
 }
