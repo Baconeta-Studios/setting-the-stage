@@ -76,7 +76,7 @@ jobs:
       # TODO Replace "0.2.0" with "${{ github.ref_name }}"
       - name: Update Info.plist
         run: |
-          INFO_PLIST="build/iOS/Info.plist"
+          INFO_PLIST="build/iOS/iOS/Info.plist"
 
           # Marketing version from your tag or env (example: 1.2.3)
           MARKETING_VERSION="0.2.0" 
