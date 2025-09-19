@@ -313,9 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewTarget: {fileID: 4143559613442204669}
-  interactionArea: {fileID: 1979862369368454658}
   stagePositionNumber: 0
-  interactionAudioName: select
   musicianOccupied: {fileID: 0}
   musicianOrigin: {fileID: 4011610679819680287}
   musicianGameObject: {fileID: 0}
