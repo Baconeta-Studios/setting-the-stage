@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using GameStructure;
 using TMPro;
 using UnityEngine;
@@ -18,7 +19,6 @@ public class ChapterUI : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private ChapterPopup chapterPopup;
     [SerializeField] private ChapterProgress _StageProgressButton;
-    [SerializeField] private ChapterProgress _InStageProgressButton;
     [SerializeField] private StageSelection _SelectionCarousels;
     [SerializeField] private StarContainer _StarDisplay;
     [SerializeField] private GraphicRaycaster _graphicRaycaster;
@@ -116,16 +116,28 @@ public class ChapterUI : MonoBehaviour
 
     private void OnStagePositionClicked(StagePosition clickedStagePosition)
     {
-        bool inStageSelection = Chapter.Instance && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection);
+        bool inStageSelection = Chapter.Instance != null && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection);
         bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
+        if (Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
+        {
+            AudioWrapper.Instance.PlaySoundVoid("cancel");
+            AudioWrapper.Instance.PlaySoundVoid("cancel");
+        }
+
+        if (canClickPosition)
+        {
+            
+        }
         if (inStageSelection && canClickPosition)
         {
+            AudioWrapper.Instance.PlaySoundVoid("cancel");
+            AudioWrapper.Instance.PlaySoundVoid("cancel");
             exitButton.gameObject.SetActive(true);
             settingsButton.gameObject.SetActive(false);
-            _StageProgressButton.gameObject.SetActive(false);
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
             chapterTitle.transform.parent.gameObject.SetActive(false);
             OnStagePositionChanged(clickedStagePosition);
+            AudioWrapper.Instance.PlaySoundVoid("select");
         }
         else if (!inStageSelection && !Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.Ratings))
         {
@@ -137,8 +149,7 @@ public class ChapterUI : MonoBehaviour
     {
         var stageFilledEnough = Chapter.IsSandboxChapter ? GetAnyStagePositionsFilled() : GetAllStagePositionsFilled();
         
-        _InStageProgressButton.ToggleActive(stageFilledEnough);
-        _InStageProgressButton.ToggleInteractable(stageFilledEnough);
+        _StageProgressButton.ToggleActive(stageFilledEnough);
         _StageProgressButton.ToggleInteractable(stageFilledEnough);
     }
 
@@ -224,6 +235,5 @@ public class ChapterUI : MonoBehaviour
     {
         exitButton.gameObject.SetActive(false);
         settingsButton.gameObject.SetActive(true);
-        _StageProgressButton.ToggleActive(true);
     }
 }
