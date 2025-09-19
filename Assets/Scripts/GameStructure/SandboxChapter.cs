@@ -7,7 +7,10 @@ public class SandboxChapter : Chapter
     public override void CompleteChapter()
     {
         StSDebug.Log($"Completed Sandbox chapter");
-        ambient?.StopAudio();
+        if (ambient != null)
+        {
+            ambient?.StopAudio();
+        }
         MainMenuAudio.Instance.RestartMenuAudio();
         SceneLoader.Instance.LoadScene("Main Menu");
     }
@@ -15,7 +18,7 @@ public class SandboxChapter : Chapter
     public override void EndChapterEarly()
     {
         StSDebug.Log($"Leaving sandbox mode.");
-        ambient?.StopAudio();
+        AudioWrapper.Instance.StopAllAudio();
         MainMenuAudio.Instance.RestartMenuAudio();
         SceneLoader.Instance.LoadScene("Main Menu");
     }

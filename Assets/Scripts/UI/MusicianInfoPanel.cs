@@ -24,7 +24,7 @@ public class MusicianInfoPanel : MonoBehaviour
     }
 
     // Shows or Hides the panel based on musician validity and fills the panel with the information from the musician
-    public virtual void UpdatePanel(Musician musician)
+    public void UpdatePanel(Musician musician)
     {
         if (musician)
         {
