@@ -1,3 +1,4 @@
+#if UNITY_IOS
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -77,3 +78,4 @@ public class XCodePostProcessor : MonoBehaviour
         Debug.Log("Finished configuring Xcode project.");
     }
 }
+#endif
