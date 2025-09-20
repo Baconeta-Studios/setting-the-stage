@@ -86,6 +86,12 @@ jobs:
           /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $MARKETING_VERSION" "$INFO_PLIST"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$INFO_PLIST"
 
+          if /usr/libexec/PlistBuddy -c "Print :ITSAppUsesNonExemptEncryption" "$INFO_PLIST" >/dev/null 2>&1; then
+            /usr/libexec/PlistBuddy -c "Set :ITSAppUsesNonExemptEncryption NO" "$INFO_PLIST"
+          else
+            /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool NO" "$INFO_PLIST"
+          fi
+
       # Save iOS build to cache for future runs
       - name: Save iOS build to cache
         if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
