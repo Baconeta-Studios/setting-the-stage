@@ -28,41 +28,8 @@ jobs:
             unity-${{ runner.os }}-${{ vars.UNITY_VERSION }}
             unity-${{ runner.os }}-
 
-      # Cache Library folder to skip asset reimport
-      - name: Cache Library folder
-        uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-${{ runner.os }}-
-            Library
-
-      # Cache iOS build output
-      - name: Cache iOS build output
-        id: ios-cache
-        uses: actions/cache@v4
-        with:
-          path: build/iOS
-          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            ios-build-${{ runner.os }}-
-            ios-build
-
-      # Skip Unity build entirely if cached build exists
-      - name: Check if Unity build can be skipped
-        id: cache-check
-        run: |
-          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
-            echo "Cache hit, skipping Unity build step."
-            echo "skip_build=true" >> $GITHUB_OUTPUT
-          else
-            echo "No cached build found, running Unity build."
-          fi
-
       # Generate Unity build only if cache missed
       - name: Generate Unity build for iOS
-        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -87,14 +54,6 @@ jobs:
           else
             /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool NO" "$INFO_PLIST"
           fi
-
-      # Save iOS build to cache for future runs
-      - name: Save iOS build to cache
-        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
-        uses: actions/cache@v4
-        with:
-          path: build/iOS
-          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
 
       # Upload build artifact for downstream jobs (always)
       - name: Upload Unity build
