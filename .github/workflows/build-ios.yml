@@ -28,41 +28,8 @@ jobs:
             unity-${{ runner.os }}-${{ vars.UNITY_VERSION }}
             unity-${{ runner.os }}-
 
-      # Cache Library folder to skip asset reimport
-      - name: Cache Library folder
-        uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-${{ runner.os }}-
-            Library
-
-      # Cache iOS build output
-      - name: Cache iOS build output
-        id: ios-cache
-        uses: actions/cache@v4
-        with:
-          path: build/iOS
-          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            ios-build-${{ runner.os }}-
-            ios-build
-
-      # Skip Unity build entirely if cached build exists
-      - name: Check if Unity build can be skipped
-        id: cache-check
-        run: |
-          if [ -d "build/iOS" ] && [ "$(ls -A build/iOS)" ]; then
-            echo "Cache hit, skipping Unity build step."
-            echo "skip_build=true" >> $GITHUB_OUTPUT
-          else
-            echo "No cached build found, running Unity build."
-          fi
-
       # Generate Unity build only if cache missed
       - name: Generate Unity build for iOS
-        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -73,13 +40,20 @@ jobs:
           unityVersion: ${{ vars.UNITY_VERSION }}
           versioning: Semantic
 
-      # Save iOS build to cache for future runs
-      - name: Save iOS build to cache
-        if: ${{ steps.cache-check.outputs.skip_build != 'true' }}
-        uses: actions/cache@v4
-        with:
-          path: build/iOS
-          key: ios-build-${{ runner.os }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+      - name: Update Info.plist
+        run: |
+          INFO_PLIST="build/iOS/iOS/Info.plist"
+
+          # Build number from GitHub run number
+          BUILD_NUMBER="${{ github.run_number }}"
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$INFO_PLIST"
+
+          if /usr/libexec/PlistBuddy -c "Print :ITSAppUsesNonExemptEncryption" "$INFO_PLIST" >/dev/null 2>&1; then
+            /usr/libexec/PlistBuddy -c "Set :ITSAppUsesNonExemptEncryption NO" "$INFO_PLIST"
+          else
+            /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool NO" "$INFO_PLIST"
+          fi
 
       # Upload build artifact for downstream jobs (always)
       - name: Upload Unity build
@@ -361,6 +335,8 @@ jobs:
           --upload-package SettingTheStage.ipa \
           --apiKey ${{ secrets.APPLE_API_KEY_ID }} \
           --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} \
-          --apple-id 6737221632 \
+          --apple-id 6736443805 \
           --bundle-id com.baconetastudios.SettingTheStage \
+          --bundle-version ${{ github.run_number }} \
+          --bundle-short-version-string ${{ vars.APP_VERSION }} \
           -t ios

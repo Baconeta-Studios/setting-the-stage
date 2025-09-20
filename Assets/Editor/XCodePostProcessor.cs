@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_IOS
+using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -14,6 +13,7 @@ public class XCodePostProcessor : MonoBehaviour
         if (target == BuildTarget.iOS)
         {
             ModifyXcodeproj(buildPath);
+            ModifyInfoplist(buildPath);
         }
     }
 
@@ -79,4 +79,20 @@ public class XCodePostProcessor : MonoBehaviour
         project.WriteToFile(projectPath);
         Debug.Log("Finished configuring Xcode project.");
     }
+
+    private static void ModifyInfoplist(string buildPath)
+    {
+        // Read Info.plist file.
+        string plistPath = Path.Combine(buildPath, "Info.plist");
+        var plist = new PlistDocument();
+        plist.ReadFromFile(plistPath);
+
+        // Set CFBundleShortVersionString to Unity version
+        plist.root.SetString("CFBundleShortVersionString", Application.version);
+
+        // Persist changes to file.
+        plist.WriteToFile(plistPath);
+        Debug.Log("Finished configuring Info.plist file.");
+    }
 }
+#endif
