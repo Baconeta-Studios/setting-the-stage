@@ -38,7 +38,6 @@ jobs:
         with:
           targetPlatform: iOS
           unityVersion: ${{ vars.UNITY_VERSION }}
-          versioning: Semantic
 
       - name: Update Info.plist
         run: |
