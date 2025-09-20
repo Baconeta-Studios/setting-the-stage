@@ -73,17 +73,13 @@ jobs:
           unityVersion: ${{ vars.UNITY_VERSION }}
           versioning: Semantic
 
-      # TODO Replace "0.2.0" with "${{ github.ref_name }}"
       - name: Update Info.plist
         run: |
           INFO_PLIST="build/iOS/iOS/Info.plist"
 
-          # Marketing version from your tag or env (example: 1.2.3)
-          MARKETING_VERSION="0.2.0" 
           # Build number from GitHub run number
           BUILD_NUMBER="${{ github.run_number }}"
 
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $MARKETING_VERSION" "$INFO_PLIST"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$INFO_PLIST"
 
           if /usr/libexec/PlistBuddy -c "Print :ITSAppUsesNonExemptEncryption" "$INFO_PLIST" >/dev/null 2>&1; then
