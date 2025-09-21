@@ -118,20 +118,8 @@ public class ChapterUI : MonoBehaviour
     {
         bool inStageSelection = Chapter.Instance != null && Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection);
         bool canClickPosition = !StageSelection.Instance.HasActiveSelection();
-        if (Chapter.Instance.IsInCurrentStage(Chapter.ChapterStage.StageSelection))
-        {
-            AudioWrapper.Instance.PlaySoundVoid("cancel");
-            AudioWrapper.Instance.PlaySoundVoid("cancel");
-        }
-
-        if (canClickPosition)
-        {
-            
-        }
         if (inStageSelection && canClickPosition)
         {
-            AudioWrapper.Instance.PlaySoundVoid("cancel");
-            AudioWrapper.Instance.PlaySoundVoid("cancel");
             exitButton.gameObject.SetActive(true);
             settingsButton.gameObject.SetActive(false);
             _SelectionCarousels.ShowStageSelection(clickedStagePosition);
