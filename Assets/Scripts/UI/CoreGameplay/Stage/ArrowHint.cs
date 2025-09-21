@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class ArrowHint : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class ArrowHint : MonoBehaviour
     private void Start()
     {
         // Only run if tutorial hasn't been done yet
-        if (!PlayerPrefs.HasKey(tutorialKey) || PlayerPrefs.GetInt(tutorialKey) == 0)
+        if (!SaveSystem.Instance.IsThingDone(tutorialKey))
         {
             StartPulsing();
         }
@@ -88,6 +89,7 @@ public class ArrowHint : MonoBehaviour
     {
         _pulsing = false;
         SetVisual(maxAlpha, colourA, _scaleOriginal);
+        SaveSystem.Instance.MarkAsDone(tutorialKey);
     }
 
     private void SetVisual(float alpha, Color baseColour, Vector3 scale)
