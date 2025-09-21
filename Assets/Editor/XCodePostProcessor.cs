@@ -89,6 +89,7 @@ public class XCodePostProcessor : MonoBehaviour
 
         // Set CFBundleShortVersionString to Unity version
         plist.root.SetString("CFBundleShortVersionString", Application.version);
+        Debug.Log("Using marketing version string '" + Application.version + "'.");
 
         // Persist changes to file.
         plist.WriteToFile(plistPath);

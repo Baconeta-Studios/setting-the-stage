@@ -9,6 +9,76 @@ on:
       - '*-build'
 
 jobs:
+  prepare:
+    runs-on: macos-latest
+
+    steps:
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+
+      - name: Show current version of Xcode
+        run: xcodebuild -version
+
+      - name: Install provisioning profile
+        uses: apple-actions/download-provisioning-profiles@v4
+        with:
+          bundle-id: com.baconetastudios.SettingTheStage
+          profile-type: IOS_APP_STORE
+          issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
+
+      - name: Get provisioning profile UUID
+        id: get-uuid
+        run: |
+          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
+          if [[ ! -f "$PROFILE_PATH" ]]; then
+            echo "No provisioning profile found!"
+            exit 1
+          fi
+          echo "Found profile: $PROFILE_PATH"
+          
+          TMP_PLIST=$(mktemp /tmp/profile.XXXXXX.plist)
+          security cms -D -i "$PROFILE_PATH" > "$TMP_PLIST"
+          
+          # Validate the plist has a UUID key
+          UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$TMP_PLIST" 2>/dev/null || true)
+          if [[ -z "$UUID" ]]; then
+            echo "Could not extract UUID from provisioning profile!"
+            exit 1
+          fi
+          
+          echo "Profile UUID: $UUID"
+          echo "uuid=$UUID" >> $GITHUB_OUTPUT
+          
+          rm "$TMP_PLIST"
+
+      - name: Debug provisioning profile
+        run: |
+          echo "Profile UUID: ${{ steps.get-uuid.outputs.uuid }}"
+          ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
+          security find-identity -v -p codesigning
+
+      - name: List installed provisioning profiles
+        run: |
+          echo "Provisioning profiles in ~/Library/MobileDevice/Provisioning Profiles:"
+          ls -l ~/Library/MobileDevice/Provisioning\ Profiles/ || true
+          echo ""
+          echo "Extracting metadata:"
+          for p in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            echo "File: $p"
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :UUID" /dev/stdin || true
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin || true
+            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :ApplicationIdentifierPrefix" /dev/stdin || true
+            echo "-----"
+          done
+
+      - name: Upload provisioning profile for later jobs
+        uses: actions/upload-artifact@v4
+        with:
+          name: provisioning-profile
+          path: ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
+
   unity-build-ios:
     runs-on: macos-latest
     steps:
@@ -38,9 +108,8 @@ jobs:
         with:
           targetPlatform: iOS
           unityVersion: ${{ vars.UNITY_VERSION }}
-          versioning: Semantic
 
-      - name: Update Info.plist
+      - name: Update flags in Info.plist
         run: |
           INFO_PLIST="build/iOS/iOS/Info.plist"
 
@@ -62,77 +131,6 @@ jobs:
           name: ios-build
           path: build/iOS
 
-
-  prepare:
-    runs-on: macos-latest
-
-    steps:
-      - name: List available Xcode versions
-        run: ls /Applications | grep Xcode
-
-      - name: Show current version of Xcode
-        run: xcodebuild -version
-
-      - name: Install provising profile
-        uses: apple-actions/download-provisioning-profiles@v4
-        with:
-          bundle-id: com.baconetastudios.SettingTheStage
-          profile-type: IOS_APP_STORE
-          issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
-          api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
-          
-      - name: Get provisioning profile UUID
-        id: get-uuid
-        run: |
-          PROFILE_PATH=$(ls ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision | head -n1)
-          if [[ ! -f "$PROFILE_PATH" ]]; then
-            echo "No provisioning profile found!"
-            exit 1
-          fi
-          echo "Found profile: $PROFILE_PATH"
-  
-          TMP_PLIST=$(mktemp /tmp/profile.XXXXXX.plist)
-          security cms -D -i "$PROFILE_PATH" > "$TMP_PLIST"
-  
-          # Validate the plist has a UUID key
-          UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$TMP_PLIST" 2>/dev/null || true)
-          if [[ -z "$UUID" ]]; then
-            echo "Could not extract UUID from provisioning profile!"
-            exit 1
-          fi
-  
-          echo "Profile UUID: $UUID"
-          echo "uuid=$UUID" >> $GITHUB_OUTPUT
-  
-          rm "$TMP_PLIST"
-          
-      - name: Debug provisioning profile
-        run: |
-          echo "Profile UUID: ${{ steps.get-uuid.outputs.uuid }}"
-          ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
-          security find-identity -v -p codesigning
-
-      - name: List installed provisioning profiles
-        run: |
-          echo "Provisioning profiles in ~/Library/MobileDevice/Provisioning Profiles:"
-          ls -l ~/Library/MobileDevice/Provisioning\ Profiles/ || true
-          echo ""
-          echo "Extracting metadata:"
-          for p in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
-            echo "File: $p"
-            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :UUID" /dev/stdin || true
-            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :Name" /dev/stdin || true
-            security cms -D -i "$p" | /usr/libexec/PlistBuddy -c "Print :ApplicationIdentifierPrefix" /dev/stdin || true
-            echo "-----"
-          done
-
-      - name: Upload provisioning profile for later jobs
-        uses: actions/upload-artifact@v4
-        with:
-          name: provisioning-profile
-          path: ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
-
   xcode-build-ios:
     runs-on: macos-latest
     needs: [unity-build-ios, prepare]
@@ -143,6 +141,13 @@ jobs:
         with:
           name: ios-build
           path: build
+
+      - name: Extract marketing version to repository variable
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" path/to/Info.plist)
+          gh variable set APP_VERSION --body "$VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Download provisioning profile
         uses: actions/download-artifact@v4
@@ -187,44 +192,9 @@ jobs:
           echo "Profile name: $PROFILE_NAME"
           echo "profile_name=$PROFILE_NAME" >> $GITHUB_OUTPUT
 
-#      - name: Debug provisioning profile
-#        run: |
-#          echo "== Provisioning Profiles =="
-#          ls -lh ~/Library/MobileDevice/Provisioning\ Profiles
-#          echo "== First 20 lines =="
-#          head -n 20 ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision || true
-
-#      - name: Verify signing certificate in keychain
-#        run: |
-#          echo "== Listing all code signing identities in keychain =="
-#          security find-identity -v -p codesigning || true
-#          echo ""
-#          echo "== Check if Apple Distribution cert is present =="
-#          security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
-
-#      - name: List PBXNativeTargets in project
-#        run: |
-#          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-#          echo "== Project Targets =="
-#
-#          # Extract all PBXNativeTarget UUIDs and Names
-#          awk '
-#            /\/\* .* \*\/ = {/ {
-#              uuid = $1;
-#              getline;
-#              if ($0 ~ /isa = PBXNativeTarget;/) {
-#                target_line = $0;
-#                while (getline && $0 !~ /name =/) {}
-#                if ($0 ~ /name =/) {
-#                  name = $0;
-#                  sub(/.*name = /, "", name);
-#                  sub(/;.*/, "", name);
-#                  print "Target: " name " (" uuid ")";
-#                }
-#              }
-#            }
-#          ' "$PBXPROJ"
-#        shell: bash
+      - name: Check installed certs
+        run: |
+          security find-identity -v -p codesigning
 
       - name: Show Xcode build settings for debugging
         run: |
@@ -235,10 +205,6 @@ jobs:
           -archivePath build/Unity.xarchive \
           -verbose \
           -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
-
-      - name: Check installed certs
-        run: |
-          security find-identity -v -p codesigning
 
       - name: Generate Xcode build
         run: |
@@ -292,9 +258,9 @@ jobs:
           </plist>
           EOF
 
-      - name: Attempt to find .xarchive files
-        run: |
-          find ~ -type f -name "*.xarchive"
+#      - name: Attempt to find .xarchive files
+#        run: |
+#          find ~ -type f -name "*.xarchive"
 
       - name: Export Xcode build archive
         run: |
@@ -303,8 +269,8 @@ jobs:
           -exportPath build \
           -exportOptionsPlist build/iOS/exportOptions.plist \
 
-      - name: List contents of build directory
-        run: ls -R build
+#      - name: List contents of build directory
+#        run: ls -R build
 
       - name: Upload Xcode build
         uses: actions/upload-artifact@v4
@@ -315,7 +281,7 @@ jobs:
   upload-to-testflight:
     runs-on: macos-latest
     if: github.ref == 'refs/heads/releases'
-    needs: [xcode-build-ios]
+    needs: [prepare, xcode-build-ios]
     steps:
       - name: Fetch build archive
         uses: actions/download-artifact@v4
