@@ -108,6 +108,7 @@ jobs:
         with:
           targetPlatform: iOS
           unityVersion: ${{ vars.UNITY_VERSION }}
+          versioning: None
 
       - name: Update flags in Info.plist
         run: |
