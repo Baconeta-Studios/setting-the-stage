@@ -72,7 +72,7 @@ jobs:
       - name: Show current version of Xcode
         run: xcodebuild -version
 
-      - name: Install provising profile
+      - name: Install provisioning profile
         uses: apple-actions/download-provisioning-profiles@v4
         with:
           bundle-id: com.baconetastudios.SettingTheStage
@@ -80,7 +80,7 @@ jobs:
           issuer-id: ${{ secrets.APPLE_API_ISSUER_ID }}
           api-key-id: ${{ secrets.APPLE_API_KEY_ID }}
           api-private-key: ${{ secrets.APPLE_API_PRIVATE_KEY }}
-          
+
       - name: Get provisioning profile UUID
         id: get-uuid
         run: |
@@ -90,22 +90,22 @@ jobs:
             exit 1
           fi
           echo "Found profile: $PROFILE_PATH"
-  
+          
           TMP_PLIST=$(mktemp /tmp/profile.XXXXXX.plist)
           security cms -D -i "$PROFILE_PATH" > "$TMP_PLIST"
-  
+          
           # Validate the plist has a UUID key
           UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" "$TMP_PLIST" 2>/dev/null || true)
           if [[ -z "$UUID" ]]; then
             echo "Could not extract UUID from provisioning profile!"
             exit 1
           fi
-  
+          
           echo "Profile UUID: $UUID"
           echo "uuid=$UUID" >> $GITHUB_OUTPUT
-  
-          rm "$TMP_PLIST"
           
+          rm "$TMP_PLIST"
+
       - name: Debug provisioning profile
         run: |
           echo "Profile UUID: ${{ steps.get-uuid.outputs.uuid }}"
@@ -186,44 +186,9 @@ jobs:
           echo "Profile name: $PROFILE_NAME"
           echo "profile_name=$PROFILE_NAME" >> $GITHUB_OUTPUT
 
-#      - name: Debug provisioning profile
-#        run: |
-#          echo "== Provisioning Profiles =="
-#          ls -lh ~/Library/MobileDevice/Provisioning\ Profiles
-#          echo "== First 20 lines =="
-#          head -n 20 ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision || true
-
-#      - name: Verify signing certificate in keychain
-#        run: |
-#          echo "== Listing all code signing identities in keychain =="
-#          security find-identity -v -p codesigning || true
-#          echo ""
-#          echo "== Check if Apple Distribution cert is present =="
-#          security find-certificate -a -c "Apple Distribution" -p | openssl x509 -noout -subject -issuer || true
-
-#      - name: List PBXNativeTargets in project
-#        run: |
-#          PBXPROJ="build/iOS/Unity-iPhone.xcodeproj/project.pbxproj"
-#          echo "== Project Targets =="
-#
-#          # Extract all PBXNativeTarget UUIDs and Names
-#          awk '
-#            /\/\* .* \*\/ = {/ {
-#              uuid = $1;
-#              getline;
-#              if ($0 ~ /isa = PBXNativeTarget;/) {
-#                target_line = $0;
-#                while (getline && $0 !~ /name =/) {}
-#                if ($0 ~ /name =/) {
-#                  name = $0;
-#                  sub(/.*name = /, "", name);
-#                  sub(/;.*/, "", name);
-#                  print "Target: " name " (" uuid ")";
-#                }
-#              }
-#            }
-#          ' "$PBXPROJ"
-#        shell: bash
+      - name: Check installed certs
+        run: |
+          security find-identity -v -p codesigning
 
       - name: Show Xcode build settings for debugging
         run: |
@@ -234,10 +199,6 @@ jobs:
           -archivePath build/Unity.xarchive \
           -verbose \
           -showBuildSettings | grep -E "(CODE_SIGN|PROVISIONING)"
-
-      - name: Check installed certs
-        run: |
-          security find-identity -v -p codesigning
 
       - name: Generate Xcode build
         run: |
@@ -291,9 +252,9 @@ jobs:
           </plist>
           EOF
 
-      - name: Attempt to find .xarchive files
-        run: |
-          find ~ -type f -name "*.xarchive"
+#      - name: Attempt to find .xarchive files
+#        run: |
+#          find ~ -type f -name "*.xarchive"
 
       - name: Export Xcode build archive
         run: |
@@ -302,8 +263,8 @@ jobs:
           -exportPath build \
           -exportOptionsPlist build/iOS/exportOptions.plist \
 
-      - name: List contents of build directory
-        run: ls -R build
+#      - name: List contents of build directory
+#        run: ls -R build
 
       - name: Upload Xcode build
         uses: actions/upload-artifact@v4
