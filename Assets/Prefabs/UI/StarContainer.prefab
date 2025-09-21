@@ -63,7 +63,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1e327e1c97be62e45a71ad8bc12ccd11, type: 3}
   - {fileID: 21300000, guid: 1c7a74d949b0b2f43a805a4dd3d1798c, type: 3}
   - {fileID: 21300000, guid: 1d04bdac349254341813e087b107901f, type: 3}
-  animationDuration: 0.7
+  secondsPerStar: 0.7
   revealCurve:
     serializedVersion: 2
     m_Curve:
@@ -88,8 +88,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  audioSource: {fileID: 0}
-  stepSound: {fileID: 0}
+  star1Sound: stars1
+  star2Sound: stars2
+  star3Sound: stars3
+  star4Sound: stars4
+  star5Sound: stars5
 --- !u!222 &517781952819836018
 CanvasRenderer:
   m_ObjectHideFlags: 0

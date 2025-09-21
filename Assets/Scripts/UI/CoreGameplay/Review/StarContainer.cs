@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Audio; // assuming your sound system is in this namespace
 
 public class StarContainer : MonoBehaviour
 {
@@ -9,13 +10,16 @@ public class StarContainer : MonoBehaviour
     public Sprite[] starSprites;     // 11 images: 0, 0.5, 1, ... 5 stars
 
     [Header("Animation Settings")]
-    [Tooltip("Total animation duration for all stars to fill")]
-    public float animationDuration = 1f;
+    [Tooltip("Seconds per full star fill (used to scale animation duration)")]
+    public float secondsPerStar = 0.7f;
     public AnimationCurve revealCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [Header("Audio")]
-    public AudioSource audioSource;  // Audio source for star sounds
-    public AudioClip stepSound;      // Sound to play for each star step
+    [Header("Audio Names")]
+    public string star1Sound;
+    public string star2Sound;
+    public string star3Sound;
+    public string star4Sound;
+    public string star5Sound;
 
     private int targetIndex = 0;
 
@@ -34,16 +38,15 @@ public class StarContainer : MonoBehaviour
 
         if (animate)
         {
-            StartCoroutine(AnimateStarsCrossfade());
+            StartCoroutine(AnimateStarsCrossfade(starsEarned));
         }
         else
         {
             starImage.sprite = starSprites[targetIndex];
-            PlayStepAudio();
         }
     }
 
-    private IEnumerator AnimateStarsCrossfade()
+    private IEnumerator AnimateStarsCrossfade(float starsEarned)
     {
         // Determine starting index based on current sprite
         int startIndex = 0;
@@ -58,6 +61,16 @@ public class StarContainer : MonoBehaviour
 
         int currentIndex = startIndex;
 
+        // How many steps we need to animate (0.5 per step)
+        int steps = Mathf.Max(targetIndex - startIndex, 1);
+
+        // Duration is based on stars earned (full stars * secondsPerStar)
+        float totalDuration = starsEarned * secondsPerStar;
+        float stepDuration = totalDuration / steps;
+
+        // 🎵 Start audio immediately
+        PlayResultAudio(starsEarned);
+
         while (currentIndex < targetIndex)
         {
             int nextIndex = currentIndex + 1;
@@ -67,7 +80,7 @@ public class StarContainer : MonoBehaviour
             overlayGO.transform.SetParent(starImage.transform, false);
             Image overlayImage = overlayGO.AddComponent<Image>();
             overlayImage.sprite = starSprites[nextIndex];
-            overlayImage.color = new Color(1f, 1f, 1f, 0f); // transparent at start
+            overlayImage.color = new Color(1f, 1f, 1f, 0f);
 
             // Match overlay RectTransform to parent
             RectTransform overlayRect = overlayGO.GetComponent<RectTransform>();
@@ -78,8 +91,6 @@ public class StarContainer : MonoBehaviour
             overlayRect.localScale = Vector3.one;
 
             float elapsed = 0f;
-            float stepDuration = animationDuration / Mathf.Max(targetIndex - startIndex, 1);
-
             while (elapsed < stepDuration)
             {
                 elapsed += Time.deltaTime;
@@ -91,21 +102,31 @@ public class StarContainer : MonoBehaviour
             // Swap main sprite and destroy overlay
             starImage.sprite = starSprites[nextIndex];
             Destroy(overlayGO);
-            PlayStepAudio();
 
             currentIndex = nextIndex;
         }
 
         // Ensure final sprite
         starImage.sprite = starSprites[targetIndex];
-        PlayStepAudio();
     }
 
-    private void PlayStepAudio()
+    private void PlayResultAudio(float starsEarned)
     {
-        if (audioSource != null && stepSound != null)
+        int rounded = Mathf.FloorToInt(starsEarned);
+
+        string soundName = null;
+        switch (rounded)
         {
-            audioSource.PlayOneShot(stepSound);
+            case 1: soundName = star1Sound; break;
+            case 2: soundName = star2Sound; break;
+            case 3: soundName = star3Sound; break;
+            case 4: soundName = star4Sound; break;
+            case 5: soundName = star5Sound; break;
+        }
+
+        if (!string.IsNullOrEmpty(soundName))
+        {
+            AudioWrapper.Instance.PlaySoundVoid(soundName);
         }
     }
 }

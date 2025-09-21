@@ -130,4 +130,34 @@ MonoBehaviour:
     mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
     loop: 0
     volume: 0.2
+  - name: stars1
+    sound: {fileID: 8300000, guid: 7d47ed21d73400f46b066e76ab2662c7, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
+  - name: stars2
+    sound: {fileID: 8300000, guid: 4160101a90bfeeb4e91d75e6dc733f7e, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
+  - name: stars3
+    sound: {fileID: 8300000, guid: 8406f89f68c7b09428e8a8d9232646ac, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
+  - name: stars4
+    sound: {fileID: 8300000, guid: 62fb93eea5db30544b76fc46cba62fbe, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
+  - name: stars5
+    sound: {fileID: 8300000, guid: b9683b2ec4d27684bba7859798cc90ce, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
+  - name: blip
+    sound: {fileID: 8300000, guid: 0ffde583678d8bf4eb8aec11694ae3a1, type: 3}
+    mixer: {fileID: -8016216726190809901, guid: c07848ed783d97c40b4556f64af32af1, type: 2}
+    loop: 0
+    volume: 0.2
   customAudioSource: {fileID: 0}
