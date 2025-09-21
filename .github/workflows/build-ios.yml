@@ -124,6 +124,14 @@ jobs:
             /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool NO" "$INFO_PLIST"
           fi
 
+      - name: Extract marketing version to repository variable
+        run: |
+          INFO_PLIST="build/iOS/iOS/Info.plist"
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$INFO_PLIST")
+          gh variable set APP_VERSION --body "$VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
       # Upload build artifact for downstream jobs (always)
       - name: Upload Unity build
         uses: actions/upload-artifact@v4
@@ -141,13 +149,6 @@ jobs:
         with:
           name: ios-build
           path: build
-
-      - name: Extract marketing version to repository variable
-        run: |
-          VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" path/to/Info.plist)
-          gh variable set APP_VERSION --body "$VERSION"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Download provisioning profile
         uses: actions/download-artifact@v4
