@@ -99,7 +99,7 @@ namespace Utils
             protected string playerUUID = null;
 
             [ReadOnly]
-            public List<ChapterSaveData> chapterSaveData = new List<ChapterSaveData>();
+            public List<ChapterSaveData> chapterSaveData = new();
 
             [ReadOnly]
             public float totalStarsEarned = 0.0f;
@@ -108,10 +108,13 @@ namespace Utils
             public int highestCompletedAct = -1;
 
             [ReadOnly]
-            public List<string> narrativesViewed = new List<string>();
+            public List<string> narrativesViewed = new();
             
             [ReadOnly]
             public List<LearnedMusicianProficiency> knownMusicianProficiencies = new();
+            
+            [ReadOnly]
+            public List<string> thingsMarkedAsDone = new();
             
             // Get user data functions
             public float GetStarsForChapter(int actNumber, int chapterNumber)
@@ -270,6 +273,7 @@ namespace Utils
                 userData.highestCompletedAct = -1;
                 userData.narrativesViewed.Clear();
                 userData.knownMusicianProficiencies.Clear();
+                userData.thingsMarkedAsDone.Clear();
             }
             StSDebug.LogWarning("User Data Reset!");
             SaveUserData(userData);
@@ -443,6 +447,21 @@ namespace Utils
             }
 
             SaveUserData(userData);
+        }
+
+        /// <summary>
+        /// Call this if sometihng in game should only be done once and needs to marked as such
+        /// </summary>
+        /// <param name="thingDone">string name of the thing that was completed - for example: tutorialSeen</param>
+        public void MarkAsDone(string thingDone)
+        {
+            userData.thingsMarkedAsDone.Add(thingDone);
+            SaveUserData(userData);
+        }
+
+        public bool IsThingDone(string thingDone)
+        {
+            return userData.thingsMarkedAsDone.Contains(thingDone);
         }
     }
 }
