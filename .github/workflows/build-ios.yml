@@ -147,7 +147,7 @@ jobs:
           VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" path/to/Info.plist)
           gh variable set APP_VERSION --body "$VERSION"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Download provisioning profile
         uses: actions/download-artifact@v4
