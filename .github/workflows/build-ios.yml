@@ -142,6 +142,13 @@ jobs:
           name: ios-build
           path: build
 
+      - name: Extract marketing version to repository variable
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" path/to/Info.plist)
+          gh variable set APP_VERSION --body "$VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Download provisioning profile
         uses: actions/download-artifact@v4
         with:
