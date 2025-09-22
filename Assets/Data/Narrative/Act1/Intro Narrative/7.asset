@@ -16,21 +16,30 @@ MonoBehaviour:
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 1bae8e2edd8debe448bc5c475040ad86, type: 3}
   textPanels:
-  - text: Hey, do you know anything about sound equipment?
+  - text: Hey, need a hand?
+    textPanelSize: {x: 600, y: 350}
+    anchorMin: {x: 0.3, y: 0.3}
+    anchorMax: {x: 0.3, y: 0.3}
+    textPanelPosition: {x: 0, y: 0}
+    textSize: 30
+    font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
+    displayDelayInSec: 0.5
+    isDialogue: 1
+  - text: Do you know anything about sound equipment?
     textPanelSize: {x: 600, y: 350}
     anchorMin: {x: 0.5, y: 0.5}
     anchorMax: {x: 0.5, y: 0.5}
     textPanelPosition: {x: -500, y: 200}
     textSize: 28
     font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
-    displayDelayInSec: 0
+    displayDelayInSec: 2.5
     isDialogue: 1
-  - text: Funnily enough, you do
+  - text: "Funny enough\u2026 I do."
     textPanelSize: {x: 600, y: 120}
     anchorMin: {x: 0.5, y: 0}
     anchorMax: {x: 0.5, y: 0}
     textPanelPosition: {x: 0, y: 100}
     textSize: 40
     font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
-    displayDelayInSec: 1.5
+    displayDelayInSec: 4.5
     isDialogue: 0
