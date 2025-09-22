@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChapterNumber: -1
   chapterTrackData: {fileID: 11400000, guid: 3916acb902b51cd4da0978c9c05dfa81, type: 2}
-  backgroundAmbientTrack: bar_ambient
+  backgroundAmbientTrack: garage_ambient
   starsEarned: -1
   currentStage: 0
   StsObjectStash: {fileID: 0}
