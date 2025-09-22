@@ -126,11 +126,11 @@ jobs:
           fi
 
       - name: Extract app version from Info.plist
+        id: extract_version
         run: |
           INFO_PLIST="build/iOS/iOS/Info.plist"
           VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$INFO_PLIST")
-          echo "Extracted version: $VERSION"
-          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "::set-output name=version::$VERSION"
 
       # Upload build artifact for downstream jobs (always)
       - name: Upload Unity build
@@ -282,7 +282,7 @@ jobs:
   upload-to-testflight:
     runs-on: macos-latest
     if: github.ref == 'refs/heads/releases'
-    needs: [prepare, xcode-build-ios]
+    needs: [unity-build-ios, prepare, xcode-build-ios]
     steps:
       - name: Fetch build archive
         uses: actions/download-artifact@v4
@@ -305,5 +305,5 @@ jobs:
             --apple-id 6736443805 \
             --bundle-id com.baconetastudios.SettingTheStage \
             --bundle-version ${{ github.run_number }} \
-            --bundle-short-version-string ${{ env.APP_VERSION }} \
+            --bundle-short-version-string ${{ needs.prepare.outputs.version }} \
             -t ios
