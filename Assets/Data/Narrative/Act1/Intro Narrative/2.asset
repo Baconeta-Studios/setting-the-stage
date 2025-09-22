@@ -16,7 +16,7 @@ MonoBehaviour:
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: c430b24c473ca644595afe8ccef60621, type: 3}
   textPanels:
-  - text: Inside, it smells cosy and welcoming.
+  - text: Inside, it smells cosy and inviting.
     textPanelSize: {x: 600, y: 125}
     anchorMin: {x: 0.5, y: 0}
     anchorMax: {x: 0.5, y: 0}

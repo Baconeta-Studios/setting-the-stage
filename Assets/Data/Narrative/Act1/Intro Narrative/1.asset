@@ -16,8 +16,8 @@ MonoBehaviour:
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 4099feab8b952d5439e218ea686737f5, type: 3}
   textPanels:
-  - text: "A late-night walk has led you here\u2026Well, you did say you could do
-      with a drink"
+  - text: "A late-night walk brought me here\u2026 well, I did say I could use a
+      drink."
     textPanelSize: {x: 800, y: 160}
     anchorMin: {x: 0.5, y: 0}
     anchorMax: {x: 0.5, y: 0}

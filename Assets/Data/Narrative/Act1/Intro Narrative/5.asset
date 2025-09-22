@@ -16,7 +16,7 @@ MonoBehaviour:
   forceFullScreen: 0
   panelImage: {fileID: 21300000, guid: 76f90edb5ec7c3c45b9401808edc1e41, type: 3}
   textPanels:
-  - text: That guy seems to be struggling there on the stage.
+  - text: That guy seems to be having a hard time up there.
     textPanelSize: {x: 1000, y: 100}
     anchorMin: {x: 0.5, y: 1}
     anchorMax: {x: 0.5, y: 1}
@@ -25,8 +25,8 @@ MonoBehaviour:
     font: {fileID: 11400000, guid: b5fd654d9a44a1d41985048e784c04a4, type: 2}
     displayDelayInSec: 0.25
     isDialogue: 0
-  - text: "Maybe it\u2019s the beer, maybe it\u2019s the need to distract myself\u2026
-      I should help."
+  - text: "Maybe it\u2019s the beer\u2026 maybe I just need a distraction. I should
+      help."
     textPanelSize: {x: 800, y: 160}
     anchorMin: {x: 0.5, y: 0}
     anchorMax: {x: 0.5, y: 0}
