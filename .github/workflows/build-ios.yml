@@ -125,13 +125,12 @@ jobs:
             /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool NO" "$INFO_PLIST"
           fi
 
-      - name: Extract marketing version to repository variable
+      - name: Extract app version from Info.plist
         run: |
           INFO_PLIST="build/iOS/iOS/Info.plist"
           VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$INFO_PLIST")
-          gh variable set APP_VERSION --body "$VERSION"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          echo "Extracted version: $VERSION"
+          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
 
       # Upload build artifact for downstream jobs (always)
       - name: Upload Unity build
@@ -300,11 +299,11 @@ jobs:
       - name: Upload to TestFlight
         run: |
           xcrun altool \
-          --upload-package SettingTheStage.ipa \
-          --apiKey ${{ secrets.APPLE_API_KEY_ID }} \
-          --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} \
-          --apple-id 6736443805 \
-          --bundle-id com.baconetastudios.SettingTheStage \
-          --bundle-version ${{ github.run_number }} \
-          --bundle-short-version-string ${{ vars.APP_VERSION }} \
-          -t ios
+            --upload-package SettingTheStage.ipa \
+            --apiKey ${{ secrets.APPLE_API_KEY_ID }} \
+            --apiIssuer ${{ secrets.APPLE_API_ISSUER_ID }} \
+            --apple-id 6736443805 \
+            --bundle-id com.baconetastudios.SettingTheStage \
+            --bundle-version ${{ github.run_number }} \
+            --bundle-short-version-string ${{ env.APP_VERSION }} \
+            -t ios
