@@ -81,6 +81,8 @@ jobs:
 
   unity-build-ios:
     runs-on: macos-latest
+    outputs:
+      version: ${{ steps.extract_version.outputs.version }}
     steps:
       # Checkout first so we can hash files for caching
       - name: Checkout git repo
@@ -142,6 +144,7 @@ jobs:
   xcode-build-ios:
     runs-on: macos-latest
     needs: [unity-build-ios, prepare]
+    
 
     steps:
       - name: Download Unity build
@@ -305,5 +308,5 @@ jobs:
             --apple-id 6736443805 \
             --bundle-id com.baconetastudios.SettingTheStage \
             --bundle-version ${{ github.run_number }} \
-            --bundle-short-version-string ${{ needs.prepare.outputs.version }} \
+            --bundle-short-version-string ${{ needs.unity-build-ios.outputs.version }} \
             -t ios
