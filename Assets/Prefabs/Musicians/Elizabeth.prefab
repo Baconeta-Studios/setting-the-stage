@@ -60,11 +60,12 @@ PrefabInstance:
       propertyPath: bio
       value: "Elizabeth could easily afford to move into the big city but she\u2019d
         rather drive for an hour every morning to work because she likes the small-town
-        vibe of where she grew up. Due to her intense and serious attitude towards
-        her work, none of her coworkers would expect her to be artistic in the slightest,
-        but secretly she\u2019s been a passionate closet musician ever since watching
-        Moldova in Eurovision back in 2010, and often plays her <b>signature instrument(s)</b>
-        to relieve stress after a long day at work. "
+        vibe of where she grew up. Due to her <b>intense and serious</b> attitude
+        towards her work, none of her coworkers would expect her to be artistic in
+        the slightest, but secretly she\u2019s been a passionate closet musician
+        ever since watching <b>Moldova</b> in Eurovision back in 2010, and often
+        plays her <b>signature instrument(s)</b> to relieve stress after a long day
+        at work. "
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name
@@ -76,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: funFact
-      value: Doesn't believe in heavy metal music in the slightest.
+      value: <b>Doesn't believe in heavy metal</b> music in the slightest.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: _animator
