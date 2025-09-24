@@ -272,13 +272,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: bio
-      value: "Pete\u2019s mastery over the lower frequencies creates infectious grooves,
-        compelling even the most reluctant feet to dance. He typically manages the
-        sound and stage equipment for performances due to his tendency to step into
-        leading-man shoes when it is needed - even if he can't necessarily handle
-        it. His worst habit is hum-singing while he plays, even if the music being
-        played is instrumental, though luckily it's usually drowned out by his peers
-        on stage."
+      value: "Pete\u2019s mastery over the <b>lower frequencies</b> creates <b>infectious
+        grooves</b>, compelling even the most reluctant feet to dance. He typically
+        manages the sound and stage equipment for performances due to his tendency
+        to step into leading-man shoes when it is needed - even if he can't necessarily
+        handle it. His worst habit is <b>hum-singing while he plays</b>, even if
+        the music being played is instrumental, though luckily it's usually drowned
+        out by his peers on stage."
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name
@@ -290,9 +290,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: funFact
-      value: Despite being an expert on maintaining rhythm, Pete wrestles with the
-        complexities of multi-limb synchronization as a result of an unnamed and
-        undiagnosed mental disorder.
+      value: Despite being an expert on <b>maintaining rhythm</b>, Pete wrestles
+        with the complexities of <b>multi-limb synchronization</b> as a result of
+        an unnamed and undiagnosed mental disorder.
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: _animator

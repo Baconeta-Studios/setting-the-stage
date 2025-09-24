@@ -58,12 +58,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: bio
-      value: "Nova is carefree and chill but also a little scatterbrained and sloppy.
-        They never arrive to anything on time and probably also came to the bar late
-        tonight. They\u2019re however very nice to be around as they\u2019re a good
-        listener and always bring the best snacks. Nova has a more free-spirited
+      value: "Nova is <b>carefree</b> and <b>chill</b> but also a little scatterbrained
+        and sloppy. They never arrive to anything on time and probably also came
+        to the bar late tonight. They\u2019re however very nice to be around as they\u2019re
+        a good listener and always bring the best snacks. Nova has a more <b>free-spirited</b>
         attitude towards instrument choice and has never considered any style of
-        music to be bad, but prefers jazz due to its chaotic energy."
+        music to be bad, but <b>prefers jazz</b> due to its <b>chaotic energy</b>."
       objectReference: {fileID: 0}
     - target: {fileID: 7906205900004187072, guid: 178c285689f4eca4798e4ef991bc4a12, type: 3}
       propertyPath: Name

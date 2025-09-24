@@ -20,8 +20,8 @@ public class Musician : StSObject
     [SerializeField] private string gender;
     [SerializeField] private string nationality;
     [SerializeField] private string occupation;
-    [SerializeField] private string bio;
-    [SerializeField] private string funFact;
+    [SerializeField] [TextArea(8, 20)] private string bio;
+    [SerializeField][TextArea(3, 8)] private string funFact;
     [SerializeField] private InstrumentSockets instrumentSockets;
     [SerializeField] private string unequipAnimTriggerName = "unequip_all";
 
