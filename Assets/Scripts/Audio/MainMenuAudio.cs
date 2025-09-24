@@ -2,8 +2,12 @@ using Utils;
 
 namespace Audio
 {
+    /// <summary>
+    /// This script persists and also holds the audio object playing the bg music
+    /// </summary>
     public class MainMenuAudio : EverlastingSingleton<MainMenuAudio>
     {
+        
         public string backgroundMusicTrack;
         private CustomAudioSource _backgroundMusic;
 
@@ -33,7 +37,7 @@ namespace Audio
             _backgroundMusic.transform.parent = gameObject.transform;
         }
 
-        private void StartBackgroundMusic()
+        public void StartBackgroundMusic()
         {
             _backgroundMusic = AudioWrapper.Instance.PlaySound(backgroundMusicTrack);
             _backgroundMusic.transform.parent = gameObject.transform;

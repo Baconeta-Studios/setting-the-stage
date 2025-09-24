@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 632905335279550004}
   - component: {fileID: 6169589969050656216}
   - component: {fileID: 6906181371877741134}
+  - component: {fileID: 6364596659282243906}
   m_Layer: 5
   m_Name: SandboxButton
   m_TagString: Untagged
@@ -147,7 +148,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Audio.MainMenuAudio, Assembly-CSharp
+        m_TargetAssemblyTypeName: Audio.MenuAudioPlayer, Assembly-CSharp
         m_MethodName: StopMenuAudio
         m_Mode: 1
         m_Arguments:
@@ -174,6 +175,22 @@ MonoBehaviour:
   analyticEndedName: creditsClosed
   analyticEndTimeName: timeOnCreditsScreen
   sendStartEvent: 1
+--- !u!114 &6364596659282243906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444039094328443666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894e1cab59c44ce5abe459c3c5b6ac8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowsScale: 0.65
+  iosScale: 1
+  androidScale: 1
+  useAspectRatioAdjustment: 0
 --- !u!1 &2506067212750008903
 GameObject:
   m_ObjectHideFlags: 0

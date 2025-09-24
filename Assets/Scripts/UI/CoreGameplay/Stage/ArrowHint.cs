@@ -68,9 +68,9 @@ public class ArrowHint : MonoBehaviour
         var alpha = Mathf.Lerp(minAlpha, maxAlpha, t);
         
         // Scale pulse
-        var scaleX = Mathf.Lerp(_scaleOriginal.x, scaleMax.x, t);
-        var scaleY = Mathf.Lerp(_scaleOriginal.y, scaleMax.y, t);
-        var scaleZ = Mathf.Lerp(_scaleOriginal.z, scaleMax.z, t);
+        var scaleX = pulseScale ? Mathf.Lerp(_scaleOriginal.x, scaleMax.x, t) : _scaleOriginal.x;
+        var scaleY = pulseScale ? Mathf.Lerp(_scaleOriginal.y, scaleMax.y, t) : _scaleOriginal.y;
+        var scaleZ = pulseScale ? Mathf.Lerp(_scaleOriginal.z, scaleMax.z, t) : _scaleOriginal.z;
         var scale = new Vector3(scaleX, scaleY, scaleZ); 
 
         // Colour pulse (optional)
