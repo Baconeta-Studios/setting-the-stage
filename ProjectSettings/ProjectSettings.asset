@@ -16,7 +16,7 @@ PlayerSettings:
   productName: Setting The Stage
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
@@ -141,7 +141,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.3.10
+  bundleVersion: 0.3.11
   preloadedAssets:
   - {fileID: 11400000, guid: ec973daeddce0cb4a8d589be591d7c3e, type: 2}
   - {fileID: -944628639613478452, guid: 40ec7aab1c3acd64fad30dde53e77af3, type: 3}
@@ -174,7 +174,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 20
+  AndroidBundleVersionCode: 21
   AndroidMinSdkVersion: 29
   AndroidTargetSdkVersion: 36
   AndroidPreferredInstallLocation: 1
@@ -271,7 +271,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Josh/Drive/Games/Baconeta Studios/Company/Keystores/SettingTheStage/user.keystore
+  AndroidKeystoreName: '{dedicated}: Desktop/user.keystore'
   AndroidKeyaliasName: stsupload
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
@@ -838,7 +838,7 @@ PlayerSettings:
   ps4IncludedModules: []
   ps4attribVROutputEnabled: 0
   monoEnv: 
-  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: 511c35b5b0c91684b8a9d9ccbfe18c3b, type: 3}
+  splashScreenBackgroundSourceLandscape: {fileID: 21300000, guid: b3a8467187a04284e845f95aa9e5882d, type: 3}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
   blurSplashScreenBackground: 0
   spritePackerPolicy: 
@@ -989,7 +989,7 @@ PlayerSettings:
   cloudProjectId: cd385f04-145d-4ec1-b1c0-15da9b1e2feb
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Setting The Stage
+  projectName: SettingTheStage
   organizationId: joshuapearsonnz
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
