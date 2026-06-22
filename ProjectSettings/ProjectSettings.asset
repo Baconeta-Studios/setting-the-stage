@@ -273,7 +273,7 @@ PlayerSettings:
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: C:/Users/Josh/Drive/Games/Baconeta Studios/Company/Keystores/SettingTheStage/user.keystore
   AndroidKeyaliasName: stsupload
-  AndroidEnableArmv9SecurityFeatures: 0
+  AndroidEnableArmv9SecurityFeatures: 1
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
